@@ -2,18 +2,28 @@ cmake_minimum_required(VERSION 3.26.4)
 
 project(Gigantes)
 
-set(SRC_DIR ${CMAKE_CURRENT_SOURCE_DIR}/src)
+find_package(SFML 2.6 COMPONENTS system window graphics REQUIRED)
 
-set(INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}../../)
 
-find_package(SFML COMPONENTS graphics system window)
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall")
 
-add_executable(Gigantes 
-    ${SRC_DIR}/main.cpp
-)
+include_directories(include)
 
-target_include_directories(Gigantes PRIVATE ${INCLUDE_DIR})
+file(GLOB_RECURSE SOURCES "src/.cpp" "src//.cpp")
+file(GLOB_RECURSE HEADERS "include/.hpp" "include//.hpp")
 
-target_link_libraries(Gigantes PRIVATE sfml-graphics)
+add_executable(${PROJECT_NAME}  ${SOURCES} ${HEADERS})
+target_link_libraries(${PROJECT_NAME} sfml-system sfml-window sfml-graphics sfml-network sfml-audio)
 
-target_link_directories(Gigantes PUBLIC ${INCLUDE_DIR})
+file(GLOB_RECURSE TEST_SOURCES "testes/.cpp" "testes//.cpp")
+
+add_executable(testes ${TEST_SOURCES} ${SOURCES} ${HEADERS})
+target_link_libraries(testes ${GTEST_BOTH_LIBRARIES} pthread)
+target_link_libraries(testes sfml-system sfml-window sfml-graphics sfml-network sfml-audio)
+
+target_include_directories(${PROJECT_NAME} PUBLIC "${CMAKE_SOURCE_DIR}/include" "${CMAKE_SOURCE_DIR}/src")
+target_include_directories(testes PUBLIC "${CMAKE_SOURCE_DIR}/include" "${CMAKE_SOURCE_DIR}/src")
+
+target_link_libraries(${PROJECT_NAME} sfml-system sfml-window sfml-graphics sfml-network sfml-audio)
+target_link_libraries(testes sfml-system sfml-window sfml-graphics sfml-network sfml-audio)

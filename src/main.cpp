@@ -1,4 +1,9 @@
+<<<<<<< Updated upstream
 #include <SFML/Graphics.hpp>
+=======
+#include "..\include\Principal.hpp"
+#include <iostream>
+>>>>>>> Stashed changes
 
 int main()
 {
