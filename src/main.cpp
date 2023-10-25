@@ -3,7 +3,7 @@
 
 int main()
 {
-   Principal Principal;
+    Principal principal;
 
     return 0;
 }

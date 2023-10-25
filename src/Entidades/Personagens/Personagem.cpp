@@ -9,9 +9,9 @@ Entidades::Personagens::Personagem::~Personagem()
 {
 }
 
-void Entidades::Personagens::Personagem::setVel(sf::Vector2f veloc)
+void Entidades::Personagens::Personagem::setVel(sf::Vector2f vel)
 {
-    vel = veloc;
+    this->vel = vel;
 }
 
 const sf::Vector2f Entidades::Personagens::Personagem::getVel() const

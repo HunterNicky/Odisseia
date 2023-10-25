@@ -7,7 +7,7 @@ class Principal
 private:
     static Gerenciadores::GerenciadorGrafico* pGrafico;
     sf::RenderWindow window;
-    Entidades::Personagens::Jogador jogador; 
+    Entidades::Personagens::Jogador jogador;
 public:
     Principal();
     ~Principal();

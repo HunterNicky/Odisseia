@@ -1,6 +1,5 @@
 #include "..\..\..\..\include\Entidades\Personagens\Jogador\Jogador.hpp"
 
-
 void Entidades::Personagens::Jogador::inicializa()
 {
     Entidades::Personagens::Personagem::setVel(sf::Vector2f(0.1f, 0.1f));
@@ -42,7 +41,10 @@ void Entidades::Personagens::Jogador::move()
     }
 }
 
-void Entidades::Personagens::Jogador::executar()
-{
+void Entidades::Personagens::Jogador::executar(){
+    move();
+}
+
+void Entidades::Personagens::Jogador::update(){
 
 }

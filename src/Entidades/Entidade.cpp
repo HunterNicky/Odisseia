@@ -9,9 +9,9 @@ Entidades::Entidade::~Entidade() {}
 
 const int Entidades::Entidade::getId()const{return id;}
 
-void Entidades::Entidade::setBody(sf::RectangleShape bory)
+void Entidades::Entidade::setBody(sf::RectangleShape body)
 {
-    body = bory;
+    this->body = body;
 }
 
 sf::RectangleShape Entidades::Entidade::getBody()

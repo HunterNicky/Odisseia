@@ -17,7 +17,7 @@ namespace Entidades{
             Entidade(sf::Vector2f pos, sf::Vector2f size, int id);
             virtual ~Entidade();
             const int getId() const;
-            void setBody(sf::RectangleShape bory);
+            void setBody(sf::RectangleShape body);
             sf::RectangleShape getBody();
             virtual void executar() = 0;
             virtual void draw();
