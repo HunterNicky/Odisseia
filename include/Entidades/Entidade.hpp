@@ -1,24 +1,25 @@
 #pragma once
-
-#include "..\..\src\Ente.cpp"
+#include "..\Ente.hpp"
+using namespace std;
 
 namespace Entidades{
+    /*
     enum ID{
         empty = 0,
         jogador
     };
-
+    */
     class Entidade : public Ente{
         protected:
-            ID id;
+            int id;
             sf::RectangleShape body;
         public:
-            Entidade(sf::Vector2f pos, sf::Vector2f size, ID id);
+            Entidade(sf::Vector2f pos, sf::Vector2f size, int id);
             virtual ~Entidade();
-            ID getId() const;
-            const sf::RectangleShape getBody() const;
-            virtual void update() = 0;
-            virtual void exec() = 0;
+            const int getId() const;
+            void setBody(sf::RectangleShape bory);
+            sf::RectangleShape getBody();
+            virtual void executar() = 0;
             virtual void draw();
     };
 }

@@ -7,7 +7,7 @@ namespace Gerenciadores{
         private:
             sf::RenderWindow* window;
             sf::View view;
-            static Gerenciadores::GerenciadorGrafico* instance;
+            static GerenciadorGrafico* instance;
             GerenciadorGrafico();
         public:
             ~GerenciadorGrafico();

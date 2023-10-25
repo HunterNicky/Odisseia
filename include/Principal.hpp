@@ -1,13 +1,13 @@
 #pragma once
-#include "..\src\Jogador.cpp"
-#include "..\src\Gerenciadores\GerenciadorGrafico.cpp"
-
+#include "Entidades\Personagens\Jogador\Jogador.hpp"
+#include "Gerenciadores\GerenciadorGrafico.hpp"
+;
 class Principal
 {
 private:
     static Gerenciadores::GerenciadorGrafico* pGrafico;
     sf::RenderWindow window;
-    Jogador jogador;
+    Entidades::Personagens::Jogador jogador; 
 public:
     Principal();
     ~Principal();

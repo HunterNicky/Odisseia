@@ -1,4 +1,5 @@
-#include "..\src\Principal.cpp"
+#include <SFML/Graphics.hpp>
+#include "..\include\Principal.hpp"
 
 int main()
 {
