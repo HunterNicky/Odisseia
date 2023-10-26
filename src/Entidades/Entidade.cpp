@@ -1,7 +1,6 @@
 #include "..\..\include\Entidades\Entidade.hpp"
 
 Entidades::Entidade::Entidade(sf::Vector2f pos, sf::Vector2f size, int id):
-
     Ente(pos, size), body(sf::RectangleShape(size)), id(id)
 {
     body.setPosition(pos);
@@ -18,7 +17,7 @@ void Entidades::Entidade::setBody(sf::RectangleShape bory)
 
 sf::RectangleShape Entidades::Entidade::getBody()
 {
-    return sf::RectangleShape(body);
+    return body;
 }
 
 void Entidades::Entidade::draw()

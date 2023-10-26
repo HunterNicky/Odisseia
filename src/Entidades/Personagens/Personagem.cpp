@@ -1,6 +1,6 @@
 #include "..\..\..\include\Entidades\Personagens\Personagem.hpp"
 
-Entidades::Personagens::Personagem::Personagem(sf::Vector2f pos, sf::Vector2f size, int id):
+Entidades::Personagens::Personagem::Personagem(const sf::Vector2f pos, const sf::Vector2f size, int id):
     Entidade(pos, size, id)    
 {
 }

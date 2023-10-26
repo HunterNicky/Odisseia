@@ -4,12 +4,14 @@ namespace Entidades{
     namespace Personagens{
         class Inimigo : public Personagem{
         protected:
-            Entidades::Personagens::Jogador *pJogador;
-
+            Jogador *pJogador;
+            void inicializa();
         public:
-            Inimigo(sf::Vector2f pos, sf::Vector2f size, int id);
+            Inimigo(const sf::Vector2f pos, const sf::Vector2f size, int id, Jogador* pJog);
             ~Inimigo();
-            
+            void persegueJogador(sf::Vector2f posJogador, sf::Vector2f posInimigo);
+            void move();
+            void executar();
         };
     }
 }
