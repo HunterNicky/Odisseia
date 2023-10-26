@@ -1,37 +1,34 @@
 #pragma once
 
-namespace Lista{
+namespace Lista {
     template <class TE>
-    class Elemento{
-        private:
-            Elemento<TE>* pNext;
-            TE* pData;
-        public:
-            Elemento();
-            ~Elemento();
-            void setNext(Elemento<TE>* prox);
-            void setData(TE* elemento);
-            Elemento<TE>* getNext();
-            TE* getData();
+    class Elemento {
+    private:
+        Elemento<TE>* pNext;
+        TE* pData;
+
+    public:
+        Elemento(TE* data);
+        ~Elemento();
+        void setNext(Elemento<TE>* prox);
+        TE* getData();
+        Elemento<TE>* getNext();
     };
-    
+
     template<class TE>
-    Elemento<TE>::Elemento():
+    Elemento<TE>::Elemento(TE* data):
         pNext(nullptr),
-        pData(nullptr){}
+        pData(data) {}
 
     template<class TE>
     Elemento<TE>::~Elemento(){}
 
     template<class TE>
-    void Elemento<TE>::setNext(Elemento<TE>* pNext){this->pNext = pNext;}
-
-    template<class TE>
-    void Elemento<TE>::setData(TE* pData){this->pData = pData;}
-
-    template<class TE>
-    Elemento<TE>* Elemento<TE>::getNext(){return pNext;}
+    void Elemento<TE>::setNext(Elemento<TE>* prox){pNext = prox;}
 
     template<class TE>
     TE* Elemento<TE>::getData(){return pData;}
+
+    template<class TE>
+    Elemento<TE>* Elemento<TE>::getNext(){return pNext;}
 }

@@ -6,6 +6,7 @@ Gerenciadores::GerenciadorGrafico* Principal::pGrafico = Gerenciadores::Gerencia
 Principal :: Principal () :
     jogador(sf::Vector2f(50.0f, 50.0f), sf::Vector2f(50.0f, 50.0f), 1)
 {
+    LE.push_back(static_cast<Entidades::Entidade*>(&jogador));
     executar();
 }
 
@@ -33,8 +34,8 @@ void Principal::executar(){
             }
         }
         pGrafico->clear();
-        jogador.move();
-        pGrafico->draw(jogador.getBody());
+        LE.updateAll();
+        LE.drawAll();
         pGrafico->display();
 
     }

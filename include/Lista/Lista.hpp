@@ -40,7 +40,7 @@ namespace Lista{
         Elemento<TL>* pPrev = nullptr;
 
         while (pAux != nullptr){
-            if (pAux->getInfo() == pData){
+            if (pAux->getData() == pData){
                 if (pAux == pFirst){
                     pFirst = pAux->getNext();
                 }else{
@@ -50,7 +50,7 @@ namespace Lista{
                     pPrev->setNext(pAux->getNext());
                 }
 
-                TL* poppedData = pAux->getInfo();
+                TL* poppedData = pAux->getData();
                 delete pAux;
                 size--;
                 return poppedData;
@@ -84,7 +84,7 @@ namespace Lista{
             pPrev->setNext(pAux->getNext());
         }
 
-        TL* poppedData = pAux->getInfo();
+        TL* poppedData = pAux->getData();
         delete pAux;
         size--;
 
@@ -93,7 +93,7 @@ namespace Lista{
     template <class TL>
     TL* Lista<TL>::getFirst(){
         if (pFirst != nullptr){
-            return pFirst->getInfo();
+            return pFirst->getData();
         }
         return nullptr;
     }
@@ -101,7 +101,7 @@ namespace Lista{
     template <class TL>
     TL* Lista<TL>::getLast(){
         if (pLast != nullptr){
-            return pLast->getInfo();
+            return pLast->getData();
         }
         return nullptr;
     }
@@ -113,7 +113,7 @@ namespace Lista{
         Elemento<TL>* pAux = pFirst;
         for (unsigned int i = 0; i < index; i++){pAux = pAux->getNext();}
 
-        return pAux->getInfo();
+        return pAux->getData();
     }
 
     template <class TL>
@@ -128,15 +128,18 @@ namespace Lista{
 
     template <class TL>
     void Lista<TL>::push_back(TL* pData){
-        if(pFirst == nullptr){
-            pFirst = pData;
-            pLast = pData;
-        }else{
-            pLast->setNext(pData);
-            pLast = pData;
+        Elemento<TL>* pElement = new Elemento<TL>(pData);
+
+        if (pFirst == nullptr){
+            pFirst = pElement;
+            pLast = pElement;
+        } else {
+            pLast->setNext(pElement);
+            pLast = pElement;
         }
         size++;
     }
+
 
     template <class TL>
     void Lista<TL>::remove(TL* pData){
@@ -144,7 +147,7 @@ namespace Lista{
         Elemento<TL>* pPrev = nullptr;
 
         while(pAux != nullptr){
-            if(pAux->getInfo() == pData){
+            if(pAux->getData() == pData){
                 if(pAux == pFirst){
                     pFirst = pAux->getNext();
                 }else{

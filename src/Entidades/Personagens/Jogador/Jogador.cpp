@@ -1,50 +1,57 @@
 #include "..\..\..\..\include\Entidades\Personagens\Jogador\Jogador.hpp"
+#include <iostream>
+namespace Entidades{
+    namespace Personagens{
 
-void Entidades::Personagens::Jogador::inicializa()
-{
-    Entidades::Personagens::Personagem::setVel(sf::Vector2f(0.1f, 0.1f));
-}
+        void Jogador::inicializa()
+        {
+            Personagem::setVel(sf::Vector2f(0.1f, 0.1f));
+        }
 
-Entidades::Personagens::Jogador::Jogador(const sf::Vector2f pos, const sf::Vector2f tam, int id):
-    Personagem(pos, tam, id)
-{
-    Entidades::Entidade::setBody(sf::RectangleShape(tam));
-    Entidades::Entidade::getBody().setPosition(pos);
-    Entidades::Entidade::getBody().setFillColor(sf::Color::Green);
-    inicializa();
-}
+        Jogador::Jogador(const sf::Vector2f pos, const sf::Vector2f tam, int id):
+            Personagem(pos, tam, id)
+        {
+            //Entidade::setBody(sf::RectangleShape(tam));
+            //Entidade::getBody().setPosition(pos);
+            Entidade::getBody().setFillColor(sf::Color::Green);
+            inicializa();
+        }
 
-Entidades::Personagens::Jogador::~Jogador()
-{
-}
+        Jogador::~Jogador()
+        {
+        }
 
-void Entidades::Personagens::Jogador::move()
-{
-    sf::Vector2f vel = Entidades::Personagens::Personagem::getVel();
-    
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::A))
-    {
-        Entidades::Entidade::getBody().move(-vel.x, 0.0f);
-        
+        void Jogador::move()
+        {
+            sf::Vector2f vel = Personagem::getVel();
+            sf::Vector2f position = Entidade::getPos();
+            
+            if(sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+            {
+                position.x -= vel.x;
+            }
+            else if(sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+            {
+                position.x += vel.x;
+            }
+            else if(sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+            {
+                position.y -= vel.y;
+            }
+            else if(sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+            {
+                position.y += vel.y;
+            }
+            cout << Entidade::getPos().x << "|" << Entidade::getPos().y << endl;
+            Entidade::setPos(position);
+        }
+
+        void Jogador::executar(){
+            move();
+        }
+
+        void Jogador::update(){
+            executar();
+        }
     }
-    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-    {
-        Entidades::Entidade::getBody().move(vel.x, 0.0f);
-    }
-    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::W))
-    {
-        Entidades::Entidade::getBody().move(0.0f, -vel.y);
-    }
-    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::S))
-    {
-        Entidades::Entidade::getBody().move(0.0f, vel.y);
-    }
-}
-
-void Entidades::Personagens::Jogador::executar(){
-    move();
-}
-
-void Entidades::Personagens::Jogador::update(){
-
 }
