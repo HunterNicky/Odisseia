@@ -1,7 +1,8 @@
 #pragma once
 
-//#include <SFML\Graphics.hpp>
+#include <SFML\Graphics.hpp>
 #include "Gerenciadores\GerenciadorGrafico.hpp"
+
 class Ente{
     protected:
         static Gerenciadores::GerenciadorGrafico* pGrafico;
@@ -15,6 +16,6 @@ class Ente{
         void setPos(sf::Vector2f pos);
         void setSize(sf::Vector2f size);
         virtual void draw() = 0;
-        //virtual void update() = 0;
+        virtual void update() = 0;
         virtual void executar() = 0;
 };

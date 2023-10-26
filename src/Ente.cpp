@@ -1,4 +1,5 @@
 #include "..\include\Ente.hpp"
+#include "Ente.hpp"
 
 Gerenciadores::GerenciadorGrafico* Ente::pGrafico = Gerenciadores::GerenciadorGrafico::getInstance();
 
@@ -16,4 +17,4 @@ sf::Vector2f Ente::getSize(){return size;}
 
 void Ente::setPos(sf::Vector2f pos){this->pos = pos;}
 
-void Ente::setSize(sf::Vector2f size){this->size = size;}
+void Ente::setSize(sf::Vector2f size) {this->size = size;}

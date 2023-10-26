@@ -1,43 +1,46 @@
 #include "..\..\..\..\include\Entidades\Personagens\Jogador\Jogador.hpp"
+#include <iostream>
+namespace Entidades{
+    namespace Personagens{
+        void Entidades::Personagens::Jogador::inicializa()
+        {
+            vel = sf::Vector2f(0.1f, 0.1f);
+        }
 
+        Entidades::Personagens::Jogador::Jogador(const sf::Vector2f pos, const sf::Vector2f size, int id):
+            Personagem(pos, size, id)
+        {
+            inicializa();
+        }
+        Jogador::~Jogador(){}   
 
-void Entidades::Personagens::Jogador::inicializa()
-{
-    vel = sf::Vector2f(0.1f, 0.1f);
-}
+        void Jogador::move()
+        {   
+            if(sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+            {
+                body.move(-vel.x, 0.0f);
+                
+            }
+            else if(sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+            {
+                body.move(vel.x, 0.0f);
+            }
+            else if(sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+            {
+                body.move(0.0f, -vel.y);
+            }
+            else if(sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+            {
+                body.move(0.0f, vel.y);
+            }
+        }
 
-Entidades::Personagens::Jogador::Jogador(const sf::Vector2f pos, const sf::Vector2f size, int id):
-    Personagem(pos, size, id)
-{
-    inicializa();
-}
-
-Entidades::Personagens::Jogador::~Jogador()
-{
-}
-
-void Entidades::Personagens::Jogador::move()
-{   
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::A))
-    {
-        body.move(-vel.x, 0.0f);
-        
+        void Jogador::executar()
+        {
+            move();
+        } 
+        void Jogador::update(){
+            executar();
+        }
     }
-    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-    {
-        body.move(vel.x, 0.0f);
-    }
-    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::W))
-    {
-        body.move(0.0f, -vel.y);
-    }
-    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::S))
-    {
-        body.move(0.0f, vel.y);
-    }
 }
-
-void Entidades::Personagens::Jogador::executar()
-{
-
-} 

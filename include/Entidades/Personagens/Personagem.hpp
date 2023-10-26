@@ -13,6 +13,7 @@ namespace Entidades{
             ~Personagem();
             virtual void move() = 0;
             virtual void executar() = 0;
+            virtual void update() = 0;
             void setVel(sf::Vector2f veloc);
             const sf::Vector2f getVel() const;
         };

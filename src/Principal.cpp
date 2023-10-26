@@ -7,6 +7,7 @@ Principal :: Principal () :
     jogador(sf::Vector2f(50.0f, 50.0f), sf::Vector2f(50.0f, 50.0f), 1),
     inimigo(sf::Vector2f(40.0f, 40.0f), sf::Vector2f(40.0f, 40.0f), 2, &jogador)
 {
+    LE.push_back(static_cast<Entidades::Entidade*>(&jogador));
     executar();
 }
 
@@ -34,10 +35,8 @@ void Principal::executar(){
             }
         }
         pGrafico->clear();
-        jogador.move();
-        inimigo.move();
-        pGrafico->draw(jogador.getBody());
-        pGrafico->draw(inimigo.getBody());
+        LE.updateAll();
+        LE.drawAll();
         pGrafico->display();
     }
 }

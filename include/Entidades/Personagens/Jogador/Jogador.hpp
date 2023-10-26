@@ -12,6 +12,7 @@ namespace Entidades{
             ~Jogador();
             void move();
             void executar();
+            void update();
         };
     }
 }
