@@ -11,45 +11,36 @@ namespace Entidades{
         Jogador::Jogador(const sf::Vector2f pos, const sf::Vector2f tam, int id):
             Personagem(pos, tam, id)
         {
-            //Entidade::setBody(sf::RectangleShape(tam));
-            //Entidade::getBody().setPosition(pos);
-            Entidade::getBody().setFillColor(sf::Color::Green);
             inicializa();
         }
 
-        Jogador::~Jogador()
-        {
-        }
+        Jogador::~Jogador(){}    
 
         void Jogador::move()
-        {
-            sf::Vector2f vel = Personagem::getVel();
-            sf::Vector2f position = Entidade::getPos();
-            
+        {   
             if(sf::Keyboard::isKeyPressed(sf::Keyboard::A))
             {
-                position.x -= vel.x;
+                body.move(-vel.x, 0.0f);
+                
             }
             else if(sf::Keyboard::isKeyPressed(sf::Keyboard::D))
             {
-                position.x += vel.x;
+                body.move(vel.x, 0.0f);
             }
             else if(sf::Keyboard::isKeyPressed(sf::Keyboard::W))
             {
-                position.y -= vel.y;
+                body.move(0.0f, -vel.y);
             }
             else if(sf::Keyboard::isKeyPressed(sf::Keyboard::S))
             {
-                position.y += vel.y;
+                body.move(0.0f, vel.y);
             }
-            cout << Entidade::getPos().x << "|" << Entidade::getPos().y << endl;
-            Entidade::setPos(position);
         }
 
-        void Jogador::executar(){
+        void Jogador::executar()
+        {
             move();
-        }
-
+        } 
         void Jogador::update(){
             executar();
         }

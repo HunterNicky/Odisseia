@@ -1,6 +1,6 @@
 #pragma once
 #include "..\Ente.hpp"
-using namespace std;
+
 
 namespace Entidades{
     /*
