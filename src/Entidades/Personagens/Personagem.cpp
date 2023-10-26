@@ -3,7 +3,6 @@
 Entidades::Personagens::Personagem::Personagem(sf::Vector2f pos, sf::Vector2f size, int id):
     Entidade(pos, size, id)    
 {
-
 }
 Entidades::Personagens::Personagem::~Personagem()
 {
