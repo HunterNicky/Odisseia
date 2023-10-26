@@ -2,19 +2,17 @@
 #include <iostream>
 namespace Entidades{
     namespace Personagens{
-
-        void Jogador::inicializa()
+        void Entidades::Personagens::Jogador::inicializa()
         {
-            Personagem::setVel(sf::Vector2f(0.1f, 0.1f));
+            vel = sf::Vector2f(0.1f, 0.1f);
         }
 
-        Jogador::Jogador(const sf::Vector2f pos, const sf::Vector2f tam, int id):
-            Personagem(pos, tam, id)
+        Entidades::Personagens::Jogador::Jogador(const sf::Vector2f pos, const sf::Vector2f size, int id):
+            Personagem(pos, size, id)
         {
             inicializa();
         }
-
-        Jogador::~Jogador(){}    
+        Jogador::~Jogador(){}   
 
         void Jogador::move()
         {   

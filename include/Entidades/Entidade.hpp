@@ -1,7 +1,5 @@
 #pragma once
 #include "..\Ente.hpp"
-
-
 namespace Entidades{
     /*
     enum ID{

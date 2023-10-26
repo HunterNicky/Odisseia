@@ -1,5 +1,5 @@
 #pragma once
-#include "Entidades\Personagens\Jogador\Jogador.hpp"
+#include "..\include\Entidades\Personagens\Inimigo\Inimigo.hpp"
 #include "Gerenciadores\GerenciadorGrafico.hpp"
 #include "Lista\ListaDeEntidades.hpp"
 class Principal

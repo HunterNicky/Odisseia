@@ -17,7 +17,7 @@ void Entidades::Entidade::setBody(sf::RectangleShape body)
 
 sf::RectangleShape Entidades::Entidade::getBody()
 {
-    return sf::RectangleShape(body);
+    return body;
 }
 
 void Entidades::Entidade::draw()
