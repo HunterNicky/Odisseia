@@ -1,6 +1,4 @@
 #pragma once
-
-#include <SFML\Graphics.hpp>
 #include "Gerenciadores\GerenciadorGrafico.hpp"
 
 class Ente{

@@ -16,8 +16,9 @@ namespace Entidades{
             virtual ~Entidade();
             const int getId() const;
             void setBody(sf::RectangleShape body);
-            sf::RectangleShape getBody();
+            const sf::RectangleShape getBody();
             virtual void executar() = 0;
+            virtual void update() = 0;
             virtual void draw();
     };
 }

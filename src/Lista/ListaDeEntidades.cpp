@@ -24,7 +24,7 @@ namespace Lista{
 
     void ListaDeEntidades::drawAll(){
         if(LE[0] != nullptr){
-            for(int i = 0; LE[i]==LE.getLast(); i++){
+            for(unsigned int i = 0; i < LE.getSize(); i++){
                 LE[i]->draw();
                 //cout << "|" << LE[i]->getPos().x << "|" << LE[i]->getPos().y << endl;
             }
@@ -33,7 +33,7 @@ namespace Lista{
 
     void ListaDeEntidades::updateAll(){
         if(LE[0] != nullptr){
-            for(int i = 0; LE[i]==LE.getLast(); i++){
+            for(unsigned int i = 0; LE.getSize(); i++){
                 LE[i]->update();
             }
         }
