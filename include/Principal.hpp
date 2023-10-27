@@ -8,7 +8,7 @@ private:
     static Gerenciadores::GerenciadorGrafico* pGrafico;
     sf::RenderWindow window;
     Entidades::Personagens::Jogador jogador;
-    //Entidades::Personagens::Inimigo inimigo;
+    Entidades::Personagens::Inimigo inimigo;
     Lista::ListaDeEntidades LE;
 public:
     Principal();

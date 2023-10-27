@@ -33,7 +33,7 @@ namespace Lista{
 
     void ListaDeEntidades::updateAll(){
         if(LE[0] != nullptr){
-            for(unsigned int i = 0; LE.getSize(); i++){
+            for(unsigned int i = 0; i < LE.getSize(); i++){
                 LE[i]->update();
             }
         }
