@@ -1,5 +1,4 @@
 #include "..\include\Principal.hpp"
-#include "Lista\ListaDeEntidades.cpp"
 #include <iostream>
 
 Gerenciadores::GerenciadorGrafico* Principal::pGrafico = Gerenciadores::GerenciadorGrafico::getInstance();
