@@ -1,5 +1,5 @@
 #pragma once
-#include "Entidades\Personagens\Jogador\Jogador.hpp"
+#include "..\include\Entidades\Personagens\Inimigo\Inimigo.hpp"
 #include "Gerenciadores\GerenciadorGrafico.hpp"
 #include "Lista\ListaDeEntidades.hpp"
 #include "Gerenciadores\GerenciadorDeColisao.hpp"
@@ -9,7 +9,8 @@ private:
     static Gerenciadores::GerenciadorGrafico* pGrafico;
     sf::RenderWindow window;
     Entidades::Personagens::Jogador jogador;
-        Lista::ListaDeEntidades LE;
+    Entidades::Personagens::Inimigo inimigo;
+    Lista::ListaDeEntidades LE;
     Gerenciadores::GerenciadorDeColisao gerenciadorDeColisao;
 public:
     Principal();
