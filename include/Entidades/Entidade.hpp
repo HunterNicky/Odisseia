@@ -12,12 +12,13 @@ namespace Entidades{
             int id;
             sf::RectangleShape body;
         public:
-            Entidade(sf::Vector2f pos, sf::Vector2f size, int id);
+            Entidade(const sf::Vector2f pos, const sf::Vector2f size, const int id);
             virtual ~Entidade();
             const int getId() const;
-            void setBody(sf::RectangleShape body);
-            sf::RectangleShape getBody();
+            void setBody(const sf::RectangleShape body);
+            const sf::RectangleShape getBody();
             virtual void executar() = 0;
+            virtual void update() = 0;
             virtual void draw();
     };
 }

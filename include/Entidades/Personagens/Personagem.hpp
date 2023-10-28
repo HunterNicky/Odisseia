@@ -9,7 +9,7 @@ namespace Entidades{
             sf::Vector2f vel;
             int num_vidas;
         public:
-            Personagem(const sf::Vector2f pos, const sf::Vector2f size, int id);
+            Personagem(const sf::Vector2f pos, const sf::Vector2f size, const int id);
             ~Personagem();
             virtual void move() = 0;
             virtual void executar() = 0;

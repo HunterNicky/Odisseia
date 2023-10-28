@@ -2,12 +2,12 @@
 #include <iostream>
 namespace Entidades{
     namespace Personagens{
-        void Entidades::Personagens::Jogador::inicializa()
+        void Jogador::inicializa()
         {
             vel = sf::Vector2f(0.1f, 0.1f);
         }
 
-        Entidades::Personagens::Jogador::Jogador(const sf::Vector2f pos, const sf::Vector2f size, int id):
+        Jogador::Jogador(const sf::Vector2f pos, const sf::Vector2f size, const int id):
             Personagem(pos, size, id)
         {
             inicializa();

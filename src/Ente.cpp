@@ -3,7 +3,7 @@
 
 Gerenciadores::GerenciadorGrafico* Ente::pGrafico = Gerenciadores::GerenciadorGrafico::getInstance();
 
-Ente::Ente(sf::Vector2f pos, sf::Vector2f size):
+Ente::Ente(const sf::Vector2f pos, const sf::Vector2f size):
     pos(pos), size(size)
 {
 

@@ -1,8 +1,15 @@
 #include "..\..\..\include\Entidades\Obstaculos\Obstaculo.hpp"
 
-Entidades::Obstaculos::Obstaculo::Obstaculo()
-{
-}
-Entidades::Obstaculos::Obstaculo::~Obstaculo()
-{
+namespace Entidades{
+    namespace Obstaculos{
+        Obstaculo::Obstaculo(const sf::Vector2f pos,  const sf::Vector2f size, const int id) :
+            Entidade(pos, size, id)
+        {
+
+        }
+
+        Obstaculo::~Obstaculo(){
+            
+        }
+    }
 }
