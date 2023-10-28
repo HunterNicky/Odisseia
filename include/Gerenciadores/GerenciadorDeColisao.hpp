@@ -10,7 +10,7 @@ namespace Gerenciadores{
     public:
         GerenciadorDeColisao(Lista::ListaDeEntidades* LE);
         ~GerenciadorDeColisao();
-        bool collisionDetection(const sf::Drawable &drawable1, const sf::Drawable &drawable2, sf::Vector2f *mtv = nullptr);
+        bool collisionDetection(const sf::Drawable* drawable1, const sf::Drawable* drawable2, sf::Vector2f *mtv = nullptr);
         void checkCollision();
     };
     

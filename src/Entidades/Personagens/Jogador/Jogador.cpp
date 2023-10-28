@@ -2,43 +2,44 @@
 #include <iostream>
 namespace Entidades{
     namespace Personagens{
-        void Entidades::Personagens::Jogador::inicializa()
-        {
+        void Jogador::inicializa(){
             vel = sf::Vector2f(0.1f, 0.1f);
+            body->setFillColor(sf::Color::Blue);
         }
 
-        Entidades::Personagens::Jogador::Jogador(const sf::Vector2f pos, const sf::Vector2f size, int id):
-            Personagem(pos, size, id)
-        {
+        Jogador::Jogador(const sf::Vector2f pos, const sf::Vector2f size, int id):
+            Personagem(pos, size, id){
             inicializa();
         }
+
         Jogador::~Jogador(){}   
 
-        void Jogador::move()
-        {   
+        void Jogador::move(){   
+            Entidade::body->move(vel);
+        }
+
+        void Jogador::executar(){
             if(sf::Keyboard::isKeyPressed(sf::Keyboard::A))
             {
-                body.move(-vel.x, 0.0f);
-                
+                forca = sf::Vector2f(-5.f, 0.f); 
             }
             else if(sf::Keyboard::isKeyPressed(sf::Keyboard::D))
             {
-                body.move(vel.x, 0.0f);
+                forca = sf::Vector2f(5.f, 0.f); 
             }
             else if(sf::Keyboard::isKeyPressed(sf::Keyboard::W))
             {
-                body.move(0.0f, -vel.y);
+                forca = sf::Vector2f(0.f, -5.f); 
             }
             else if(sf::Keyboard::isKeyPressed(sf::Keyboard::S))
             {
-                body.move(0.0f, vel.y);
+                forca = sf::Vector2f(0.f, 5.f); 
+            }else{
+                forca *= 0.f;
             }
-        }
-
-        void Jogador::executar()
-        {
             move();
         } 
+
         void Jogador::update(){
             executar();
         }

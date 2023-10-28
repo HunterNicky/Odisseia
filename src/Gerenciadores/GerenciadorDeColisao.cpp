@@ -7,30 +7,31 @@ namespace Gerenciadores{
 
     GerenciadorDeColisao::~GerenciadorDeColisao(){}
 
-    bool GerenciadorDeColisao::collisionDetection(const sf::Drawable &drawable1, const sf::Drawable &drawable2, sf::Vector2f *mtv){
-        const sf::FloatRect &rs1 = static_cast<const sf::RectangleShape&>(drawable1).getGlobalBounds();
-        const sf::FloatRect &rs2 = static_cast<const sf::RectangleShape&>(drawable2).getGlobalBounds();
+    bool GerenciadorDeColisao::collisionDetection(const sf::Drawable *drawable1, const sf::Drawable *drawable2, sf::Vector2f *mtv) {
+        const sf::FloatRect &rs1 = static_cast<const sf::RectangleShape&>(*drawable1).getGlobalBounds();
+        const sf::FloatRect &rs2 = static_cast<const sf::RectangleShape&>(*drawable2).getGlobalBounds();
         sf::Vector2f projection;
         sf::Vector2f overlap;
 
         projection.x = std::max(rs1.left + rs1.width, rs2.left + rs2.width) - std::min(rs1.left, rs2.left);
-        if(projection.x < (rs1.width + rs2.width)){
+        if (projection.x < (rs1.width + rs2.width)) {
             overlap.x = (rs1.width + rs2.width) - projection.x;
             projection.y = std::max(rs1.top + rs1.height, rs2.top + rs2.height) - std::min(rs1.top, rs2.top);
 
-            if(projection.y < (rs1.height + rs2.height)){
+            if (projection.y < (rs1.height + rs2.height)) {
                 overlap.y = rs1.height + rs2.height - projection.y;
                 mtv->x = mtv->y = 0;
-                if(overlap.x < overlap.y){
-                    mtv->x = overlap.x * (rs1.left < rs2.left?-1:1);
-                }else{
-                    mtv->y = overlap.y * (rs1.top < rs2.top?-1:1);
+                if (overlap.x < overlap.y) {
+                    mtv->x = overlap.x * (rs1.left < rs2.left ? -1 : 1);
+                } else {
+                    mtv->y = overlap.y * (rs1.top < rs2.top ? -1 : 1);
                 }
-                return true; 
+                return true;
             }
         }
         return false;
     }
+
     void GerenciadorDeColisao::checkCollision() {
         Lista::ListaDeEntidades* listaEntidades = LE;
 
@@ -41,12 +42,10 @@ namespace Gerenciadores{
 
                 if (entidade1 != entidade2) {
                     sf::Vector2f mtv;
-
                     if (collisionDetection(entidade1->getBody(), entidade2->getBody(), &mtv)) {
-                        std::cout << mtv.x << "|" << mtv.y << std::endl;
-                        entidade1->getBody().move(mtv);
-                        //entidade1->setPos((entidade1->getPos()+mtv));
+                        entidade1->getBody()->move(mtv);
                     }
+
                 }
             }
         }
