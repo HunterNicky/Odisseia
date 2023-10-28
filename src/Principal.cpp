@@ -4,9 +4,9 @@
 Gerenciadores::GerenciadorGrafico* Principal::pGrafico = Gerenciadores::GerenciadorGrafico::getInstance();
 
 Principal :: Principal () :
-    jogador(sf::Vector2f(50.0f, 50.0f), sf::Vector2f(50.0f, 50.0f), 1),
-    inimigo(sf::Vector2f(300.0f, 300.0f), sf::Vector2f(40.0f, 40.0f), 2, &jogador),
-    ObstFacil(sf::Vector2f(200.0f, 300.0f), sf::Vector2f(300.0f, 30.0f), 3),
+    jogador(sf::Vector2f(250.0f, 50.0f), sf::Vector2f(50.0f, 50.0f), 1),
+    inimigo(sf::Vector2f(150.0f, 200.0f), sf::Vector2f(40.0f, 40.0f), 2, &jogador),
+    ObstFacil(sf::Vector2f(0.0f, 300.0f), sf::Vector2f(3000.0f, 30.0f), 3),
     gerenciadorDeColisao(&LE),
     gerenciadorFisico(&LE)
 {
@@ -42,10 +42,9 @@ void Principal::executar(){
         pGrafico->clear();
         gerenciadorFisico.update();
         gerenciadorDeColisao.checkCollision();
-        ObstFacil.draw();//mudar
         LE.updateAll();
         LE.drawAll();
-        //pGrafico->setViewCenter(personagem.getBody()->getPosition());
+        pGrafico->setViewCenter(jogador.getBody()->getPosition());
         pGrafico->display();
     }
 }

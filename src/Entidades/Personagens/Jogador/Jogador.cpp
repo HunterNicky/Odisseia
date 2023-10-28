@@ -30,11 +30,11 @@ namespace Entidades{
             }
             else if(sf::Keyboard::isKeyPressed(sf::Keyboard::W))
             {
-                forca = sf::Vector2f(0.f, -5.f); 
+                forca = sf::Vector2f(0.f, -100.f); 
             }
             else if(sf::Keyboard::isKeyPressed(sf::Keyboard::S))
             {
-                forca = sf::Vector2f(0.f, 5.f); 
+                //forca = sf::Vector2f(0.f, 5.f); 
             }else{
                 forca *= 0.f;
             }

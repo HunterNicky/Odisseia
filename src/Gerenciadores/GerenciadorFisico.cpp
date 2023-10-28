@@ -26,7 +26,7 @@ namespace Gerenciadores {
     void GerenciadorFisico::calAcc(Entidades::Personagens::Personagem* personagem){
         sf::Vector2f acc = personagem->getAcc();
         float massa = personagem->getMass();
-        sf::Vector2f forca(0.0f, 0.0f);
+        sf::Vector2f forca(0.0f, 9.81f);
         forca += personagem->getForca();
         acc = forca / massa;
         if(personagem->getId() == 1)std::cout << acc.x <<"|"<< acc.y << std::endl;

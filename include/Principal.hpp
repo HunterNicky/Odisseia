@@ -15,9 +15,7 @@ private:
     Entidades::Personagens::Inimigo inimigo;
     Gerenciadores::GerenciadorFisico gerenciadorFisico;
     Gerenciadores::GerenciadorDeColisao gerenciadorDeColisao;
-    Entidades::Personagens::Inimigo inimigo;
     Entidades::Obstaculos::ObstaculoFacil ObstFacil;
-    Lista::ListaDeEntidades LE;
 public:
     Principal();
     ~Principal();
