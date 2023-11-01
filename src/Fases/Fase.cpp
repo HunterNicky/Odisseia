@@ -31,7 +31,7 @@ namespace Fases{
     }
     void Fase::executar(){
         if(pJogador){
-            pGrafico->setViewCenter(LE[0]->getPos());//esse é o jogador a posição 0
+            pGrafico->setViewCenter(pJogador->getBody()->getPosition());//esse é o jogador a posição 0
             std::cout << LE[0]->getPos().x <<"|"<< LE[0]->getPos().y << std::endl;// ele não está atualizando a posição na lista
             gerenciadorDeColisao.checkCollision();
             LE.updateAll();
