@@ -8,7 +8,7 @@ namespace Entidades{
         private:
             void inicializa();
         public:
-            Jogador(const sf::Vector2f pos, const sf::Vector2f size, const int id);
+            Jogador(const sf::Vector2f pos, const sf::Vector2f size, const ID id);
             ~Jogador();
             void move();
             void executar();

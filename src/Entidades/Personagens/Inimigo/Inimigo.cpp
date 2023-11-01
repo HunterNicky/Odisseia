@@ -7,7 +7,7 @@ namespace Entidades{
             this->getBody()->setFillColor(sf::Color::Red);
         }
 
-        Inimigo::Inimigo(const sf::Vector2f pos, const sf::Vector2f size, int id, Jogador* pJog) :
+        Inimigo::Inimigo(const sf::Vector2f pos, const sf::Vector2f size, const ID id, Jogador* pJog) :
             Personagem(pos, size, id){
             pJogador = pJog;
             inicializa();

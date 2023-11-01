@@ -2,7 +2,7 @@
 
 namespace Entidades{
     namespace Obstaculos{
-        ObstaculoMedio::ObstaculoMedio(const sf::Vector2f pos, const sf::Vector2f size, const int id):
+        ObstaculoMedio::ObstaculoMedio(const sf::Vector2f pos, const sf::Vector2f size, const ID id):
             Obstaculo(pos, size, id)
         {
             this->body->setFillColor(sf::Color::Green);

@@ -5,7 +5,7 @@ namespace Entidades{
         private:
             bool danoso;
         public:
-            Obstaculo(const sf::Vector2f pos,  const sf::Vector2f size, const int id);
+            Obstaculo(const sf::Vector2f pos,  const sf::Vector2f size, const ID id);
             ~Obstaculo();
             virtual void executar() = 0;
             virtual void update() = 0;

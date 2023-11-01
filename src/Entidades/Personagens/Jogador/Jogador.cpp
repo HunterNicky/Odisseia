@@ -7,7 +7,7 @@ namespace Entidades{
             body->setFillColor(sf::Color::Blue);
         }
 
-        Jogador::Jogador(const sf::Vector2f pos, const sf::Vector2f size, const int id):
+        Jogador::Jogador(const sf::Vector2f pos, const sf::Vector2f size, const ID id):
             Personagem(pos, size, id)
         {
             inicializa();

@@ -12,7 +12,7 @@ namespace Entidades{
             float massa;
             int num_vidas;
         public:
-            Personagem(const sf::Vector2f pos, const sf::Vector2f size, const int id);
+            Personagem(const sf::Vector2f pos, const sf::Vector2f size, const ID id);
             ~Personagem();
             void move();
             virtual void executar() = 0;

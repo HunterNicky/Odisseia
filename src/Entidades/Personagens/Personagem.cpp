@@ -2,7 +2,7 @@
 
 namespace Entidades{
     namespace Personagens{
-        Personagem::Personagem(const sf::Vector2f pos, const sf::Vector2f size, int id):
+        Personagem::Personagem(const sf::Vector2f pos, const sf::Vector2f size, const ID id):
             Entidade(pos, size, id),
             massa(20)    
         {

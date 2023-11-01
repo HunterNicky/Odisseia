@@ -6,7 +6,7 @@ namespace Entidades{
         private:
             int dano;
         public:
-            ObstaculoMedio(const sf::Vector2f pos, const sf::Vector2f size, const int id);
+            ObstaculoMedio(const sf::Vector2f pos, const sf::Vector2f size, const ID id);
             ~ObstaculoMedio();
             void executar();
             void update();
