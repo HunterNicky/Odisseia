@@ -9,6 +9,20 @@ namespace Lista{
         Elemento<TL>* pFirst;
         Elemento<TL>* pLast;
         unsigned int size;
+    
+    //Nested
+    public:
+        class Iterator{
+        private:
+            Elemento<TL>* position;
+        public:
+            Iterator(Elemento<TL>* pos = nullptr);
+            ~Iterator();
+            TL operator*();
+            void operator++();
+            bool operator!= (const Iterator& it);
+        };
+    
     public:
         Lista();
         ~Lista();
@@ -24,6 +38,29 @@ namespace Lista{
         const bool getEmpty();
         unsigned int getSize();
     };
+    
+    template<class TL>
+    Lista<TL>::Iterator::Iterator(Elemento<TL>* pos):
+        position(pos)
+    {}
+
+    template<class TL>
+    Lista<TL>::Iterator::~Iterator(){}
+
+    template<class TL>
+    TL Lista<TL>::Iterator::operator*(){
+        return position->getData();
+    }
+    template<class TL>
+    void Lista<TL>::Iterator::operator++(){
+        position = position->getNext();
+    }
+    template<class TL>
+    bool Lista<TL>::Iterator::operator!= (const Iterator& it){
+        if(it.position->getData() != position->getData)
+            return true;
+        return false;
+    }
 
     template<class TL>
     Lista<TL>::Lista():

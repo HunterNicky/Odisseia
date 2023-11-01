@@ -23,6 +23,7 @@ namespace Lista{
     void ListaDeEntidades::remove(unsigned int index){LE.remove(index);}
 
     void ListaDeEntidades::drawAll(){
+        //Lista::Iterator::
         if(LE[0] != nullptr){
             for(unsigned int i = 0; i < LE.getSize(); i++){
                 LE[i]->draw();

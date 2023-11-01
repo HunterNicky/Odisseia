@@ -1,9 +1,9 @@
 #include "..\Entidade.hpp"
 namespace Entidades{
     namespace Obstaculos{
-        class Obstaculo: public Entidade{
+        class Obstaculo : public Entidade{
         private:
-            //...
+            bool danoso;
         public:
             Obstaculo(const sf::Vector2f pos,  const sf::Vector2f size, const int id);
             ~Obstaculo();

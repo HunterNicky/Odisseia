@@ -1,4 +1,5 @@
 #pragma once
+
 #include "Entidades\Obstaculos\ObstaculoFacil.hpp"
 #include "Entidades\Personagens\Inimigo\Inimigo.hpp"
 #include "Gerenciadores\GerenciadorGrafico.hpp"
@@ -16,6 +17,8 @@ private:
     Gerenciadores::GerenciadorFisico gerenciadorFisico;
     Gerenciadores::GerenciadorDeColisao gerenciadorDeColisao;
     Entidades::Obstaculos::ObstaculoFacil ObstFacil;
+    Entidades::Obstaculos::ObstaculoFacil ObstFacil1;
+    
 public:
     Principal();
     ~Principal();

@@ -5,6 +5,7 @@ namespace Entidades{
         ObstaculoFacil::ObstaculoFacil(const sf::Vector2f pos, const sf::Vector2f size, const int id) :
             Obstaculo(pos, size, id)
         {
+            this->body->setFillColor(sf::Color::Cyan);
         }
         ObstaculoFacil::~ObstaculoFacil(){
 

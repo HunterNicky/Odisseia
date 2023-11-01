@@ -16,7 +16,7 @@ namespace Gerenciadores {
         for(unsigned int i = 0; i < listaEntidades->getSize(); i++){
             Entidades::Entidade* entidade = (*listaEntidades)[i];
             if(entidade->getId() == 1 || entidade->getId() == 2){
-                Entidades::Personagens::Personagem* personagem = dynamic_cast<Entidades::Personagens::Personagem*>(entidade);
+                Entidades::Personagens::Personagem* personagem = static_cast<Entidades::Personagens::Personagem*>(entidade);
                 calAcc(personagem);
                 calVel(personagem);
             }

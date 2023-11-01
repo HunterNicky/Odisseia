@@ -11,6 +11,8 @@ namespace Entidades{
             Personagem(pos, size, id){
             pJogador = pJog;
             inicializa();
+            srand(time(NULL));
+            moveAleatorio = rand()%4;
         }
 
         Inimigo::~Inimigo(){ 
@@ -29,12 +31,30 @@ namespace Entidades{
                 forca.y = -80.f;
             }
         }
+        void Inimigo::movimentoAleatorio(){
+
+            if(moveAleatorio == 0){
+                forca.x = 0.8f;
+            }else if(moveAleatorio == 1){
+                forca.x = -0.8f;
+            }else if(moveAleatorio == 2){
+                forca.y = 8.f;
+            }else{
+                forca.y = -8.f;
+            }
+        }
 
         void Inimigo::move(){
             sf::Vector2f posJogador = pJogador->getBody()->getPosition();
             sf::Vector2f posInimigo = body->getPosition();
 
-            persegueJogador(posJogador, posInimigo);
+            if((fabs(posJogador.x - posInimigo.x) <= RAIO_PERS_X) && (fabs(posJogador.y - posInimigo.y) <= RAIO_PERS_Y))
+            {
+                persegueJogador(posJogador, posInimigo);
+            }
+            else{
+                movimentoAleatorio();
+            }
 
             Entidade::body->move(vel);
         }

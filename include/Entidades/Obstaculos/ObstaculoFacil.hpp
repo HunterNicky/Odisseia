@@ -1,5 +1,4 @@
 #include "Obstaculo.hpp"
-
 namespace Entidades{
     namespace Obstaculos
     {
