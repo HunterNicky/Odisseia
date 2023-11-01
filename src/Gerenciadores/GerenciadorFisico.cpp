@@ -29,7 +29,6 @@ namespace Gerenciadores {
         sf::Vector2f forca(0.0f, 2.f);
         forca = (forca*massa) + personagem->getForca();
         acc = forca / massa;
-        if(personagem->getId() == 1)std::cout << acc.x <<"|"<< acc.y << std::endl;
         personagem->setAcc(acc);
     }
 
