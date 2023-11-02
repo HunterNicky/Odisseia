@@ -26,7 +26,6 @@ namespace Lista{
         if(LE[0] != nullptr){
             for(unsigned int i = 0; i < LE.getSize(); i++){
                 LE[i]->draw();
-                //cout << "|" << LE[i]->getPos().x << "|" << LE[i]->getPos().y << endl;
             }
         }
     }

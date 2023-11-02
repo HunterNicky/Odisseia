@@ -1,5 +1,9 @@
 #pragma once
 #include "..\Ente.hpp"
+#include "..\Gerenciadores\GerenciadorDeColisao.hpp"
+namespace Gerenciadores{
+    class GerenciadorDeColisao; 
+}
 namespace Entidades{
     /*
     enum ID{
@@ -10,13 +14,15 @@ namespace Entidades{
     class Entidade : public Ente{
         protected:
             int id;
-            sf::RectangleShape body;
+            sf::RectangleShape* body;
+            Gerenciadores::GerenciadorDeColisao* gColisao;
         public:
-            Entidade(sf::Vector2f pos, sf::Vector2f size, int id);
+            Entidade(const sf::Vector2f pos, const sf::Vector2f size, const int id);
             virtual ~Entidade();
             const int getId() const;
-            void setBody(sf::RectangleShape body);
-            const sf::RectangleShape getBody();
+            void setBody(sf::RectangleShape* body);
+            void setGerenciadorDeColisao(Gerenciadores::GerenciadorDeColisao* gColisao);
+            sf::RectangleShape* getBody();
             virtual void executar() = 0;
             virtual void update() = 0;
             virtual void draw();

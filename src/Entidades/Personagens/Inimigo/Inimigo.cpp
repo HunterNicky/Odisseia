@@ -1,57 +1,50 @@
 #include "..\..\..\..\include\Entidades\Personagens\Inimigo\Inimigo.hpp"
 
-namespace Entidades {
+namespace Entidades{
     namespace Personagens{
-        
-        void Inimigo::inicializa()
-        {
+        void Inimigo::inicializa(){
             vel = sf::Vector2f(0.03f, 0.03f);
+            this->getBody()->setFillColor(sf::Color::Red);
         }
 
         Inimigo::Inimigo(const sf::Vector2f pos, const sf::Vector2f size, int id, Jogador* pJog) :
-            Personagem(pos, size, id), pJogador(nullptr)
-        {
+            Personagem(pos, size, id){
             pJogador = pJog;
             inicializa();
         }
 
-        Inimigo::~Inimigo(){
-            
+        Inimigo::~Inimigo(){ 
         }
 
-        void Inimigo::persegueJogador(sf::Vector2f posJogador, sf::Vector2f posInimigo)
-        {
-            if(posJogador.x - posInimigo.x > 0.0f)
-            {
-                body.move(vel.x, 0.0f);
+        void Inimigo::persegueJogador(sf::Vector2f posJogador, sf::Vector2f posInimigo){
+            if(posJogador.x - posInimigo.x > 0.0f){
+                forca.x = 8.f;
+            }else{
+                forca.x = -8.f;
             }
-            else
-            {
-                body.move(-vel.x, 0.0f);
-            }
-            if(posJogador.y - posInimigo.y > 0.0f)
-            {
-                body.move(0.0f, vel.y);
-            }
-            else
-            {
-                body.move(0.0f, -vel.y);
+
+            if(posJogador.y - posInimigo.y > 0.0f){
+                forca.y = 80.f;
+            }else{
+                forca.y = -80.f;
             }
         }
 
-        void Inimigo::move()
-        {
-            sf::Vector2f posJogador = pJogador->getBody().getPosition();
-            sf::Vector2f posInimigo = body.getPosition();
+        void Inimigo::move(){
+            sf::Vector2f posJogador = pJogador->getBody()->getPosition();
+            sf::Vector2f posInimigo = body->getPosition();
 
             persegueJogador(posJogador, posInimigo);
+
+            Entidade::body->move(vel);
+            gColisao->checkCollision(static_cast<Entidades::Entidade*>(this));
         }
-        void Inimigo::executar()
-        {
+
+        void Inimigo::executar(){
             move();
         }
-        void Inimigo::update()
-        {
+
+        void Inimigo::update(){
             executar();
         }
 

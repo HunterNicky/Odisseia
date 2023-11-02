@@ -2,10 +2,14 @@
 
 namespace Entidades{
     namespace Obstaculos{
-        Obstaculo::Obstaculo(){
+        Obstaculo::Obstaculo(const sf::Vector2f pos,  const sf::Vector2f size, const int id) :
+            Entidade(pos, size, id)
+        {
 
         }
+
         Obstaculo::~Obstaculo(){
+            
         }
     }
 }

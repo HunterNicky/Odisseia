@@ -3,12 +3,9 @@
 
 Gerenciadores::GerenciadorGrafico* Principal::pGrafico = Gerenciadores::GerenciadorGrafico::getInstance();
 
-Principal::Principal () :
-    jogador(sf::Vector2f(50.0f, 50.0f), sf::Vector2f(50.0f, 50.0f), 1),
-    inimigo(sf::Vector2f(40.0f, 40.0f), sf::Vector2f(40.0f, 40.0f), 2, &jogador), LE()
+Principal :: Principal ()
 {
-    LE.push_back(static_cast<Entidades::Entidade*>(&jogador));
-    LE.push_back(static_cast<Entidades::Entidade*>(&inimigo));
+    primeiraFase.loadMap();
     executar();
 }
 
@@ -35,10 +32,9 @@ void Principal::executar(){
                 }
             }
         }
-        pGrafico->clear();
-        LE.updateAll();
-        LE.drawAll();
-        pGrafico->display();
+        //pGrafico->clear();
+        primeiraFase.executar();
+        //pGrafico->display();
     }
 }
 
