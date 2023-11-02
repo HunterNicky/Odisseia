@@ -6,10 +6,10 @@ namespace Fases{
     Gerenciadores::GerenciadorGrafico* Fase::pGrafico = Gerenciadores::GerenciadorGrafico::getInstance();
 
     Fase::Fase():
-    gerenciadorDeColisao(&LE),
-    gerenciadorFisico(&LE){
-        pJogador = new Entidades::Personagens::Jogador(sf::Vector2f(200, 200), sf::Vector2f(20,60), 1);
-        LE.push_back(static_cast<Entidades::Entidade*>(pJogador));
+        gerenciadorDeColisao(&LE),
+        gerenciadorFisico(&LE){
+        //pJogador = new Entidades::Personagens::Jogador(sf::Vector2f(200, 200), sf::Vector2f(20,60), 1);
+        //LE.push_back(static_cast<Entidades::Entidade*>(pJogador));
     }
     Fase::~Fase(){
         for(unsigned int i = 0; i < LE.getSize(); i++){
@@ -32,7 +32,7 @@ namespace Fases{
     void Fase::executar(){
         if(pJogador){
             pGrafico->setViewCenter(pJogador->getBody()->getPosition());//esse é o jogador a posição 0
-            std::cout << LE[0]->getPos().x <<"|"<< LE[0]->getPos().y << std::endl;// ele não está atualizando a posição na lista
+            std::cout << pJogador->getPos().x <<"|"<< pJogador->getPos().y << std::endl;// ele não está atualizando a posição na lista
             gerenciadorDeColisao.checkCollision();
             LE.updateAll();
             LE.drawAll();

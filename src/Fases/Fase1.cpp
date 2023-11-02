@@ -2,7 +2,7 @@
 
 namespace Fases{
     void Fase1::loadMap(){
-        std::ifstream file("C:\\ProjetoTecProg\\Gigantes\\data\\mapa.txt");
+        std::ifstream file("C:\\Users\\gabri\\OneDrive\\Documentos\\MateriasFaculdade\\TecProg\\Gigantes-\\data\\mapa.txt");
         sf::Vector2f pos(0.f, 0.f);
         char numero;
 
