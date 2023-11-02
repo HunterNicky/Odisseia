@@ -37,6 +37,7 @@ namespace Entidades{
             persegueJogador(posJogador, posInimigo);
 
             Entidade::body->move(vel);
+            gColisao->checkCollision(static_cast<Entidades::Entidade*>(this));
         }
 
         void Inimigo::executar(){

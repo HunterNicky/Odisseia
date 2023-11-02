@@ -17,4 +17,6 @@ namespace Entidades{
 
     void Entidade::draw(){pGrafico->draw(body);}
 
+    void Entidade::setGerenciadorDeColisao(Gerenciadores::GerenciadorDeColisao* gColisao){this->gColisao = gColisao;}
+
 }

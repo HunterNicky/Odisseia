@@ -3,6 +3,9 @@
 #include "Lista.hpp"
 #include "..\Entidades\Entidade.hpp"
 
+namespace Entidades{
+    class Entidade;
+}
 namespace Lista{
     class ListaDeEntidades{
         private:
