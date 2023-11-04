@@ -1,8 +1,8 @@
 #include "..\..\include\Entidades\Entidade.hpp"
 namespace Entidades{
+
     Entidade::Entidade(const sf::Vector2f pos, const sf::Vector2f size, const ID id):
-        Ente(pos, size), id(id){
-        body = new sf::RectangleShape(size);
+        Ente(pos, size), id(id), body(new sf::RectangleShape(size)){
         body->setPosition(pos);
     }
 

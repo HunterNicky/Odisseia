@@ -1,3 +1,5 @@
+#pragma once
+
 #include "..\Jogador\Jogador.hpp"
 #include <math.h>
 #include <stdlib.h>

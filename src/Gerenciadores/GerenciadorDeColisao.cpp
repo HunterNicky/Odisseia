@@ -43,7 +43,12 @@ namespace Gerenciadores{
                 if (entidade1 != entidade2) {
                     sf::Vector2f mtv;
                     if (collisionDetection(entidade1->getBody(), entidade2->getBody(), &mtv)) {
-                        entidade1->getBody()->move(mtv);
+                        if((entidade1->getId() == 2 || entidade1->getId() == 1) && (entidade2->getId() == 2 || entidade2->getId() == 1))
+                            entidade1->getBody()->move(mtv);
+                        else if((entidade1->getId() == 2 || (entidade1->getId() == 1)) && entidade2->getId() == 3)
+                            entidade1->getBody()->move(mtv);
+                        else if(entidade1->getId() == 3 && (entidade2->getId() == 2 || entidade2->getId() == 1))
+                            entidade2->getBody()->move(-mtv);
                     }
 
                 }

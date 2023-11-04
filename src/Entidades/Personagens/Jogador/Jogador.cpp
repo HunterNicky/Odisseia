@@ -31,7 +31,7 @@ namespace Entidades{
             }
 
             if(sf::Keyboard::isKeyPressed(sf::Keyboard::W)){
-                forca = sf::Vector2f(0.f, -100.f);
+                forca += sf::Vector2f(0.f, -100.f);
                 KeyPressed = true;
             }
 
