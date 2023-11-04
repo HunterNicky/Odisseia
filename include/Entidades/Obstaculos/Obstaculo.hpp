@@ -4,7 +4,7 @@
 namespace Entidades{
     namespace Obstaculos{
         class Obstaculo : public Entidade{
-        private:
+        protected:
             bool danoso;
         public:
             Obstaculo(const sf::Vector2f pos,  const sf::Vector2f size, const ID id);

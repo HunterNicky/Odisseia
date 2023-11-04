@@ -34,13 +34,13 @@ namespace Entidades{
         void Inimigo::movimentoAleatorio(){
 
             if(moveAleatorio == 0){
-                forca.x = 0.8f;
+                forca.x = 4.0f;
             }else if(moveAleatorio == 1){
-                forca.x = -0.8f;
+                forca.x = -4.0f;
             }else if(moveAleatorio == 2){
-                forca.y = 8.f;
+                forca.y = 4.0f;
             }else{
-                forca.y = -8.f;
+                forca.y = -4.0f;
             }
         }
 

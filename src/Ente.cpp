@@ -1,5 +1,4 @@
 #include "..\include\Ente.hpp"
-#include "Ente.hpp"
 
 Gerenciadores::GerenciadorGrafico* Ente::pGrafico = Gerenciadores::GerenciadorGrafico::getInstance();
 

@@ -1,4 +1,4 @@
-#include "..\..\..\include\Entidades\Obstaculos\ObstaculoFacil.hpp"
+#include "..\..\..\include\Entidades\Obstaculos\Caixa.hpp"
 
 namespace Entidades{
     namespace Obstaculos{

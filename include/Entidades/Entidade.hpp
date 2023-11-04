@@ -5,7 +5,10 @@ namespace Entidades{
         empty = 0,
         jogador,
         Inimigo,
-        ObstaculoFacil
+        Plataforma,
+        Caixa, 
+        Gosma,
+        Lava
     };
 
     class Entidade : public Ente{

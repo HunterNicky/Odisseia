@@ -6,14 +6,13 @@
 #include "..\Lista\ListaDeEntidades.hpp"
 #include "..\Entidades\Personagens\Jogador\Jogador.hpp"
 #include "..\Entidades\Personagens\Inimigo\Inimigo.hpp"
-#include "..\Entidades\Obstaculos\ObstaculoFacil.hpp"
+#include "..\Entidades\Obstaculos\Caixa.hpp"
 
 namespace Fases{
-    class Fase{
-        private:
-            static Gerenciadores::GerenciadorGrafico* pGrafico;
-            Gerenciadores::GerenciadorFisico gerenciadorFisico;
-            Gerenciadores::GerenciadorDeColisao gerenciadorDeColisao;
+    class Fase: public Ente{
+        protected:
+            Gerenciadores::GerenciadorFisico* pGerenciadorFisico;
+            Gerenciadores::GerenciadorDeColisao* pGerenciadorDeColisao;
             Entidades::Personagens::Jogador* pJogador;
             Lista::ListaDeEntidades LE;
         public:
@@ -21,8 +20,12 @@ namespace Fases{
             ~Fase();
             void newJogador(sf::Vector2f pos, sf::Vector2f size);
             void newInimigo(sf::Vector2f pos, sf::Vector2f size);
-            void newObstaculo(sf::Vector2f pos, sf::Vector2f size);
+            void newPlataforma(sf::Vector2f pos, sf::Vector2f size);
+            void newCaixa(sf::Vector2f pos, sf::Vector2f size);
+            void newEntidade(char letter, sf::Vector2i pos);
+            void draw();
             void executar();
+            void update();
             virtual void loadMap() = 0;
     };
 }
