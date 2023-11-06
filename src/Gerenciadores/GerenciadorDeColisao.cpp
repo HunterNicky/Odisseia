@@ -1,6 +1,5 @@
 #include "..\..\include\Gerenciadores\GerenciadorDeColisao.hpp"
 #include <iostream>
-#include "GerenciadorDeColisao.hpp"
 
 namespace Gerenciadores{
     GerenciadorDeColisao::GerenciadorDeColisao(Lista::ListaDeEntidades *LE):
