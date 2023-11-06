@@ -1,5 +1,6 @@
 #include "..\..\include\Gerenciadores\GerenciadorDeColisao.hpp"
 #include <iostream>
+#include "GerenciadorDeColisao.hpp"
 
 namespace Gerenciadores{
     GerenciadorDeColisao::GerenciadorDeColisao(Lista::ListaDeEntidades *LE):
@@ -7,7 +8,12 @@ namespace Gerenciadores{
 
     GerenciadorDeColisao::~GerenciadorDeColisao(){}
 
-    bool GerenciadorDeColisao::collisionDetection(const sf::Drawable *drawable1, const sf::Drawable *drawable2, sf::Vector2f *mtv) {
+    void Notify(Entidades::Entidade* entidade, const sf::Vector2f mtv) const override{
+        entidade->getBody()->move(mtv);
+    }
+
+    bool GerenciadorDeColisao::collisionDetection void GerenciadorDeColisao::Notify(Entidades::Entidade *entidade, const sf::Vector2f mtv) const {}(const sf::Drawable *drawable1, const sf::Drawable *drawable2, sf::Vector2f *mtv)
+    {
         const sf::FloatRect &rs1 = static_cast<const sf::RectangleShape&>(*drawable1).getGlobalBounds();
         const sf::FloatRect &rs2 = static_cast<const sf::RectangleShape&>(*drawable2).getGlobalBounds();
         sf::Vector2f projection;
