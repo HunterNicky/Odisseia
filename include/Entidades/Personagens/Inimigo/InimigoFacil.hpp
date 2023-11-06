@@ -12,6 +12,6 @@ namespace Entidades{
             InimigoFacil(const sf::Vector2f pos, const sf::Vector2f size, const ID id);
             ~InimigoFacil();
 
-        }
+        };
     }
 }
