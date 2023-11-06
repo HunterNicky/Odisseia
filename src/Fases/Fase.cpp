@@ -4,14 +4,9 @@
 namespace Fases{
 
     Fase::Fase():
-        Ente(sf::Vector2f(50.0f,50.0f), sf::Vector2f(50.0f, 50.0f)),
-        pGerenciadorDeColisao(new Gerenciadores::GerenciadorDeColisao(&LE)),
-        pGerenciadorFisico(new Gerenciadores::GerenciadorFisico(&LE)){
-        if(pGerenciadorDeColisao == nullptr)
-        {
-            std::cout << "Fase::Nao foi possivel criar Gerenciador de Colisao!" << std::endl;
-        }
-        pJogador = new Entidades::Personagens::Jogador(sf::Vector2f(200.f, 200.f), sf::Vector2f(50.f, 50.f), Entidades::ID::jogador);
+        gerenciadorDeColisao(&LE),
+        gerenciadorFisico(&LE){
+        //pJogador = new Entidades::Personagens::Jogador(sf::Vector2f(200, 200), sf::Vector2f(20,60), 1);
         //LE.push_back(static_cast<Entidades::Entidade*>(pJogador));
     }
     Fase::~Fase(){
@@ -21,19 +16,15 @@ namespace Fases{
         LE.clear();
     }
     void Fase::newJogador(sf::Vector2f pos, sf::Vector2f size){
-        pJogador = new Entidades::Personagens::Jogador(pos, size, Entidades::ID::jogador);
+        pJogador = new Entidades::Personagens::Jogador(pos, size, 1);
         LE.push_back(static_cast<Entidades::Entidade*>(pJogador));
     }
     void Fase::newInimigo(sf::Vector2f pos, sf::Vector2f size){
-        Entidades::Personagens::Inimigo* pInimigo = new Entidades::Personagens::Inimigo(pos, size, Entidades::ID::Inimigo, pJogador);
+        Entidades::Personagens::Inimigo* pInimigo = new Entidades::Personagens::Inimigo(pos, size, 2, pJogador);
         LE.push_back(static_cast<Entidades::Entidade*>(pInimigo));
     }
-    void Fase::newPlataforma(sf::Vector2f pos, sf::Vector2f size){
-        Entidades::Obstaculos::ObstaculoFacil* pObstaculoFacil = new Entidades::Obstaculos::ObstaculoFacil(pos, size, Entidades::ID::Plataforma);
-        LE.push_back(static_cast<Entidades::Entidade*>(pObstaculoFacil));
-    }
-    void Fase::newCaixa(sf::Vector2f pos, sf::Vector2f size){
-        Entidades::Obstaculos::ObstaculoFacil* pObstaculoFacil = new Entidades::Obstaculos::ObstaculoFacil(pos, size, Entidades::ID::Caixa);
+    void Fase::newObstaculo(sf::Vector2f pos, sf::Vector2f size){
+        Entidades::Obstaculos::ObstaculoFacil* pObstaculoFacil = new Entidades::Obstaculos::ObstaculoFacil(pos, size, 3);
         LE.push_back(static_cast<Entidades::Entidade*>(pObstaculoFacil));
     }
 
@@ -65,19 +56,15 @@ namespace Fases{
     }
 
     void Fase::executar(){
-        
-        pGrafico->setViewCenter(pJogador->getBody()->getPosition());//esse é o jogador a posição 0
-        //std::cout << pJogador->getPos().x <<"|"<< pJogador->getPos().y << std::endl;// ele não está atualizando a posição na lista
-        pGerenciadorDeColisao->checkCollision();
-        LE.updateAll();
-        LE.drawAll();
-        pGerenciadorFisico->update();
-        pGrafico->display();
-        pGrafico->clear();
-        
-    }
-    
-    void Fase::update(){
-        executar();
+        if(pJogador){
+            pGrafico->setViewCenter(pJogador->getBody()->getPosition());//esse é o jogador a posição 0
+            //std::cout << pJogador->getPos().x <<"|"<< pJogador->getPos().y << std::endl;// ele não está atualizando a posição na lista
+            gerenciadorDeColisao.checkCollision();
+            LE.updateAll();
+            LE.drawAll();
+            gerenciadorFisico.update();
+            pGrafico->display();
+            pGrafico->clear();
+        }
     }
 }

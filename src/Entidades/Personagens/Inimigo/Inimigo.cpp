@@ -57,6 +57,7 @@ namespace Entidades{
             }
 
             Entidade::body->move(vel);
+            gColisao->checkCollision(static_cast<Entidades::Entidade*>(this));
         }
 
         void Inimigo::executar(){

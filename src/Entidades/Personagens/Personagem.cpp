@@ -25,7 +25,10 @@ namespace Entidades{
 
         const float Personagem::getMass() const{return massa;}
 
-        void Personagem::move(){Entidade::body->move(vel);}
+        void Personagem::move(){
+            Entidade::body->move(vel);
+            gColisao->checkCollision(static_cast<Entidades::Entidade*>(this));
+        }
 
     }
 }

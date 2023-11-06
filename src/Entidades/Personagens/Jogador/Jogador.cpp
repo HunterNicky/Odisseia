@@ -17,6 +17,7 @@ namespace Entidades{
 
         void Jogador::move(){   
             Entidade::body->move(vel);
+            gColisao->checkCollision(static_cast<Entidades::Entidade*>(this));
         }
 
         void Jogador::executar(){
