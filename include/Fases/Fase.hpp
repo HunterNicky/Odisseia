@@ -22,10 +22,10 @@ namespace Fases{
             void newInimigo(sf::Vector2f pos, sf::Vector2f size);
             void newObstaculo(sf::Vector2f pos, sf::Vector2f size);
             //void newCaixa(sf::Vector2f pos, sf::Vector2f size);
-            void newEntidade(char letter, sf::Vector2i pos);
+            //void newEntidade(char letter, sf::Vector2i pos);
             void draw();
             void executar();
-            //void update();
+            void update();
             virtual void loadMap() = 0;
     };
 }

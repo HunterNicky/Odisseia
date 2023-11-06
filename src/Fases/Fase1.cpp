@@ -11,7 +11,6 @@ namespace Fases{
         sf::Vector2f pos(0.f, 0.f);
         char numero;
 
-
         while(file.get(numero)){
             switch (numero)
             {
@@ -28,7 +27,7 @@ namespace Fases{
                 break;
             case '3':
                 pos.x += 200.f;
-                //newObstaculo(pos, sf::Vector2f(200.f, 50.f));
+                newObstaculo(pos, sf::Vector2f(200.f, 50.f));
                 break;
             default:
                 pos.x = 0;
