@@ -28,7 +28,7 @@ namespace Fases{
                 break;
             case '3':
                 pos.x += 200.f;
-                newObstaculo(pos, sf::Vector2f(200.f, 50.f));
+                //newObstaculo(pos, sf::Vector2f(200.f, 50.f));
                 break;
             default:
                 pos.x = 0;

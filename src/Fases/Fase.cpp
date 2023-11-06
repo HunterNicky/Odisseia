@@ -4,8 +4,8 @@
 namespace Fases{
 
     Fase::Fase():
-        gerenciadorDeColisao(&LE),
-        gerenciadorFisico(&LE){
+        gerenciadorFisico(&LE), Ente(sf::Vector2f(50.0f, 50.f), sf::Vector2f(50.0f, 50.0f))
+    {
         //pJogador = new Entidades::Personagens::Jogador(sf::Vector2f(200, 200), sf::Vector2f(20,60), 1);
         //LE.push_back(static_cast<Entidades::Entidade*>(pJogador));
     }
@@ -14,17 +14,18 @@ namespace Fases{
             LE.remove(i);
         }
         LE.clear();
+        gerenciadorDeColisao.setList(&LE);
     }
     void Fase::newJogador(sf::Vector2f pos, sf::Vector2f size){
-        pJogador = new Entidades::Personagens::Jogador(pos, size, 1);
+        pJogador = new Entidades::Personagens::Jogador(pos, size, Entidades::ID::jogador);
         LE.push_back(static_cast<Entidades::Entidade*>(pJogador));
     }
     void Fase::newInimigo(sf::Vector2f pos, sf::Vector2f size){
-        Entidades::Personagens::Inimigo* pInimigo = new Entidades::Personagens::Inimigo(pos, size, 2, pJogador);
+        Entidades::Personagens::Inimigo* pInimigo = new Entidades::Personagens::Inimigo(pos, size, Entidades::ID::Inimigo, pJogador);
         LE.push_back(static_cast<Entidades::Entidade*>(pInimigo));
     }
     void Fase::newObstaculo(sf::Vector2f pos, sf::Vector2f size){
-        Entidades::Obstaculos::ObstaculoFacil* pObstaculoFacil = new Entidades::Obstaculos::ObstaculoFacil(pos, size, 3);
+        Entidades::Obstaculos::ObstaculoFacil* pObstaculoFacil = new Entidades::Obstaculos::ObstaculoFacil(pos, size, Entidades::ID::Caixa);
         LE.push_back(static_cast<Entidades::Entidade*>(pObstaculoFacil));
     }
 
@@ -40,10 +41,10 @@ namespace Fases{
                 newInimigo(sf::Vector2f(pos.x * 50.0f, pos.y * 50.0f), sf::Vector2f(40.f, 40.f));
                 break;
             case '@':
-                newPlataforma(sf::Vector2f(pos.x * 50.0f, pos.y * 50.0f), sf::Vector2f(300.f, 50.f));
+                newObstaculo(sf::Vector2f(pos.x * 50.0f, pos.y * 50.0f), sf::Vector2f(300.f, 50.f));
                 break;
             case 'c':
-                newCaixa(sf::Vector2f(pos.x * 50.0f, pos.y * 50.0f), sf::Vector2f(50.0f, 50.f));
+                //newCaixa(sf::Vector2f(pos.x * 50.0f, pos.y * 50.0f), sf::Vector2f(50.0f, 50.f));
                 break;
             default:
                 pos.x = 0;
@@ -59,7 +60,7 @@ namespace Fases{
         if(pJogador){
             pGrafico->setViewCenter(pJogador->getBody()->getPosition());//esse é o jogador a posição 0
             //std::cout << pJogador->getPos().x <<"|"<< pJogador->getPos().y << std::endl;// ele não está atualizando a posição na lista
-            gerenciadorDeColisao.checkCollision();
+            gerenciadorDeColisao.collisionDetection();
             LE.updateAll();
             LE.drawAll();
             gerenciadorFisico.update();

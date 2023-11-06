@@ -11,8 +11,8 @@
 namespace Fases{
     class Fase: public Ente{
         protected:
-            Gerenciadores::GerenciadorFisico* pGerenciadorFisico;
-            Gerenciadores::GerenciadorDeColisao* pGerenciadorDeColisao;
+            Gerenciadores::GerenciadorFisico gerenciadorFisico;
+            Gerenciadores::GerenciadorDeColisao gerenciadorDeColisao;
             Entidades::Personagens::Jogador* pJogador;
             Lista::ListaDeEntidades LE;
         public:
@@ -20,12 +20,12 @@ namespace Fases{
             ~Fase();
             void newJogador(sf::Vector2f pos, sf::Vector2f size);
             void newInimigo(sf::Vector2f pos, sf::Vector2f size);
-            void newPlataforma(sf::Vector2f pos, sf::Vector2f size);
-            void newCaixa(sf::Vector2f pos, sf::Vector2f size);
+            void newObstaculo(sf::Vector2f pos, sf::Vector2f size);
+            //void newCaixa(sf::Vector2f pos, sf::Vector2f size);
             void newEntidade(char letter, sf::Vector2i pos);
             void draw();
             void executar();
-            void update();
+            //void update();
             virtual void loadMap() = 0;
     };
 }
