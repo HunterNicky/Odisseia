@@ -8,7 +8,7 @@ namespace Gerenciadores{
 
     GerenciadorDeColisao::~GerenciadorDeColisao(){}
 
-    void Notify(Entidades::Entidade* entidade, const sf::Vector2f mtv) const override{
+    void GerenciadorDeColisao::Notify(Entidades::Entidade* entidade, const sf::Vector2f mtv) const override{
         entidade->getBody()->move(mtv);
     }
 
