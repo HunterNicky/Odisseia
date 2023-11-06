@@ -6,12 +6,13 @@ namespace Gerenciadores{
     LE(LE){}
 
     GerenciadorDeColisao::~GerenciadorDeColisao(){}
+    void GerenciadorDeColisao::setList(Lista::ListaDeEntidades* LE){this->LE = LE;}
 
-    void GerenciadorDeColisao::Notify(Entidades::Entidade* entidade, const sf::Vector2f mtv) const override{
+    void GerenciadorDeColisao::Notify(Entidades::Entidade* entidade, const sf::Vector2f mtv) const{
         entidade->getBody()->move(mtv);
     }
 
-    bool GerenciadorDeColisao::collisionDetection void GerenciadorDeColisao::Notify(Entidades::Entidade *entidade, const sf::Vector2f mtv) const {}(const sf::Drawable *drawable1, const sf::Drawable *drawable2, sf::Vector2f *mtv)
+    bool GerenciadorDeColisao::collisionDetection (const sf::Drawable *drawable1, const sf::Drawable *drawable2, sf::Vector2f *mtv)
     {
         const sf::FloatRect &rs1 = static_cast<const sf::RectangleShape&>(*drawable1).getGlobalBounds();
         const sf::FloatRect &rs2 = static_cast<const sf::RectangleShape&>(*drawable2).getGlobalBounds();
