@@ -4,17 +4,17 @@
 namespace Fases{
 
     Fase::Fase():
-        gerenciadorFisico(&LE), Ente(sf::Vector2f(50.0f, 50.0f), sf::Vector2f(50.0f, 50.0f))
+        Ente(), gerenciadorFisico(&LE)
     {
-        pJogador = new Entidades::Personagens::Jogador(sf::Vector2f(200, 200), sf::Vector2f(20,60), Entidades::ID::jogador);
-        LE.push_back(static_cast<Entidades::Entidade*>(pJogador));
+        gerenciadorDeColisao.setList(&LE);
+        //pJogador = new Entidades::Personagens::Jogador(sf::Vector2f(200, 200), sf::Vector2f(20,60), Entidades::ID::jogador);
+        //LE.push_back(static_cast<Entidades::Entidade*>(pJogador));
     }
     Fase::~Fase(){
         for(unsigned int i = 0; i < LE.getSize(); i++){
             LE.remove(i);
         }
         LE.clear();
-        gerenciadorDeColisao.setList(&LE);
     }
     void Fase::newJogador(sf::Vector2f pos, sf::Vector2f size){
         pJogador = new Entidades::Personagens::Jogador(pos, size, Entidades::ID::jogador);
@@ -35,15 +35,17 @@ namespace Fases{
 
     void Fase::executar(){
         if(pJogador){
-            pGrafico->setViewCenter(pJogador->getBody()->getPosition());//esse é o jogador a posição 0
-            //std::cout << pJogador->getPos().x <<"|"<< pJogador->getPos().y << std::endl;// ele não está atualizando a posição na lista
-            //gerenciadorDeColisao.collisionDetection();
-            LE.updateAll();
-            LE.drawAll();
-            gerenciadorFisico.update();
-            pGrafico->display();
-            pGrafico->clear();
         }
+
+        pGrafico->setViewCenter(pJogador->getBody()->getPosition());//esse é o jogador a posição 0
+        //std::cout << pJogador->getPos().x <<"|"<< pJogador->getPos().y << std::endl;// ele não está atualizando a posição na lista
+        //gerenciadorDeColisao.collisionDetection();
+        LE.updateAll();
+        LE.drawAll();
+        gerenciadorFisico.update();
+        pGrafico->display();
+        pGrafico->clear();
+        
     }
 
     void Fase::update(){

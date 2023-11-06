@@ -24,10 +24,10 @@ namespace Entidades{
             bool KeyPressed = false;
 
             if(sf::Keyboard::isKeyPressed(sf::Keyboard::A)){
-                forca = sf::Vector2f(-100.f, 0.f); 
+                forca = sf::Vector2f(-10.f, 0.f); 
                 KeyPressed = true;
             }else if(sf::Keyboard::isKeyPressed(sf::Keyboard::D)){
-                forca = sf::Vector2f(100.f, 0.f); 
+                forca = sf::Vector2f(10.f, 0.f); 
                 KeyPressed = true;
             }
 

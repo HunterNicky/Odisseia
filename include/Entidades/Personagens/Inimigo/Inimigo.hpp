@@ -11,11 +11,11 @@ namespace Entidades{
     namespace Personagens{
         class Inimigo : public Personagem{
         protected:
-            Jogador *pJogador;
+            Entidades::Personagens::Jogador *pJogador;
             int moveAleatorio;
             void inicializa();
         public:
-            Inimigo(const sf::Vector2f pos, const sf::Vector2f size, const ID id, Jogador* pJog);
+            Inimigo(const sf::Vector2f pos, const sf::Vector2f size, const ID id, Entidades::Personagens::Jogador* pJog);
             ~Inimigo();
             void persegueJogador(sf::Vector2f posJogador, sf::Vector2f posInimigo);
             void movimentoAleatorio();

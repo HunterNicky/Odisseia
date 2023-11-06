@@ -10,7 +10,7 @@ namespace Gerenciadores{
         entidade->getBody()->move(mtv);
     }
 
-    bool GerenciadorDeColisao::collisionDetection(const sf::Drawable *drawable1, const sf::Drawable *drawable2, sf::Vector2f *mtv) {
+    bool GerenciadorDeColisao::collisionDetection(const sf::Drawable *drawable1, const sf::Drawable *drawable2, sf::Vector2f *mtv){
         const sf::FloatRect &rs1 = static_cast<const sf::RectangleShape&>(*drawable1).getGlobalBounds();
         const sf::FloatRect &rs2 = static_cast<const sf::RectangleShape&>(*drawable2).getGlobalBounds();
         sf::Vector2f projection;
