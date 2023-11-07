@@ -21,10 +21,10 @@ namespace Entidades{
             num_vidas-=dano;
         }
 
-            void Jogador::move(){   
-                Entidade::body->move(vel);
-                gColisao->checkCollision(static_cast<Entidades::Entidade*>(this));
-            }
+        void Jogador::move(){   
+            Entidade::body->move(vel);
+            gColisao->checkCollision(static_cast<Entidades::Entidade*>(this));
+        }
 
         void Jogador::neutralizarInimigo(Entidade* pInimigo){
             if(pInimigo){
@@ -58,13 +58,19 @@ namespace Entidades{
                 break;
             }
         }
+
+        void Jogador::parar(){
+            forca.x = 0;
+        }
+
         void Jogador::executar(){
             bool KeyPressed = false;
 
             if(sf::Keyboard::isKeyPressed(sf::Keyboard::A)){
                 forca = sf::Vector2f(-10.f, 0.f); 
                 KeyPressed = true;
-            }else if(sf::Keyboard::isKeyPressed(sf::Keyboard::D)){
+            }
+            else if(sf::Keyboard::isKeyPressed(sf::Keyboard::D)){
                 forca = sf::Vector2f(10.f, 0.f); 
                 KeyPressed = true;
             }
@@ -73,18 +79,9 @@ namespace Entidades{
                 forca += sf::Vector2f(0.f, -100.f);
                 KeyPressed = true;
             }
-
-            void Jogador::parar(){
-                forca.x = 0;
-            }
-
-            void Jogador::executar(){
-                move();
-            }
-
-            void Jogador::update(){
-                executar();
-            }
-            void Personagens::Jogador::tratarColisao(){}
+        }        
+        void Jogador::update(){
+            executar();
+        }
     }
 }

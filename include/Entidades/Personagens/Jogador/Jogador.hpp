@@ -13,9 +13,10 @@ namespace Entidades{
             void operator--(const int dano);
             void move();
             void neutralizarInimigo(Entidade* pInimigo);
+            void tratarColisao(Entidade* entidade);
+            void parar();
             void executar();
             void update();
-            void tratarColisao(Entidade* entidade);
         };
     }
 }

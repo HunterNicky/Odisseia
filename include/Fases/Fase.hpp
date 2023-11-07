@@ -4,16 +4,20 @@
 #include "..\Gerenciadores\GerenciadorDeColisao.hpp"
 #include "..\Gerenciadores\GerenciadorFisico.hpp"
 #include "..\Lista\ListaDeEntidades.hpp"
+#include "..\Entidades\Personagens\Jogador\Jogador.hpp"
 #include "..\Entidades\Personagens\Inimigo\InimigoFacil.hpp"
 #include "..\Entidades\Obstaculos\Caixa.hpp"
-#include "..\Entidades\Obstaculos\Gosma.hpp"
-#include "..\Entidades\Obstaculos\Lava.hpp"
+#include "..\Observadores\ControleJogador.hpp"
+#include "..\Gerenciadores\GerenciadorDeEvento.hpp"
+#include "..\Estado.hpp"
+#include "..\MaquinaDeEstado.hpp"
 
 namespace Fases{
-    class Fase: public Ente{
+    class Fase: public Ente, public Estados::Estado{
         protected:
             static Gerenciadores::GerenciadorGrafico* pGrafico;
             static Gerenciadores::GerenciadorDeEvento* pEvento;
+            static MaquinaDeEstado* pMaquinaDeEstado;
             Observadores::ControleJogador* controle;
             Gerenciadores::GerenciadorFisico gerenciadorFisico;
             Gerenciadores::GerenciadorDeColisao gerenciadorDeColisao;

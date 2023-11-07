@@ -11,16 +11,13 @@ namespace Entidades{
 
         }
         void ObstaculoFacil::tratarColisao(Entidade* entidade){
-            
+
         }
         void ObstaculoFacil::executar(){
             
         }
         void ObstaculoFacil::update(){
             executar();
-        }
-        void Obstaculos::ObstaculoFacil::tratarColisao()
-        {
         }
     }
 }

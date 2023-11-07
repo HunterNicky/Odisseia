@@ -10,8 +10,8 @@ namespace Gerenciadores{
         entidade->getBody()->move(mtv);
         entidade->tratarColisao(entidade2);
         entidade->verificaSolo(mtv);
-        if(entidade->getId() == 1 && entidade2->getId()==2)entidade->tratarColisao();
-        if(entidade->getId() == 2 && entidade2->getId()==1)entidade2->tratarColisao();
+        //if(entidade->getId() == Entidades::ID::jogador && entidade2->getId()== Entidades::ID::Inimigo)entidade->tratarColisao();
+        //if(entidade->getId() == 2 && entidade2->getId()==1)entidade2->tratarColisao();
     }
 
     bool GerenciadorDeColisao::collisionDetection(const sf::Drawable *drawable1, const sf::Drawable *drawable2, sf::Vector2f *mtv){
@@ -47,7 +47,7 @@ namespace Gerenciadores{
             if(entidade != entidade2){
                 sf::Vector2f mtv;
                 if(collisionDetection(entidade->getBody(), entidade2->getBody(), &mtv)){
-                    Notify(entidade, mtv);
+                    Notify(entidade, entidade2, mtv);
                 }
             }
         }

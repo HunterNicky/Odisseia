@@ -12,16 +12,16 @@ namespace Entidades{
         {
         }
 
-        void Personagem::setVel(sf::Vector2f vel){this->vel = vel;}
-
         void Personagem::verificaSolo(const sf::Vector2f mtv){
             if(mtv.y < 0.f){
                 onFloor = true;
                 jumpTimer.restart();
             }     
         }
+
+        void Personagem::setVel(sf::Vector2f vel){this->vel = vel;}
+
         void Personagem::setAcc(sf::Vector2f acc) { this->acc = acc; }
-        void Personagem::setAcc(sf::Vector2f acc){this->acc = acc;}
 
         void Personagem::setForca(sf::Vector2f forca){this->forca = forca;}
 

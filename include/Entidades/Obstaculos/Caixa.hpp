@@ -13,7 +13,6 @@ namespace Entidades{
             void tratarColisao(Entidade* entidade);
             void executar();
             void update();
-            void tratarColisao();
         };
     }
     

@@ -31,6 +31,7 @@ namespace Entidades{
             virtual void executar() = 0;
             virtual void update() = 0;
             virtual void tratarColisao(Entidades::Entidade* entidade) = 0;
-            virtual void draw();
+            virtual void verificaSolo(const sf::Vector2f mtv) = 0;
+            virtual void draw();      
     };
 }
