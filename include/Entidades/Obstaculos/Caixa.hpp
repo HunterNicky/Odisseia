@@ -8,10 +8,11 @@ namespace Entidades{
         private:
 
         public:
-            ObstaculoFacil(const sf::Vector2f pos, const sf::Vector2f, const ID id);
+            ObstaculoFacil(const sf::Vector2f pos, const sf::Vector2f, const Entidades::ID id);
             ~ObstaculoFacil();
             void executar();
             void update();
+            void tratarColisao();
         };
     }
     

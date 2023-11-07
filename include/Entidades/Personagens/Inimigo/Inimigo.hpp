@@ -1,27 +1,24 @@
 #pragma once
 
 #include "..\Jogador\Jogador.hpp"
-#include <math.h>
-#include <stdlib.h>
-#include <time.h>
 
-#define RAIO_PERS_X 200.0f
-#define RAIO_PERS_Y 200.0f
+
 namespace Entidades{
     namespace Personagens{
         class Inimigo : public Personagem{
         protected:
             Entidades::Personagens::Jogador *pJogador;
-            int moveAleatorio;
-            void inicializa();
+            int nivel_maldade;
         public:
-            Inimigo(const sf::Vector2f pos, const sf::Vector2f size, const ID id, Entidades::Personagens::Jogador* pJog);
+            Inimigo(const sf::Vector2f pos, const sf::Vector2f size, const Entidades::ID id, Entidades::Personagens::Jogador* pJog);
             ~Inimigo();
-            void persegueJogador(sf::Vector2f posJogador, sf::Vector2f posInimigo);
-            void movimentoAleatorio();
-            void move();
-            void executar();
-            void update();
+            virtual void operator--() = 0;
+            virtual void movimentoAleatorio() = 0;
+            virtual void move() = 0;
+            virtual void danificar(Entidade* entidade) = 0;
+            virtual void tratarColisao(Entidade* entidade) = 0;
+            virtual void executar() = 0;
+            virtual void update() = 0;
         };
     }
 }

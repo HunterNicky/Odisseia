@@ -4,7 +4,7 @@
 namespace Entidades
 {
     namespace Obstaculos{
-        Lava::Lava(const sf::Vector2f pos, const sf::Vector2f size, const ID id):
+        Lava::Lava(const sf::Vector2f pos, const sf::Vector2f size, const Entidades::ID id):
             Obstaculo(pos, size, id)
         {
             this->body->setFillColor(sf::Color::Red);
@@ -20,6 +20,9 @@ namespace Entidades
         }
         void Lava::update(){
             executar();
+        }
+        void Lava::tratarColisao(){
+
         }
     }
 }

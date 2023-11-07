@@ -15,7 +15,7 @@ namespace Gerenciadores {
         deltaTime = clock.restart().asSeconds();
         for(unsigned int i = 0; i < listaEntidades->getSize(); i++){
             Entidades::Entidade* entidade = (*listaEntidades)[i];
-            if(entidade->getId() == 1 || entidade->getId() == 2){
+            if(entidade->getId() == Entidades::ID::jogador || entidade->getId() == Entidades::ID::Inimigo){
                 Entidades::Personagens::Personagem* personagem = dynamic_cast<Entidades::Personagens::Personagem*>(entidade);
                 calAcc(personagem);
                 calVel(personagem);

@@ -5,7 +5,7 @@
 #include "..\Gerenciadores\GerenciadorFisico.hpp"
 #include "..\Lista\ListaDeEntidades.hpp"
 #include "..\Entidades\Personagens\Jogador\Jogador.hpp"
-#include "..\Entidades\Personagens\Inimigo\Inimigo.hpp"
+#include "..\Entidades\Personagens\Inimigo\InimigoFacil.hpp"
 #include "..\Entidades\Obstaculos\Caixa.hpp"
 
 namespace Fases{

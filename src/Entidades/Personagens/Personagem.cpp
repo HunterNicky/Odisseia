@@ -2,10 +2,11 @@
 
 namespace Entidades{
     namespace Personagens{
-        Personagem::Personagem(const sf::Vector2f pos, const sf::Vector2f size, const ID id):
+        Personagem::Personagem(const sf::Vector2f pos, const sf::Vector2f size, const Entidades::ID id):
             Entidade(pos, size, id),
             massa(20)    
         {
+            
         }
         Personagem::~Personagem()
         {
@@ -24,6 +25,8 @@ namespace Entidades{
         const sf::Vector2f Personagem::getForca() const{return forca;}
 
         const float Personagem::getMass() const{return massa;}
+
+        const int Personagem::getNum_vidas() const{return num_vidas;}
 
         void Personagem::move(){
             Entidade::body->move(vel);

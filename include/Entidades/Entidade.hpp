@@ -5,7 +5,7 @@ namespace Gerenciadores{
     class GerenciadorDeColisao; 
 }
 namespace Entidades{
-    enum ID{
+    enum class ID{
         empty = 0,
         jogador,
         Inimigo,
@@ -20,15 +20,17 @@ namespace Entidades{
             int id;
             sf::RectangleShape* body;
             Gerenciadores::GerenciadorDeColisao* gColisao;
+            const Entidades::ID ID;
         public:
-            Entidade(const sf::Vector2f pos, const sf::Vector2f size, const ID id);
+            Entidade(const sf::Vector2f pos, const sf::Vector2f size, const Entidades::ID id);
             virtual ~Entidade();
-            const int getId() const;
+            const Entidades::ID getId() const;
             void setBody(sf::RectangleShape* body);
             void setGerenciadorDeColisao(Gerenciadores::GerenciadorDeColisao* gColisao);
             sf::RectangleShape* getBody();
             virtual void executar() = 0;
             virtual void update() = 0;
+            virtual void tratarColisao(Entidades::Entidade* entidade) = 0;
             virtual void draw();
     };
 }

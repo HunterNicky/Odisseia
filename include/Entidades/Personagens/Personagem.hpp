@@ -12,7 +12,7 @@ namespace Entidades{
             float massa;
             int num_vidas;
         public:
-            Personagem(const sf::Vector2f pos, const sf::Vector2f size, const ID id);
+            Personagem(const sf::Vector2f pos, const sf::Vector2f size, const Entidades::ID id);
             ~Personagem();
             void move();
             virtual void executar() = 0;
@@ -24,6 +24,9 @@ namespace Entidades{
             const sf::Vector2f getAcc() const;
             const sf::Vector2f getForca() const;
             const float getMass() const;
+            const int getNum_vidas() const;
+            virtual void tratarColisao(Entidade* entidade) = 0;
+            virtual void operator--() = 0;
         };
     }
 }

@@ -15,15 +15,15 @@ namespace Fases{
             switch (numero)
             {
             case '0':
-                pos.x += 20.f;
+                pos.x += 50.f;
                 break;
             case '1':
                 pos.x += 20.f;
-                newJogador(pos,sf::Vector2f(30.f, 50.f));
+                newJogador(pos,sf::Vector2f(50.f, 50.f));
                 break;
             case '2':
                 pos.x += 20.f;
-                newInimigo(pos, sf::Vector2f(20.f, 30.f));
+                newInimigo(pos, sf::Vector2f(40.f, 40.f));
                 break;
             case '3':
                 pos.x += 200.f;
@@ -31,7 +31,7 @@ namespace Fases{
                 break;
             default:
                 pos.x = 0;
-                pos.y += 200.f;
+                pos.y += 80.f;
                 break;
             }
         }

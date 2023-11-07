@@ -2,7 +2,7 @@
 
 namespace Entidades{
     namespace Obstaculos{
-        Gosma::Gosma(const sf::Vector2f pos, const sf::Vector2f size, const ID id):
+        Gosma::Gosma(const sf::Vector2f pos, const sf::Vector2f size, const Entidades::ID id):
             Obstaculo(pos, size, id)
         {
             this->body->setFillColor(sf::Color::Green);
@@ -14,6 +14,9 @@ namespace Entidades{
         }
         void Gosma::update(){
             executar();
+        }
+        void Gosma::tratarColisao(){
+
         }
     }
 }

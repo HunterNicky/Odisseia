@@ -5,9 +5,10 @@ namespace Entidades{
         void Jogador::inicializa(){
             vel = sf::Vector2f(0.1f, 0.1f);
             body->setFillColor(sf::Color::Blue);
+            num_vidas = 1000;
         }
 
-        Jogador::Jogador(const sf::Vector2f pos, const sf::Vector2f size, const ID id):
+        Jogador::Jogador(const sf::Vector2f pos, const sf::Vector2f size, const Entidades::ID id):
             Personagem(pos, size, id)
         {
             inicializa();
@@ -15,11 +16,37 @@ namespace Entidades{
 
         Jogador::~Jogador(){}   
 
+        void Jogador::operator--(){
+            num_vidas--;
+        }
+
         void Jogador::move(){   
             Entidade::body->move(vel);
             gColisao->checkCollision(static_cast<Entidades::Entidade*>(this));
         }
 
+        void Jogador::neutralizarInimigo(Entidade* pInimigo){
+            if(pInimigo){
+                if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space)){
+                    Entidades::Personagens::Personagem* pPers = static_cast<Entidades::Personagens::Personagem*>(pInimigo);
+                    pPers->operator--();
+                    //deletar personagem
+                }
+            }
+        }
+
+        void Jogador::tratarColisao(Entidade* entidade){
+            switch (entidade->getId())
+            {
+            case (ID::Inimigo):
+                neutralizarInimigo(entidade);
+                break;
+            case (ID::Plataforma):
+                break;
+            default:
+                break;
+            }
+        }
         void Jogador::executar(){
             bool KeyPressed = false;
 

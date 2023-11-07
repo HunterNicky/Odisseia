@@ -6,8 +6,9 @@ namespace Gerenciadores{
     GerenciadorDeColisao::~GerenciadorDeColisao(){}
     void GerenciadorDeColisao::setList(Lista::ListaDeEntidades* LE){this->LE = LE;}
 
-    void GerenciadorDeColisao::Notify(Entidades::Entidade* entidade, const sf::Vector2f mtv) const{
+    void GerenciadorDeColisao::Notify(Entidades::Entidade* entidade, Entidades::Entidade* entidade2 ,const sf::Vector2f mtv) const{
         entidade->getBody()->move(mtv);
+        entidade->tratarColisao(entidade2);
     }
 
     bool GerenciadorDeColisao::collisionDetection(const sf::Drawable *drawable1, const sf::Drawable *drawable2, sf::Vector2f *mtv){
@@ -43,7 +44,7 @@ namespace Gerenciadores{
             if(entidade != entidade2){
                 sf::Vector2f mtv;
                 if(collisionDetection(entidade->getBody(), entidade2->getBody(), &mtv)){
-                    Notify(entidade, mtv);
+                    Notify(entidade, entidade2, mtv);
                 }
             }
         }
