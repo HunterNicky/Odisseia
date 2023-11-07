@@ -1,4 +1,5 @@
 #include "..\..\..\include\Entidades\Personagens\Personagem.hpp"
+#include <iostream>
 namespace Entidades{
     namespace Personagens{
         Personagem::Personagem(const sf::Vector2f pos, const sf::Vector2f size, const Entidades::ID id):
@@ -16,7 +17,7 @@ namespace Entidades{
             if(mtv.y < 0.f){
                 onFloor = true;
                 jumpTimer.restart();
-            }     
+            }else{onFloor = false;}     
         }
 
         void Personagem::setVel(sf::Vector2f vel){this->vel = vel;}
