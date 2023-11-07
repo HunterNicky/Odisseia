@@ -2,6 +2,7 @@
 
 #include "Observer.hpp"
 #include "..\Entidades\Personagens\Jogador\Jogador.hpp"
+#include "..\Estados\MaquinaDeEstado.hpp"
 
 namespace Entidades{
     namespace Personagens{
@@ -12,9 +13,10 @@ namespace Entidades{
 namespace Observadores{
     class ControleJogador : public Observer{
         private:
+            static Estados::MaquinaDeEstado* pMaquinaDeEstado;
             Entidades::Personagens::Jogador* pJogador;
-            std::map<std::string, bool> keyPressed;
             std::string pular, esquerda, direita;
+            std::string fechar;
         public:
             ControleJogador(Entidades::Personagens::Jogador* pJogador);
             ~ControleJogador();

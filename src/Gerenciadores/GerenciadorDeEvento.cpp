@@ -3,6 +3,7 @@
 namespace Gerenciadores{
     GerenciadorDeEvento* GerenciadorDeEvento::pEvento = nullptr;
     GerenciadorGrafico* GerenciadorDeEvento::pGrafico = GerenciadorGrafico::getInstance();
+    
 
     GerenciadorDeEvento::GerenciadorDeEvento(){}
 
