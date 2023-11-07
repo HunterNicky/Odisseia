@@ -21,8 +21,7 @@
             }
 
             void Jogador::pular(){
-                std::cout<< onFloor << std::endl;
-                if (jumpTimer.getElapsedTime().asSeconds() < 0.5f && onFloor) {
+                if (jumpTimer.getElapsedTime().asSeconds() < 0.002f && onFloor) {
                     forca.y = -80.f;
                     onFloor = false;
                 }else{
@@ -36,7 +35,7 @@
                 }else{
                     forca.x = -10.f;
                 }
-                if(!onFloor) pular();
+                if(!(jumpTimer.getElapsedTime().asSeconds() < 0.002f && onFloor)) pular();
             }
 
             void Jogador::parar(){
