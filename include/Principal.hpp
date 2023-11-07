@@ -1,7 +1,5 @@
 #pragma once
 
-#include "Entidades\Obstaculos\Caixa.hpp"
-#include "Entidades\Personagens\Inimigo\Inimigo.hpp"
 #include "Gerenciadores\GerenciadorGrafico.hpp"
 #include "Lista\ListaDeEntidades.hpp"
 #include "Estados\MaquinaDeEstado.hpp"
