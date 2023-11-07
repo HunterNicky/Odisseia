@@ -16,6 +16,8 @@ namespace Entidades{
 
         void Personagem::setAcc(sf::Vector2f acc){this->acc = acc;}
 
+        void Personagem::setForca(sf::Vector2f forca){this->forca = forca;}
+
         void Personagem::setMassa(float massa){this->massa = massa;}
 
         const sf::Vector2f Personagem::getVel() const{return vel;}

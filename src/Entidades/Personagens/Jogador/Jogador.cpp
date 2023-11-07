@@ -16,8 +16,9 @@ namespace Entidades{
 
         Jogador::~Jogador(){}   
 
-        void Jogador::operator--(){
-            num_vidas--;
+        void Jogador::operator--(const int dano){
+            std::cout << num_vidas << std::endl;
+            num_vidas-=dano;
         }
 
         void Jogador::move(){   
@@ -29,7 +30,7 @@ namespace Entidades{
             if(pInimigo){
                 if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space)){
                     Entidades::Personagens::Personagem* pPers = static_cast<Entidades::Personagens::Personagem*>(pInimigo);
-                    pPers->operator--();
+                    pPers->operator--(2);
                     //deletar personagem
                 }
             }
@@ -42,6 +43,16 @@ namespace Entidades{
                 neutralizarInimigo(entidade);
                 break;
             case (ID::Plataforma):
+                entidade->tratarColisao(static_cast<Entidades::Entidade*>(this));
+                break;
+            case (ID::Caixa):
+                entidade->tratarColisao(static_cast<Entidades::Entidade*>(this));
+                break;
+            case (ID::Gosma):
+                entidade->tratarColisao(static_cast<Entidades::Entidade*>(this));
+                break;
+            case (ID::Lava):
+                entidade->tratarColisao(static_cast<Entidades::Entidade*>(this));
                 break;
             default:
                 break;

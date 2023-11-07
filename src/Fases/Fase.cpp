@@ -22,15 +22,37 @@ namespace Fases{
         pJogador->setGerenciadorDeColisao(&gerenciadorDeColisao);
         LE.push_back(static_cast<Entidades::Entidade*>(pJogador));
     }
-    void Fase::newInimigo(sf::Vector2f pos, sf::Vector2f size){
-        Entidades::Personagens::InimigoFacil* pInimigo = new Entidades::Personagens::InimigoFacil(pos, size, Entidades::ID::Inimigo, this->pJogador);
+    void Fase::newInimigo(sf::Vector2f pos, sf::Vector2f size){/*
+        for(unsigned int i = 0; i < LE.getSize(); i++){
+            if(LE[i]->getId() == Entidades::ID::jogador)
+            {
+                pJogador = static_cast<Entidades::Personagens::Jogador*>(LE[i]);
+            }
+        }*/
+        Entidades::Personagens::InimigoFacil* pInimigo = new Entidades::Personagens::InimigoFacil(pos, size, Entidades::ID::Inimigo, nullptr);
         pInimigo->setGerenciadorDeColisao(&gerenciadorDeColisao);
         LE.push_back(static_cast<Entidades::Entidade*>(pInimigo));
     }
-    void Fase::newObstaculo(sf::Vector2f pos, sf::Vector2f size){
+    void Fase::newPlataforma(sf::Vector2f pos, sf::Vector2f size){
         Entidades::Obstaculos::ObstaculoFacil* pObstaculoFacil = new Entidades::Obstaculos::ObstaculoFacil(pos, size, Entidades::ID::Plataforma);
         pObstaculoFacil->setGerenciadorDeColisao(&gerenciadorDeColisao);
         LE.push_back(static_cast<Entidades::Entidade*>(pObstaculoFacil));
+    }
+    void Fase::newObstaculo(sf::Vector2f pos, sf::Vector2f size){
+        Entidades::Obstaculos::ObstaculoFacil* pObstaculoFacil = new Entidades::Obstaculos::ObstaculoFacil(pos, size, Entidades::ID::Caixa);
+        pObstaculoFacil->setGerenciadorDeColisao(&gerenciadorDeColisao);
+        LE.push_back(static_cast<Entidades::Entidade*>(pObstaculoFacil));
+    }
+    void Fase::newGosma(sf::Vector2f pos, sf::Vector2f size){
+        Entidades::Obstaculos::Gosma* pObstaculoMedio = new Entidades::Obstaculos::Gosma(pos, size, Entidades::ID::Gosma);
+        pObstaculoMedio->setGerenciadorDeColisao(&gerenciadorDeColisao);
+        LE.push_back(static_cast<Entidades::Entidade*>(pObstaculoMedio));
+    }
+
+    void Fase::newLava(sf::Vector2f pos, sf::Vector2f size){
+    Entidades::Obstaculos::Lava* pObstaculoDificil = new Entidades::Obstaculos::Lava(pos, size, Entidades::ID::Lava);
+    pObstaculoDificil->setGerenciadorDeColisao(&gerenciadorDeColisao);
+    LE.push_back(static_cast<Entidades::Entidade*>(pObstaculoDificil));
     }
 
     void Fase::draw(){   //Verifica vida dos personagens

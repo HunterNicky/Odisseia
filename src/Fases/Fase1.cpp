@@ -27,7 +27,19 @@ namespace Fases{
                 break;
             case '3':
                 pos.x += 200.f;
-                newObstaculo(pos, sf::Vector2f(200.f, 50.f));
+                newPlataforma(pos, sf::Vector2f(200.f, 50.f));
+                break;
+            case 'c':
+                pos.x += 40.0f;
+                newObstaculo(pos, sf::Vector2f(40.0f, 50.0f));
+                break;
+            case 'g':
+                pos.x += 40.0f;
+                newGosma(pos, sf::Vector2f(40.0f, 10.0f));
+                break;
+            case 'l':
+                pos.x += 40.0f;
+                newLava(pos, sf::Vector2f(40.0f, 10.0f));
                 break;
             default:
                 pos.x = 0;

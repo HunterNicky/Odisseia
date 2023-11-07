@@ -11,7 +11,7 @@ namespace Entidades{
             ~Obstaculo();
             virtual void executar() = 0;
             virtual void update() = 0;
-            virtual void tratarColisao(Entidade* entidade) ;
+            virtual void tratarColisao(Entidade* entidade);
         };
     }
 }

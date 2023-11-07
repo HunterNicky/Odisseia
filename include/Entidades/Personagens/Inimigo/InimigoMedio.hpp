@@ -8,7 +8,7 @@ namespace Entidades{
         public:
             InimigoMedio();
             ~InimigoMedio();
-            void operator--();
+            void operator--(const int dano);
             void movimentoAleatorio();
             void move();
             void danificar(Entidade* entidade);

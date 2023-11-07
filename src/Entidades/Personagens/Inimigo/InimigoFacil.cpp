@@ -4,11 +4,11 @@ namespace Entidades{
     namespace Personagens{
         void InimigoFacil::inicializa(){
             vel = sf::Vector2f(0.1f, 0.1f);
-            body->setFillColor(sf::Color::Blue);
+            body->setFillColor(sf::Color::Red);
             range = 200;
             srand(time(NULL));
             moveAleatorio = rand()%4;
-            num_vidas = 1000;
+            num_vidas = 10;
         }
 
         InimigoFacil::InimigoFacil(const sf::Vector2f pos, const sf::Vector2f size, const Entidades::ID id, Entidades::Personagens::Jogador* pJog):
@@ -19,8 +19,8 @@ namespace Entidades{
 
         }
 
-        void InimigoFacil::operator--(){
-            num_vidas--;
+        void InimigoFacil::operator--(const int dano){
+            num_vidas-=dano;
         }
 
         void InimigoFacil::persegueJogador(sf::Vector2f posJogador, sf::Vector2f posInimigo){
@@ -69,7 +69,7 @@ namespace Entidades{
         void InimigoFacil::danificar(Entidade* pJogador){
             if(pJogador){
                 Entidades::Personagens::Personagem* pPers = static_cast<Entidades::Personagens::Personagem*>(pJogador);
-                pPers->operator--();
+                pPers->operator--(1);
             }
         }
 

@@ -15,7 +15,7 @@ namespace Entidades{
         public:
             InimigoFacil(const sf::Vector2f pos, const sf::Vector2f size, const Entidades::ID id, Entidades::Personagens::Jogador* pJog);
             ~InimigoFacil();
-            void operator--();
+            void operator--(const int dano);
             void persegueJogador(sf::Vector2f posJogador, sf::Vector2f posInimigo);
             void movimentoAleatorio();
             void move();

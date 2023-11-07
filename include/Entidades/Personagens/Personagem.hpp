@@ -19,6 +19,7 @@ namespace Entidades{
             virtual void update() = 0;
             void setVel(sf::Vector2f vel);
             void setAcc(sf::Vector2f acc);
+            void setForca(sf::Vector2f forca);
             void setMassa(float massa);
             const sf::Vector2f getVel() const;
             const sf::Vector2f getAcc() const;
@@ -26,7 +27,7 @@ namespace Entidades{
             const float getMass() const;
             const int getNum_vidas() const;
             virtual void tratarColisao(Entidade* entidade) = 0;
-            virtual void operator--() = 0;
+            virtual void operator--(const int dano) = 0;
         };
     }
 }

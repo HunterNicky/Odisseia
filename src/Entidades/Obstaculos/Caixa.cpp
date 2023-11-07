@@ -10,8 +10,7 @@ namespace Entidades{
         ObstaculoFacil::~ObstaculoFacil(){
 
         }
-        void ObstaculoFacil::tratarColisao()
-        {
+        void ObstaculoFacil::tratarColisao(Entidade* entidade){
             
         }
         void ObstaculoFacil::executar(){
