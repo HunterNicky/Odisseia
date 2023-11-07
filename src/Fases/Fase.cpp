@@ -3,13 +3,16 @@
 
 namespace Fases{
     Gerenciadores::GerenciadorGrafico* Fase::pGrafico = Gerenciadores::GerenciadorGrafico::getInstance();
+    Gerenciadores::GerenciadorDeEvento* Fase::pEvento = Gerenciadores::GerenciadorDeEvento::getInstance();
 
     Fase::Fase():
+    gerenciadorFisico(&LE){
+        pJogador = nullptr;
+        controle = new Observadores::ControleJogador(pJogador);
         Ente(), gerenciadorFisico(&LE)
     {
         gerenciadorDeColisao.setList(&LE);
-        //pJogador = new Entidades::Personagens::Jogador(sf::Vector2f(200.f, 200.f), sf::Vector2f(20.f,60.f), Entidades::ID::jogador);
-        //LE.push_back(static_cast<Entidades::Entidade*>(pJogador));
+        pEvento->addObserver(static_cast<Observadores::Observer*>(controle));
     }
     Fase::~Fase(){
         for(unsigned int i = 0; i < LE.getSize(); i++){
@@ -20,6 +23,7 @@ namespace Fases{
     void Fase::newJogador(sf::Vector2f pos, sf::Vector2f size){
         pJogador = new Entidades::Personagens::Jogador(pos, size, Entidades::ID::jogador);
         pJogador->setGerenciadorDeColisao(&gerenciadorDeColisao);
+        controle->setJogador(pJogador);
         LE.push_back(static_cast<Entidades::Entidade*>(pJogador));
     }
     void Fase::newInimigo(sf::Vector2f pos, sf::Vector2f size){/*
@@ -69,7 +73,7 @@ namespace Fases{
 
     void Fase::executar(){
         if(pJogador){
-            pGrafico->setViewCenter(pJogador->getBody()->getPosition());//esse é o jogador a posição 0
+            pGrafico->setViewCenter(pJogador->getBody()->getPosition());
             LE.updateAll();
             LE.drawAll();
             gerenciadorFisico.update();

@@ -15,5 +15,8 @@ namespace Entidades{
         void Obstaculo::tratarColisao(Entidade* entidade){
 
         }
+
+        void Obstaculo::verificaSolo(sf::Vector2f mtv){
+        }
     }
 }

@@ -21,10 +21,10 @@ namespace Entidades{
             num_vidas-=dano;
         }
 
-        void Jogador::move(){   
-            Entidade::body->move(vel);
-            gColisao->checkCollision(static_cast<Entidades::Entidade*>(this));
-        }
+            void Jogador::move(){   
+                Entidade::body->move(vel);
+                gColisao->checkCollision(static_cast<Entidades::Entidade*>(this));
+            }
 
         void Jogador::neutralizarInimigo(Entidade* pInimigo){
             if(pInimigo){
@@ -74,14 +74,17 @@ namespace Entidades{
                 KeyPressed = true;
             }
 
-            if(!KeyPressed){
-                forca *= 0.f;
+            void Jogador::parar(){
+                forca.x = 0;
             }
-            move();
-        } 
 
-        void Jogador::update(){
-            executar();
-        }
+            void Jogador::executar(){
+                move();
+            }
+
+            void Jogador::update(){
+                executar();
+            }
+            void Personagens::Jogador::tratarColisao(){}
     }
 }

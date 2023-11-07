@@ -13,6 +13,8 @@ namespace Fases{
     class Fase: public Ente{
         protected:
             static Gerenciadores::GerenciadorGrafico* pGrafico;
+            static Gerenciadores::GerenciadorDeEvento* pEvento;
+            Observadores::ControleJogador* controle;
             Gerenciadores::GerenciadorFisico gerenciadorFisico;
             Gerenciadores::GerenciadorDeColisao gerenciadorDeColisao;
             Entidades::Personagens::Jogador* pJogador;
