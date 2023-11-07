@@ -15,5 +15,8 @@ namespace Entidades{
         void ObstaculoFacil::update(){
             executar();
         }
+        void Obstaculos::ObstaculoFacil::tratarColisao()
+        {
+        }
     }
 }

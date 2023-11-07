@@ -48,5 +48,9 @@ namespace Entidades{
             executar();
         }
 
+        void Inimigo::tratarColisao()
+        {
+        }
     }
+
 }

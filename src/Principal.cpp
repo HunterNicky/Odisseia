@@ -14,27 +14,8 @@ Principal :: ~Principal(){
 }
 void Principal::executar(){
 
-    while(pGrafico->isWindowOpen())
-    {
-        
-        sf::Event evento;
-        if(pGrafico->pollEvent(evento))
-        {
-            if(evento.type == sf::Event::Closed)
-            {
-                pGrafico->close();
-            }
-            else if(evento.type == sf::Event::KeyPressed)
-            {
-                if(evento.key.code == sf::Keyboard::Escape)
-                {
-                    pGrafico->close();
-                }
-            }
-        }
-        //pGrafico->clear();
+    while(pGrafico->isWindowOpen()){
         primeiraFase.executar();
-        //pGrafico->display();
     }
 }
 

@@ -27,7 +27,7 @@ namespace Fases{
                 break;
             default:
                 pos.x = 0;
-                pos.y += 200.f;
+                pos.y += 60.f;
                 break;
             }
         }

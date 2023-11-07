@@ -15,6 +15,7 @@ namespace Entidades{
             void move();
             void executar();
             void update();
+            void tratarColisao();
         };
     }
 }

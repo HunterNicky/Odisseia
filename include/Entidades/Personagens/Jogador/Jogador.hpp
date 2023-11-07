@@ -11,8 +11,12 @@ namespace Entidades{
             Jogador(const sf::Vector2f pos, const sf::Vector2f size, const int id);
             ~Jogador();
             void move();
+            void pular();
+            void direcionar(bool side);
+            void parar();
             void executar();
             void update();
+            void tratarColisao();
         };
     }
 }

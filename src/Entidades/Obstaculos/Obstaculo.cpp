@@ -11,5 +11,7 @@ namespace Entidades{
         Obstaculo::~Obstaculo(){
             
         }
+        void Obstaculo::verificaSolo(sf::Vector2f mtv){
+        }
     }
 }
