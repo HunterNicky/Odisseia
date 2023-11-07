@@ -17,9 +17,8 @@ namespace Entidades{
             Personagem(const sf::Vector2f pos, const sf::Vector2f size, const Entidades::ID id);
             ~Personagem();
             void move();
-            virtual void executar() = 0;
-            virtual void update() = 0;
-            virtual void tratarColisao() = 0;
+            virtual void operator--(const int dano) = 0;
+            virtual void tratarColisao(Entidade* entidade) = 0;
             virtual void verificaSolo(const sf::Vector2f mtv);
             void setVel(sf::Vector2f vel);
             void setAcc(sf::Vector2f acc);
@@ -31,8 +30,8 @@ namespace Entidades{
             const sf::Vector2f getForca() const;
             const float getMass() const;
             const int getNum_vidas() const;
-            virtual void tratarColisao(Entidade* entidade) = 0;
-            virtual void operator--(const int dano) = 0;
+            virtual void executar() = 0;
+            virtual void update() = 0;
         };
     }
 }

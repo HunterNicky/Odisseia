@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Entidades\Obstaculos\ObstaculoFacil.hpp"
+#include "Entidades\Obstaculos\Caixa.hpp"
 #include "Entidades\Personagens\Inimigo\Inimigo.hpp"
 #include "Gerenciadores\GerenciadorGrafico.hpp"
 #include "Lista\ListaDeEntidades.hpp"
@@ -14,7 +14,7 @@ private:
     static Estados::MaquinaDeEstado* pMaquinaDeEstado;
     sf::RenderWindow window;
     Lista::ListaDeEntidades LE;
-    Fases::Fase1 primeiraFase;
+    Estados::Fases::Fase1 primeiraFase;
 public:
     Principal();
     ~Principal();

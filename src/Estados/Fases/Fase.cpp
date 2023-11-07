@@ -8,8 +8,7 @@ namespace Estados{
         Estados::MaquinaDeEstado* Fase::pMaquinaDeEstado = Estados::MaquinaDeEstado::getInstance();
 
         Fase::Fase():
-        gerenciadorFisico(&LE),
-        Estado(pMaquinaDeEstado, 1){
+            Estado(pMaquinaDeEstado, 1), gerenciadorFisico(&LE){
             pJogador = nullptr;
             controle = new Observadores::ControleJogador(pJogador);
             gerenciadorDeColisao.setList(&LE);
@@ -23,18 +22,18 @@ namespace Estados{
             pGrafico->close();
         }
         void Fase::newJogador(sf::Vector2f pos, sf::Vector2f size){
-            pJogador = new Entidades::Personagens::Jogador(pos, size, 1);
+            pJogador = new Entidades::Personagens::Jogador(pos, size, Entidades::ID::jogador);
             pJogador->setGerenciadorDeColisao(&gerenciadorDeColisao);
             controle->setJogador(pJogador);
             LE.push_back(static_cast<Entidades::Entidade*>(pJogador));
         }
         void Fase::newInimigo(sf::Vector2f pos, sf::Vector2f size){
-            Entidades::Personagens::Inimigo* pInimigo = new Entidades::Personagens::Inimigo(pos, size, 2, pJogador);
+            Entidades::Personagens::InimigoFacil* pInimigo = new Entidades::Personagens::InimigoFacil(pos, size, Entidades::ID::Inimigo, pJogador);
             pInimigo->setGerenciadorDeColisao(&gerenciadorDeColisao);
             LE.push_back(static_cast<Entidades::Entidade*>(pInimigo));
         }
         void Fase::newObstaculo(sf::Vector2f pos, sf::Vector2f size){
-            Entidades::Obstaculos::ObstaculoFacil* pObstaculoFacil = new Entidades::Obstaculos::ObstaculoFacil(pos, size, 3);
+            Entidades::Obstaculos::ObstaculoFacil* pObstaculoFacil = new Entidades::Obstaculos::ObstaculoFacil(pos, size, Entidades::ID::Plataforma);
             pObstaculoFacil->setGerenciadorDeColisao(&gerenciadorDeColisao);
             LE.push_back(static_cast<Entidades::Entidade*>(pObstaculoFacil));
         }

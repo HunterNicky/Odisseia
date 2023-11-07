@@ -14,6 +14,8 @@ namespace Entidades{
             void move();
             void neutralizarInimigo(Entidade* pInimigo);
             void tratarColisao(Entidade* entidade);
+            void pular();
+            void direcionar(bool side);
             void parar();
             void executar();
             void update();

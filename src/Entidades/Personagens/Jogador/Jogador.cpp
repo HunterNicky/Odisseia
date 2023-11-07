@@ -58,23 +58,24 @@ namespace Entidades{
                 break;
             }
         }
-            void Jogador::pular(){
-                if (jumpTimer.getElapsedTime().asSeconds() < 0.002f && onFloor) {
-                    forca.y = -80.f;
-                    onFloor = false;
-                }else{
-                    forca.y = 0;
-                }
-            }
 
-            void Jogador::direcionar(bool side){
-                if(side){
-                    forca.x = 10.f; 
-                }else{
-                    forca.x = -10.f;
-                }
-                if(!(jumpTimer.getElapsedTime().asSeconds() < 0.002f && onFloor)) pular();
+        void Jogador::pular(){
+            if (jumpTimer.getElapsedTime().asSeconds() < 0.002f && onFloor) {
+                forca.y = -80.f;
+                onFloor = false;
+            }else{
+                forca.y = 0;
             }
+        }
+
+        void Jogador::direcionar(bool side){
+            if(side){
+                forca.x = 10.f; 
+            }else{
+                forca.x = -10.f;
+            }
+            if(!(jumpTimer.getElapsedTime().asSeconds() < 0.002f && onFloor)) pular();
+        }
 
         void Jogador::parar(){
             forca.x = 0;
