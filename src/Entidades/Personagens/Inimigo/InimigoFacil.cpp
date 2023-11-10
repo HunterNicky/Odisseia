@@ -66,9 +66,9 @@ namespace Entidades{
             gColisao->checkCollision(static_cast<Entidades::Entidade*>(this));
         }
 
-        void InimigoFacil::danificar(Entidade* pJogador){
-            if(pJogador){
-                Entidades::Personagens::Personagem* pPers = static_cast<Entidades::Personagens::Personagem*>(pJogador);
+        void InimigoFacil::danificar(Entidade* entidade){
+            if(entidade){
+                Entidades::Personagens::Personagem* pPers = static_cast<Entidades::Personagens::Personagem*>(entidade);
                 pPers->operator--(1);
             }
         }

@@ -27,14 +27,21 @@ namespace Estados{
                 case '2':
                     pos.x += 20.f;
                     newInimigo(pos, sf::Vector2f(20.f, 30.f));
+                case 'i':
+                    pos.x += 20.f;
+                    newInimigoMedio(pos, sf::Vector2f(20.f, 30.f));
                     break;
                 case '3':
                     pos.x += 200.f;
                     newObstaculo(pos, sf::Vector2f(200.f, 50.f));
                     break;
+                case 'l':
+                    pos.x += 40.f;
+                    newLava(pos, sf::Vector2f(50.f, 10.f));
+                    break;
                 default:
                     pos.x = 0;
-                    pos.y += 60.f;
+                    pos.y += 50.f;
                     break;
                 }
             }

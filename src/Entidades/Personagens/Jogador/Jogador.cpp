@@ -70,9 +70,9 @@ namespace Entidades{
 
         void Jogador::direcionar(bool side){
             if(side){
-                forca.x = 10.f; 
+                forca.x = 100.f; 
             }else{
-                forca.x = -10.f;
+                forca.x = -100.f;
             }
             if(!(jumpTimer.getElapsedTime().asSeconds() < 0.002f && onFloor)) pular();
         }
@@ -82,21 +82,7 @@ namespace Entidades{
         }
 
         void Jogador::executar(){
-            bool KeyPressed = false;
-
-            if(sf::Keyboard::isKeyPressed(sf::Keyboard::A)){
-                forca = sf::Vector2f(-10.f, 0.f); 
-                KeyPressed = true;
-            }
-            else if(sf::Keyboard::isKeyPressed(sf::Keyboard::D)){
-                forca = sf::Vector2f(10.f, 0.f); 
-                KeyPressed = true;
-            }
-
-            if(sf::Keyboard::isKeyPressed(sf::Keyboard::W)){
-                forca += sf::Vector2f(0.f, -100.f);
-                KeyPressed = true;
-            }
+            move();
         }        
         void Jogador::update(){
             executar();

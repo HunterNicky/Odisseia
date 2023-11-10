@@ -32,24 +32,56 @@ namespace Estados{
             pInimigo->setGerenciadorDeColisao(&gerenciadorDeColisao);
             LE.push_back(static_cast<Entidades::Entidade*>(pInimigo));
         }
+        void Fase::newInimigoMedio(sf::Vector2f pos, sf::Vector2f size){
+            Entidades::Personagens::InimigoMedio* pInimigo = new Entidades::Personagens::InimigoMedio(pos, size, Entidades::ID::Inimigo, pJogador);
+            pInimigo->setGerenciadorDeColisao(&gerenciadorDeColisao);
+            LE.push_back(static_cast<Entidades::Entidade*>(pInimigo));
+        }
+        /*
+        void Fase::newProjetil(sf::Vector2f pos, sf::Vector2f size){
+            Entidades::Projetil* pProj = new Entidades::Projetil(pos, size, Entidades::ID::Projetil);
+            pProj->setGerenciadorDeColisao(&gerenciadorDeColisao);
+            LE.push_back(static_cast<Entidades::Entidade*>(pProj));
+        }
+        */
         void Fase::newObstaculo(sf::Vector2f pos, sf::Vector2f size){
             Entidades::Obstaculos::ObstaculoFacil* pObstaculoFacil = new Entidades::Obstaculos::ObstaculoFacil(pos, size, Entidades::ID::Plataforma);
             pObstaculoFacil->setGerenciadorDeColisao(&gerenciadorDeColisao);
             LE.push_back(static_cast<Entidades::Entidade*>(pObstaculoFacil));
         }
-        void Fase::update(){
-            executar();
+
+        void Fase::newLava(sf::Vector2f pos, sf::Vector2f size){
+            Entidades::Obstaculos::Lava* pLava = new Entidades::Obstaculos::Lava(pos, size, Entidades::ID::Lava);
+            pLava->setGerenciadorDeColisao(&gerenciadorDeColisao);
+            LE.push_back(static_cast<Entidades::Entidade*>(pLava));
         }
+
+        void Fase::updateVida(){
+            for(unsigned int i = 0; i < LE.getSize(); i++){
+                if((LE[i]->getId() == Entidades::ID::Inimigo) || (LE[i]->getId() == Entidades::ID::jogador)){
+                    Entidades::Personagens::Personagem* pPers = static_cast<Entidades::Personagens::Personagem*>(LE[i]);
+                    if(pPers->getNum_vidas() < 0)
+                        LE.remove(i);
+                }
+            }
+
+        }
+
         void Fase::executar(){
             if(pJogador){
                 pGrafico->setViewCenter(pJogador->getBody()->getPosition());
                 pEvento->stage();
                 LE.updateAll();
                 LE.drawAll();
+                updateVida();
                 gerenciadorFisico.update();
                 pGrafico->display();
                 pGrafico->clear();
             }
+        }
+
+        void Fase::update(){
+            executar();
         }
     }
 }

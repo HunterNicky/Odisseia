@@ -12,7 +12,8 @@ namespace Entidades{
         Plataforma,
         Caixa, 
         Gosma,
-        Lava
+        Lava,
+        Projetil
     };
 
     class Entidade : public Ente{
