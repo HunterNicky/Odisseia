@@ -43,6 +43,7 @@ namespace Entidades{
             sf::Vector2f posInimigo = getBody()->getPosition();
             
             if(fabs(posJogador.x - posInimigo.x) < RANGE){
+                forca.x = 0.0f;
                 atirarProjetil(posInimigo);
             }
             else{
