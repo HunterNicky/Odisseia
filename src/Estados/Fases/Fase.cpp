@@ -14,6 +14,7 @@ namespace Estados{
             controle = new Observadores::ControleJogador(pJogador);
             gerenciadorDeColisao.setList(&LE);
             pEvento->addObserver(static_cast<Observadores::Observer*>(controle));
+            dt = 0.f, alpha = 0.f;
         }
         Fase::~Fase(){
             for(unsigned int i = 0; i < LE.getSize(); i++){
@@ -38,7 +39,9 @@ namespace Estados{
             pObstaculoFacil->setGerenciadorDeColisao(&gerenciadorDeColisao);
             LE.push_back(static_cast<Entidades::Entidade*>(pObstaculoFacil));
         }
-        void Fase::update(){
+        void Fase::update(double dt, double alpha){
+            this->dt = dt;
+            this->alpha = alpha;
             executar();
         }
         void Fase::executar(){
@@ -47,9 +50,7 @@ namespace Estados{
                 pEvento->stage();
                 LE.updateAll();
                 LE.drawAll();
-                gerenciadorFisico.update();
-                pGrafico->display();
-                pGrafico->clear();
+                gerenciadorFisico.update(dt, alpha);
             }
         }
     }

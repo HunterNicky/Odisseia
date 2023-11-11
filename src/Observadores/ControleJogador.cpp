@@ -32,7 +32,6 @@ namespace Observadores{
     }
 
     void ControleJogador::notifyReleased(std::string key){
-        
         if(pJogador){
             if(key == direita){
                 pJogador->parar();

@@ -15,7 +15,7 @@ namespace Gerenciadores{
         public:
             GerenciadorFisico(Lista::ListaDeEntidades* listaEntidades);
             ~GerenciadorFisico();
-            void update();
+            void update(double dt, double alpha);
             void calVel(Entidades::Personagens::Personagem* personagem);
             void calAcc(Entidades::Personagens::Personagem* personagem);
             float getDeltaTime() const;

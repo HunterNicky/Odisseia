@@ -11,6 +11,10 @@ namespace Estados{
     }
 
     MaquinaDeEstado::MaquinaDeEstado(){
+        if (!estadoStack.empty()){
+            delete estadoStack.top();
+            estadoStack.pop();
+        }
     }
 
     MaquinaDeEstado::~MaquinaDeEstado(){
@@ -32,9 +36,9 @@ namespace Estados{
         pushEstado(estado);
     }
 
-    void MaquinaDeEstado::atualizarEstadoAtual(){
+    void MaquinaDeEstado::atualizarEstadoAtual(double dt, double alpha){
         if(!estadoStack.empty()){
-            estadoStack.top()->update();
+            estadoStack.top()->update(dt, alpha);
         }
     }
 

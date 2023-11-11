@@ -10,7 +10,7 @@ namespace Gerenciadores {
 
     float GerenciadorFisico::getDeltaTime()const{return deltaTime;}
 
-    void GerenciadorFisico::update(){
+    void GerenciadorFisico::update(double dt, double alpha){
         Lista::ListaDeEntidades* listaEntidades = LE;
         deltaTime = clock.restart().asSeconds();
         for(unsigned int i = 0; i < listaEntidades->getSize(); i++){

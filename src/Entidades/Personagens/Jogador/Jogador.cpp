@@ -21,8 +21,8 @@
             }
 
             void Jogador::pular(){
-                if (jumpTimer.getElapsedTime().asSeconds() < 0.002f && onFloor) {
-                    forca.y = -80.f;
+                if (jumpTimer.getElapsedTime().asSeconds() < 0.022f && onFloor) {
+                    forca.y = -800.f;
                     onFloor = false;
                 }else{
                     forca.y = 0;
@@ -35,7 +35,7 @@
                 }else{
                     forca.x = -10.f;
                 }
-                if(!(jumpTimer.getElapsedTime().asSeconds() < 0.002f && onFloor)) pular();
+                if(!(jumpTimer.getElapsedTime().asSeconds() < 0.022f && onFloor)) pular();
             }
 
             void Jogador::parar(){

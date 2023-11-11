@@ -24,14 +24,16 @@ namespace Estados{
                 Gerenciadores::GerenciadorDeColisao gerenciadorDeColisao;
                 Entidades::Personagens::Jogador* pJogador;
                 Lista::ListaDeEntidades LE;
+                double dt, alpha;
             public:
                 Fase();
                 ~Fase();
                 void newJogador(sf::Vector2f pos, sf::Vector2f size);
                 void newInimigo(sf::Vector2f pos, sf::Vector2f size);
                 void newObstaculo(sf::Vector2f pos, sf::Vector2f size);
-                void update();
+                void update(double dt, double alpha);
                 void executar();
+                virtual void draw() = 0;
                 //virtual void resetEstate() = 0;
                 virtual void loadMap() = 0;
         };
