@@ -10,7 +10,7 @@ namespace Entidades{
             moveAleatorio = (int)rand()%2;
             num_vidas = 100;
         }
-        InimigoMedio::InimigoMedio(const sf::Vector2f pos, const sf::Vector2f size, const Entidades::ID id, Entidades::Personagens::Jogador* pJog):   
+        InimigoMedio::InimigoMedio(const sf::Vector2f pos, const sf::Vector2f size, const Entidades::ID id, Entidades::Personagens::Jogador* pJog, Entidades::Projetil* pProj):   
             Inimigo(pos, size, id, pJog){
             nivel_maldade = (int)rand()%2;
             inicializa();
@@ -31,7 +31,11 @@ namespace Entidades{
         }
 
         void InimigoMedio::atirarProjetil(sf::Vector2f pos){
+            
+        }
 
+        void InimigoMedio::setProjetil(Entidades::Projetil* pProj){
+            this->pProj = pProj;
         }
 
         void InimigoMedio::move(){

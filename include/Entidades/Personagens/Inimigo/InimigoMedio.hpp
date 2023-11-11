@@ -9,16 +9,17 @@ namespace Entidades{
     namespace Personagens{
         class InimigoMedio: public Inimigo{
         private:
-           //Entidades::Projetil* pProj;
+            Entidades::Projetil* pProj;
             int dano;
             int moveAleatorio;
             void inicializa();
         public:
-            InimigoMedio(const sf::Vector2f pos, const sf::Vector2f size, const Entidades::ID id, Entidades::Personagens::Jogador* pJog);
+            InimigoMedio(const sf::Vector2f pos, const sf::Vector2f size, const Entidades::ID id, Entidades::Personagens::Jogador* pJog, Entidades::Projetil* pProj);
             ~InimigoMedio();
             void operator--(const int dano);
             void movimentoAleatorio();
             void atirarProjetil(sf::Vector2f pos);
+            void setProjetil(Entidades::Projetil* pProj);
             void move();
             void danificar(Entidade* entidade);
             void tratarColisao(Entidade* entidade);

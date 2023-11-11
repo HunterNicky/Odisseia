@@ -33,8 +33,13 @@ namespace Estados{
             LE.push_back(static_cast<Entidades::Entidade*>(pInimigo));
         }
         void Fase::newInimigoMedio(sf::Vector2f pos, sf::Vector2f size){
-            Entidades::Personagens::InimigoMedio* pInimigo = new Entidades::Personagens::InimigoMedio(pos, size, Entidades::ID::Inimigo, pJogador);
+            Entidades::Projetil* pProj = new Entidades::Projetil();
+            Entidades::Personagens::InimigoMedio* pInimigo = new Entidades::Personagens::InimigoMedio(pos, size, Entidades::ID::Inimigo, pJogador, pProj);
+            pInimigo->setProjetil(pProj);
             pInimigo->setGerenciadorDeColisao(&gerenciadorDeColisao);
+            pProj->setPersonagem(dynamic_cast<Entidades::Personagens::Personagem*>(pInimigo));
+            pProj->setGerenciadorDeColisao(&gerenciadorDeColisao);
+            LE.push_back(static_cast<Entidades::Entidade*>(pProj));
             LE.push_back(static_cast<Entidades::Entidade*>(pInimigo));
         }
         /*

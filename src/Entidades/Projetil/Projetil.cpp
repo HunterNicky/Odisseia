@@ -4,10 +4,11 @@ namespace Entidades{
     //Dano do projetil
     int Projetil::dano(20);
 
-    Projetil::Projetil(const sf::Vector2f pos, const sf::Vector2f size, const Entidades::ID id):
-        Entidade(pos, size, id)
+    Projetil::Projetil():
+        Entidade(sf::Vector2f(100.0f, 100.0f), sf::Vector2f(10.0f, 10.0f), Entidades::ID::Projetil), vel(sf::Vector2f(0.1f, 0.01f))
     {
         body->setFillColor(sf::Color::Green);
+        
     }
 
     Projetil::~Projetil(){
@@ -24,12 +25,17 @@ namespace Entidades{
 
     }
 
+    void Projetil::setPersonagem(Entidades::Personagens::Personagem* pPers){
+        this->pPers = pPers;
+    }
+
     void Projetil::draw(){
         pGrafico->draw(body);
     }
 
     void Projetil::executar(){
-
+        body->move(vel);
+        gColisao->checkCollision(static_cast<Entidades::Entidade*>(this));
     }
 
     void Projetil::update(){
