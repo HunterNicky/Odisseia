@@ -22,7 +22,7 @@ namespace Estados{
                     break;
                 case '1':
                     pos.x += 20.f;
-                    newJogador(pos,sf::Vector2f(30.f, 50.f));
+                    newJogador(pos+sf::Vector2f(100.f, -200.f),sf::Vector2f(30.f, 50.f));
                     break;
                 case '2':
                     pos.x += 20.f;

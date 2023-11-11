@@ -7,8 +7,8 @@ namespace Gerenciadores{
 
     void GerenciadorDeColisao::setList(Lista::ListaDeEntidades* LE){this->LE = LE;}
 
-    void GerenciadorDeColisao::Notify(Entidades::Entidade* entidade, Entidades::Entidade* entidade2 ,const sf::Vector2f mtv) const{
-        entidade->getBody()->move(mtv);
+    void GerenciadorDeColisao::Notify(Entidades::Entidade* entidade, Entidades::Entidade* entidade2 ,const sf::Vector2f mtv) const{  
+        entidade->setPos(sf::Vector2f(entidade->getPos().x + mtv.x, entidade->getPos().y + mtv.y));
         entidade->verificaSolo(mtv);
         if(entidade->getId() == 1 && entidade2->getId()==2)entidade->tratarColisao();
         if(entidade->getId() == 2 && entidade2->getId()==1)entidade2->tratarColisao();

@@ -6,7 +6,7 @@ namespace Observadores{
     ControleJogador::ControleJogador(Entidades::Personagens::Jogador *pJogador):
     Observer(),
     pJogador(pJogador),
-    pular("W"), esquerda("A"), direita("D"), fechar("Escape"){
+    pular("W"), esquerda("A"), direita("D"), fechar("Escape"), ativo(true){
     }
 
     ControleJogador::~ControleJogador(){
@@ -44,4 +44,7 @@ namespace Observadores{
         }
     }
 
+    void ControleJogador::setAtivo(const bool ativo){
+        this->ativo = ativo;
+    }
 }

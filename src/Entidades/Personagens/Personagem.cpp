@@ -4,7 +4,8 @@ namespace Entidades{
     namespace Personagens{
         Personagem::Personagem(const sf::Vector2f pos, const sf::Vector2f size, int id):
             Entidade(pos, size, id),
-            massa(20)    
+            prevPos(pos),    
+            massa(20)
         {
             jumpTimer.restart();
         }
@@ -17,14 +18,13 @@ namespace Entidades{
         void Personagem::verificaSolo(const sf::Vector2f mtv){
             if(mtv.y < 0.f){
                 onFloor = true;
-                jumpTimer.restart();
             }else{onFloor = false;}     
         }
-        void Personagem::setAcc(sf::Vector2f acc) { this->acc = acc; }
+        void Personagem::setAcc(sf::Vector2f acc) { this->acc = acc;}
 
         void Personagem::setMassa(float massa){this->massa = massa;}
 
-        const sf::Vector2f Personagem::getVel() const { return vel; }
+        const sf::Vector2f Personagem::getVel() const { return vel;}
 
         void Personagem::setOnFloor(bool floor){this->onFloor = floor;}
 
@@ -34,8 +34,12 @@ namespace Entidades{
 
         const float Personagem::getMass() const{return massa;}
 
+        void Personagem::setPrevPos(sf::Vector2f prevPos){this->prevPos = prevPos;}
+
+        const sf::Vector2f Personagem::getPrevPos() const{return prevPos;}
+
         void Personagem::move(){
-            Entidade::body->move(vel);
+            Entidade::body->setPosition(pos);
             gColisao->checkCollision(static_cast<Entidades::Entidade*>(this));
         }
     }

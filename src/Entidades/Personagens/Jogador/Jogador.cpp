@@ -3,7 +3,7 @@
     namespace Entidades{
         namespace Personagens{
             void Jogador::inicializa(){
-                vel = sf::Vector2f(0.1f, 0.1f);
+                vel = sf::Vector2f(0.0f, 0.0f);
                 body->setFillColor(sf::Color::Blue);
             }
 
@@ -16,13 +16,13 @@
             Jogador::~Jogador(){}   
 
             void Jogador::move(){   
-                Entidade::body->move(vel);
+                Entidade::body->setPosition(pos);
                 gColisao->checkCollision(static_cast<Entidades::Entidade*>(this));
             }
 
             void Jogador::pular(){
-                if (jumpTimer.getElapsedTime().asSeconds() < 0.022f && onFloor) {
-                    forca.y = -800.f;
+                if (onFloor) {
+                    forca.y = -20000.f;
                     onFloor = false;
                 }else{
                     forca.y = 0;
@@ -31,11 +31,11 @@
 
             void Jogador::direcionar(bool side){
                 if(side){
-                    forca.x = 10.f; 
+                    forca.x = 3000.f; 
                 }else{
-                    forca.x = -10.f;
+                    forca.x = -3000.f;
                 }
-                if(!(jumpTimer.getElapsedTime().asSeconds() < 0.022f && onFloor)) pular();
+                if(!(onFloor)) pular();
             }
 
             void Jogador::parar(){

@@ -12,16 +12,24 @@ namespace Estados{
         pEvento->addObserver(static_cast<Observadores::Observer*>(pControlMenu));
         t = 0.0;
         dt = 0.01;
-        currentTime = 0.0;
+        currentTime = clock.getElapsedTime().asSeconds();
         accumulator = 0.0;
+
         executar();
     }
 
-    Jogo::~Jogo() {
+    Jogo::~Jogo(){
     }
 
-    void Jogo::executar() {
-        while (pGrafico->isWindowOpen()) {
+    void Jogo::atualizarJogo(){
+        pEvento->stage();
+        t += dt;
+        pMaquinaDeEstado->atualizarEstadoAtual(dt, 1.f);
+    }
+
+    void Jogo::executar(){
+        while (pGrafico->isWindowOpen()){
+            pGrafico->clear();
 
             double newTime = clock.getElapsedTime().asSeconds();
             double frameTime = newTime - currentTime;
@@ -29,17 +37,14 @@ namespace Estados{
                 frameTime = 0.16;
             currentTime = newTime;
             accumulator += frameTime;
-            pEvento->stage();
+
             while (accumulator >= dt){
-                pGrafico->clear();
-                t += dt;
-                const double alpha = accumulator / dt;
+                atualizarJogo();
                 accumulator -= dt;
-                pMaquinaDeEstado->atualizarEstadoAtual(dt, alpha);
             }
+
             pMaquinaDeEstado->desenharEstadoAtual();
             pGrafico->display();
-
         }
     }
 }

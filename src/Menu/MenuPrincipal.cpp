@@ -29,7 +29,6 @@ namespace Menu{
     }
 
     void MenuPrincipal::update(double dt, double alpha){
-        draw();
     }
 
     void MenuPrincipal::draw(){

@@ -12,6 +12,7 @@ namespace Observadores{
     class ControleMenu : public Observer{
         private:
             static Estados::MaquinaDeEstado* pMaquinaDeEstado;
+            bool ativo;
             Menu::Menu* pMenu;
             std::string cima, baixo, enter;
             std::string fechar;
@@ -21,5 +22,6 @@ namespace Observadores{
             void setMenu(Menu::Menu* pMenu);
             void notifyPressed(std::string key);
             void notifyReleased(std::string key);
+            void setAtivo(const bool ativo);
     };
 }

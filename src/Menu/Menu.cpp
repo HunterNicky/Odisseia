@@ -22,7 +22,6 @@ namespace Menu{
 
     void Menu::update(){
         pGrafico->setViewCenter(sf::Vector2f(0, 0));
-        draw();
     }
 
     void Menu::draw() {

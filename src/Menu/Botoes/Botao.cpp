@@ -32,7 +32,6 @@ namespace Menu{
             pGrafico->draw(body);
         }
         void Botao::update(){
-            draw();
         }
         void Botao::executar()
         {

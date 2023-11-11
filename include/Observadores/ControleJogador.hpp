@@ -14,6 +14,7 @@ namespace Observadores{
     class ControleJogador : public Observer{
         private:
             static Estados::MaquinaDeEstado* pMaquinaDeEstado;
+            bool ativo;
             Entidades::Personagens::Jogador* pJogador;
             std::string pular, esquerda, direita;
             std::string fechar;
@@ -23,5 +24,6 @@ namespace Observadores{
             void setJogador(Entidades::Personagens::Jogador* pJogador);
             void notifyPressed(std::string key);
             void notifyReleased(std::string key);
+            void setAtivo(const bool ativo);
     };
 }

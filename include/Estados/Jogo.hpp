@@ -21,6 +21,7 @@ namespace Estados{
         Jogo();
         ~Jogo();
         void executar();
+        void atualizarJogo();
     };
 
 }
