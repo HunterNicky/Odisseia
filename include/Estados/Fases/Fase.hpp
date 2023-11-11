@@ -15,7 +15,7 @@
 namespace Estados{
     namespace Fases{
         class Fase : public Estados::Estado{
-            private:
+            protected:
                 static Gerenciadores::GerenciadorGrafico* pGrafico;
                 static Gerenciadores::GerenciadorDeEvento* pEvento;
                 static MaquinaDeEstado* pMaquinaDeEstado;
@@ -33,7 +33,7 @@ namespace Estados{
                 void newObstaculo(sf::Vector2f pos, sf::Vector2f size);
                 void update(double dt, double alpha);
                 void executar();
-                virtual void draw() = 0;
+                void draw();
                 //virtual void resetEstate() = 0;
                 virtual void loadMap() = 0;
         };

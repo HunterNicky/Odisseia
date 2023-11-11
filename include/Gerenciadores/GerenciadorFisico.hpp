@@ -10,8 +10,8 @@ namespace Gerenciadores{
     class GerenciadorFisico{
         private:
             Lista::ListaDeEntidades* LE;
-            sf::Clock clock;
-            float deltaTime;
+            double dt, alpha;
+
         public:
             GerenciadorFisico(Lista::ListaDeEntidades* listaEntidades);
             ~GerenciadorFisico();

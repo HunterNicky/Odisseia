@@ -18,6 +18,7 @@ namespace Estados {
         void popEstado();
         void trocarEstado(Estado* estado);
         void atualizarEstadoAtual(double dt, double alpha);
+        void desenharEstadoAtual();
         Estado* getEstadoAtual() const;
     };
 }

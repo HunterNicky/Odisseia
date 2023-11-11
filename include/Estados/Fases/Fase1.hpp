@@ -10,9 +10,9 @@ namespace Estados{
                 Fase1();
                 ~Fase1();
                 void loadMap();
-                virtual void draw();
-                virtual void update();
-                virtual void executar();
+                void draw();
+                void update();
+                void executar();
         };
     }
 }

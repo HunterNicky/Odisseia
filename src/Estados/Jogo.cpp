@@ -25,25 +25,21 @@ namespace Estados{
 
             double newTime = clock.getElapsedTime().asSeconds();
             double frameTime = newTime - currentTime;
-            if (frameTime > 0.25)
-                frameTime = 0.25;
+            if (frameTime > 0.16)
+                frameTime = 0.16;
             currentTime = newTime;
             accumulator += frameTime;
-            while (accumulator >= dt){
-                t += dt;
-                accumulator -= dt;
-            }
-            const double alpha = accumulator / dt;
-
-            std::cout << alpha << std::endl;
-
-            pGrafico->clear();
-
             pEvento->stage();
-
-            pMaquinaDeEstado->atualizarEstadoAtual(dt, alpha);
-
+            while (accumulator >= dt){
+                pGrafico->clear();
+                t += dt;
+                const double alpha = accumulator / dt;
+                accumulator -= dt;
+                pMaquinaDeEstado->atualizarEstadoAtual(dt, alpha);
+            }
+            pMaquinaDeEstado->desenharEstadoAtual();
             pGrafico->display();
+
         }
     }
 }

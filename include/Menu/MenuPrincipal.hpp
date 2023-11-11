@@ -10,7 +10,7 @@ namespace Estados{
 }
 
 namespace Menu{
-    class MenuPrincipal : public Menu, public Estados::Estado{
+    class MenuPrincipal : public Menu{
         private:
             static Estados::MaquinaDeEstado* pMaquinaDeEstado;
             Estados::Jogo* pJogo;
@@ -20,6 +20,6 @@ namespace Menu{
             ~MenuPrincipal();
             void executar();
             void update(double dt, double alpha) override;
-            void draw() override;  // Adicionado override aqui
+            void draw() override;
     };
 }

@@ -1,5 +1,4 @@
 #include "..\..\..\include\Estados\Fases\Fase.hpp"
-#include <iostream>
 
 namespace Estados{
     namespace Fases{
@@ -8,8 +7,8 @@ namespace Estados{
         Estados::MaquinaDeEstado* Fase::pMaquinaDeEstado = Estados::MaquinaDeEstado::getInstance();
 
         Fase::Fase():
-        gerenciadorFisico(&LE),
-        Estado(pMaquinaDeEstado, 1){
+        Estado(pMaquinaDeEstado, 1),
+        gerenciadorFisico(&LE){
             pJogador = nullptr;
             controle = new Observadores::ControleJogador(pJogador);
             gerenciadorDeColisao.setList(&LE);
@@ -49,9 +48,11 @@ namespace Estados{
                 pGrafico->setViewCenter(pJogador->getBody()->getPosition());
                 pEvento->stage();
                 LE.updateAll();
-                LE.drawAll();
                 gerenciadorFisico.update(dt, alpha);
             }
+        }
+        void Fase::draw(){
+            LE.drawAll();
         }
     }
 }

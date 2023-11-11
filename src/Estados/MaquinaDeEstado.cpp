@@ -42,6 +42,12 @@ namespace Estados{
         }
     }
 
+    void MaquinaDeEstado::desenharEstadoAtual(){
+        if(!estadoStack.empty()){
+            estadoStack.top()->draw();
+        }
+    }
+
     Estado* MaquinaDeEstado::getEstadoAtual()const{
         return !estadoStack.empty() ? estadoStack.top():nullptr;
     }

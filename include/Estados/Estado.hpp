@@ -14,10 +14,9 @@ namespace Estados{
         virtual ~Estado();
         void setMaquinaDeEstado(MaquinaDeEstado* pMaquinaDeEstado);
         unsigned int getID() const;
-        virtual void update(double dt, double alpha);
+        virtual void update(double dt, double alpha) = 0;
         virtual void executar() = 0;
         virtual void draw() = 0;
-        //virtual void resetEstate() = 0;
     };
 
 }

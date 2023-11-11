@@ -5,7 +5,6 @@ namespace Menu{
 
     MenuPrincipal::MenuPrincipal(Estados::Jogo* pJogo):
     Menu(),
-    Estado(static_cast<Estados::MaquinaDeEstado*>(pMaquinaDeEstado), 0),
     pJogo(pJogo){
         Botoes::Botao* pBotao = NULL;
         fase1 = new Estados::Fases::Fase1();

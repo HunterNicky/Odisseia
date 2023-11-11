@@ -40,6 +40,15 @@ namespace Estados{
             }
             file.close();
         }
+        void Fases::Fase1::draw(){
+            Fase::draw();
+        }
+
+        void Estados::Fases::Fase1::update(){
+        }
+
+        void Estados::Fases::Fase1::executar(){
+            Fase::executar();
+        }
     }
 }
-

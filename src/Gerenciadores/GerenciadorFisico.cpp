@@ -4,15 +4,16 @@
 
 namespace Gerenciadores {
     GerenciadorFisico::GerenciadorFisico(Lista::ListaDeEntidades* listaEntidades): 
-    LE(listaEntidades), deltaTime(0.0f){}
+    LE(listaEntidades), dt(0.0f), alpha(0.0f){}
 
     GerenciadorFisico::~GerenciadorFisico(){}
 
-    float GerenciadorFisico::getDeltaTime()const{return deltaTime;}
+    float GerenciadorFisico::getDeltaTime()const{return dt;}
 
     void GerenciadorFisico::update(double dt, double alpha){
+        this->dt = dt;
+        this->alpha = alpha;
         Lista::ListaDeEntidades* listaEntidades = LE;
-        deltaTime = clock.restart().asSeconds();
         for(unsigned int i = 0; i < listaEntidades->getSize(); i++){
             Entidades::Entidade* entidade = (*listaEntidades)[i];
             if(entidade->getId() == 1 || entidade->getId() == 2){
@@ -42,7 +43,8 @@ namespace Gerenciadores {
             vel.x *= 0.999f;
             vel.y *= 0.999f;
         }else{
-            vel += acc * deltaTime;
+            vel.x += acc.x * dt * alpha;
+            vel.y += acc.y * dt * alpha;
         }
         float velocidadeAtual = std::sqrt(vel.x * vel.x + vel.y * vel.y);
         if(velocidadeAtual > velocidadeMaxima){

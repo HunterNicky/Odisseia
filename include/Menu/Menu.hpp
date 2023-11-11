@@ -3,6 +3,7 @@
 #include <list>
 #include "..\Ente.hpp"
 #include "..\Observadores\ControleMenu.hpp"
+#include "..\Estados\Estado.hpp"
 #include "Botoes/Botao.hpp"
 
 namespace Observadores{
@@ -10,8 +11,9 @@ namespace Observadores{
 }
 
 namespace Menu{
-    class Menu : public Ente{
+    class Menu : public Estados::Estado{
         protected:
+            static Estados::MaquinaDeEstado* pMaquinaDeEstado;
             Observadores::ControleMenu* controleMenu;
             std::list<Botoes::Botao*> lBotao;
             std::list<Botoes::Botao*>::iterator it;

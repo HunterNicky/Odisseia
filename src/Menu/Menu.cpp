@@ -1,7 +1,11 @@
 #include "../../include/Menu/Menu.hpp"
 namespace Menu{
+    Estados::MaquinaDeEstado* Menu::pMaquinaDeEstado = Estados::MaquinaDeEstado::getInstance();
+
     Menu::Menu():
-    Ente(sf::Vector2f(0,0), sf::Vector2f(1280, 720)), controleMenu(new Observadores::ControleMenu(this)), numSelec(0), numOpc(3){
+    Estado(static_cast<Estados::MaquinaDeEstado*>(pMaquinaDeEstado), 0),
+    controleMenu(new Observadores::ControleMenu(this)), numSelec(0), numOpc(3)
+    {
         controleMenu->setMenu(this);
     }
 
