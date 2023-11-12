@@ -18,15 +18,15 @@ namespace Entidades{
 
         void Inimigo::persegueJogador(sf::Vector2f posJogador, sf::Vector2f posInimigo){
             if(posJogador.x - posInimigo.x > 0.0f){
-                forca.x = 15.f;
+                forca.x = 2500.f;
             }else{
-                forca.x = -15.f;
+                forca.x = -2500.f;
             }
 
             if(posJogador.y - posInimigo.y > 0.0f){
-                forca.y = 100.f;
+                forca.y = 20000.f;
             }else{
-                forca.y = -100.f;
+                forca.y = -20000.f;
             }
         }
 

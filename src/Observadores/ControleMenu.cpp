@@ -6,7 +6,7 @@ namespace Observadores{
     ControleMenu::ControleMenu(Menu::Menu* pMenu):
     Observer(),
     pMenu(pMenu),
-    cima("Up"), baixo("Down"), fechar("Escape"), enter("Enter"), ativo(true){
+    cima("Up"), baixo("Down"), fechar("Escape"), enter("Enter"){
     }
 
     ControleMenu::~ControleMenu(){
@@ -17,7 +17,7 @@ namespace Observadores{
     }
     void ControleMenu::notifyPressed(std::string key){
         if(pMaquinaDeEstado->getEstadoAtual() == static_cast<Estados::Estado*>(pMenu)){
-            if(pMenu){
+            if(pMenu && pMaquinaDeEstado->getEstadoAtual()->getAtivo()){
                 if(key == cima){
                     pMenu->select(true);
                 }else if(key == baixo){
@@ -34,9 +34,4 @@ namespace Observadores{
     }
 
     void ControleMenu::notifyReleased(std::string key){}
-    void ControleMenu::setAtivo(const bool ativo)
-    {
-        this->ativo = ativo;
-    }
-
 }

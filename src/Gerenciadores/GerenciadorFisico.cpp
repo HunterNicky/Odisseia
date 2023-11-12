@@ -42,5 +42,7 @@ namespace Gerenciadores{
         position.y += (position.y - personagem->getPrevPos().y) + (acc.y * (dt * dt) * alpha);
         personagem->setPrevPos(OldPosition);
         personagem->setPos(position);
+
+        personagem->setVel(position - OldPosition);
     }
 }

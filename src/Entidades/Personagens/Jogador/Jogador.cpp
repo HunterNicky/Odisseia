@@ -49,6 +49,13 @@
             void Jogador::update(){
                 executar();
             }
-            void Personagens::Jogador::tratarColisao(){}
+            void Personagens::Jogador::tratarColisao(){
+                sf::Vector2f aux;
+                aux -= vel;
+                aux.x *= 0.01f;
+                aux.y *= 0.01f;
+                pos += aux;
+                std::cout << aux.x << "|" << aux.y << std::endl;
+            }
     }
 }

@@ -21,6 +21,8 @@ namespace Estados{
     }
 
     void MaquinaDeEstado::pushEstado(Estado* estado){
+        if(!estadoStack.empty())
+                estadoStack.top()->setAtivo(false);
         estadoStack.push(estado);
     }
 
@@ -28,6 +30,8 @@ namespace Estados{
         if (!estadoStack.empty()){
             delete estadoStack.top();
             estadoStack.pop();
+            if(!estadoStack.empty())
+                estadoStack.top()->setAtivo(true);
         }
     }
 

@@ -9,10 +9,13 @@ namespace Estados{
     protected:
         MaquinaDeEstado* pMaquinaDeEstado;
         unsigned int id;
+        bool ativo;
     public:
         Estado(MaquinaDeEstado* pMaquinaDeEstado, unsigned int id);
         virtual ~Estado();
         void setMaquinaDeEstado(MaquinaDeEstado* pMaquinaDeEstado);
+        const bool getAtivo() const;
+        void setAtivo(const bool ativo);
         unsigned int getID() const;
         virtual void update(double dt, double alpha) = 0;
         virtual void executar() = 0;

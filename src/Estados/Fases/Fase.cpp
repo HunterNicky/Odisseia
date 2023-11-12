@@ -20,7 +20,7 @@ namespace Estados{
                 LE.remove(i);
             }
             LE.clear();
-            pGrafico->close();
+            pEvento->removeObserver(static_cast<Observadores::Observer*>(controle));
         }
         void Fase::newJogador(sf::Vector2f pos, sf::Vector2f size){
             pJogador = new Entidades::Personagens::Jogador(pos, size, 1);

@@ -6,7 +6,7 @@ namespace Observadores{
     ControleJogador::ControleJogador(Entidades::Personagens::Jogador *pJogador):
     Observer(),
     pJogador(pJogador),
-    pular("W"), esquerda("A"), direita("D"), fechar("Escape"), ativo(true){
+    pular("W"), esquerda("A"), direita("D"), fechar("Escape"){
     }
 
     ControleJogador::~ControleJogador(){
@@ -16,7 +16,7 @@ namespace Observadores{
         this->pJogador = pJogador;
     }
     void ControleJogador::notifyPressed(std::string key){
-        if(pJogador){
+        if(pJogador && pMaquinaDeEstado->getEstadoAtual()->getAtivo()){
             if(key == direita){
                 pJogador->direcionar(true);
             }else if(key == esquerda){
@@ -42,9 +42,5 @@ namespace Observadores{
                 pJogador->pular();
             }
         }
-    }
-
-    void ControleJogador::setAtivo(const bool ativo){
-        this->ativo = ativo;
     }
 }

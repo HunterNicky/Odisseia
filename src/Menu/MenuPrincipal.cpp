@@ -7,7 +7,7 @@ namespace Menu{
     Menu(),
     pJogo(pJogo){
         Botoes::Botao* pBotao = NULL;
-        fase1 = new Estados::Fases::Fase1();
+        fase1 = NULL;
 
         pBotao = new Botoes::Botao(sf::Vector2f(1280 / 2.0f, 720 / 3), "Jogar");
         pBotao->selecionado(true);
@@ -29,6 +29,7 @@ namespace Menu{
     }
 
     void MenuPrincipal::update(double dt, double alpha){
+        Menu::update();
     }
 
     void MenuPrincipal::draw(){
@@ -41,6 +42,8 @@ namespace Menu{
     void MenuPrincipal::executar(){
         switch(numSelec){
             case 0:
+                //delete (fase1);
+                fase1 = new Estados::Fases::Fase1();
                 pMaquinaDeEstado->pushEstado(static_cast<Estados::Estado*>(fase1));
                 break;
             case 1:

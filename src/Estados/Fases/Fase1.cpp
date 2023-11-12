@@ -18,7 +18,7 @@ namespace Estados{
                 switch (numero)
                 {
                 case '0':
-                    pos.x += 20.f;
+                    pos.x += 200.f;
                     break;
                 case '1':
                     pos.x += 20.f;
@@ -30,11 +30,11 @@ namespace Estados{
                     break;
                 case '3':
                     pos.x += 200.f;
-                    newObstaculo(pos, sf::Vector2f(200.f, 50.f));
+                    newObstaculo(pos, sf::Vector2f(200.f, 200.f));
                     break;
                 default:
                     pos.x = 0;
-                    pos.y += 60.f;
+                    pos.y += 200.f;
                     break;
                 }
             }
