@@ -45,12 +45,11 @@ namespace Menu{
                 it--;
             }
         }else{
-            if (it == --lBotao.end()){
+            it++;
+            numSelec++;
+            if (it == lBotao.end()) {
                 it = lBotao.begin();
                 numSelec = 0;
-            }else{
-                it++;
-                numSelec++;
             }
         }
         (*it)->selecionado(true);
