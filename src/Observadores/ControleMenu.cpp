@@ -6,7 +6,7 @@ namespace Observadores{
     ControleMenu::ControleMenu(Menu::Menu* pMenu):
     Observer(),
     pMenu(pMenu),
-    cima("Up"), baixo("Down"), fechar("Escape"), enter("Enter"){
+    cima("Up"), baixo("Down"), enter("Enter"), fechar("Escape"){
     }
 
     ControleMenu::~ControleMenu(){

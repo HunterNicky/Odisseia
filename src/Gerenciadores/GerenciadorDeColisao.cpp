@@ -29,7 +29,7 @@ namespace Gerenciadores{
             if (projection.y < (rs1.height + rs2.height)) {
                 overlap.y = rs1.height + rs2.height - projection.y;
                 mtv->x = mtv->y = 0;
-                if (overlap.x - overlap.y < -0.5f) {
+                if (overlap.x - overlap.y < 0.f) {
                     mtv->x = overlap.x * (rs1.left < rs2.left ? -1 : 1);
                 } else {
                     mtv->y = overlap.y * (rs1.top < rs2.top ? -1 : 1);

@@ -4,7 +4,7 @@ namespace Menu{
 
     Menu::Menu():
     Estado(static_cast<Estados::MaquinaDeEstado*>(pMaquinaDeEstado), 0),
-    controleMenu(new Observadores::ControleMenu(this)), numSelec(0), numOpc(3)
+    controleMenu(new Observadores::ControleMenu(this)), numOpc(3), numSelec(0)
     {
         controleMenu->setMenu(this);
     }
@@ -21,7 +21,9 @@ namespace Menu{
     }
 
     void Menu::update(){
-        pGrafico->setViewCenter(sf::Vector2f(0, 0));
+        std::list<Botoes::Botao*>::iterator it2;
+        it2 = lBotao.begin();
+        pGrafico->setViewCenter((*it2)->getPos());
     }
 
     void Menu::draw() {
@@ -33,18 +35,17 @@ namespace Menu{
     }
     
     void Menu::select(const bool direcao){
-        it = lBotao.end();
         (*it)->selecionado(false);
         if (direcao){
             if (it == lBotao.begin()){
-                it = lBotao.end();
-                numSelec = (numOpc - 1);
+                it = --lBotao.end();
+                numSelec = numOpc - 1;
             }else{
                 numSelec--;
                 it--;
             }
         }else{
-            if (it == lBotao.end()){
+            if (it == --lBotao.end()){
                 it = lBotao.begin();
                 numSelec = 0;
             }else{

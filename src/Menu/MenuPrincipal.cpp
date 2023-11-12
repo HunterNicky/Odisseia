@@ -1,4 +1,5 @@
 #include "..\..\include\Menu\MenuPrincipal.hpp"
+#include "Menu/Menu.hpp"
 
 namespace Menu{
     Estados::MaquinaDeEstado* MenuPrincipal::pMaquinaDeEstado = Estados::MaquinaDeEstado::getInstance();
@@ -9,19 +10,19 @@ namespace Menu{
         Botoes::Botao* pBotao = NULL;
         fase1 = NULL;
 
-        pBotao = new Botoes::Botao(sf::Vector2f(1280 / 2.0f, 720 / 3), "Jogar");
+        pBotao = new Botoes::Botao(sf::Vector2f(1280 / 2.0f, 720.f / 3), "Jogar");
         pBotao->selecionado(true);
-        lBotao.push_back(pBotao);
-        it = lBotao.begin();
+        Menu::lBotao.push_back(pBotao);
+        Menu::it = Menu::lBotao.begin();
 
-        pBotao = new Botoes::Botao(sf::Vector2f(1280 / 2.0f, 720 / 3 + 100), "Pontação");
-        lBotao.push_back(pBotao);
+        pBotao = new Botoes::Botao(sf::Vector2f(1280 / 2.0f, 720.f / 3 + 100), "Pontação");
+        Menu::lBotao.push_back(pBotao);
 
-        pBotao = new Botoes::Botao(sf::Vector2f(1280 / 2.0f, 720 / 3 + 200), "Configuração");
-        lBotao.push_back(pBotao);
+        pBotao = new Botoes::Botao(sf::Vector2f(1280 / 2.0f, 720.f / 3 + 200), "Configuração");
+        Menu::lBotao.push_back(pBotao);
 
-        pBotao = new Botoes::Botao(sf::Vector2f(1280 / 2.0f, 720 / 3 + 300), "Sair");
-        lBotao.push_back(pBotao);
+        pBotao = new Botoes::Botao(sf::Vector2f(1280 / 2.0f, 720.f / 3 + 300), "Sair");
+        Menu::lBotao.push_back(pBotao);
         numOpc = 3;
     }
 
@@ -33,16 +34,12 @@ namespace Menu{
     }
 
     void MenuPrincipal::draw(){
-        for (it = lBotao.begin(); it != lBotao.end(); ++it){
-            (*it)->draw();  
-            (*it)->update();
-        }
+        Menu::draw();
     }
 
     void MenuPrincipal::executar(){
         switch(numSelec){
             case 0:
-                //delete (fase1);
                 fase1 = new Estados::Fases::Fase1();
                 pMaquinaDeEstado->pushEstado(static_cast<Estados::Estado*>(fase1));
                 break;
@@ -51,6 +48,7 @@ namespace Menu{
             case 2:
                 break;
             case 3:
+                pMaquinaDeEstado->popEstado();
                 pGrafico->close();
                 break;
             default:
