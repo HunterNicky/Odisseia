@@ -2,16 +2,16 @@
 
 namespace Menu{
     namespace Botoes{
-        Botao::Botao(const sf::Vector2f pos, std::string stdTexto):
-            Ente(pos, sf::Vector2f(0, 0)), texto(pos, sf::Vector2f(100, 50), stdTexto, 30) {
+        Botao::Botao(const sf::Vector2f pos, std::string stdTexto) :
+            Ente(pos, sf::Vector2f(200, 100)), texto(pos, sf::Vector2f(200, 100), stdTexto, 30) {
             padraoT = new sf::Texture;
             selecionadoT = new sf::Texture;
             padraoT->loadFromFile("data/Botao/botao.png");
             selecionadoT->loadFromFile("data/Botao/botaoselect.png");
 
-            texto.setColor(sf::Color::White);
+            texto.setColor(sf::Color::Black);
 
-            body = new sf::RectangleShape(sf::Vector2f(100, 50));
+            body = new sf::RectangleShape(sf::Vector2f(200, 100));
             body->setPosition(pos);
             body->setTexture(padraoT);
         }
@@ -30,6 +30,7 @@ namespace Menu{
 
         void Botao::draw(){
             pGrafico->draw(body);
+            pGrafico->drawText(texto.getSfTexto());
         }
         void Botao::update(){
         }

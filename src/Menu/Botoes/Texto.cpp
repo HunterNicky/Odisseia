@@ -7,7 +7,7 @@ namespace Menu{
             fonte.loadFromFile("data/Font/froufrou.ttf");
             sfTexto.setFillColor(color);
             sfTexto.setFont(fonte);
-            sfTexto.setString(texto);
+            sfTexto.setString(std::string(texto));
             sfTexto.setCharacterSize(sizeFont);
             sfTexto.setPosition(pos);
         }
@@ -41,8 +41,8 @@ namespace Menu{
             return size;
         }
 
-        const sf::Text Texto::getSfTexto() const{
-            return sfTexto;
+        const sf::Text* Texto::getSfTexto() const{
+            return &sfTexto;
         }
 
         const std::string Texto::getText() const{

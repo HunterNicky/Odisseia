@@ -56,5 +56,10 @@ namespace Gerenciadores{
             std::cout << view.getCenter().x << " " << view.getCenter().y << std::endl;
         }
     }
+    void GerenciadorGrafico::drawText(const sf::Text *text){
+        if(isWindowOpen()){
+            window->draw(*text);
+        }
+    }
 }
 

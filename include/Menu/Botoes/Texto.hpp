@@ -25,7 +25,7 @@ namespace Menu{
                 void setFontSize(unsigned int tamanhoFonte);
                 const sf::Vector2f getPos() const;
                 const sf::Vector2f getSize() const;
-                const sf::Text getSfTexto() const;
+                const sf::Text* getSfTexto() const;
                 const std::string getText() const;
         };
     }

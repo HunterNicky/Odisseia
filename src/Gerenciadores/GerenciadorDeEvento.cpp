@@ -42,14 +42,14 @@ namespace Gerenciadores{
                 for(auto obs : lObserver){
                     if(obs && !removido)
                         obs->notifyPressed(obs->getKeyString(event.key.code));
-                    else
+                    if(removido)
                         break;
                 }
             }else if(event.type == sf::Event::KeyReleased  && !removido){
                 for(auto obs : lObserver){
                     if(obs && !removido)
                         obs->notifyReleased(obs->getKeyString(event.key.code));
-                    else
+                    if(removido)
                         break;
                 }
             }

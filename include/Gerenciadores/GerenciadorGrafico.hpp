@@ -18,6 +18,7 @@ namespace Gerenciadores{
             const bool isWindowOpen();
             const bool pollEvent(sf::Event &event);
             void draw(const sf::Drawable *drawable);
+            void drawText(const sf::Text *text);
             void setViewCenter(sf::Vector2f center);
     };
 }

@@ -23,7 +23,7 @@ namespace Menu{
     void Menu::update(){
         std::list<Botoes::Botao*>::iterator it2;
         it2 = lBotao.begin();
-        pGrafico->setViewCenter((*it2)->getPos());
+        pGrafico->setViewCenter(sf::Vector2f(1280.f/2, 720.f/2));
     }
 
     void Menu::draw() {

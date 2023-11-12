@@ -21,11 +21,11 @@ namespace Estados{
                     pos.x += 200.f;
                     break;
                 case '1':
-                    pos.x += 20.f;
+                    pos.x += 200.f;
                     newJogador(pos+sf::Vector2f(100.f, -200.f),sf::Vector2f(30.f, 50.f));
                     break;
                 case '2':
-                    pos.x += 20.f;
+                    pos.x += 200.f;
                     newInimigo(pos, sf::Vector2f(20.f, 30.f));
                     break;
                 case '3':
