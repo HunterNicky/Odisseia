@@ -13,8 +13,6 @@ namespace Gerenciadores{
         entidade->verificaSolo(mtv);
         entidade->tratarColisao(entidade2);
         entidade2->tratarColisao(entidade);
-        //if(entidade->getId() == 1 && entidade2->getId()==2)entidade->tratarColisao(entidade2);
-        //if(entidade->getId() == 2 && entidade2->getId()==1)entidade2->tratarColisao(entidade);
     }
 
     bool GerenciadorDeColisao::collisionDetection(const sf::Drawable *drawable1, const sf::Drawable *drawable2, sf::Vector2f *mtv){

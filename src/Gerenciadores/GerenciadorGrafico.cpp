@@ -42,7 +42,7 @@ namespace Gerenciadores{
         }
     }
 
-    const bool GerenciadorGrafico::isWindowOpen(){
+    const bool GerenciadorGrafico::isWindowOpen() const{
         return window->isOpen();
     }
 
@@ -55,6 +55,14 @@ namespace Gerenciadores{
             view.setCenter(sf::Vector2f(center));
         }
     }
+    const sf::Vector2f GerenciadorGrafico::getViewCenter() const{
+        if(isWindowOpen()){
+            return view.getCenter();
+        }else{
+            return sf::Vector2f(0,0);
+        }
+    }
+
     void GerenciadorGrafico::drawText(const sf::Text *text){
         if(isWindowOpen()){
             window->draw(*text);
