@@ -1,6 +1,7 @@
 #pragma once
+
 #include "..\Ente.hpp"
-#include "..\Gerenciadores\GerenciadorDeColisao.hpp"
+
 namespace Gerenciadores{
     class GerenciadorDeColisao; 
     class GerenciadorFisico;

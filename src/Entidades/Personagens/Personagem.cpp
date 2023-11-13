@@ -1,6 +1,4 @@
 #include "..\..\..\include\Entidades\Personagens\Personagem.hpp"
-#include "Entidades/Entidade.hpp"
-#include "Gerenciadores/GerenciadorFisico.hpp"
 #include <iostream>
 namespace Entidades{
     namespace Personagens{
@@ -18,6 +16,8 @@ namespace Entidades{
                 onFloor = true;
             }else{onFloor = false;}     
         }
+        void Personagem::setVel(sf::Vector2f vel){ this->vel = vel;}
+
         void Personagem::setAcc(sf::Vector2f acc) { this->acc = acc;}
 
         void Personagem::setMassa(float massa){this->massa = massa;}

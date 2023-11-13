@@ -2,7 +2,6 @@
 
 #include <SFML/Graphics.hpp>
 #include "..\Lista\ListaDeEntidades.hpp"
-#include "Entidades/Entidade.hpp"
 #include "Mediator.hpp"
 
 namespace Gerenciadores{

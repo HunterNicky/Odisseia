@@ -1,5 +1,4 @@
 #include "..\..\include\Gerenciadores\GerenciadorDeColisao.hpp"
-#include "Entidades/Entidade.hpp"
 #include <iostream>
 
 namespace Gerenciadores{

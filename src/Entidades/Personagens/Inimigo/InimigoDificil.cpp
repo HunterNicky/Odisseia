@@ -24,7 +24,7 @@ namespace Entidades{
         }
         void InimigoDificil::move(){
             Entidade::body->move(vel);
-            gColisao->checkCollision(static_cast<Entidades::Entidade*>(this));
+            Entidade::gColisao->checkCollision(static_cast<Entidades::Entidade*>(this));
         }
 
         void InimigoDificil::danificar(Entidade* entidade){
