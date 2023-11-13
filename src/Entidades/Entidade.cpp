@@ -1,5 +1,5 @@
 #include "..\..\include\Entidades\Entidade.hpp"
-#include "Gerenciadores/GerenciadorFisico.hpp"
+
 namespace Entidades{
 
     Entidade::Entidade(const sf::Vector2f pos, const sf::Vector2f size, const Entidades::ID id):
