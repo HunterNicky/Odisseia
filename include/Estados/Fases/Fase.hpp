@@ -20,9 +20,9 @@ namespace Estados{
                 static Gerenciadores::GerenciadorGrafico* pGrafico;
                 static Gerenciadores::GerenciadorDeEvento* pEvento;
                 static Gerenciadores::GerenciadorFisico* pFisico;
+                static Gerenciadores::GerenciadorDeColisao* pColisao;
                 static MaquinaDeEstado* pMaquinaDeEstado;
                 Observadores::ControleJogador* controle;
-                Gerenciadores::GerenciadorDeColisao gerenciadorDeColisao;
                 Entidades::Personagens::Jogador* pJogador;
                 Lista::ListaDeEntidades LE;
                 double dt, alpha;

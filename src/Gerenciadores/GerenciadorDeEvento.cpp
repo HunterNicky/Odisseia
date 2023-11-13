@@ -10,6 +10,7 @@ namespace Gerenciadores{
 
     GerenciadorDeEvento::~GerenciadorDeEvento(){
         lObserver.clear();
+        delete(pEvento);
     }
 
     GerenciadorDeEvento *GerenciadorDeEvento::getInstance(){

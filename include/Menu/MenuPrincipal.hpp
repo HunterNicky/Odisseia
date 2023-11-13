@@ -21,5 +21,6 @@ namespace Menu{
             void executar();
             void update(double dt, double alpha) override;
             void draw() override;
+            void inicializaBotao();
     };
 }

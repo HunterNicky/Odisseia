@@ -9,7 +9,9 @@ namespace Gerenciadores{
 
     GerenciadorFisico::GerenciadorFisico():dt(0.0f), alpha(0.0f){}
 
-    GerenciadorFisico::~GerenciadorFisico(){}
+    GerenciadorFisico::~GerenciadorFisico(){
+        delete(instance);
+    }
 
     float GerenciadorFisico::getDeltaTime() const{return dt;}
 

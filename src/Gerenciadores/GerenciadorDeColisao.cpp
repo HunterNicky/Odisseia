@@ -3,10 +3,21 @@
 #include <iostream>
 
 namespace Gerenciadores{
+    GerenciadorDeColisao* GerenciadorDeColisao::instance = nullptr;
+
     GerenciadorDeColisao::GerenciadorDeColisao(){}
-    GerenciadorDeColisao::~GerenciadorDeColisao(){}
+    GerenciadorDeColisao::~GerenciadorDeColisao(){
+        delete(instance);
+    }
 
     void GerenciadorDeColisao::setList(Lista::ListaDeEntidades* LE){this->LE = LE;}
+
+    GerenciadorDeColisao* GerenciadorDeColisao::getInstance(){
+        if(instance == nullptr){
+            instance = new GerenciadorDeColisao();
+        }
+        return instance;
+    }
 
     void GerenciadorDeColisao::Notify(Entidades::Entidade* entidade, Entidades::Entidade* entidade2 ,const sf::Vector2f mtv) const{  
         entidade->setPos(sf::Vector2f(entidade->getPos().x + mtv.x, entidade->getPos().y + mtv.y));

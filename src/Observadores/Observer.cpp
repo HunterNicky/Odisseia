@@ -10,7 +10,7 @@ namespace Observadores{
         keyboard.clear();
     }
 
-    std::string Observer::getKeyString(sf::Keyboard::Key key){
+    std::string Observer::getKeyString(const sf::Keyboard::Key key){
         return keyboard[key];
     }
     void Observer::startKeys()

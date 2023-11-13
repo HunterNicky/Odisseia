@@ -6,13 +6,14 @@ namespace Estados{
         Gerenciadores::GerenciadorGrafico* Fase::pGrafico = Gerenciadores::GerenciadorGrafico::getInstance();
         Gerenciadores::GerenciadorDeEvento* Fase::pEvento = Gerenciadores::GerenciadorDeEvento::getInstance();
         Gerenciadores::GerenciadorFisico* Fase::pFisico = Gerenciadores::GerenciadorFisico::getInstance();
+        Gerenciadores::GerenciadorDeColisao* Fase::pColisao = Gerenciadores::GerenciadorDeColisao::getInstance();
         Estados::MaquinaDeEstado* Fase::pMaquinaDeEstado = Estados::MaquinaDeEstado::getInstance();
 
         Fase::Fase():
         Estado(pMaquinaDeEstado, 1){
             pJogador = nullptr;
             controle = new Observadores::ControleJogador(pJogador);
-            gerenciadorDeColisao.setList(&LE);
+            pColisao->setList(&LE);
             pEvento->addObserver(static_cast<Observadores::Observer*>(controle));
             dt = 0.f, alpha = 0.f;
         }
@@ -25,18 +26,18 @@ namespace Estados{
         }
         void Fase::newJogador(sf::Vector2f pos, sf::Vector2f size){
             pJogador = new Entidades::Personagens::Jogador(pos, size, 1);
-            pJogador->setGerenciadorDeColisao(&gerenciadorDeColisao);
+            pJogador->setGerenciadorDeColisao(pColisao);
             controle->setJogador(pJogador);
             LE.push_back(static_cast<Entidades::Entidade*>(pJogador));
         }
         void Fase::newInimigo(sf::Vector2f pos, sf::Vector2f size){
             Entidades::Personagens::Inimigo* pInimigo = new Entidades::Personagens::Inimigo(pos, size, 2, pJogador);
-            pInimigo->setGerenciadorDeColisao(&gerenciadorDeColisao);
+            pInimigo->setGerenciadorDeColisao(pColisao);
             LE.push_back(static_cast<Entidades::Entidade*>(pInimigo));
         }
         void Fase::newObstaculo(sf::Vector2f pos, sf::Vector2f size){
             Entidades::Obstaculos::ObstaculoFacil* pObstaculoFacil = new Entidades::Obstaculos::ObstaculoFacil(pos, size, 3);
-            pObstaculoFacil->setGerenciadorDeColisao(&gerenciadorDeColisao);
+            pObstaculoFacil->setGerenciadorDeColisao(pColisao);
             LE.push_back(static_cast<Entidades::Entidade*>(pObstaculoFacil));
         }
         void Fase::update(double dt, double alpha){

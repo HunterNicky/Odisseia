@@ -18,6 +18,7 @@ namespace Estados{
     }
 
     MaquinaDeEstado::~MaquinaDeEstado(){
+        delete(instance);
     }
 
     void MaquinaDeEstado::pushEstado(Estado* estado){

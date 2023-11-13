@@ -17,7 +17,7 @@ namespace Entidades{
         protected:
             int id;
             sf::RectangleShape* body;
-            Gerenciadores::GerenciadorDeColisao* gColisao;
+            static Gerenciadores::GerenciadorDeColisao* gColisao;
             static Gerenciadores::GerenciadorFisico* gFisico;
         public:
             Entidade(const sf::Vector2f pos, const sf::Vector2f size, const int id);

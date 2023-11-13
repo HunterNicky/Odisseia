@@ -13,8 +13,8 @@ class Ente{
         virtual ~Ente();
         sf::Vector2f getPos();
         sf::Vector2f getSize();
-        void setPos(sf::Vector2f pos);
-        void setSize(sf::Vector2f size);
+        void setPos(const sf::Vector2f pos);
+        void setSize(const sf::Vector2f size);
         virtual void draw() = 0;
         virtual void update() = 0;
         virtual void executar() = 0;

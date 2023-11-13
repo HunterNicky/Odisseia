@@ -15,7 +15,9 @@ namespace Gerenciadores{
     window(new sf::RenderWindow(sf::VideoMode(1280,720),"Minion++")),
     view(sf::Vector2f(1280.f/2,720.f/2), sf::Vector2f(1280,720)){}
 
-    GerenciadorGrafico::~GerenciadorGrafico(){}
+    GerenciadorGrafico::~GerenciadorGrafico(){
+        delete(instance);
+    }
 
     void GerenciadorGrafico::display(){
         if(isWindowOpen()){
