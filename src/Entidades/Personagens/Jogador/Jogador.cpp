@@ -60,12 +60,8 @@ namespace Entidades{
         }
 
         void Jogador::pular(){
-            if (jumpTimer.getElapsedTime().asSeconds() < 0.002f && onFloor) {
-                forca.y = -80.f;
-                onFloor = false;
-            }else{
-                forca.y = 0;
-            }
+            forca.y = -80.f;
+            onFloor = false;
         }
 
         void Jogador::direcionar(bool side){
@@ -74,7 +70,7 @@ namespace Entidades{
             }else{
                 forca.x = -100.f;
             }
-            if(!(jumpTimer.getElapsedTime().asSeconds() < 0.002f && onFloor)) pular();
+            //if(!(jumpTimer.getElapsedTime().asSeconds() < 0.002f && onFloor)) pular();
         }
 
         void Jogador::parar(){

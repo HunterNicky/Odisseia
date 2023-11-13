@@ -1,15 +1,19 @@
 #pragma once
 
 #include "Inimigo.hpp"
-#include "..\..\..\Estados\Fases\Fase.hpp"
 #include <math.h>
+namespace Estados{
+    namespace Fases{
+            class Fase;
+    }
+}
 
 #define RANGE 200.0f
 namespace Entidades{
     namespace Personagens{
         class InimigoMedio: public Inimigo{
         private:
-            Fase* pFase;
+            Estados::Fases::Fase* pFase;
             int dano;
             int moveAleatorio;
             void inicializa();

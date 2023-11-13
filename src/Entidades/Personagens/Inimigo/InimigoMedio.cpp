@@ -31,7 +31,6 @@ namespace Entidades{
         }
 
         void InimigoMedio::atirarProjetil(sf::Vector2f pos, const bool direita){
-            pFase->newProjetil(pos, direita);
         }
 
         void InimigoMedio::move(){
