@@ -14,8 +14,8 @@ namespace Entidades
         void Lava::tratarColisao(Entidade* entidade){
             if(entidade){
                 if(entidade->getId() == Entidades::ID::jogador){
-                    Entidades::Personagens::Personagem* pPers = static_cast<Entidades::Personagens::Personagem*>(entidade);
-                    pPers->operator--(2);
+                    //Entidades::Personagens::Personagem* pPers = static_cast<Entidades::Personagens::Personagem*>(entidade);
+                   //pPers->operator--(2);
                 }
             }
         }

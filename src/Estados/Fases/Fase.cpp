@@ -84,6 +84,7 @@ namespace Estados{
                 pEvento->stage();
                 pFisico->update(dt, alpha);
                 LE.updateAll();
+                draw();
                 pFisico->update(dt, alpha);
                 pGrafico->display();
                 pGrafico->clear();

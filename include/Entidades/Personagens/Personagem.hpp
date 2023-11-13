@@ -3,6 +3,7 @@
 #include "..\Entidade.hpp"
 
 namespace Entidades {
+    class Entidade;
     namespace Personagens {
         class Personagem : public Entidade {
         protected:

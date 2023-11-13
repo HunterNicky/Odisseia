@@ -31,10 +31,6 @@ namespace Entidades{
 
     }
 
-    void Projetil::setPersonagem(Entidades::Personagens::Personagem* pPers){
-        this->pPers = pPers;
-    }
-
     void Projetil::draw(){
         pGrafico->draw(body);
     }

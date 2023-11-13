@@ -61,7 +61,6 @@ namespace Entidades{
             else{
                 movimentoAleatorio();
             }
-
             Entidade::body->move(vel);
             gColisao->checkCollision(static_cast<Entidades::Entidade*>(this));
         }

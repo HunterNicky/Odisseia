@@ -1,4 +1,5 @@
 #include "..\..\..\..\include\Entidades\Personagens\Jogador\Jogador.hpp"
+
 #include <iostream>
 namespace Entidades{
     namespace Personagens{

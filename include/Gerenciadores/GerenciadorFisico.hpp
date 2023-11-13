@@ -2,10 +2,12 @@
 
 #include <SFML/Graphics.hpp>
 #include "..\..\include\Entidades\Personagens\Personagem.hpp"
-#include "..\..\include\Entidades\Entidade.hpp"
 
 namespace Entidades{
-    class Entidade;
+        class Entidade;
+    namespace Personagens{
+        class Personagem;
+    }
 }
 
 namespace Gerenciadores{

@@ -1,10 +1,11 @@
 #pragma once
 
 #include "..\Ente.hpp"
+#include "..\Gerenciadores\GerenciadorDeColisao.hpp"
+#include "..\Gerenciadores\GerenciadorFisico.hpp"
 
 namespace Gerenciadores{
-    class GerenciadorDeColisao; 
-    class GerenciadorFisico;
+    class GerenciadorDeColisao;
 }
 
 namespace Entidades{
