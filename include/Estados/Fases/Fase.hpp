@@ -2,7 +2,6 @@
 
 #include "..\..\Gerenciadores\GerenciadorGrafico.hpp"
 #include "..\..\Gerenciadores\GerenciadorDeColisao.hpp"
-#include "..\..\Gerenciadores\GerenciadorFisico.hpp"
 #include "..\..\Lista\ListaDeEntidades.hpp"
 #include "..\..\Entidades\Personagens\Jogador\Jogador.hpp"
 #include "..\..\Entidades\Personagens\Inimigo\InimigoFacil.hpp"
@@ -15,19 +14,22 @@
 #include "..\..\Gerenciadores\GerenciadorDeEvento.hpp"
 #include "..\Estado.hpp"
 #include "..\MaquinaDeEstado.hpp"
+#include "Entidades/Entidade.hpp"
+#include "Gerenciadores/GerenciadorFisico.hpp"
 
 namespace Estados{
     namespace Fases{
         class Fase : public Estados::Estado{
-            private:
+            protected:
                 static Gerenciadores::GerenciadorGrafico* pGrafico;
                 static Gerenciadores::GerenciadorDeEvento* pEvento;
+                static Gerenciadores::GerenciadorFisico* pFisico;
                 static MaquinaDeEstado* pMaquinaDeEstado;
                 Observadores::ControleJogador* controle;
-                Gerenciadores::GerenciadorFisico gerenciadorFisico;
                 Gerenciadores::GerenciadorDeColisao gerenciadorDeColisao;
                 Entidades::Personagens::Jogador* pJogador;
                 Lista::ListaDeEntidades LE;
+                double dt, alpha;
             public:
                 Fase();
                 ~Fase();
@@ -39,8 +41,8 @@ namespace Estados{
                 void newObstaculo(sf::Vector2f pos, sf::Vector2f size);
                 void newLava(sf::Vector2f pos, sf::Vector2f size);
                 void updateVida();
+                void update(double dt, double alpha);
                 void executar();
-                void update();
                 //virtual void resetEstate() = 0;
                 virtual void loadMap() = 0;
         };

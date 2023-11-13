@@ -18,14 +18,14 @@ namespace Estados{
                 switch (numero)
                 {
                 case '0':
-                    pos.x += 20.f;
+                    pos.x += 200.f;
                     break;
                 case '1':
-                    pos.x += 20.f;
-                    newJogador(pos,sf::Vector2f(30.f, 50.f));
+                    pos.x += 200.f;
+                    newJogador(pos+sf::Vector2f(100.f, -200.f),sf::Vector2f(30.f, 50.f));
                     break;
                 case '2':
-                    pos.x += 20.f;
+                    pos.x += 200.f;
                     newInimigo(pos, sf::Vector2f(20.f, 30.f));
                 case 'i':
                     pos.x += 20.f;
@@ -37,7 +37,11 @@ namespace Estados{
                     break;
                 case '3':
                     pos.x += 200.f;
-                    newObstaculo(pos, sf::Vector2f(200.f, 50.f));
+                    newObstaculo(pos, sf::Vector2f(200.f, 200.f));
+                    break;
+                case 'l':
+                    pos.x += 40.f;
+                    newLava(pos, sf::Vector2f(50.f, 10.f));
                     break;
                 case 'l':
                     pos.x += 40.f;
@@ -51,6 +55,15 @@ namespace Estados{
             }
             file.close();
         }
+        void Fases::Fase1::draw(){
+            Fase::draw();
+        }
+
+        void Estados::Fases::Fase1::update(){
+        }
+
+        void Estados::Fases::Fase1::executar(){
+            Fase::executar();
+        }
     }
 }
-

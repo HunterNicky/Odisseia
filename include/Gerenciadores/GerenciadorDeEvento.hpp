@@ -10,6 +10,7 @@ namespace Gerenciadores{
             static GerenciadorGrafico* pGrafico;
             static GerenciadorDeEvento* pEvento;
             std::list<Observadores::Observer*> lObserver;
+            bool removido;
             GerenciadorDeEvento();
         public:
             ~GerenciadorDeEvento();

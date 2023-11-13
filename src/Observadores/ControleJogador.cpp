@@ -16,7 +16,7 @@ namespace Observadores{
         this->pJogador = pJogador;
     }
     void ControleJogador::notifyPressed(std::string key){
-        if(pJogador){
+        if(pJogador && pMaquinaDeEstado->getEstadoAtual()->getAtivo()){
             if(key == direita){
                 pJogador->direcionar(true);
             }else if(key == esquerda){
@@ -32,7 +32,6 @@ namespace Observadores{
     }
 
     void ControleJogador::notifyReleased(std::string key){
-        
         if(pJogador){
             if(key == direita){
                 pJogador->parar();
@@ -44,5 +43,4 @@ namespace Observadores{
             }
         }
     }
-
 }

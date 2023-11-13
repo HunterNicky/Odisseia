@@ -3,7 +3,9 @@
 #include "..\Gerenciadores\GerenciadorDeColisao.hpp"
 namespace Gerenciadores{
     class GerenciadorDeColisao; 
+    class GerenciadorFisico;
 }
+
 namespace Entidades{
     enum class ID{
         empty = 0,
@@ -21,6 +23,7 @@ namespace Entidades{
             int id;
             sf::RectangleShape* body;
             Gerenciadores::GerenciadorDeColisao* gColisao;
+            static Gerenciadores::GerenciadorFisico* gFisico;
             const Entidades::ID ID;
         public:
             Entidade(const sf::Vector2f pos, const sf::Vector2f size, const Entidades::ID id);

@@ -11,12 +11,18 @@ namespace Estados{
     }
 
     MaquinaDeEstado::MaquinaDeEstado(){
+        if (!estadoStack.empty()){
+            delete estadoStack.top();
+            estadoStack.pop();
+        }
     }
 
     MaquinaDeEstado::~MaquinaDeEstado(){
     }
 
     void MaquinaDeEstado::pushEstado(Estado* estado){
+        if(!estadoStack.empty())
+                estadoStack.top()->setAtivo(false);
         estadoStack.push(estado);
     }
 
@@ -24,6 +30,8 @@ namespace Estados{
         if (!estadoStack.empty()){
             delete estadoStack.top();
             estadoStack.pop();
+            if(!estadoStack.empty())
+                estadoStack.top()->setAtivo(true);
         }
     }
 
@@ -32,9 +40,15 @@ namespace Estados{
         pushEstado(estado);
     }
 
-    void MaquinaDeEstado::atualizarEstadoAtual(){
+    void MaquinaDeEstado::atualizarEstadoAtual(double dt, double alpha){
         if(!estadoStack.empty()){
-            estadoStack.top()->update();
+            estadoStack.top()->update(dt, alpha);
+        }
+    }
+
+    void MaquinaDeEstado::desenharEstadoAtual(){
+        if(!estadoStack.empty()){
+            estadoStack.top()->draw();
         }
     }
 

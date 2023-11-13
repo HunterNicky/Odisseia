@@ -2,16 +2,19 @@
 
 namespace Estados{
 
-    Estado::Estado(MaquinaDeEstado *pMaqEstado, unsigned int id):
-    pMaqEstado(pMaqEstado), id(id){
+    Estado::Estado(MaquinaDeEstado *pMaquinaDeEstado, unsigned int id):
+    Ente(sf::Vector2f(0,0),sf::Vector2f(0,0)), pMaquinaDeEstado(pMaquinaDeEstado), id(id), ativo(true){
     }
 
     Estado::~Estado(){
     }
 
-    void Estado::setMaquinaDeEstado(MaquinaDeEstado *pMaqEstado){this->pMaqEstado = pMaqEstado;}
+    void Estado::setMaquinaDeEstado(MaquinaDeEstado *pMaquinaDeEstado){this->pMaquinaDeEstado = pMaquinaDeEstado;}
+
+    const bool Estado::getAtivo() const{return ativo;}
 
     unsigned int Estado::getID() const{return id;}
-    
+
+    void Estado::setAtivo(const bool ativo){this->ativo = ativo;}
 }
 

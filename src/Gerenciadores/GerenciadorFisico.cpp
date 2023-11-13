@@ -1,54 +1,82 @@
 #include "..\..\include\Gerenciadores\GerenciadorFisico.hpp"
+#include "Entidades/Entidade.hpp"
+#include "Entidades/Personagens/Personagem.hpp"
+#include "Gerenciadores/GerenciadorFisico.hpp"
 #include <iostream>
-#include <math.h>
 
-namespace Gerenciadores {
-    GerenciadorFisico::GerenciadorFisico(Lista::ListaDeEntidades* listaEntidades): 
-    LE(listaEntidades), deltaTime(0.0f){}
+namespace Gerenciadores{
+    GerenciadorFisico* GerenciadorFisico::instance = nullptr;
+
+    GerenciadorFisico::GerenciadorFisico():dt(0.0f), alpha(0.0f){}
 
     GerenciadorFisico::~GerenciadorFisico(){}
 
-    float GerenciadorFisico::getDeltaTime()const{return deltaTime;}
+    float GerenciadorFisico::getDeltaTime() const{return dt;}
 
-    void GerenciadorFisico::update(){
-        Lista::ListaDeEntidades* listaEntidades = LE;
-        deltaTime = clock.restart().asSeconds();
-        for(unsigned int i = 0; i < listaEntidades->getSize(); i++){
-            Entidades::Entidade* entidade = (*listaEntidades)[i];
-            if(entidade->getId() == Entidades::ID::jogador || entidade->getId() == Entidades::ID::Inimigo){
-                Entidades::Personagens::Personagem* personagem = dynamic_cast<Entidades::Personagens::Personagem*>(entidade);
-                calAcc(personagem);
-                calVel(personagem);
-            }
+    GerenciadorFisico* GerenciadorFisico::getInstance(){
+        if(instance == nullptr){
+            instance = new GerenciadorFisico();
         }
+        return instance;
+    }
+
+    void GerenciadorFisico::executarFisica(Entidades::Entidade* entidade){
+        Entidades::Personagens::Personagem* personagem = static_cast<Entidades::Personagens::Personagem*>(entidade);
+        calAcc(personagem);
+        calVel(personagem);
+    }
+
+
+    void GerenciadorFisico::calColision(Entidades::Personagens::Personagem* personagem, Entidades::Personagens::Personagem* personagem1){
+         sf::Vector2f v1 = personagem->getVel();
+        sf::Vector2f v2 = personagem1->getVel();
+        float m1 = personagem->getMass();
+        float m2 = personagem1->getMass();
+
+        sf::Vector2f newV1 = ((m1 - m2) * v1 + 2 * m2 * v2) / (m1 + m2);
+        sf::Vector2f newV2 = ((m2 - m1) * v2 + 2 * m1 * v1) / (m1 + m2);
+
+        personagem->setVel(newV1);
+        personagem1->setVel(newV2);
+    }
+
+
+    void GerenciadorFisico::update(double dt, double alpha){
+        this->dt = dt;
+        this->alpha = alpha;
+    }
+
+    const sf::Vector2f GerenciadorFisico::calDrag(Entidades::Personagens::Personagem* personagem) const{
+        sf::Vector2f test(personagem->getVel().x > 0 ? 1.f : -1.f, personagem->getVel().y > 0 ? 1.f : -1.f);
+        sf::Vector2f squareVel
+        (personagem->getVel().x * personagem->getVel().x * test.x,
+        personagem->getVel().y * personagem->getVel().y * test.y);
+        float area = personagem->getSize().x * personagem->getSize().y;
+        sf::Vector2f dragForce(area * squareVel.x * 0.1f, area * squareVel.y * 0.1f);
+        return (dragForce);
     }
 
     void GerenciadorFisico::calAcc(Entidades::Personagens::Personagem* personagem){
         sf::Vector2f acc = personagem->getAcc();
+        sf::Vector2f forca(0.0f, 9810.f);
+        sf::Vector2f dragForce = calDrag(personagem);
         float massa = personagem->getMass();
-        sf::Vector2f forca(0.0f, 2.f);
-        forca = (forca*massa) + personagem->getForca();
+        
+        forca += personagem->getForca();
+        forca.x += -dragForce.x;
+        forca.y += -dragForce.y;
         acc = forca / massa;
         personagem->setAcc(acc);
     }
 
-    void GerenciadorFisico::calVel(Entidades::Personagens::Personagem* personagem){
-        sf::Vector2f vel = personagem->getVel();
+    void GerenciadorFisico::calVel(Entidades::Personagens::Personagem* personagem) {
         sf::Vector2f acc = personagem->getAcc();
-        
-        float velocidadeMaxima = 0.5f;
-
-        if(abs(acc.x) < 0.01f && abs(acc.y) < 0.01f){
-            vel.x *= 0.999f;
-            vel.y *= 0.999f;
-        }else{
-            vel += acc * deltaTime;
-        }
-        float velocidadeAtual = std::sqrt(vel.x * vel.x + vel.y * vel.y);
-        if(velocidadeAtual > velocidadeMaxima){
-            vel.x = (vel.x / velocidadeAtual) * velocidadeMaxima;
-            vel.y = (vel.y / velocidadeAtual) * velocidadeMaxima;
-        }
-        personagem->setVel(vel);
+        sf::Vector2f position = personagem->getPos();
+        sf::Vector2f OldPosition = position;
+        position.x += (position.x - personagem->getPrevPos().x) + (acc.x * (dt * dt) * alpha);
+        position.y += (position.y - personagem->getPrevPos().y) + (acc.y * (dt * dt) * alpha);
+        personagem->setPrevPos(OldPosition);
+        personagem->setPos(position);
+        personagem->setVel(position - OldPosition);
     }
 }
