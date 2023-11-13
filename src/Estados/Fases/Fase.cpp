@@ -33,22 +33,17 @@ namespace Estados{
             LE.push_back(static_cast<Entidades::Entidade*>(pInimigo));
         }
         void Fase::newInimigoMedio(sf::Vector2f pos, sf::Vector2f size){
-            Entidades::Projetil* pProj = new Entidades::Projetil();
-            Entidades::Personagens::InimigoMedio* pInimigo = new Entidades::Personagens::InimigoMedio(pos, size, Entidades::ID::Inimigo, pJogador, pProj);
-            pInimigo->setProjetil(pProj);
+            Entidades::Personagens::InimigoMedio* pInimigo = new Entidades::Personagens::InimigoMedio(pos, size, Entidades::ID::Inimigo, pJogador, this);
             pInimigo->setGerenciadorDeColisao(&gerenciadorDeColisao);
-            pProj->setPersonagem(dynamic_cast<Entidades::Personagens::Personagem*>(pInimigo));
-            pProj->setGerenciadorDeColisao(&gerenciadorDeColisao);
-            LE.push_back(static_cast<Entidades::Entidade*>(pProj));
             LE.push_back(static_cast<Entidades::Entidade*>(pInimigo));
         }
-        /*
-        void Fase::newProjetil(sf::Vector2f pos, sf::Vector2f size){
-            Entidades::Projetil* pProj = new Entidades::Projetil(pos, size, Entidades::ID::Projetil);
+        
+        void Fase::newProjetil(sf::Vector2f pos, const bool direita){
+            Entidades::Projetil* pProj = new Entidades::Projetil(pos, Entidades::ID::Projetil, direita);
             pProj->setGerenciadorDeColisao(&gerenciadorDeColisao);
             LE.push_back(static_cast<Entidades::Entidade*>(pProj));
         }
-        */
+        
         void Fase::newObstaculo(sf::Vector2f pos, sf::Vector2f size){
             Entidades::Obstaculos::ObstaculoFacil* pObstaculoFacil = new Entidades::Obstaculos::ObstaculoFacil(pos, size, Entidades::ID::Plataforma);
             pObstaculoFacil->setGerenciadorDeColisao(&gerenciadorDeColisao);
@@ -69,7 +64,6 @@ namespace Estados{
                         LE.remove(i);
                 }
             }
-
         }
 
         void Fase::executar(){

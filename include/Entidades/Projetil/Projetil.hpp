@@ -10,7 +10,7 @@ namespace Entidades{
         Entidades::Personagens::Personagem* pPers;
 
     public:
-        Projetil();
+        Projetil(const sf::Vector2f pos, const Entidades::ID id, const bool direita);
         ~Projetil();
         void tratarColisao(Entidades::Entidade* entidade);
         void verificaSolo(const sf::Vector2f mtv);

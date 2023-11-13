@@ -10,8 +10,8 @@ namespace Entidades{
             moveAleatorio = (int)rand()%2;
             num_vidas = 100;
         }
-        InimigoMedio::InimigoMedio(const sf::Vector2f pos, const sf::Vector2f size, const Entidades::ID id, Entidades::Personagens::Jogador* pJog, Entidades::Projetil* pProj):   
-            Inimigo(pos, size, id, pJog){
+        InimigoMedio::InimigoMedio(const sf::Vector2f pos, const sf::Vector2f size, const Entidades::ID id, Entidades::Personagens::Jogador* pJog, Estados::Fases::Fase* pFase):   
+            Inimigo(pos, size, id, pJog), pFase(pFase){
             nivel_maldade = (int)rand()%2;
             inicializa();
         }
@@ -30,21 +30,23 @@ namespace Entidades{
             }
         }
 
-        void InimigoMedio::atirarProjetil(sf::Vector2f pos){
-            
-        }
-
-        void InimigoMedio::setProjetil(Entidades::Projetil* pProj){
-            this->pProj = pProj;
+        void InimigoMedio::atirarProjetil(sf::Vector2f pos, const bool direita){
+            pFase->newProjetil(pos, direita);
         }
 
         void InimigoMedio::move(){
             sf::Vector2f posJogador = pJogador->getBody()->getPosition();
             sf::Vector2f posInimigo = getBody()->getPosition();
+            bool direita;
             
             if(fabs(posJogador.x - posInimigo.x) < RANGE){
                 forca.x = 0.0f;
-                atirarProjetil(posInimigo);
+                if(posJogador.x > posInimigo.x){
+                    direita = true;
+                }else{
+                    direita = false;
+                }
+                atirarProjetil(posInimigo, direita);
             }
             else{
                 movimentoAleatorio();

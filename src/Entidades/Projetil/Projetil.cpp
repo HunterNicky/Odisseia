@@ -2,13 +2,17 @@
 
 namespace Entidades{
     //Dano do projetil
-    int Projetil::dano(20);
+    int Projetil::dano(100);
 
-    Projetil::Projetil():
-        Entidade(sf::Vector2f(100.0f, 100.0f), sf::Vector2f(10.0f, 10.0f), Entidades::ID::Projetil), vel(sf::Vector2f(0.1f, 0.01f))
+    Projetil::Projetil(const sf::Vector2f pos, const Entidades::ID id, const bool direita):
+        Entidade(pos, sf::Vector2f(10.0f, 10.0f), id)
     {
+        if(direita){
+            vel = sf::Vector2f(0.01f, 0.0f);
+        }else{
+            vel = sf::Vector2f(-0.01f, 0.0f);
+        }
         body->setFillColor(sf::Color::Green);
-        
     }
 
     Projetil::~Projetil(){
@@ -18,6 +22,8 @@ namespace Entidades{
     void Projetil::tratarColisao(Entidades::Entidade* entidade){
         if(entidade->getId() == Entidades::ID::jogador){
             std::cout << "Projetil colidiu com jogador!" << std::endl;
+            Entidades::Personagens::Personagem* pPers = static_cast<Entidades::Personagens::Personagem*>(entidade);
+            pPers->operator--(dano);
         }
     }
 
