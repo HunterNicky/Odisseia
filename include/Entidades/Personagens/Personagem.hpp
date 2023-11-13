@@ -23,11 +23,11 @@ namespace Entidades {
             virtual void update() = 0;
             virtual void tratarColisao(Entidade* entidade) = 0;
             virtual void verificaSolo(const sf::Vector2f mtv);
-            void setVel(sf::Vector2f vel);
-            void setAcc(sf::Vector2f acc);
-            void setMassa(float massa);
-            void setOnFloor(bool floor);
-            void setPrevPos(sf::Vector2f prevPos);
+            void setVel(const sf::Vector2f vel);
+            void setAcc(const sf::Vector2f acc);
+            void setMassa(const float massa);
+            void setOnFloor(const bool floor);
+            void setPrevPos(const sf::Vector2f prevPos);
             const sf::Vector2f getVel() const;
             const sf::Vector2f getAcc() const;
             const sf::Vector2f getForca() const;

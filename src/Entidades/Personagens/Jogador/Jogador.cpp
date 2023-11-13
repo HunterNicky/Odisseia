@@ -33,7 +33,7 @@
                 }
             }
 
-            void Jogador::direcionar(bool side){
+            void Jogador::direcionar(const bool side){
                 if(side){
                     forca.x = 3000.f; 
                 }else{

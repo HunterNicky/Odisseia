@@ -15,13 +15,13 @@ namespace Lista{
             ListaDeEntidades();
             ~ListaDeEntidades();
             Entidades::Entidade* pop(Entidades::Entidade* pData);
-            Entidades::Entidade* pop(unsigned int index);
+            Entidades::Entidade* pop(const unsigned int index);
             Entidades::Entidade* getFirst();
             Entidades::Entidade* getLast();
-            Entidades::Entidade* operator[](unsigned int index);
+            Entidades::Entidade* operator[](const unsigned int index);
             void push_back(Entidades::Entidade* pData);
             void remove(Entidades::Entidade* pData);
-            void remove(unsigned int index);
+            void remove(const unsigned int index);
             void drawAll();
             void updateAll();
             void clear();

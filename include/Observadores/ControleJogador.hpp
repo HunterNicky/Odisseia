@@ -21,7 +21,7 @@ namespace Observadores{
             ControleJogador(Entidades::Personagens::Jogador* pJogador);
             ~ControleJogador();
             void setJogador(Entidades::Personagens::Jogador* pJogador);
-            void notifyPressed(std::string key);
-            void notifyReleased(std::string key);
+            void notifyPressed(const std::string key);
+            void notifyReleased(const std::string key);
     };
 }

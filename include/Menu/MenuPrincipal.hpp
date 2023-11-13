@@ -19,7 +19,7 @@ namespace Menu{
             MenuPrincipal(Estados::Jogo* pJogo);
             ~MenuPrincipal();
             void executar();
-            void update(double dt, double alpha) override;
+            void update(const double dt, const double alpha) override;
             void draw() override;
             void inicializaBotao();
     };

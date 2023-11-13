@@ -14,20 +14,20 @@ namespace Entidades{
         {
         }
 
-        void Personagem::setVel(sf::Vector2f vel){this->vel = vel;}
+        void Personagem::setVel(const sf::Vector2f vel){this->vel = vel;}
 
         void Personagem::verificaSolo(const sf::Vector2f mtv){
             if(mtv.y < 0.f){
                 onFloor = true;
             }else{onFloor = false;}     
         }
-        void Personagem::setAcc(sf::Vector2f acc) { this->acc = acc;}
+        void Personagem::setAcc(const sf::Vector2f acc) { this->acc = acc;}
 
-        void Personagem::setMassa(float massa){this->massa = massa;}
+        void Personagem::setMassa(const float massa){this->massa = massa;}
 
         const sf::Vector2f Personagem::getVel() const { return vel;}
 
-        void Personagem::setOnFloor(bool floor){this->onFloor = floor;}
+        void Personagem::setOnFloor(const bool floor){this->onFloor = floor;}
 
         const sf::Vector2f Personagem::getAcc() const{return acc;}
 
@@ -35,7 +35,7 @@ namespace Entidades{
 
         const float Personagem::getMass() const{return massa;}
 
-        void Personagem::setPrevPos(sf::Vector2f prevPos){this->prevPos = prevPos;}
+        void Personagem::setPrevPos(const sf::Vector2f prevPos){this->prevPos = prevPos;}
 
         const sf::Vector2f Personagem::getPrevPos() const{return prevPos;}
 

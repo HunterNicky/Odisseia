@@ -52,7 +52,7 @@ namespace Gerenciadores{
         return window->pollEvent(event);
     }
 
-    void GerenciadorGrafico::setViewCenter(sf::Vector2f center){
+    void GerenciadorGrafico::setViewCenter(const sf::Vector2f center){
         if(isWindowOpen()){
             view.setCenter(sf::Vector2f(center));
         }

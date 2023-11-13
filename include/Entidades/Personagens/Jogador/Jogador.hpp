@@ -13,7 +13,7 @@ namespace Entidades{
             ~Jogador();
             void move();
             void pular();
-            void direcionar(bool side);
+            void direcionar(const bool side);
             void parar();
             void executar();
             void update();

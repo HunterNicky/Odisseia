@@ -12,7 +12,7 @@ namespace Entidades{
         public:
             Inimigo(const sf::Vector2f pos, const sf::Vector2f size, const int id, Jogador* pJog);
             ~Inimigo();
-            void persegueJogador(sf::Vector2f posJogador, sf::Vector2f posInimigo);
+            void persegueJogador(const sf::Vector2f posJogador,const sf::Vector2f posInimigo);
             void move();
             void executar();
             void update();

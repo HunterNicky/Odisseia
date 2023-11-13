@@ -15,7 +15,7 @@ namespace Observadores{
     void ControleJogador::setJogador(Entidades::Personagens::Jogador *pJogador){
         this->pJogador = pJogador;
     }
-    void ControleJogador::notifyPressed(std::string key){
+    void ControleJogador::notifyPressed(const std::string key){
         if(pJogador && pMaquinaDeEstado->getEstadoAtual()->getAtivo()){
             if(key == direita){
                 pJogador->direcionar(true);
@@ -31,7 +31,7 @@ namespace Observadores{
         }
     }
 
-    void ControleJogador::notifyReleased(std::string key){
+    void ControleJogador::notifyReleased(const std::string key){
         if(pJogador){
             if(key == direita){
                 pJogador->parar();

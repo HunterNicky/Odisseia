@@ -17,7 +17,7 @@ namespace Entidades{
         Inimigo::~Inimigo(){ 
         }
 
-        void Inimigo::persegueJogador(sf::Vector2f posJogador, sf::Vector2f posInimigo){
+        void Inimigo::persegueJogador(const sf::Vector2f posJogador, const sf::Vector2f posInimigo){
             if(posJogador.x - posInimigo.x > 0.0f){
                 forca.x = 2500.f;
             }else{

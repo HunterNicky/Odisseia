@@ -8,19 +8,19 @@ namespace Lista{
 
     Entidades::Entidade *ListaDeEntidades::pop(Entidades::Entidade *pData){return LE.pop(pData);}
 
-    Entidades::Entidade *ListaDeEntidades::pop(unsigned int index){return LE.pop(index);}
+    Entidades::Entidade *ListaDeEntidades::pop(const unsigned int index){return LE.pop(index);}
 
     Entidades::Entidade *ListaDeEntidades::getFirst(){return LE.getFirst();}
 
     Entidades::Entidade *ListaDeEntidades::getLast(){return LE.getLast();}
 
-    Entidades::Entidade *ListaDeEntidades::operator[](unsigned int index){return LE.operator[](index);}
+    Entidades::Entidade *ListaDeEntidades::operator[](const unsigned int index){return LE.operator[](index);}
 
     void ListaDeEntidades::push_back(Entidades::Entidade *pData){LE.push_back(pData);}
 
     void ListaDeEntidades::remove(Entidades::Entidade *pData){LE.remove(pData);}
 
-    void ListaDeEntidades::remove(unsigned int index){LE.remove(index);}
+    void ListaDeEntidades::remove(const unsigned int index){LE.remove(index);}
 
     void ListaDeEntidades::drawAll(){
         if(LE[0] != nullptr){
