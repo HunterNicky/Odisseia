@@ -43,10 +43,6 @@ namespace Estados{
                     pos.x += 40.f;
                     newLava(pos, sf::Vector2f(50.f, 10.f));
                     break;
-                case 'l':
-                    pos.x += 40.f;
-                    newLava(pos, sf::Vector2f(50.f, 10.f));
-                    break;
                 default:
                     pos.x = 0;
                     pos.y += 50.f;

@@ -1,7 +1,4 @@
 #include "..\..\include\Gerenciadores\GerenciadorFisico.hpp"
-#include "Entidades/Entidade.hpp"
-#include "Entidades/Personagens/Personagem.hpp"
-#include "Gerenciadores/GerenciadorFisico.hpp"
 #include <iostream>
 
 namespace Gerenciadores{

@@ -1,5 +1,5 @@
 #include "..\..\..\include\Estados\Fases\Fase.hpp"
-#include "Entidades/Entidade.hpp"
+
 
 namespace Estados{
     namespace Fases{
@@ -84,7 +84,7 @@ namespace Estados{
                 pEvento->stage();
                 pFisico->update(dt, alpha);
                 LE.updateAll();
-                gerenciadorFisico.update();
+                pFisico->update(dt, alpha);
                 pGrafico->display();
                 pGrafico->clear();
             }

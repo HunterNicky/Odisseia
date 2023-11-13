@@ -43,6 +43,7 @@ namespace Estados{
                 void updateVida();
                 void update(double dt, double alpha);
                 void executar();
+                void draw();
                 //virtual void resetEstate() = 0;
                 virtual void loadMap() = 0;
         };

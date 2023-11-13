@@ -21,7 +21,7 @@ namespace Entidades{
             num_vidas-=dano;
         }
 
-        void Jogador::move(){   
+        void Jogador::move(){
             Entidade::gFisico->executarFisica(static_cast<Entidades::Entidade*>(this));
             Entidade::body->setPosition(pos);
             gColisao->checkCollision(static_cast<Entidades::Entidade*>(this));
@@ -44,8 +44,14 @@ namespace Entidades{
                 }
             }
         }
-
         void Jogador::tratarColisao(Entidade* entidade){
+            gFisico->calColision(static_cast<Personagem*>(this), static_cast<Personagem*>(entidade));
+            sf::Vector2f aux;
+            aux.x = -vel.x;
+            aux.y = -vel.y;
+            aux.x *= 0.01f;
+            aux.y *= 0.01f;
+            pos += aux;
             switch (entidade->getId())
             {
             case (ID::Inimigo):
@@ -68,19 +74,14 @@ namespace Entidades{
             }
         }
 
-        void Jogador::pular(){
-            forca.y = -80.f;
-            onFloor = false;
-        }
-
-            void Jogador::direcionar(bool side){
-                if(side){
-                    forca.x = 3000.f; 
-                }else{
-                    forca.x = -3000.f;
-                }
-                if(!(onFloor)) pular();
+        void Jogador::direcionar(bool side){
+            if(side){
+                forca.x = 3000.f; 
+            }else{
+                forca.x = -3000.f;
             }
+            if(!(onFloor)) pular();
+        }
 
         void Jogador::parar(){
             forca.x = 0;
@@ -92,15 +93,6 @@ namespace Entidades{
 
             void Jogador::update(){
                 executar();
-            }
-            void Personagens::Jogador::tratarColisao(Entidade* entidade){
-                gFisico->calColision(static_cast<Personagem*>(this), static_cast<Personagem*>(entidade));
-                sf::Vector2f aux;
-                aux.x = -vel.x;
-                aux.y = -vel.y;
-                aux.x *= 0.01f;
-                aux.y *= 0.01f;
-                pos += aux;
             }
     }
 }
