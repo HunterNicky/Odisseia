@@ -1,6 +1,7 @@
 #pragma once
 
 #include "..\Entidade.hpp"
+#include "Entidades/Entidade.hpp"
 
 namespace Entidades {
     namespace Personagens {
@@ -10,7 +11,6 @@ namespace Entidades {
             sf::Vector2f acc;
             sf::Vector2f forca;
             sf::Vector2f prevPos;
-            sf::Clock jumpTimer;
             float massa;
             bool onFloor;
             int num_vidas;
@@ -21,7 +21,7 @@ namespace Entidades {
             void move();
             virtual void executar() = 0;
             virtual void update() = 0;
-            virtual void tratarColisao() = 0;
+            virtual void tratarColisao(Entidade* entidade) = 0;
             virtual void verificaSolo(const sf::Vector2f mtv);
             void setVel(sf::Vector2f vel);
             void setAcc(sf::Vector2f acc);

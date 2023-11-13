@@ -53,7 +53,6 @@ namespace Gerenciadores{
     void GerenciadorGrafico::setViewCenter(sf::Vector2f center){
         if(isWindowOpen()){
             view.setCenter(sf::Vector2f(center));
-            std::cout << view.getCenter().x << " " << view.getCenter().y << std::endl;
         }
     }
     void GerenciadorGrafico::drawText(const sf::Text *text){

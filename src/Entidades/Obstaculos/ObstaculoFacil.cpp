@@ -1,4 +1,5 @@
 #include "..\..\..\include\Entidades\Obstaculos\ObstaculoFacil.hpp"
+#include "Entidades/Entidade.hpp"
 
 namespace Entidades{
     namespace Obstaculos{
@@ -15,7 +16,7 @@ namespace Entidades{
         void ObstaculoFacil::update(){
             executar();
         }
-        void Obstaculos::ObstaculoFacil::tratarColisao()
+        void Obstaculos::ObstaculoFacil::tratarColisao(Entidade* entidade)
         {
         }
     }

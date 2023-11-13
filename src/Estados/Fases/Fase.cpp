@@ -1,14 +1,15 @@
 #include "..\..\..\include\Estados\Fases\Fase.hpp"
+#include "Entidades/Entidade.hpp"
 
 namespace Estados{
     namespace Fases{
         Gerenciadores::GerenciadorGrafico* Fase::pGrafico = Gerenciadores::GerenciadorGrafico::getInstance();
         Gerenciadores::GerenciadorDeEvento* Fase::pEvento = Gerenciadores::GerenciadorDeEvento::getInstance();
+        Gerenciadores::GerenciadorFisico* Fase::pFisico = Gerenciadores::GerenciadorFisico::getInstance();
         Estados::MaquinaDeEstado* Fase::pMaquinaDeEstado = Estados::MaquinaDeEstado::getInstance();
 
         Fase::Fase():
-        Estado(pMaquinaDeEstado, 1),
-        gerenciadorFisico(&LE){
+        Estado(pMaquinaDeEstado, 1){
             pJogador = nullptr;
             controle = new Observadores::ControleJogador(pJogador);
             gerenciadorDeColisao.setList(&LE);
@@ -47,8 +48,8 @@ namespace Estados{
             if(pJogador){
                 pGrafico->setViewCenter(pJogador->getBody()->getPosition());
                 pEvento->stage();
+                pFisico->update(dt, alpha);
                 LE.updateAll();
-                gerenciadorFisico.update(dt, alpha);
             }
         }
         void Fase::draw(){

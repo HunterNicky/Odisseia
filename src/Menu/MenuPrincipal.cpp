@@ -11,23 +11,24 @@ namespace Menu{
         Botoes::Botao* pBotao = NULL;
         fase1 = NULL;
 
-        pBotao = new Botoes::Botao(sf::Vector2f(0.f, 720.f / 4), std::string("Jogar"));
+        pBotao = new Botoes::Botao(sf::Vector2f(0.f, 720.f / 4), std::string(" Jogar"));
         pBotao->selecionado(true);
         Menu::lBotao.push_back(pBotao);
         Menu::it = Menu::lBotao.begin();
 
-        pBotao = new Botoes::Botao(sf::Vector2f(0.f, 720.f / 4 + 100), std::string("Opcoes"));
+        pBotao = new Botoes::Botao(sf::Vector2f(0.f, 720.f / 4 + 100), std::string(" Opcoes"));
         Menu::lBotao.push_back(pBotao);
 
-        pBotao = new Botoes::Botao(sf::Vector2f(0.f, 720.f / 4 + 200), std::string("Carregar"));
+        pBotao = new Botoes::Botao(sf::Vector2f(0.f, 720.f / 4 + 200), std::string(" Carregar"));
         Menu::lBotao.push_back(pBotao);
 
-        pBotao = new Botoes::Botao(sf::Vector2f(0.f, 720.f / 4 + 300), std::string("Sair"));
+        pBotao = new Botoes::Botao(sf::Vector2f(0.f, 720.f / 4 + 300), std::string(" Sair"));
         Menu::lBotao.push_back(pBotao);
         numOpc = 3;
     }
 
     MenuPrincipal::~MenuPrincipal(){
+        pGrafico->close();
     }
 
     void MenuPrincipal::update(double dt, double alpha){
@@ -49,8 +50,8 @@ namespace Menu{
             case 2:
                 break;
             case 3:
-                pMaquinaDeEstado->popEstado();
                 pGrafico->close();
+                pMaquinaDeEstado->popEstado();
                 break;
             default:
                 break;

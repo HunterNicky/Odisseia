@@ -1,6 +1,7 @@
 #pragma once
 
 #include "..\Jogador\Jogador.hpp"
+#include "Lista/ListaDeEntidades.hpp"
 
 namespace Entidades{
     namespace Personagens{
@@ -15,7 +16,7 @@ namespace Entidades{
             void move();
             void executar();
             void update();
-            void tratarColisao();
+            void tratarColisao(Entidade* entidade);
         };
     }
 }

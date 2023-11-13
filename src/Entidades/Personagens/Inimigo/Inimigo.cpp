@@ -1,4 +1,5 @@
 #include "..\..\..\..\include\Entidades\Personagens\Inimigo\Inimigo.hpp"
+#include "Gerenciadores/GerenciadorFisico.hpp"
 
 namespace Entidades{
     namespace Personagens{
@@ -36,6 +37,8 @@ namespace Entidades{
 
             persegueJogador(posJogador, posInimigo);
 
+            
+            Entidade::gFisico->executarFisica(static_cast<Entidades::Entidade*>(this));
             Entidade::body->setPosition(pos);
             gColisao->checkCollision(static_cast<Entidades::Entidade*>(this));
         }
@@ -48,8 +51,14 @@ namespace Entidades{
             executar();
         }
 
-        void Inimigo::tratarColisao()
-        {
+        void Inimigo::tratarColisao(Entidade* entidade){
+            gFisico->calColision(static_cast<Personagem*>(this), static_cast<Personagem*>(entidade));
+            sf::Vector2f aux;
+            aux.x = -vel.x;
+            aux.y = -vel.y;
+            aux.x *= 0.01f;
+            aux.y *= 0.01f;
+            pos += aux;
         }
     }
 

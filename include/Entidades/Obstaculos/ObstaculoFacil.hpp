@@ -13,7 +13,7 @@ namespace Entidades{
             ~ObstaculoFacil();
             void executar();
             void update();
-            void tratarColisao();
+            void tratarColisao(Entidade* entidade);
         };
     }
     

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "..\Personagem.hpp"
+#include "Entidades/Entidade.hpp"
 
 namespace Entidades{
     namespace Personagens{
@@ -16,7 +17,7 @@ namespace Entidades{
             void parar();
             void executar();
             void update();
-            void tratarColisao();
+            void tratarColisao(Entidade* entidade);
         };
     }
 }

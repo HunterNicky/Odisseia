@@ -2,7 +2,6 @@
 
 #include "..\..\Gerenciadores\GerenciadorGrafico.hpp"
 #include "..\..\Gerenciadores\GerenciadorDeColisao.hpp"
-#include "..\..\Gerenciadores\GerenciadorFisico.hpp"
 #include "..\..\Lista\ListaDeEntidades.hpp"
 #include "..\..\Entidades\Personagens\Jogador\Jogador.hpp"
 #include "..\..\Entidades\Personagens\Inimigo\Inimigo.hpp"
@@ -11,6 +10,8 @@
 #include "..\..\Gerenciadores\GerenciadorDeEvento.hpp"
 #include "..\Estado.hpp"
 #include "..\MaquinaDeEstado.hpp"
+#include "Entidades/Entidade.hpp"
+#include "Gerenciadores/GerenciadorFisico.hpp"
 
 namespace Estados{
     namespace Fases{
@@ -18,9 +19,9 @@ namespace Estados{
             protected:
                 static Gerenciadores::GerenciadorGrafico* pGrafico;
                 static Gerenciadores::GerenciadorDeEvento* pEvento;
+                static Gerenciadores::GerenciadorFisico* pFisico;
                 static MaquinaDeEstado* pMaquinaDeEstado;
                 Observadores::ControleJogador* controle;
-                Gerenciadores::GerenciadorFisico gerenciadorFisico;
                 Gerenciadores::GerenciadorDeColisao gerenciadorDeColisao;
                 Entidades::Personagens::Jogador* pJogador;
                 Lista::ListaDeEntidades LE;

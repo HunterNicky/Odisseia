@@ -1,4 +1,7 @@
     #include "..\..\..\..\include\Entidades\Personagens\Jogador\Jogador.hpp"
+#include "Entidades/Entidade.hpp"
+#include "Entidades/Personagens/Personagem.hpp"
+    #include "Gerenciadores/GerenciadorFisico.hpp"
     #include <iostream>
     namespace Entidades{
         namespace Personagens{
@@ -16,6 +19,7 @@
             Jogador::~Jogador(){}   
 
             void Jogador::move(){   
+                Entidade::gFisico->executarFisica(static_cast<Entidades::Entidade*>(this));
                 Entidade::body->setPosition(pos);
                 gColisao->checkCollision(static_cast<Entidades::Entidade*>(this));
             }
@@ -49,7 +53,8 @@
             void Jogador::update(){
                 executar();
             }
-            void Personagens::Jogador::tratarColisao(){
+            void Personagens::Jogador::tratarColisao(Entidade* entidade){
+                gFisico->calColision(static_cast<Personagem*>(this), static_cast<Personagem*>(entidade));
                 sf::Vector2f aux;
                 aux.x = -vel.x;
                 aux.y = -vel.y;

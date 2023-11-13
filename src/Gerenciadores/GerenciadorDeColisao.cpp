@@ -1,4 +1,5 @@
 #include "..\..\include\Gerenciadores\GerenciadorDeColisao.hpp"
+#include "Entidades/Entidade.hpp"
 #include <iostream>
 
 namespace Gerenciadores{
@@ -10,9 +11,10 @@ namespace Gerenciadores{
     void GerenciadorDeColisao::Notify(Entidades::Entidade* entidade, Entidades::Entidade* entidade2 ,const sf::Vector2f mtv) const{  
         entidade->setPos(sf::Vector2f(entidade->getPos().x + mtv.x, entidade->getPos().y + mtv.y));
         entidade->verificaSolo(mtv);
-        entidade->tratarColisao();
-        if(entidade->getId() == 1 && entidade2->getId()==2)entidade->tratarColisao();
-        if(entidade->getId() == 2 && entidade2->getId()==1)entidade2->tratarColisao();
+        entidade->tratarColisao(entidade2);
+        entidade2->tratarColisao(entidade);
+        //if(entidade->getId() == 1 && entidade2->getId()==2)entidade->tratarColisao(entidade2);
+        //if(entidade->getId() == 2 && entidade2->getId()==1)entidade2->tratarColisao(entidade);
     }
 
     bool GerenciadorDeColisao::collisionDetection(const sf::Drawable *drawable1, const sf::Drawable *drawable2, sf::Vector2f *mtv){
@@ -29,7 +31,7 @@ namespace Gerenciadores{
             if (projection.y < (rs1.height + rs2.height)) {
                 overlap.y = rs1.height + rs2.height - projection.y;
                 mtv->x = mtv->y = 0;
-                if (overlap.x - overlap.y < 0.f) {
+                if (overlap.x < overlap.y) {
                     mtv->x = overlap.x * (rs1.left < rs2.left ? -1 : 1);
                 } else {
                     mtv->y = overlap.y * (rs1.top < rs2.top ? -1 : 1);

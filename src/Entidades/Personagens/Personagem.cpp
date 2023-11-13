@@ -1,13 +1,14 @@
 #include "..\..\..\include\Entidades\Personagens\Personagem.hpp"
+#include "Entidades/Entidade.hpp"
+#include "Gerenciadores/GerenciadorFisico.hpp"
 #include <iostream>
 namespace Entidades{
     namespace Personagens{
+
         Personagem::Personagem(const sf::Vector2f pos, const sf::Vector2f size, int id):
             Entidade(pos, size, id),
             prevPos(pos),    
-            massa(20)
-        {
-            jumpTimer.restart();
+            massa(20){
         }
         Personagem::~Personagem()
         {
@@ -40,6 +41,7 @@ namespace Entidades{
 
         void Personagem::move(){
             Entidade::body->setPosition(pos);
+            Entidade::gFisico->executarFisica(static_cast<Entidades::Entidade*>(this));
             gColisao->checkCollision(static_cast<Entidades::Entidade*>(this));
         }
     }

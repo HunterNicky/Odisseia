@@ -1,6 +1,7 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
+#include "Entidades/Entidade.hpp"
 #include "Mediator.hpp"
 namespace Gerenciadores{
     class GerenciadorDeColisao : public Mediator{
