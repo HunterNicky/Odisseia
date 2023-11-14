@@ -84,10 +84,10 @@ namespace Estados{
                 sf::Vector2f cameraPos = pGrafico->getViewCenter();
                 sf::Vector2f jogadorPos = pJogador->getBody()->getPosition();
                 sf::Vector2f novaPosCamera = cameraPos + (jogadorPos - cameraPos) * 0.01f;
-                novaPosCamera.y = 9*200;
                 pGrafico->setViewCenter(novaPosCamera);
                 pEvento->stage();
                 pFisico->update(dt, alpha);
+                updateVida();
                 draw();
                 LE.updateAll();
             }

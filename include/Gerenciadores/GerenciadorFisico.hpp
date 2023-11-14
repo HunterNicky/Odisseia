@@ -8,7 +8,6 @@
 namespace Entidades{
         class Entidade;
 }
-
 namespace Gerenciadores{
     class GerenciadorFisico{
         private:

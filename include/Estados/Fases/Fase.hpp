@@ -38,6 +38,8 @@ namespace Estados{
                 void newInimigoMedio(sf::Vector2f pos, sf::Vector2f size);
                 void newChefao(sf::Vector2f pos, sf::Vector2f size);
                 void newProjetil(sf::Vector2f pos, const bool direita);
+                //void newPlataforma(sf::Vector2f pos, sf::Vector2f size);
+                //void newGosma(sf::Vector2f pos, sf::Vector2f size);
                 void newObstaculo(sf::Vector2f pos, sf::Vector2f size);
                 void newLava(sf::Vector2f pos, sf::Vector2f size);
                 void updateVida();

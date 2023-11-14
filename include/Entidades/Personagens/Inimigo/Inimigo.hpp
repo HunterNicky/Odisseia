@@ -1,7 +1,7 @@
 #pragma once
 
 #include "..\Jogador\Jogador.hpp"
-
+#include "Gerenciadores/GerenciadorFisico.hpp"
 #include "Lista/ListaDeEntidades.hpp"
 
 namespace Entidades{

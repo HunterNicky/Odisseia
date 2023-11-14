@@ -8,12 +8,12 @@
 namespace Gerenciadores{
     class GerenciadorDeColisao : public Mediator{
     private:
-static GerenciadorDeColisao* instance;
+        static GerenciadorDeColisao* instance;
         Lista::ListaDeEntidades* LE;
-            GerenciadorDeColisao();
-        public:
+        GerenciadorDeColisao();
+    public:
         virtual ~GerenciadorDeColisao();
-static GerenciadorDeColisao* getInstance();
+        static GerenciadorDeColisao* getInstance();
         void setList(Lista::ListaDeEntidades* LE) override;
         void Notify(Entidades::Entidade* entidade, Entidades::Entidade* entidade2, const sf::Vector2f mtv) const override;
         void checkCollision(Entidades::Entidade* entidade);
