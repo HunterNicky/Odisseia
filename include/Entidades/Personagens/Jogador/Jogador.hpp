@@ -9,15 +9,17 @@ namespace Entidades{
         private:
             void inicializa();
         public:
-            Jogador(const sf::Vector2f pos, const sf::Vector2f size, const int id);
+            Jogador(const sf::Vector2f pos, const sf::Vector2f size, const Entidades::ID id);
             ~Jogador();
+            void operator--(const int dano);
             void move();
+            void neutralizarInimigo(Entidade* pInimigo);
+            void tratarColisao(Entidade* entidade);
             void pular();
             void direcionar(const bool side);
             void parar();
             void executar();
             void update();
-            void tratarColisao(Entidade* entidade);
         };
     }
 }

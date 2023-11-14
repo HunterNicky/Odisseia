@@ -6,9 +6,8 @@
 #include "Entidades/Personagens/Personagem.hpp"
 
 namespace Entidades{
-    class Entidade;
+        class Entidade;
 }
-
 namespace Gerenciadores{
     class GerenciadorFisico{
         private:

@@ -1,22 +1,25 @@
 #pragma once
 
 #include "..\Jogador\Jogador.hpp"
+#include "Gerenciadores/GerenciadorFisico.hpp"
 #include "Lista/ListaDeEntidades.hpp"
 
 namespace Entidades{
     namespace Personagens{
         class Inimigo : public Personagem{
         protected:
-            Jogador *pJogador;
-            void inicializa();
+            Entidades::Personagens::Jogador *pJogador;
+            int nivel_maldade;
         public:
-            Inimigo(const sf::Vector2f pos, const sf::Vector2f size, const int id, Jogador* pJog);
+            Inimigo(const sf::Vector2f pos, const sf::Vector2f size, const Entidades::ID id, Entidades::Personagens::Jogador* pJog);
             ~Inimigo();
-            void persegueJogador(const sf::Vector2f posJogador,const sf::Vector2f posInimigo);
-            void move();
-            void executar();
-            void update();
-            void tratarColisao(Entidade* entidade);
+            virtual void operator--(const int dano) = 0;
+            virtual void movimentoAleatorio() = 0;
+            virtual void move() = 0;
+            virtual void danificar(Entidade* entidade) = 0;
+            virtual void tratarColisao(Entidade* entidade) = 0;
+            virtual void executar() = 0;
+            virtual void update() = 0;
         };
     }
 }

@@ -1,13 +1,17 @@
-#include "..\..\..\include\Entidades\Obstaculos\ObstaculoFacil.hpp"
+#include "..\..\..\include\Entidades\Obstaculos\Caixa.hpp"
 #include "Entidades/Entidade.hpp"
 
 namespace Entidades{
     namespace Obstaculos{
-        ObstaculoFacil::ObstaculoFacil(const sf::Vector2f pos, const sf::Vector2f size, const int id) :
+        ObstaculoFacil::ObstaculoFacil(const sf::Vector2f pos, const sf::Vector2f size, const Entidades::ID id) :
             Obstaculo(pos, size, id)
         {
+            this->body->setFillColor(sf::Color::White);
         }
         ObstaculoFacil::~ObstaculoFacil(){
+
+        }
+        void ObstaculoFacil::tratarColisao(Entidade* entidade){
 
         }
         void ObstaculoFacil::executar(){
@@ -15,9 +19,6 @@ namespace Entidades{
         }
         void ObstaculoFacil::update(){
             executar();
-        }
-        void Obstaculos::ObstaculoFacil::tratarColisao(Entidade* entidade)
-        {
         }
     }
 }

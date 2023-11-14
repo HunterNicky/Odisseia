@@ -54,7 +54,7 @@ namespace Gerenciadores{
 
     void GerenciadorGrafico::setViewCenter(const sf::Vector2f center){
         if(isWindowOpen()){
-            view.setCenter(sf::Vector2f(center));
+            view.setCenter(sf::Vector2f(center.x, center.y));
         }
     }
     const sf::Vector2f GerenciadorGrafico::getViewCenter() const{

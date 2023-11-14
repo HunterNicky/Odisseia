@@ -9,6 +9,7 @@ namespace Lista{
         Elemento<TL>* pFirst;
         Elemento<TL>* pLast;
         unsigned int size;
+
     public:
         Lista();
         ~Lista();

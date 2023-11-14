@@ -10,6 +10,7 @@ class Ente{
         sf::Vector2f size;
     public:
         Ente(const sf::Vector2f pos, const sf::Vector2f size);
+        Ente();
         virtual ~Ente();
         sf::Vector2f getPos();
         sf::Vector2f getSize();

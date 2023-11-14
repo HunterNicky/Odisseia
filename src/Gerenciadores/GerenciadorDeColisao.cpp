@@ -59,7 +59,7 @@ namespace Gerenciadores{
             if(entidade != entidade2){
                 sf::Vector2f mtv;
                 if(collisionDetection(entidade->getBody(), entidade2->getBody(), &mtv)){
-                    Notify(entidade, entidade2,mtv);
+                    Notify(entidade, entidade2, mtv);
                 }
             }
         }

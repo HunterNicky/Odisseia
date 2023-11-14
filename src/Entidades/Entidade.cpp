@@ -1,12 +1,13 @@
 #include "..\..\include\Entidades\Entidade.hpp"
 #include "Gerenciadores/GerenciadorDeColisao.hpp"
 #include "Gerenciadores/GerenciadorFisico.hpp"
+
 namespace Entidades{
     Gerenciadores::GerenciadorFisico* Entidade::gFisico = Gerenciadores::GerenciadorFisico::getInstance();
     Gerenciadores::GerenciadorDeColisao* Entidade::gColisao = Gerenciadores::GerenciadorDeColisao::getInstance();
 
-    Entidade::Entidade(sf::Vector2f pos, sf::Vector2f size, int id):
-        Ente(pos, size), id(id), body(new sf::RectangleShape(size)){
+    Entidade::Entidade(const sf::Vector2f pos, const sf::Vector2f size, const Entidades::ID id):
+        Ente(pos, size), ID(id), body(new sf::RectangleShape(size)){
         body->setPosition(pos);
     }
 
@@ -14,7 +15,7 @@ namespace Entidades{
         delete (body);
     }
 
-    const int Entidade::getId()const{return id;}
+    const ID Entidade::getId()const{return ID;}
 
     void Entidade::setBody(sf::RectangleShape* body){this->body = body;}
 
