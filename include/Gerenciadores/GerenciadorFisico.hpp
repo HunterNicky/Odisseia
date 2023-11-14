@@ -2,6 +2,8 @@
 
 #include <SFML/Graphics.hpp>
 #include "..\..\include\Entidades\Personagens\Personagem.hpp"
+#include "..\..\include\Entidades\Entidade.hpp"
+#include "Entidades/Personagens/Personagem.hpp"
 
 namespace Entidades{
         class Entidade;

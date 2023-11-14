@@ -14,7 +14,7 @@ namespace Gerenciadores{
     class Mediator{
         public:
             virtual void setList(Lista::ListaDeEntidades* LE) = 0;
-            virtual void Notify(Entidades::Entidade* entidade, Entidades::Entidade* entidade2, const sf::Vector2f mtv) const = 0;
+            virtual void Notify(Entidades::Entidade* entidade, Entidades::Entidade* entidade2,const sf::Vector2f mtv) const = 0;
     };
 
 }

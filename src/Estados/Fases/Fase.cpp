@@ -1,18 +1,19 @@
 #include "..\..\..\include\Estados\Fases\Fase.hpp"
-
+#include "Entidades/Entidade.hpp"
 
 namespace Estados{
     namespace Fases{
         Gerenciadores::GerenciadorGrafico* Fase::pGrafico = Gerenciadores::GerenciadorGrafico::getInstance();
         Gerenciadores::GerenciadorDeEvento* Fase::pEvento = Gerenciadores::GerenciadorDeEvento::getInstance();
         Gerenciadores::GerenciadorFisico* Fase::pFisico = Gerenciadores::GerenciadorFisico::getInstance();
+        Gerenciadores::GerenciadorDeColisao* Fase::pColisao = Gerenciadores::GerenciadorDeColisao::getInstance();
         Estados::MaquinaDeEstado* Fase::pMaquinaDeEstado = Estados::MaquinaDeEstado::getInstance();
 
         Fase::Fase():
         Estado(pMaquinaDeEstado, 1){
             pJogador = nullptr;
             controle = new Observadores::ControleJogador(pJogador);
-            gerenciadorDeColisao.setList(&LE);
+            pColisao->setList(&LE);
             pEvento->addObserver(static_cast<Observadores::Observer*>(controle));
             dt = 0.f, alpha = 0.f;
         }
@@ -25,35 +26,35 @@ namespace Estados{
         }
         void Fase::newJogador(sf::Vector2f pos, sf::Vector2f size){
             pJogador = new Entidades::Personagens::Jogador(pos, size, Entidades::ID::jogador);
-            pJogador->setGerenciadorDeColisao(&gerenciadorDeColisao);
+            pJogador->setGerenciadorDeColisao(pColisao);
             controle->setJogador(pJogador);
             LE.push_back(static_cast<Entidades::Entidade*>(pJogador));
         }
         void Fase::newInimigo(sf::Vector2f pos, sf::Vector2f size){
             Entidades::Personagens::InimigoFacil* pInimigo = new Entidades::Personagens::InimigoFacil(pos, size, Entidades::ID::Inimigo, pJogador);
-            pInimigo->setGerenciadorDeColisao(&gerenciadorDeColisao);
+            pInimigo->setGerenciadorDeColisao(pColisao);
             LE.push_back(static_cast<Entidades::Entidade*>(pInimigo));
         }
         void Fase::newInimigoMedio(sf::Vector2f pos, sf::Vector2f size){
             Entidades::Personagens::InimigoMedio* pInimigo = new Entidades::Personagens::InimigoMedio(pos, size, Entidades::ID::Inimigo, pJogador, this);
-            pInimigo->setGerenciadorDeColisao(&gerenciadorDeColisao);
+            pInimigo->setGerenciadorDeColisao(pColisao);
             LE.push_back(static_cast<Entidades::Entidade*>(pInimigo));
         }
         void Fase::newChefao(sf::Vector2f pos, sf::Vector2f size){
             Entidades::Personagens::InimigoDificil* pInimigo = new Entidades::Personagens::InimigoDificil(pos, size, Entidades::ID::Inimigo, pJogador);
-            pInimigo->setGerenciadorDeColisao(&gerenciadorDeColisao);
+            pInimigo->setGerenciadorDeColisao(pColisao);
             LE.push_back(static_cast<Entidades::Entidade*>(pInimigo));
         }
         
         void Fase::newProjetil(sf::Vector2f pos, const bool direita){
             Entidades::Projetil* pProj = new Entidades::Projetil(pos, Entidades::ID::Projetil, direita);
-            pProj->setGerenciadorDeColisao(&gerenciadorDeColisao);
+            pProj->setGerenciadorDeColisao(pColisao);
             LE.push_back(static_cast<Entidades::Entidade*>(pProj));
         }
         
         void Fase::newObstaculo(sf::Vector2f pos, sf::Vector2f size){
             Entidades::Obstaculos::ObstaculoFacil* pObstaculoFacil = new Entidades::Obstaculos::ObstaculoFacil(pos, size, Entidades::ID::Plataforma);
-            pObstaculoFacil->setGerenciadorDeColisao(&gerenciadorDeColisao);
+            pObstaculoFacil->setGerenciadorDeColisao(pColisao);
             LE.push_back(static_cast<Entidades::Entidade*>(pObstaculoFacil));
         }
         void Fase::update(double dt, double alpha){
@@ -64,7 +65,7 @@ namespace Estados{
 
         void Fase::newLava(sf::Vector2f pos, sf::Vector2f size){
             Entidades::Obstaculos::Lava* pLava = new Entidades::Obstaculos::Lava(pos, size, Entidades::ID::Lava);
-            pLava->setGerenciadorDeColisao(&gerenciadorDeColisao);
+            pLava->setGerenciadorDeColisao(pColisao);
             LE.push_back(static_cast<Entidades::Entidade*>(pLava));
         }
 
@@ -80,14 +81,15 @@ namespace Estados{
 
         void Fase::executar(){
             if(pJogador){
-                pGrafico->setViewCenter(pJogador->getBody()->getPosition());
+                sf::Vector2f cameraPos = pGrafico->getViewCenter();
+                sf::Vector2f jogadorPos = pJogador->getBody()->getPosition();
+                sf::Vector2f novaPosCamera = cameraPos + (jogadorPos - cameraPos) * 0.01f;
+                novaPosCamera.y = 9*200;
+                pGrafico->setViewCenter(novaPosCamera);
                 pEvento->stage();
                 pFisico->update(dt, alpha);
-                LE.updateAll();
                 draw();
-                pFisico->update(dt, alpha);
-                pGrafico->display();
-                pGrafico->clear();
+                LE.updateAll();
             }
         }
         void Fase::draw(){

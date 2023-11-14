@@ -18,6 +18,7 @@ namespace Estados{
     }
 
     MaquinaDeEstado::~MaquinaDeEstado(){
+        delete(instance);
     }
 
     void MaquinaDeEstado::pushEstado(Estado* estado){
@@ -40,7 +41,7 @@ namespace Estados{
         pushEstado(estado);
     }
 
-    void MaquinaDeEstado::atualizarEstadoAtual(double dt, double alpha){
+    void MaquinaDeEstado::atualizarEstadoAtual(const double dt,const double alpha){
         if(!estadoStack.empty()){
             estadoStack.top()->update(dt, alpha);
         }

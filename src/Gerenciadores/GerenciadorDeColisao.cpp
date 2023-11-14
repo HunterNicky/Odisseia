@@ -1,18 +1,29 @@
 #include "..\..\include\Gerenciadores\GerenciadorDeColisao.hpp"
+#include "Entidades/Entidade.hpp"
 #include <iostream>
 
 namespace Gerenciadores{
+GerenciadorDeColisao* GerenciadorDeColisao::instance = nullptr;
+
     GerenciadorDeColisao::GerenciadorDeColisao(){}
-    GerenciadorDeColisao::~GerenciadorDeColisao(){}
+    GerenciadorDeColisao::~GerenciadorDeColisao(){
+delete(instance);
+    }
+
     void GerenciadorDeColisao::setList(Lista::ListaDeEntidades* LE){this->LE = LE;}
+
+    GerenciadorDeColisao* GerenciadorDeColisao::getInstance(){
+        if(instance == nullptr){
+            instance = new GerenciadorDeColisao();
+        }
+        return instance;
+    }
 
     void GerenciadorDeColisao::Notify(Entidades::Entidade* entidade, Entidades::Entidade* entidade2 ,const sf::Vector2f mtv) const{  
         entidade->setPos(sf::Vector2f(entidade->getPos().x + mtv.x, entidade->getPos().y + mtv.y));
         entidade->verificaSolo(mtv);
         entidade->tratarColisao(entidade2);
         entidade2->tratarColisao(entidade);
-        //if(entidade->getId() == 1 && entidade2->getId()==2)entidade->tratarColisao(entidade2);
-        //if(entidade->getId() == 2 && entidade2->getId()==1)entidade2->tratarColisao(entidade);
     }
 
     bool GerenciadorDeColisao::collisionDetection(const sf::Drawable *drawable1, const sf::Drawable *drawable2, sf::Vector2f *mtv){

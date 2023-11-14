@@ -2,7 +2,7 @@
 
 namespace Estados{
 
-    Estado::Estado(MaquinaDeEstado *pMaquinaDeEstado, unsigned int id):
+    Estado::Estado(MaquinaDeEstado *pMaquinaDeEstado, const unsigned int id):
     Ente(sf::Vector2f(0,0),sf::Vector2f(0,0)), pMaquinaDeEstado(pMaquinaDeEstado), id(id), ativo(true){
     }
 

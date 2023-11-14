@@ -8,30 +8,15 @@ namespace Menu{
     MenuPrincipal::MenuPrincipal(Estados::Jogo* pJogo):
     Menu(),
     pJogo(pJogo){
-        Botoes::Botao* pBotao = NULL;
-        fase1 = NULL;
-
-        pBotao = new Botoes::Botao(sf::Vector2f(0.f, 720.f / 4), std::string(" Jogar"));
-        pBotao->selecionado(true);
-        Menu::lBotao.push_back(pBotao);
-        Menu::it = Menu::lBotao.begin();
-
-        pBotao = new Botoes::Botao(sf::Vector2f(0.f, 720.f / 4 + 100), std::string(" Opcoes"));
-        Menu::lBotao.push_back(pBotao);
-
-        pBotao = new Botoes::Botao(sf::Vector2f(0.f, 720.f / 4 + 200), std::string(" Carregar"));
-        Menu::lBotao.push_back(pBotao);
-
-        pBotao = new Botoes::Botao(sf::Vector2f(0.f, 720.f / 4 + 300), std::string(" Sair"));
-        Menu::lBotao.push_back(pBotao);
-        numOpc = 3;
+                fase1 = NULL;
+inicializaBotao();
     }
 
     MenuPrincipal::~MenuPrincipal(){
         pGrafico->close();
     }
 
-    void MenuPrincipal::update(double dt, double alpha){
+    void MenuPrincipal::update(const double dt,const double alpha){
         Menu::update();
     }
 
@@ -57,4 +42,25 @@ namespace Menu{
                 break;
         }
     }
+
+    void MenuPrincipal::inicializaBotao(){
+        Botoes::Botao* pBotao = NULL;
+        
+        pBotao = new Botoes::Botao(sf::Vector2f(0.f, 720.f / 4), std::string(" Jogar"));
+        pBotao->selecionado(true);
+
+        Menu::lBotao.push_back(pBotao);
+        Menu::it = Menu::lBotao.begin();
+
+        pBotao = new Botoes::Botao(sf::Vector2f(0.f, 720.f / 4 + 100), std::string(" Opcoes"));
+        Menu::lBotao.push_back(pBotao);
+
+        pBotao = new Botoes::Botao(sf::Vector2f(0.f, 720.f / 4 + 200), std::string(" Carregar"));
+        Menu::lBotao.push_back(pBotao);
+
+        pBotao = new Botoes::Botao(sf::Vector2f(0.f, 720.f / 4 + 300), std::string(" Sair"));
+        Menu::lBotao.push_back(pBotao);
+        numOpc = 3;
+    }
+
 }

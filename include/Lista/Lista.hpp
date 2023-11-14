@@ -14,13 +14,13 @@ namespace Lista{
         Lista();
         ~Lista();
         TL* pop(TL* pData);
-        TL* pop(unsigned int index);
+        TL* pop(const unsigned int index);
         TL* getFirst();
         TL* getLast();
-        TL* operator[](unsigned int index);
+        TL* operator[](const unsigned int index);
         void push_back(TL* pData);
         void remove(TL* pData);
-        void remove(unsigned int index);
+        void remove(const unsigned int index);
         void clear();
         const bool getEmpty();
         unsigned int getSize();

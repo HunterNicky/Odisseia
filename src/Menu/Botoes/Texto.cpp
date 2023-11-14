@@ -14,7 +14,7 @@ namespace Menu{
 
         Texto::~Texto(){}
 
-        void Texto::setTexto(std::string texto){
+        void Texto::setTexto(const std::string texto){
             this->texto = texto;
             sfTexto.setString(texto);
         }
@@ -49,7 +49,7 @@ namespace Menu{
             return texto;
         }
 
-        void Texto::setFontSize(unsigned int sizeFont){
+        void Texto::setFontSize(const unsigned int sizeFont){
             this->sizeFont = sizeFont;
             sfTexto.setCharacterSize(sizeFont);
         }

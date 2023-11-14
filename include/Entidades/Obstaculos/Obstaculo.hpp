@@ -1,6 +1,7 @@
 #pragma once
 
 #include "..\Entidade.hpp"
+#include "Entidades/Entidade.hpp"
 namespace Entidades{
     namespace Obstaculos{
         class Obstaculo : public Entidade{

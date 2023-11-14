@@ -2,10 +2,9 @@
 
 #include "..\Ente.hpp"
 #include "..\Gerenciadores\GerenciadorDeColisao.hpp"
-#include "..\Gerenciadores\GerenciadorFisico.hpp"
 namespace Gerenciadores{
-    class GerenciadorFisico;
     class GerenciadorDeColisao; 
+    class GerenciadorFisico;
 }
 
 namespace Entidades{
@@ -24,7 +23,7 @@ namespace Entidades{
         protected:
             int id;
             sf::RectangleShape* body;
-            Gerenciadores::GerenciadorDeColisao* gColisao;
+            static Gerenciadores::GerenciadorDeColisao* gColisao;
             static Gerenciadores::GerenciadorFisico* gFisico;
             const Entidades::ID ID;
         public:

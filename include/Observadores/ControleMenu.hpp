@@ -19,7 +19,7 @@ namespace Observadores{
             ControleMenu(Menu::Menu* pMenu);
             ~ControleMenu();
             void setMenu(Menu::Menu* pMenu);
-            void notifyPressed(std::string key);
-            void notifyReleased(std::string key);
+            void notifyPressed(const std::string key);
+            void notifyReleased(const std::string key);
     };
 }

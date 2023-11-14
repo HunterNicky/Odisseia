@@ -15,7 +15,9 @@ namespace Gerenciadores{
     window(new sf::RenderWindow(sf::VideoMode(1280,720),"Minion++")),
     view(sf::Vector2f(1280.f/2,720.f/2), sf::Vector2f(1280,720)){}
 
-    GerenciadorGrafico::~GerenciadorGrafico(){}
+    GerenciadorGrafico::~GerenciadorGrafico(){
+        delete(instance);
+    }
 
     void GerenciadorGrafico::display(){
         if(isWindowOpen()){
@@ -42,7 +44,7 @@ namespace Gerenciadores{
         }
     }
 
-    const bool GerenciadorGrafico::isWindowOpen(){
+    const bool GerenciadorGrafico::isWindowOpen() const{
         return window->isOpen();
     }
 
@@ -50,11 +52,19 @@ namespace Gerenciadores{
         return window->pollEvent(event);
     }
 
-    void GerenciadorGrafico::setViewCenter(sf::Vector2f center){
+    void GerenciadorGrafico::setViewCenter(const sf::Vector2f center){
         if(isWindowOpen()){
-            view.setCenter(sf::Vector2f(center.x, 0.0f));
+            view.setCenter(sf::Vector2f(center.x, center.y));
         }
     }
+const sf::Vector2f GerenciadorGrafico::getViewCenter() const{
+        if(isWindowOpen()){
+            return view.getCenter();
+        }else{
+            return sf::Vector2f(0,0);
+        }
+    }
+
     void GerenciadorGrafico::drawText(const sf::Text *text){
         if(isWindowOpen()){
             window->draw(*text);

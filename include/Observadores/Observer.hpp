@@ -14,7 +14,7 @@ namespace Observadores{
         virtual ~Observer();
         virtual void notifyPressed(const std::string key) = 0;
         virtual void notifyReleased(const std::string key) = 0;
-        std::string getKeyString(sf::Keyboard::Key key);
+        std::string getKeyString(const sf::Keyboard::Key key);
     };
 
 } 

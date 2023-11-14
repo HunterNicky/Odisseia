@@ -1,6 +1,7 @@
 #pragma once
 
 #include "..\Personagem.hpp"
+#include "Entidades/Entidade.hpp"
 
 namespace Entidades{
     namespace Personagens{
@@ -15,7 +16,7 @@ namespace Entidades{
             void neutralizarInimigo(Entidade* pInimigo);
             void tratarColisao(Entidade* entidade);
             void pular();
-            void direcionar(bool side);
+            void direcionar(const bool side);
             void parar();
             void executar();
             void update();

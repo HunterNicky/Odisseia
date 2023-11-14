@@ -6,6 +6,7 @@ namespace Lista {
     private:
         Elemento<TE>* pNext;
         TE* pData;
+
     public:
         Elemento(TE* data);
         ~Elemento();

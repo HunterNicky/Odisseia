@@ -1,10 +1,12 @@
 #include "..\..\..\..\include\Entidades\Personagens\Jogador\Jogador.hpp"
-
+#include "Entidades/Entidade.hpp"
+#include "Entidades/Personagens/Personagem.hpp"
+#include "Gerenciadores/GerenciadorFisico.hpp"
 #include <iostream>
 namespace Entidades{
     namespace Personagens{
         void Jogador::inicializa(){
-            vel = sf::Vector2f(0.1f, 0.1f);
+            vel = sf::Vector2f(0.0f, 0.0f);
             body->setFillColor(sf::Color::Blue);
             num_vidas = 1000;
         }

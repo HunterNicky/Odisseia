@@ -15,7 +15,7 @@ namespace Observadores{
     void ControleMenu::setMenu(Menu::Menu* pMenu){
         this->pMenu = pMenu;
     }
-    void ControleMenu::notifyPressed(std::string key){
+    void ControleMenu::notifyPressed(const std::string key){
         if(pMaquinaDeEstado->getEstadoAtual() == static_cast<Estados::Estado*>(pMenu)){
             if(pMenu && pMaquinaDeEstado->getEstadoAtual()->getAtivo()){
                 if(key == cima){
@@ -33,5 +33,5 @@ namespace Observadores{
         }
     }
 
-    void ControleMenu::notifyReleased(std::string key){}
+    void ControleMenu::notifyReleased(const std::string key){}
 }

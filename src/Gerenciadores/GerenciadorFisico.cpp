@@ -1,4 +1,7 @@
 #include "..\..\include\Gerenciadores\GerenciadorFisico.hpp"
+#include "Entidades/Entidade.hpp"
+#include "Entidades/Personagens/Personagem.hpp"
+#include "Gerenciadores/GerenciadorFisico.hpp"
 #include <iostream>
 
 namespace Gerenciadores{
@@ -6,7 +9,9 @@ namespace Gerenciadores{
 
     GerenciadorFisico::GerenciadorFisico():dt(0.0f), alpha(0.0f){}
 
-    GerenciadorFisico::~GerenciadorFisico(){}
+    GerenciadorFisico::~GerenciadorFisico(){
+        delete(instance);
+    }
 
     float GerenciadorFisico::getDeltaTime() const{return dt;}
 
