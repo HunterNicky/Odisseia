@@ -5,9 +5,6 @@
 
 namespace Entidades{
         class Entidade;
-    namespace Personagens{
-        class Personagem;
-    }
 }
 
 namespace Gerenciadores{

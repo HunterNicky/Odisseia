@@ -2,7 +2,6 @@
 
 #include "..\Jogador\Jogador.hpp"
 
-
 namespace Entidades{
     namespace Personagens{
         class Inimigo : public Personagem{

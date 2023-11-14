@@ -3,6 +3,8 @@
 //#include "..\..\include\Gerenciadores\GerenciadorFisico.hpp"
 
 namespace Entidades{
+    Gerenciadores::GerenciadorFisico* Entidade::gFisico = Gerenciadores::GerenciadorFisico::getInstance();
+
     Entidade::Entidade(const sf::Vector2f pos, const sf::Vector2f size, const Entidades::ID id):
         Ente(pos, size), ID(id), body(new sf::RectangleShape(size)){
         body->setPosition(pos);

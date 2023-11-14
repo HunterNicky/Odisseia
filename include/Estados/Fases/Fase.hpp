@@ -2,8 +2,8 @@
 
 #include "..\..\Gerenciadores\GerenciadorGrafico.hpp"
 #include "..\..\Gerenciadores\GerenciadorDeColisao.hpp"
-//#include "..\..\Lista\ListaDeEntidades.hpp"
-//#include "..\..\Entidades\Personagens\Jogador\Jogador.hpp"
+#include "..\..\Lista\ListaDeEntidades.hpp"
+#include "..\..\Entidades\Personagens\Jogador\Jogador.hpp"
 #include "..\..\Entidades\Personagens\Inimigo\InimigoFacil.hpp"
 #include "..\..\Entidades\Personagens\Inimigo\InimigoMedio.hpp"
 #include "..\..\Entidades\Personagens\Inimigo\InimigoDificil.hpp"

@@ -2,8 +2,8 @@
 
 #include "..\Entidade.hpp"
 
+
 namespace Entidades {
-    class Entidade;
     namespace Personagens {
         class Personagem : public Entidade {
         protected:
@@ -24,7 +24,7 @@ namespace Entidades {
             virtual void verificaSolo(const sf::Vector2f mtv);
             void setVel(sf::Vector2f vel);
             void setAcc(sf::Vector2f acc);
-            void setForca(sf::Vector2f forca);
+            //void setForca(sf::Vector2f forca);
             void setMassa(float massa);
             void setOnFloor(bool floor);
             void setPrevPos(sf::Vector2f prevPos);
