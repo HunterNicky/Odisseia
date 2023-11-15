@@ -29,7 +29,7 @@ namespace Estados{
                 Observadores::ControleJogador* controle;
                 Entidades::Personagens::Jogador* pJogador;
                 Lista::ListaDeEntidades LE;
-                double dt, alpha;
+                double dt;
             public:
                 Fase();
                 ~Fase();
@@ -43,7 +43,7 @@ namespace Estados{
                 void newObstaculo(sf::Vector2f pos, sf::Vector2f size);
                 void newLava(sf::Vector2f pos, sf::Vector2f size);
                 void updateVida();
-                void update(double dt, double alpha);
+                void update(double dt);
                 void executar();
                 void draw();
                 //virtual void resetEstate() = 0;

@@ -15,7 +15,7 @@ namespace Estados{
             controle = new Observadores::ControleJogador(pJogador);
             pColisao->setList(&LE);
             pEvento->addObserver(static_cast<Observadores::Observer*>(controle));
-            dt = 0.f, alpha = 0.f;
+            dt = 0.f;
         }
         Fase::~Fase(){
             for(unsigned int i = 0; i < LE.getSize(); i++){
@@ -57,9 +57,8 @@ namespace Estados{
             pObstaculoFacil->setGerenciadorDeColisao(pColisao);
             LE.push_back(static_cast<Entidades::Entidade*>(pObstaculoFacil));
         }
-        void Fase::update(double dt, double alpha){
+        void Fase::update(double dt){
             this->dt = dt;
-            this->alpha = alpha;
             executar();
         }
 
@@ -86,7 +85,10 @@ namespace Estados{
                 sf::Vector2f novaPosCamera = cameraPos + (jogadorPos - cameraPos) * 0.01f;
                 pGrafico->setViewCenter(novaPosCamera);
                 pEvento->stage();
-                pFisico->update(dt, alpha);
+                pFisico->update(dt);
+                for(unsigned int i = 0; i < LE.getSize(); i++){
+                    pFisico->executarFisica(LE.operator[](i));
+                }   
                 updateVida();
                 draw();
                 LE.updateAll();

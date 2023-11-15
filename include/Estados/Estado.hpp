@@ -17,7 +17,7 @@ namespace Estados{
         const bool getAtivo() const;
         void setAtivo(const bool ativo);
         unsigned int getID() const;
-        virtual void update(const double dt, const double alpha) = 0;
+        virtual void update(const double dt) = 0;
         virtual void executar() = 0;
         virtual void draw() = 0;
     };

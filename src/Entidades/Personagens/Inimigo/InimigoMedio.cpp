@@ -50,7 +50,6 @@ namespace Entidades{
             else{
                 movimentoAleatorio();
             }
-            Entidade::gFisico->executarFisica(static_cast<Entidades::Entidade*>(this));
             Entidade::body->setPosition(pos);
             gColisao->checkCollision(static_cast<Entidades::Entidade*>(this));
         }

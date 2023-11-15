@@ -7,7 +7,7 @@ namespace Entidades{
     Gerenciadores::GerenciadorDeColisao* Entidade::gColisao = Gerenciadores::GerenciadorDeColisao::getInstance();
 
     Entidade::Entidade(const sf::Vector2f pos, const sf::Vector2f size, const Entidades::ID id):
-        Ente(pos, size), ID(id), body(new sf::RectangleShape(size)){
+        Ente(pos, size), body(new sf::RectangleShape(size)), ID(id), prevPos(pos), massa(20){
         body->setPosition(pos);
     }
 
@@ -25,4 +25,21 @@ namespace Entidades{
 
     void Entidade::setGerenciadorDeColisao(Gerenciadores::GerenciadorDeColisao* gColisao){this->gColisao = gColisao;}
 
+    void Entidade::setVel(const sf::Vector2f vel){this->vel = vel;}
+
+    void Entidade::setAcc(const sf::Vector2f acc) { this->acc = acc;}
+
+    void Entidade::setMassa(const float massa){this->massa = massa;}
+
+    const sf::Vector2f Entidade::getVel() const { return vel;}
+
+    const sf::Vector2f Entidade::getAcc() const{return acc;}
+
+    const sf::Vector2f Entidade::getForca() const{return forca;}
+
+    const float Entidade::getMass() const{return massa;}
+
+    void Entidade::setPrevPos(const sf::Vector2f prevPos){this->prevPos = prevPos;}
+
+    const sf::Vector2f Entidade::getPrevPos() const{return prevPos;}
 }
