@@ -17,6 +17,11 @@
 #include "Entidades/Entidade.hpp"
 #include "Gerenciadores/GerenciadorFisico.hpp"
 
+#include <iostream>
+#include <fstream>
+#include <sstream>
+#include "json.hpp"
+
 namespace Estados{
     namespace Fases{
         class Fase : public Estados::Estado{
@@ -29,19 +34,21 @@ namespace Estados{
                 Observadores::ControleJogador* controle;
                 Entidades::Personagens::Jogador* pJogador;
                 Lista::ListaDeEntidades LE;
+                std::ostringstream buffer;
                 double dt, alpha;
             public:
                 Fase();
                 ~Fase();
+                void salvar();
                 void newJogador(sf::Vector2f pos, sf::Vector2f size);
                 void newInimigo(sf::Vector2f pos, sf::Vector2f size);
                 void newInimigoMedio(sf::Vector2f pos, sf::Vector2f size);
                 void newChefao(sf::Vector2f pos, sf::Vector2f size);
                 void newProjetil(sf::Vector2f pos, const bool direita);
+                void deleteProjetil();
                 //void newPlataforma(sf::Vector2f pos, sf::Vector2f size);
                 //void newGosma(sf::Vector2f pos, sf::Vector2f size);
                 void newObstaculo(sf::Vector2f pos, sf::Vector2f size);
-                void newLava(sf::Vector2f pos, sf::Vector2f size);
                 void updateVida();
                 void update(double dt, double alpha);
                 void executar();

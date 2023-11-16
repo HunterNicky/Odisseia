@@ -34,6 +34,7 @@ namespace Entidades {
             const sf::Vector2f getPrevPos() const;
             const float getMass() const;
             const int getNum_vidas() const;
+            virtual void salvar(std::ostringstream* entrada);
             virtual void executar() = 0;
             virtual void update() = 0;
         };

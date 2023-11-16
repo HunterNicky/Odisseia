@@ -1,5 +1,6 @@
 #include "..\..\..\..\include\Entidades\Personagens\Jogador\Jogador.hpp"
 #include "Entidades/Entidade.hpp"
+#include "Entidades/Personagens/Jogador/Jogador.hpp"
 #include "Entidades/Personagens/Personagem.hpp"
 #include "Gerenciadores/GerenciadorFisico.hpp"
 #include <iostream>
@@ -8,7 +9,7 @@ namespace Entidades{
         void Jogador::inicializa(){
             vel = sf::Vector2f(0.0f, 0.0f);
             body->setFillColor(sf::Color::Blue);
-            num_vidas = 1000;
+            this->num_vidas = 1000;
         }
 
         Jogador::Jogador(const sf::Vector2f pos, const sf::Vector2f size, const Entidades::ID id):
@@ -21,7 +22,7 @@ namespace Entidades{
 
         void Jogador::operator--(const int dano){
             std::cout << num_vidas << std::endl;
-            num_vidas-=dano;
+            this->num_vidas-=dano;
         }
 
         void Jogador::move(){
@@ -90,12 +91,16 @@ namespace Entidades{
             forca.x = 0;
         }
 
-            void Jogador::executar(){
-                move();
-            }
+        void Jogador::executar(){
+            move();
+        }
 
-            void Jogador::update(){
-                executar();
-            }
+        void Jogador::update(){
+            executar();
+        }
+
+        void Jogador::salvar(std::ostringstream* entrada){
+            (*entrada) << "{ \"Posicao\": [" << pos.x << " , " << pos.y << " ], \"Velocidade\": [" << vel.x << " , " << vel.y << "] }" << std::endl;
+        }
     }
 }

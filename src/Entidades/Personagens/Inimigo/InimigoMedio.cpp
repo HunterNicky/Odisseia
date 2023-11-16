@@ -1,19 +1,23 @@
 #include "..\..\..\..\include\Entidades\Personagens\Inimigo\InimigoMedio.hpp"
+//#include "Entidades/Entidade.hpp"
+//#include "Entidades/Personagens/Inimigo/InimigoMedio.hpp"
+#include "Estados/Fases//Fase.hpp"
 
 namespace Entidades{
     namespace Personagens{
         void InimigoMedio::inicializa(){
             vel = sf::Vector2f(0.01f, 0.01f);
             body->setFillColor(sf::Color::Magenta);
-            dano = 5;
             srand(time(NULL));
             moveAleatorio = (int)rand()%2;
             num_vidas = 100;
+            ProjAtivo = false;
         }
         InimigoMedio::InimigoMedio(const sf::Vector2f pos, const sf::Vector2f size, const Entidades::ID id, Entidades::Personagens::Jogador* pJog, Estados::Fases::Fase* pFase):   
-            Inimigo(pos, size, id, pJog), pFase(pFase){
+            Inimigo(pos, size, id, pJog), pFase(nullptr){
             nivel_maldade = (int)rand()%2;
             inicializa();
+            this->pFase = pFase;
         }
 
         InimigoMedio::~InimigoMedio(){}
@@ -31,6 +35,13 @@ namespace Entidades{
         }
 
         void InimigoMedio::atirarProjetil(sf::Vector2f pos, const bool direita){
+            ProjAtivo = true;
+            pFase->newProjetil(pos, direita);
+        }
+
+        void InimigoMedio::deletarProjetil(){
+            ProjAtivo = false;
+            //pFase->deleteProjetil();
         }
 
         void InimigoMedio::move(){
@@ -38,7 +49,7 @@ namespace Entidades{
             sf::Vector2f posInimigo = getBody()->getPosition();
             bool direita;
             
-            if(fabs(posJogador.x - posInimigo.x) < RANGE){
+            if((fabs(posJogador.x - posInimigo.x) < RANGE) && (!ProjAtivo)){
                 forca.x = 0.0f;
                 if(posJogador.x > posInimigo.x){
                     direita = true;
@@ -55,15 +66,8 @@ namespace Entidades{
             gColisao->checkCollision(static_cast<Entidades::Entidade*>(this));
         }
 
-        void InimigoMedio::danificar(Entidade *entidade){
-            Entidades::Personagens::Personagem* pPers = static_cast<Entidades::Personagens::Personagem*>(entidade);
-            pPers->operator--(dano);
-        }
-
         void InimigoMedio::tratarColisao(Entidade *entidade){
-            if(entidade->getId() == Entidades::ID::jogador){
-                danificar(entidade);
-            }
+  
         }
 
         void InimigoMedio::executar(){

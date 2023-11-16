@@ -14,8 +14,7 @@ namespace Entidades{
         class InimigoMedio: public Inimigo{
         private:
             Estados::Fases::Fase* pFase;
-            int dano;
-            int moveAleatorio;
+            bool ProjAtivo;
             void inicializa();
         public:
             InimigoMedio(const sf::Vector2f pos, const sf::Vector2f size, const Entidades::ID id, Entidades::Personagens::Jogador* pJog, Estados::Fases::Fase* pFase);
@@ -23,8 +22,8 @@ namespace Entidades{
             void operator--(const int dano);
             void movimentoAleatorio();
             void atirarProjetil(sf::Vector2f pos, const bool direita);
+            void deletarProjetil();
             void move();
-            void danificar(Entidade* entidade);
             void tratarColisao(Entidade* entidade);
             void executar();
             void update() ;

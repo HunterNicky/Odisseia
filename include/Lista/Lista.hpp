@@ -1,10 +1,30 @@
 #pragma once
 
-#include "Elemento.hpp"
-
 namespace Lista{
     template <class TL>
     class Lista{
+    public:
+        //class Aninhada
+        template <class TE>
+        class Elemento {
+        private:
+            Elemento<TE>* pNext;
+            TE* pData;
+
+        public:
+            Elemento(TE* data):
+            pNext(nullptr),
+            pData(data) {}
+
+            ~Elemento(){}
+
+            void setNext(Elemento<TE>* prox){pNext = prox;}
+
+            TE* getData(){return pData;}
+
+            Elemento<TE>* getNext(){return pNext;}
+        };
+
     private:
         Elemento<TL>* pFirst;
         Elemento<TL>* pLast;
@@ -26,17 +46,22 @@ namespace Lista{
         unsigned int getSize();
 
     public:
+        //classe Aninhada 
+        //Iterator - Padrão de Projeto
         class Iterator{
             private:
-                Elemento<TL>* position;
+                Elemento<TL>* atual;
             public:
-                Iterator(Elemento<TL>* position);
+                Iterator(Elemento<TL>* elem = nullptr);
                 ~Iterator();
+                void operator=(Elemento<TL>* outro);
                 bool operator==(const Iterator& it);
                 bool operator!=(const Iterator& it);
-                Iterator operator++();
-            
+                const Elemento<class TE>operator*();
+                Iterator& operator++();
         };
+
+         Lista<TL>::Iterator getPrimeiro();
     };
 
     template<class TL>
@@ -46,7 +71,7 @@ namespace Lista{
         size(0){}
 
     template<class TL>
-    Lista<TL>::~Lista(){}
+    Lista<TL>::~Lista(){clear();}
 
     template<class TL>
     TL* Lista<TL>::pop(TL* pData){
@@ -219,27 +244,36 @@ namespace Lista{
     }
 
     template <class TL>
-    Lista<TL>::Iterator::Iterator(Elemento<TL> * position){
-        this->position = position;
+    Lista<TL>::Iterator::Iterator(Elemento<TL> * elem){
+        this->atual = elem;
     }
     
     template <class TL>
-    Lista<TL>::Iterator::~Iterator(){}
+    Lista<TL>::Iterator::~Iterator(){atual = nullptr;}
+
+    template <class TL>
+    void Lista<TL>::Iterator::operator=(Elemento<TL>* outro){
+        this->atual = outro;
+    }
 
     template <class TL>
     bool Lista<TL>::Iterator::operator!=(const Iterator& it){
-        return it.position != this->position;
+        return it.atual != this->atual;
     }
 
     template <class TL>
     bool Lista<TL>::Iterator::operator==(const Iterator& it){
-        return it.position == this->position;
+        return it.atual == this->atual;
     }
 
     template <class TL>
-    typename Lista<TL>::Iterator Lista<TL>::Iterator::operator++() {
-        return this->position->getNext();
+    typename Lista<TL>::Iterator& Lista<TL>::Iterator::operator++() {
+        atual = atual->getNext();
+        return (*this);
     }
 
-
+    template <class TL>
+    typename Lista<TL>::Iterator Lista<TL>::getPrimeiro(){
+        return Iterator(pFirst);
+    }
 }

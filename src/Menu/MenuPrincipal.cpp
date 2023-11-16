@@ -1,4 +1,5 @@
 #include "..\..\include\Menu\MenuPrincipal.hpp"
+#include "Estados/Fases/Fase2.hpp"
 #include "Menu/Menu.hpp"
 #include <string>
 
@@ -6,10 +7,10 @@ namespace Menu{
     Estados::MaquinaDeEstado* MenuPrincipal::pMaquinaDeEstado = Estados::MaquinaDeEstado::getInstance();
 
     MenuPrincipal::MenuPrincipal(Estados::Jogo* pJogo):
-    Menu(),
-    pJogo(pJogo){
-                fase1 = NULL;
-inicializaBotao();
+        Menu(),
+        pJogo(pJogo){
+        fase2 = NULL;
+        inicializaBotao();
     }
 
     MenuPrincipal::~MenuPrincipal(){
@@ -27,8 +28,8 @@ inicializaBotao();
     void MenuPrincipal::executar(){
         switch(numSelec){
             case 0:
-                fase1 = new Estados::Fases::Fase1();
-                pMaquinaDeEstado->pushEstado(static_cast<Estados::Estado*>(fase1));
+                fase2 = new Estados::Fases::Fase2();
+                pMaquinaDeEstado->pushEstado(static_cast<Estados::Estado*>(fase2));
                 break;
             case 1:
                 break;

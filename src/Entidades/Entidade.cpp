@@ -1,4 +1,5 @@
 #include "..\..\include\Entidades\Entidade.hpp"
+#include "Entidades/Entidade.hpp"
 #include "Gerenciadores/GerenciadorDeColisao.hpp"
 #include "Gerenciadores/GerenciadorFisico.hpp"
 
@@ -24,5 +25,9 @@ namespace Entidades{
     void Entidade::draw(){pGrafico->draw(body);}
 
     void Entidade::setGerenciadorDeColisao(Gerenciadores::GerenciadorDeColisao* gColisao){this->gColisao = gColisao;}
+
+    void Entidade::salvar(std::ostringstream* entrada){
+
+    }
 
 }

@@ -1,5 +1,6 @@
 #include "..\..\..\include\Entidades\Personagens\Personagem.hpp"
 #include "Entidades/Entidade.hpp"
+#include "Entidades/Personagens/Personagem.hpp"
 #include "Gerenciadores/GerenciadorFisico.hpp"
 #include <iostream>
 namespace Entidades{
@@ -40,6 +41,10 @@ namespace Entidades{
         const sf::Vector2f Personagem::getPrevPos() const{return prevPos;}
 
         const int Personagem::getNum_vidas() const{return num_vidas;}
+
+        void Personagem::salvar(std::ostringstream* entrada){
+            
+        }
 
         void Personagem::move(){
             Entidade::body->setPosition(pos);

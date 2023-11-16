@@ -20,6 +20,7 @@ namespace Entidades{
             void parar();
             void executar();
             void update();
+            void salvar(std::ostringstream* entrada);
         };
     }
 }

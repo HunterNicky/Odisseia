@@ -1,6 +1,8 @@
 #include "..\..\..\include\Estados\Fases\Fase.hpp"
 #include "Entidades/Entidade.hpp"
+#include "Estados/Fases/Fase.hpp"
 
+#define ARQUIVO_JOGADOR "jogados.json"
 namespace Estados{
     namespace Fases{
         Gerenciadores::GerenciadorGrafico* Fase::pGrafico = Gerenciadores::GerenciadorGrafico::getInstance();
@@ -18,12 +20,42 @@ namespace Estados{
             dt = 0.f, alpha = 0.f;
         }
         Fase::~Fase(){
+            salvar();
             for(unsigned int i = 0; i < LE.getSize(); i++){
                 LE.remove(i);
             }
             LE.clear();
             pEvento->removeObserver(static_cast<Observadores::Observer*>(controle));
         }
+
+        void Fase::salvar(){
+            std::ofstream arquivo(ARQUIVO_JOGADOR);
+            if(!arquivo){
+                std::cout << "Erro ao abrir arquivo" << std::endl;
+                exit(1);
+            } 
+            //salvar jogador
+            Lista::Lista<Entidades::Entidade>::Iterator it = LE.getPrimeiro();
+            buffer.str("");
+            buffer << "[";
+
+            if (it != nullptr)
+            {
+                //(*it).salvar(&buffer);
+                //it++;
+            }
+            while(it != nullptr){
+                buffer << ",";
+                //(*it)->salvar(&buffer);
+                it.operator++();
+            }
+            buffer << "]";
+            arquivo << buffer.str() << std::endl;
+            arquivo.close();
+        }
+
+
+
         void Fase::newJogador(sf::Vector2f pos, sf::Vector2f size){
             pJogador = new Entidades::Personagens::Jogador(pos, size, Entidades::ID::jogador);
             pJogador->setGerenciadorDeColisao(pColisao);
@@ -51,6 +83,14 @@ namespace Estados{
             pProj->setGerenciadorDeColisao(pColisao);
             LE.push_back(static_cast<Entidades::Entidade*>(pProj));
         }
+
+        void Fase::deleteProjetil(){
+            for(unsigned int i = 0; i < LE.getSize(); i++){
+                if(LE[i]->getId() == Entidades::ID::Projetil){
+                    LE.remove(i);
+                }
+            }
+        }
         
         void Fase::newObstaculo(sf::Vector2f pos, sf::Vector2f size){
             Entidades::Obstaculos::ObstaculoFacil* pObstaculoFacil = new Entidades::Obstaculos::ObstaculoFacil(pos, size, Entidades::ID::Plataforma);
@@ -61,12 +101,6 @@ namespace Estados{
             this->dt = dt;
             this->alpha = alpha;
             executar();
-        }
-
-        void Fase::newLava(sf::Vector2f pos, sf::Vector2f size){
-            Entidades::Obstaculos::Lava* pLava = new Entidades::Obstaculos::Lava(pos, size, Entidades::ID::Lava);
-            pLava->setGerenciadorDeColisao(pColisao);
-            LE.push_back(static_cast<Entidades::Entidade*>(pLava));
         }
 
         void Fase::updateVida(){

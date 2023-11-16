@@ -1,4 +1,5 @@
 #include "..\..\..\include\Estados\Fases\Fase2.hpp"
+#include "Estados/Fases/Fase2.hpp"
 
 namespace Estados{
     namespace Fases{
@@ -11,12 +12,17 @@ namespace Estados{
 
         }
 
+        void Fase2::newLava(sf::Vector2f pos, sf::Vector2f size){
+            Entidades::Obstaculos::Lava* pLava = new Entidades::Obstaculos::Lava(pos, size, Entidades::ID::Lava);
+            pLava->setGerenciadorDeColisao(pColisao);
+            LE.push_back(static_cast<Entidades::Entidade*>(pLava));
+        }
+
         void Fase2::loadMap(){
             
-            std::ifstream file("C:\\Users\\gabri\\OneDrive\\Documentos\\MateriasFaculdade\\TecProg\\Gigantes-\\data\\mapa.txt");
+            std::ifstream file("data//mapa.txt");
             sf::Vector2f pos(0.f, 0.f);
             char numero;
-
 
             while(file.get(numero)){
                 switch (numero)
@@ -50,6 +56,16 @@ namespace Estados{
                 }
             }
             file.close();
+        }
+        void Fase2::draw(){
+            Fase::draw();
+        }
+
+        void Fase2::update(){
+        }
+
+        void Fase2::executar(){
+            Fase::executar();
         }
     }
 }

@@ -4,13 +4,12 @@
 #include <math.h>
 #include <stdlib.h>
 #include <time.h>
-
 namespace Entidades{
     namespace Personagens{
         class InimigoFacil : public Inimigo{
         private:
-            int range;
-            int moveAleatorio;
+            int raivosidade;
+            int dano;
             void inicializa();
         public:
             InimigoFacil(const sf::Vector2f pos, const sf::Vector2f size, const Entidades::ID id, Entidades::Personagens::Jogador* pJog);

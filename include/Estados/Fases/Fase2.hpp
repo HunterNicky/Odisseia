@@ -1,8 +1,7 @@
 #pragma once
 
 #include "Fase.hpp"
-#include <sstream>
-#include <fstream>
+
 
 namespace Estados{
     namespace Fases{
@@ -12,7 +11,11 @@ namespace Estados{
         public:
             Fase2();
             ~Fase2();
+            void newLava(sf::Vector2f pos, sf::Vector2f size);
             void loadMap();
+            void draw();
+            void update();
+            void executar();
         };
     }
 

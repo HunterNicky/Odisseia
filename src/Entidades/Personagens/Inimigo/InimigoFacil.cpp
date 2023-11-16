@@ -1,4 +1,5 @@
 #include "..\..\..\..\include\Entidades\Personagens\Inimigo\InimigoFacil.hpp"
+#include <stdlib.h>
 
 namespace Entidades{
     namespace Personagens{
@@ -6,14 +7,21 @@ namespace Entidades{
             vel = sf::Vector2f(0.1f, 0.1f);
             body->setFillColor(sf::Color::Red);
             range = 200;
+            num_vidas = 10;
             srand(time(NULL));
             moveAleatorio = rand()%4;
-            num_vidas = 10;
+            raivosidade = rand()%10;
         }
 
         InimigoFacil::InimigoFacil(const sf::Vector2f pos, const sf::Vector2f size, const Entidades::ID id, Entidades::Personagens::Jogador* pJog):
             Inimigo(pos, size, id, pJog){
             inicializa();
+            if((raivosidade >= 0) && (raivosidade < 3)){//30% chance de ser raivoso
+                dano = 20;
+            }else{
+                dano = 10;
+            }
+
         }
         InimigoFacil::~InimigoFacil(){
 

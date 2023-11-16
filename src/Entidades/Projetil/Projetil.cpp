@@ -1,4 +1,5 @@
 #include "..\..\..\include\Entidades\Projetil\Projetil.hpp"
+#include "Entidades/Entidade.hpp"
 
 namespace Entidades{
     //Dano do projetil
@@ -8,11 +9,12 @@ namespace Entidades{
         Entidade(pos, sf::Vector2f(10.0f, 10.0f), id)
     {
         if(direita){
-            vel = sf::Vector2f(0.01f, 0.0f);
+            vel = sf::Vector2f(10.0f, 0.0f);
         }else{
-            vel = sf::Vector2f(-0.01f, 0.0f);
+            vel = sf::Vector2f(-10.0f, 0.0f);
         }
         body->setFillColor(sf::Color::Green);
+        
     }
 
     Projetil::~Projetil(){
@@ -24,6 +26,7 @@ namespace Entidades{
             std::cout << "Projetil colidiu com jogador!" << std::endl;
             Entidades::Personagens::Personagem* pPers = static_cast<Entidades::Personagens::Personagem*>(entidade);
             pPers->operator--(dano);
+            pinim->deletarProjetil();
         }
     }
 
@@ -31,12 +34,16 @@ namespace Entidades{
 
     }
 
+    void Projetil::move(){
+        body->move(vel);
+    }
+
     void Projetil::draw(){
         pGrafico->draw(body);
     }
 
     void Projetil::executar(){
-        body->move(vel);
+        move();
         gColisao->checkCollision(static_cast<Entidades::Entidade*>(this));
     }
 
