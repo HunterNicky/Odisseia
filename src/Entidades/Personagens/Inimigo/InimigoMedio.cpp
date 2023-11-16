@@ -24,9 +24,9 @@ namespace Entidades{
 
         void InimigoMedio::movimentoAleatorio(){
             if(moveAleatorio == 0){
-                forca.x = 4.0f;
+                forca.x = 3000.0f;
             }else{
-                forca.x = -4.0f;
+                forca.x = -3000.0f;
             }
         }
 

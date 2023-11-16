@@ -27,7 +27,7 @@ namespace Gerenciadores{
         void query(sf::FloatRect rect, std::vector<Entidades::Entidade*>& result);
         void clear();
 
-        bool detectCollision(Entidades::Entidade* entidade, sf::FloatRect& collisionRect, sf::Vector2f& mtv);
+        bool detectCollision(Entidades::Entidade* entidade,std::vector<Entidades::Entidade*>& colliEnti ,sf::FloatRect& collisionRect, sf::Vector2f& mtv);
 
     };
 }

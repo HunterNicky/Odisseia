@@ -2,6 +2,7 @@
 #include "Entidades/Entidade.hpp"
 #include "Gerenciadores/QuadTree.hpp"
 #include <iostream>
+#include <vector>
 
 namespace Gerenciadores{
     GerenciadorDeColisao* GerenciadorDeColisao::instance = nullptr;
@@ -30,7 +31,7 @@ namespace Gerenciadores{
         entidade->setPos(sf::Vector2f(entidade->getPos().x + mtv.x, entidade->getPos().y + mtv.y));
         entidade->verificaSolo(mtv);
         entidade->tratarColisao(entidade2);
-        //entidade2->tratarColisao(entidade);
+        entidade2->tratarColisao(entidade);
     }
 
     void GerenciadorDeColisao::atualizarQuadTree(){
@@ -44,8 +45,12 @@ namespace Gerenciadores{
         atualizarQuadTree();
         sf::Vector2f mtv;
         sf::FloatRect collisionRect;
-        if(quadTree.detectCollision(entidade, collisionRect, mtv)){
-            Notify(entidade, entidade, mtv);
+        std::vector<Entidades::Entidade*> colliEnte;
+        if(quadTree.detectCollision(entidade, colliEnte,collisionRect, mtv)){
+            for(auto& entidade2 : colliEnte){
+                Notify(entidade, entidade2, mtv);
+                mtv = sf::Vector2f(0.f, 0.f);
+            }
         }
     }
 }

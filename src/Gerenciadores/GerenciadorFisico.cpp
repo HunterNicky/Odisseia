@@ -28,16 +28,13 @@ namespace Gerenciadores{
 
 
     void GerenciadorFisico::calColision(Entidades::Entidade* entidade, Entidades::Entidade* entidade1){
-         sf::Vector2f v1 = entidade->getVel();
+        sf::Vector2f v1 = entidade->getVel();
         sf::Vector2f v2 = entidade1->getVel();
         float m1 = entidade->getMass();
         float m2 = entidade1->getMass();
 
         sf::Vector2f newV1 = ((m1 - m2) * v1 + 2 * m2 * v2) / (m1 + m2);
-        sf::Vector2f newV2 = ((m2 - m1) * v2 + 2 * m1 * v1) / (m1 + m2);
-
         entidade->setVel(newV1);
-        entidade1->setVel(newV2);
     }
 
 
@@ -49,7 +46,7 @@ namespace Gerenciadores{
         (entidade->getVel().x * entidade->getVel().x * test.x,
         entidade->getVel().y * entidade->getVel().y * test.y);
         float area = entidade->getSize().x * entidade->getSize().y;
-        sf::Vector2f dragForce(area * squareVel.x * 0.1f, area * squareVel.y * 0.1f);
+        sf::Vector2f dragForce(area * squareVel.x * 0.4f, area * squareVel.y * 0.4f);
         return (dragForce);
     }
 

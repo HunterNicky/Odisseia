@@ -73,7 +73,7 @@ namespace Gerenciadores{
         }
     }
 
-    bool Quadtree::detectCollision(Entidades::Entidade* entidade, sf::FloatRect& collisionRect, sf::Vector2f& mtv){
+    bool Quadtree::detectCollision(Entidades::Entidade* entidade, std::vector<Entidades::Entidade*>& colliEnti,sf::FloatRect& collisionRect, sf::Vector2f& mtv){
         if(!boundary.intersects(entidade->getBody()->getGlobalBounds()))
             return false;
 
@@ -98,6 +98,7 @@ namespace Gerenciadores{
                     mtv.y = (collisionRect2.top + collisionRect2.height / 2.f < collisionRect.top + collisionRect.height / 2.f) ? 
                     -overlapY : overlapY;
                 }
+                colliEnti.push_back(otherEntity);
                 collisionDetected = true;
             }
         }
@@ -107,7 +108,7 @@ namespace Gerenciadores{
                 sf::FloatRect childCollisionRect;
                 sf::Vector2f childMTV;
 
-                if(nodes[i]->detectCollision(entidade, childCollisionRect, childMTV)){
+                if(nodes[i]->detectCollision(entidade, colliEnti, childCollisionRect, childMTV)){
                     collisionDetected = true;
 
                     if(std::abs(childMTV.x) < std::abs(mtv.x))

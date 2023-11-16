@@ -48,13 +48,6 @@ namespace Entidades{
             }
         }
         void Jogador::tratarColisao(Entidade* entidade){
-            gFisico->calColision(static_cast<Personagem*>(this), static_cast<Personagem*>(entidade));
-            sf::Vector2f aux;
-            aux.x = -vel.x;
-            aux.y = -vel.y;
-            aux.x *= 0.01f;
-            aux.y *= 0.01f;
-            pos += aux;
             switch (entidade->getId())
             {
             case (ID::Inimigo):
@@ -84,6 +77,7 @@ namespace Entidades{
                 forca.x = -3000.f;
             }
             if(!(onFloor)) pular();
+            else vel.y = 0;
         }
 
         void Jogador::parar(){
