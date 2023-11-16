@@ -103,7 +103,7 @@ namespace Lista{
     }
     
     template <class TL>
-    TL* Lista<TL>::pop(unsigned int index){
+    TL* Lista<TL>::pop(const unsigned int index){
         if (index >= size || pFirst == nullptr){return nullptr;}
 
         Elemento<TL>* pAux = pFirst;
@@ -146,7 +146,7 @@ namespace Lista{
     }
 
     template <class TL>
-    TL* Lista<TL>::operator[](unsigned int index) {
+    TL* Lista<TL>::operator[](const unsigned int index) {
         if (index >= size || pFirst == nullptr){return nullptr;}
 
         Elemento<TL>* pAux = pFirst;
@@ -206,7 +206,7 @@ namespace Lista{
     }
 
     template <class TL>
-    void Lista<TL>::remove(unsigned int index){
+    void Lista<TL>::remove(const unsigned int index){
         if(index >= size || pFirst == nullptr){return;}
 
         Elemento<TL>* pAux = pFirst;

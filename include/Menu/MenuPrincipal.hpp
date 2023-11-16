@@ -21,7 +21,8 @@ namespace Menu{
             ~MenuPrincipal();
             void draw() override;
             void executar();
-            void update(const double dt, const double alpha) override;
+            void update(const double dt) override;
+            void draw() override;
             void inicializaBotao();
     };
 }

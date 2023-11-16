@@ -17,7 +17,7 @@ namespace Menu{
         pGrafico->close();
     }
 
-    void MenuPrincipal::update(const double dt,const double alpha){
+    void MenuPrincipal::update(const double dt){
         Menu::update();
     }
 

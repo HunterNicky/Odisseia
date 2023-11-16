@@ -30,12 +30,27 @@ namespace Entidades{
             static Gerenciadores::GerenciadorDeColisao* gColisao;
             static Gerenciadores::GerenciadorFisico* gFisico;
             const Entidades::ID ID;
+            sf::Vector2f vel;
+            sf::Vector2f acc;
+            sf::Vector2f forca;
+            sf::Vector2f prevPos;
+            float massa;
+
         public:
             Entidade(const sf::Vector2f pos, const sf::Vector2f size, const Entidades::ID id);
             virtual ~Entidade();
             const Entidades::ID getId() const;
             void setBody(sf::RectangleShape* body);
             void setGerenciadorDeColisao(Gerenciadores::GerenciadorDeColisao* gColisao);
+            void setVel(const sf::Vector2f vel);
+            void setAcc(const sf::Vector2f acc);
+            void setMassa(const float massa);
+            void setPrevPos(const sf::Vector2f prevPos);
+            const sf::Vector2f getVel() const;
+            const sf::Vector2f getAcc() const;
+            const sf::Vector2f getForca() const;
+            const sf::Vector2f getPrevPos() const;
+            const float getMass() const;
             sf::RectangleShape* getBody();
             virtual void executar() = 0;
             virtual void update() = 0;

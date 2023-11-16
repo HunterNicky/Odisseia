@@ -28,9 +28,9 @@ namespace Entidades{
 
         void InimigoMedio::movimentoAleatorio(){
             if(moveAleatorio == 0){
-                forca.x = 4.0f;
+                forca.x = 3000.0f;
             }else{
-                forca.x = -4.0f;
+                forca.x = -3000.0f;
             }
         }
 
@@ -61,7 +61,6 @@ namespace Entidades{
             else{
                 movimentoAleatorio();
             }
-            Entidade::gFisico->executarFisica(static_cast<Entidades::Entidade*>(this));
             Entidade::body->setPosition(pos);
             gColisao->checkCollision(static_cast<Entidades::Entidade*>(this));
         }

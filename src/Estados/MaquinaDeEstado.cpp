@@ -41,9 +41,9 @@ namespace Estados{
         pushEstado(estado);
     }
 
-    void MaquinaDeEstado::atualizarEstadoAtual(const double dt,const double alpha){
+    void MaquinaDeEstado::atualizarEstadoAtual(const double dt){
         if(!estadoStack.empty()){
-            estadoStack.top()->update(dt, alpha);
+            estadoStack.top()->update(dt);
         }
     }
 

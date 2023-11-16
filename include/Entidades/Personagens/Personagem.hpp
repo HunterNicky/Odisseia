@@ -8,11 +8,6 @@ namespace Entidades {
     namespace Personagens {
         class Personagem : public Entidade {
         protected:
-            sf::Vector2f vel;
-            sf::Vector2f acc;
-            sf::Vector2f forca;
-            sf::Vector2f prevPos;
-            float massa;
             bool onFloor;
             int num_vidas;
 
@@ -23,16 +18,7 @@ namespace Entidades {
             virtual void operator--(const int dano) = 0;
             virtual void tratarColisao(Entidade* entidade) = 0;
             virtual void verificaSolo(const sf::Vector2f mtv);
-            void setVel(const sf::Vector2f vel);
-            void setAcc(const sf::Vector2f acc);
-            void setMassa(const float massa);
             void setOnFloor(const bool floor);
-            void setPrevPos(const sf::Vector2f prevPos);
-            const sf::Vector2f getVel() const;
-            const sf::Vector2f getAcc() const;
-            const sf::Vector2f getForca() const;
-            const sf::Vector2f getPrevPos() const;
-            const float getMass() const;
             const int getNum_vidas() const;
             virtual void salvar(std::ostringstream* entrada);
             virtual void executar() = 0;

@@ -13,16 +13,16 @@ namespace Gerenciadores{
         private:
             GerenciadorFisico();
             static GerenciadorFisico* instance;
-            double dt, alpha;
+            double dt;
         public:
             ~GerenciadorFisico();
-            void update(double dt, double alpha);
+            void update(double dt);
             static GerenciadorFisico* getInstance();
-            void calVel(Entidades::Personagens::Personagem* personagem);
-            void calAcc(Entidades::Personagens::Personagem* personagem);
-            void calColision(Entidades::Personagens::Personagem* personagem, Entidades::Personagens::Personagem* personagem1);
+            void calVel(Entidades::Entidade* entidade);
+            void calAcc(Entidades::Entidade* entidade);
+            void calColision(Entidades::Entidade* entidade, Entidades::Entidade* entidade1);
             void executarFisica(Entidades::Entidade* entidade);
-            const sf::Vector2f calDrag(Entidades::Personagens::Personagem* personagem) const;
+            const sf::Vector2f calDrag(Entidades::Entidade* entidade) const;
             float getDeltaTime() const;
     };
 }

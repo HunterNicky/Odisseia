@@ -50,7 +50,7 @@ namespace Estados{
                 //void newGosma(sf::Vector2f pos, sf::Vector2f size);
                 void newObstaculo(sf::Vector2f pos, sf::Vector2f size);
                 void updateVida();
-                void update(double dt, double alpha);
+                void update(double dt);
                 void executar();
                 void draw();
                 //virtual void resetEstate() = 0;

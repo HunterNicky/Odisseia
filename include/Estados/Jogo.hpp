@@ -14,9 +14,8 @@ namespace Estados{
         static Gerenciadores::GerenciadorGrafico* pGrafico;
         static Gerenciadores::GerenciadorDeEvento* pEvento;
         static Estados::MaquinaDeEstado* pMaquinaDeEstado;
+        sf::Time tick, dt;
         sf::Clock clock;
-        double t, dt, currentTime, accumulator;
-
     public:
         Jogo();
         ~Jogo();

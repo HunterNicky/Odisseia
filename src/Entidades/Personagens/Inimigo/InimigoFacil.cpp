@@ -33,28 +33,28 @@ namespace Entidades{
 
         void InimigoFacil::persegueJogador(sf::Vector2f posJogador, sf::Vector2f posInimigo){
             if(posJogador.x - posInimigo.x > 0.0f){
-                forca.x = 8.f;
+                forca.x = 3000.f;
             }else{
-                forca.x = -8.f;
+                forca.x = -3000.f;
             }
 
             if(posJogador.y - posInimigo.y > 0.0f){
-                forca.y = 80.f;
+                forca.y = 30000.f;
             }else{
-                forca.y = -80.f;
+                forca.y = -30000.f;
             }
         }
 
         void InimigoFacil::movimentoAleatorio(){
 
             if(moveAleatorio == 0){
-                forca.x = 4.0f;
+                forca.x = 3000.0f;
             }else if(moveAleatorio == 1){
-                forca.x = -4.0f;
+                forca.x = -3000.0f;
             }else if(moveAleatorio == 2){
-                forca.y = 4.0f;
+                forca.y = 3000.0f;
             }else{
-                forca.y = -4.0f;
+                forca.y = -3000.0f;
             }
         }
 
@@ -69,7 +69,6 @@ namespace Entidades{
             else{
                 movimentoAleatorio();
             }
-            Entidade::gFisico->executarFisica(static_cast<Entidades::Entidade*>(this));
             Entidade::body->setPosition(pos);
             gColisao->checkCollision(static_cast<Entidades::Entidade*>(this));
         }
