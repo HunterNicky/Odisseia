@@ -25,6 +25,10 @@ namespace Menu{
         Menu::draw();
     }
 
+    void MenuPrincipal::carregarJogo(){
+        fase2->recuperarJogada();
+    }
+
     void MenuPrincipal::executar(){
         switch(numSelec){
             case 0:
@@ -32,6 +36,9 @@ namespace Menu{
                 pMaquinaDeEstado->pushEstado(static_cast<Estados::Estado*>(fase2));
                 break;
             case 1:
+                fase2 = new Estados::Fases::Fase2();
+                pMaquinaDeEstado->pushEstado(static_cast<Estados::Estado*>(fase2));
+                carregarJogo();
                 break;
             case 2:
                 break;

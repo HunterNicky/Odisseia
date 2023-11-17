@@ -58,7 +58,7 @@ namespace Lista{
                 bool operator==(const Iterator& it);
                 bool operator!=(const Iterator& it);
                 const Elemento<class TE>operator*();
-                Iterator& operator++();
+                Iterator operator++();
         };
 
          Lista<TL>::Iterator getPrimeiro();
@@ -267,7 +267,7 @@ namespace Lista{
     }
 
     template <class TL>
-    typename Lista<TL>::Iterator& Lista<TL>::Iterator::operator++() {
+    typename Lista<TL>::Iterator Lista<TL>::Iterator::operator++() {
         atual = atual->getNext();
         return (*this);
     }

@@ -36,7 +36,14 @@ namespace Entidades{
 
         void InimigoMedio::atirarProjetil(sf::Vector2f pos, const bool direita){
             ProjAtivo = true;
-            pFase->newProjetil(pos, direita);
+            sf::Vector2f newPosition;
+            if(direita){
+                newPosition = sf::Vector2f(pos.x+pos.x/2.0f, pos.y);
+                pFase->newProjetil(newPosition, direita);
+            }else{
+                newPosition = sf::Vector2f(pos.x-pos.x/2.0f, pos.y);
+                pFase->newProjetil(newPosition, direita);
+            }
         }
 
         void InimigoMedio::deletarProjetil(){
@@ -49,7 +56,7 @@ namespace Entidades{
             sf::Vector2f posInimigo = getBody()->getPosition();
             bool direita;
             
-            if((fabs(posJogador.x - posInimigo.x) < RANGE) && (!ProjAtivo)){
+            if(((fabs(posJogador.x - posInimigo.x) <= RANGE) && (fabs(posJogador.x - posInimigo.y <= RANGE)) && (!ProjAtivo))){
                 forca.x = 0.0f;
                 if(posJogador.x > posInimigo.x){
                     direita = true;

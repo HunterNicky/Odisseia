@@ -16,9 +16,8 @@ namespace Entidades
         Lava::~Lava(){}
 
         void Lava::queimar(Entidade* entidade){
-            sf::Clock clock;
             Entidades::Personagens::Personagem* pPers = static_cast<Entidades::Personagens::Personagem*>(entidade);   
-            pPers->operator--(queimadura);   
+            pPers->operator--(queimadura);
         }
 
         void Lava::tratarColisao(Entidade* entidade){

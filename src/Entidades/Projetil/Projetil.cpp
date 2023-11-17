@@ -9,9 +9,9 @@ namespace Entidades{
         Entidade(pos, sf::Vector2f(10.0f, 10.0f), id)
     {
         if(direita){
-            vel = sf::Vector2f(10.0f, 0.0f);
+            vel = sf::Vector2f(1.0f, 1.0f);
         }else{
-            vel = sf::Vector2f(-10.0f, 0.0f);
+            vel = sf::Vector2f(-1.0f, 1.0f);
         }
         body->setFillColor(sf::Color::Green);
         
@@ -28,10 +28,15 @@ namespace Entidades{
             pPers->operator--(dano);
             pinim->deletarProjetil();
         }
+        else if(entidade->getId() == Entidades::ID::Plataforma){
+            pinim->deletarProjetil();
+        }
     }
 
     void Projetil::verificaSolo(const sf::Vector2f mtv){
-
+        if(mtv.y < 0.f){
+            onFloor = true;
+         }else{onFloor = false;} 
     }
 
     void Projetil::move(){
@@ -44,6 +49,7 @@ namespace Entidades{
 
     void Projetil::executar(){
         move();
+        Entidade::body->setPosition(pos);
         gColisao->checkCollision(static_cast<Entidades::Entidade*>(this));
     }
 

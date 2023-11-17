@@ -1,8 +1,9 @@
 #include "..\..\..\include\Estados\Fases\Fase.hpp"
 #include "Entidades/Entidade.hpp"
 #include "Estados/Fases/Fase.hpp"
+#include <list>
 
-#define ARQUIVO_JOGADOR "jogados.json"
+#define ARQUIVO_JOGADOR "jogador.json"
 namespace Estados{
     namespace Fases{
         Gerenciadores::GerenciadorGrafico* Fase::pGrafico = Gerenciadores::GerenciadorGrafico::getInstance();
@@ -35,26 +36,20 @@ namespace Estados{
                 exit(1);
             } 
             //salvar jogador
-            Lista::Lista<Entidades::Entidade>::Iterator it = LE.getPrimeiro();
+            //Lista::Lista<Entidades::Entidade>::Iterator it = LE.getPrimeiro();
             buffer.str("");
             buffer << "[";
 
-            if (it != nullptr)
-            {
-                //(*it).salvar(&buffer);
-                //it++;
+            for(unsigned int i = 0; i < LE.getSize(); i++){
+                if(LE[i]->getId() == Entidades::ID::jogador){
+                    LE[i]->salvar(&buffer);
+                }
             }
-            while(it != nullptr){
-                buffer << ",";
-                //(*it)->salvar(&buffer);
-                it.operator++();
-            }
+          
             buffer << "]";
             arquivo << buffer.str() << std::endl;
             arquivo.close();
         }
-
-
 
         void Fase::newJogador(sf::Vector2f pos, sf::Vector2f size){
             pJogador = new Entidades::Personagens::Jogador(pos, size, Entidades::ID::jogador);

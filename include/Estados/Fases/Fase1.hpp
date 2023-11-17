@@ -8,6 +8,7 @@ namespace Estados{
         public:
             Fase1();
             ~Fase1();
+            void recuperarJogada();
             void loadMap();
             void draw();
             void update();

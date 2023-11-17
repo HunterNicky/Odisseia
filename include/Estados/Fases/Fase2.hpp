@@ -12,6 +12,7 @@ namespace Estados{
             Fase2();
             ~Fase2();
             void newLava(sf::Vector2f pos, sf::Vector2f size);
+            void recuperarJogada();
             void loadMap();
             void draw();
             void update();

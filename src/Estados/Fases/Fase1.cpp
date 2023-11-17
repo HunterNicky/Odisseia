@@ -1,4 +1,5 @@
 #include "..\..\..\include\Estados\Fases\Fase1.hpp"
+#include "Estados/Fases/Fase1.hpp"
 
 namespace Estados{
     namespace Fases{
@@ -8,6 +9,11 @@ namespace Estados{
         }
         Fase1::~Fase1(){
         }
+        
+        void Fase1::recuperarJogada(){
+
+        }
+
         void Fase1::loadMap(){
 
             std::ifstream file("data\\mapa.txt");

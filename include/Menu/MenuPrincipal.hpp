@@ -2,7 +2,6 @@
 
 #include "Estados/Fases/Fase2.hpp"
 #include "Menu.hpp"
-#include "..\Estados\Fases\Fase2.hpp"
 #include "..\Estados\Estado.hpp"
 #include "..\Estados\Jogo.hpp"
 
@@ -20,6 +19,7 @@ namespace Menu{
             MenuPrincipal(Estados::Jogo* pJogo);
             ~MenuPrincipal();
             void draw() override;
+            void carregarJogo();
             void executar();
             void update(const double dt) override;
             //void draw() override;

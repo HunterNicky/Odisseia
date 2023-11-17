@@ -2,6 +2,7 @@
 #include "Entidades/Entidade.hpp"
 #include "Entidades/Personagens/Jogador/Jogador.hpp"
 #include "Entidades/Personagens/Personagem.hpp"
+#include "Estados/Fases/json.hpp"
 #include "Gerenciadores/GerenciadorFisico.hpp"
 #include <iostream>
 namespace Entidades{
@@ -18,6 +19,11 @@ namespace Entidades{
             inicializa();
         }
 
+        Jogador::Jogador(nlohmann::json atributos, const Entidades::ID id):
+            Personagem(sf::Vector2f(atributos[0]["Posicao"][0], atributos[0]["Posicao"][1]), sf::Vector2f(50.f, 50.0f), id){
+            body->setFillColor(sf::Color::Blue);
+            this->num_vidas = 1000;
+        }
         Jogador::~Jogador(){}   
 
         void Jogador::operator--(const int dano){
@@ -94,7 +100,7 @@ namespace Entidades{
         }
 
         void Jogador::salvar(std::ostringstream* entrada){
-            (*entrada) << "{ \"Posicao\": [" << pos.x << " , " << pos.y << " ], \"Velocidade\": [" << vel.x << " , " << vel.y << "] }" << std::endl;
+            (*entrada) << "{ \"ID\": [" << 1 << "], \"Posicao\": [" << pos.x << " , " << pos.y << "], \"Velocidade\": [" << vel.x << " , " << vel.y << "] }" << std::endl;
         }
     }
 }

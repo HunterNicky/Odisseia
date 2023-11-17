@@ -4,7 +4,7 @@
 #include "Obstaculo.hpp"
 #include "..\Personagens\Personagem.hpp"
 
-#define TEMPO_QUEIMADURA 0.01f
+#define TEMPO_QUEIMADURA 1.f
 
 namespace Entidades{
     namespace Obstaculos{

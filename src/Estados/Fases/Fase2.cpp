@@ -1,5 +1,9 @@
 #include "..\..\..\include\Estados\Fases\Fase2.hpp"
+#include "Entidades/Entidade.hpp"
 #include "Estados/Fases/Fase2.hpp"
+#include <fstream>
+#include <sstream>
+#include <string>
 
 namespace Estados{
     namespace Fases{
@@ -16,6 +20,22 @@ namespace Estados{
             Entidades::Obstaculos::Lava* pLava = new Entidades::Obstaculos::Lava(pos, size, Entidades::ID::Lava);
             pLava->setGerenciadorDeColisao(pColisao);
             LE.push_back(static_cast<Entidades::Entidade*>(pLava));
+        }
+
+        void Fase2::recuperarJogada(){ 
+            std::ifstream arquivo("jogador.json");
+            nlohmann::json jsonStream;
+            arquivo >> jsonStream;
+
+            std::string str = jsonStream.dump();
+        
+            std::cout << jsonStream[0] << std::endl;
+
+            if(1 == 1){
+                Entidades::Personagens::Jogador* pJog = new Entidades::Personagens::Jogador(jsonStream, Entidades::ID::jogador);
+                pJog->setGerenciadorDeColisao(pColisao);
+                LE.push_back(static_cast<Entidades::Entidade*>(pJog));
+            }
         }
 
         void Fase2::loadMap(){
