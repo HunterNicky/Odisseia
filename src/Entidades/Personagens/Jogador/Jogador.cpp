@@ -26,7 +26,7 @@ namespace Entidades{
 
         void Jogador::move(){
             Entidade::body->setPosition(pos);
-            gColisao->checkCollision(static_cast<Entidades::Entidade*>(this));
+            gColisao->Notify(static_cast<Entidades::Entidade*>(this));
         }
 
         void Jogador::pular(){

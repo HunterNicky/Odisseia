@@ -27,8 +27,8 @@ namespace Menu{
     void MenuPrincipal::executar(){
         switch(numSelec){
             case 0:
-                fase1 = new Estados::Fases::Fase1();
-                pMaquinaDeEstado->pushEstado(static_cast<Estados::Estado*>(fase1));
+                fase1 = new Fases::Fase1();
+                pMaquinaDeEstado->pushEstado(static_cast<Estado*>(fase1));
                 break;
             case 1:
                 break;

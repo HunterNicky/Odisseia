@@ -1,4 +1,6 @@
-#include "..\..\..\..\include\Entidades\Personagens\Inimigo\InimigoMedio.hpp"
+#include "Fases/Fase.hpp"
+#include "Entidades/Personagens/Inimigo/InimigoMedio.hpp"
+
 
 namespace Entidades{
     namespace Personagens{
@@ -10,7 +12,7 @@ namespace Entidades{
             moveAleatorio = (int)rand()%2;
             num_vidas = 100;
         }
-        InimigoMedio::InimigoMedio(const sf::Vector2f pos, const sf::Vector2f size, const Entidades::ID id, Entidades::Personagens::Jogador* pJog, Estados::Fases::Fase* pFase):   
+        InimigoMedio::InimigoMedio(const sf::Vector2f pos, const sf::Vector2f size, const Entidades::ID id, Entidades::Personagens::Jogador* pJog, Fases::Fase* pFase):   
             Inimigo(pos, size, id, pJog), pFase(pFase){
             nivel_maldade = (int)rand()%2;
             inicializa();
@@ -51,7 +53,7 @@ namespace Entidades{
                 movimentoAleatorio();
             }
             Entidade::body->setPosition(pos);
-            gColisao->checkCollision(static_cast<Entidades::Entidade*>(this));
+            gColisao->Notify(static_cast<Entidades::Entidade*>(this));
         }
 
         void InimigoMedio::danificar(Entidade *entidade){

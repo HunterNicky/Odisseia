@@ -27,11 +27,17 @@ namespace Gerenciadores{
         return instance;
     }
 
-    void GerenciadorDeColisao::Notify(Entidades::Entidade* entidade, Entidades::Entidade* entidade2 ,const sf::Vector2f mtv) const{  
-        entidade->setPos(sf::Vector2f(entidade->getPos().x + mtv.x, entidade->getPos().y + mtv.y));
-        entidade->verificaSolo(mtv);
-        entidade->tratarColisao(entidade2);
-        entidade2->tratarColisao(entidade);
+    void GerenciadorDeColisao::Notify(Entidades::Entidade* entidade){  
+        atualizarQuadTree();
+        sf::Vector2f mtv;
+        sf::FloatRect collisionRect;
+        std::vector<Entidades::Entidade*> colliEnte;
+        if(quadTree.detectCollision(entidade, colliEnte,collisionRect, mtv)){
+            for(auto& entidade2 : colliEnte){
+                checkCollision(entidade, entidade2, mtv);
+                mtv = sf::Vector2f(0.f, 0.f);
+            }
+        }
     }
 
     void GerenciadorDeColisao::atualizarQuadTree(){
@@ -41,16 +47,10 @@ namespace Gerenciadores{
         }
     }
     
-    void GerenciadorDeColisao::checkCollision(Entidades::Entidade *entidade){
-        atualizarQuadTree();
-        sf::Vector2f mtv;
-        sf::FloatRect collisionRect;
-        std::vector<Entidades::Entidade*> colliEnte;
-        if(quadTree.detectCollision(entidade, colliEnte,collisionRect, mtv)){
-            for(auto& entidade2 : colliEnte){
-                Notify(entidade, entidade2, mtv);
-                mtv = sf::Vector2f(0.f, 0.f);
-            }
-        }
+    void GerenciadorDeColisao::checkCollision(Entidades::Entidade* entidade, Entidades::Entidade* entidade2 ,const sf::Vector2f mtv) const{
+        entidade->setPos(sf::Vector2f(entidade->getPos().x + mtv.x, entidade->getPos().y + mtv.y));
+        entidade->verificaSolo(mtv);
+        entidade->tratarColisao(entidade2);
+        entidade2->tratarColisao(entidade);
     }
 }

@@ -37,7 +37,7 @@ namespace Entidades{
 
     void Projetil::executar(){
         body->move(vel);
-        gColisao->checkCollision(static_cast<Entidades::Entidade*>(this));
+        gColisao->Notify(static_cast<Entidades::Entidade*>(this));
     }
 
     void Projetil::update(){

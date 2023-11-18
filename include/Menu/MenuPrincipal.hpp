@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Menu.hpp"
-#include "..\Estados\Fases\Fase1.hpp"
+#include "Fases/Fase1.hpp"
 #include "..\Estados\Estado.hpp"
 #include "..\Estados\Jogo.hpp"
 
@@ -13,8 +13,8 @@ namespace Menu{
     class MenuPrincipal : public Menu{
         private:
             static Estados::MaquinaDeEstado* pMaquinaDeEstado;
+            Fases::Fase1* fase1;
             Estados::Jogo* pJogo;
-            Estados::Fases::Fase1* fase1;
         public:
             MenuPrincipal(Estados::Jogo* pJogo);
             ~MenuPrincipal();
