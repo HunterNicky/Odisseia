@@ -1,7 +1,9 @@
 #include "..\..\..\..\include\Entidades\Personagens\Jogador\Jogador.hpp"
 #include "Animacao/AnimacaoParado.hpp"
 #include "Entidades/Entidade.hpp"
+#include "Entidades/Personagens/Jogador/Jogador.hpp"
 #include "Entidades/Personagens/Personagem.hpp"
+#include "Estados/Fases/json.hpp"
 #include "Gerenciadores/GerenciadorFisico.hpp"
 #include <iostream>
 namespace Entidades{
@@ -25,11 +27,18 @@ namespace Entidades{
             inicializa();
         }
 
+        Jogador::Jogador(nlohmann::json atributos, const int pos, const Entidades::ID id):
+            Personagem(sf::Vector2f(atributos[pos]["Posicao"][0], atributos[pos]["Posicao"][1]), sf::Vector2f(TAM_X_JOGADOR, TAM_Y_JOGADOR), id){
+            
+            this->setVel(sf::Vector2f(atributos[pos]["Velocidade"][0], atributos[pos]["Velocidade"][1]));
+            body->setFillColor(sf::Color::Blue);
+            this->num_vidas = 1000;
+        }
         Jogador::~Jogador(){}   
 
         void Jogador::operator--(const int dano){
             std::cout << num_vidas << std::endl;
-            num_vidas-=dano;
+            this->num_vidas-=dano;
         }
 
         void Jogador::move(){
@@ -98,7 +107,7 @@ namespace Entidades{
         void Jogador::tratarColisao(Entidade* entidade){
             switch (entidade->getId())
             {
-            case (ID::Inimigo):
+            case (ID::InimigoFacil):
                 neutralizarInimigo(entidade);
                 break;
             case (ID::Plataforma):
@@ -135,6 +144,10 @@ namespace Entidades{
         void Jogador::update(){
             if(estamina < 1.f)estamina += estamina*0.0001f + 0.001f;
             executar();
+        }
+
+        void Jogador::salvar(std::ostringstream* entrada){
+            (*entrada) << "{ \"ID\": [" << 1 << "], \"Posicao\": [" << pos.x << " , " << pos.y << "], \"Velocidade\": [" << vel.x << " , " << vel.y << "] }" << std::endl;
         }
     }
 }

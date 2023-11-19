@@ -18,16 +18,24 @@ namespace Observadores{
     void ControleMenu::notifyPressed(const std::string key){
         if(pMaquinaDeEstado->getEstadoAtual() == static_cast<Estados::Estado*>(pMenu)){
             if(pMenu && pMaquinaDeEstado->getEstadoAtual()->getAtivo()){
-                if(key == cima){
+                if(key == enter){
+                    switch (pMaquinaDeEstado->getEstadoAtual()->getID()) {
+                        case(0): //MenuPrincipal
+                            pMenu->executar();
+                        break;
+                        case(1): //MenuPausa
+                            std::cout << "estive aq" << std::endl;
+                            pMenu->executar();
+                        break;
+                        default:
+                        break;
+                    }
+                }else if(key == fechar){
+                    pMaquinaDeEstado->popEstado();
+                }else if(key == cima){
                     pMenu->select(true);
                 }else if(key == baixo){
                     pMenu->select(false);
-                }
-                if(key == enter){
-                    pMenu->executar();
-                }
-                if(key == fechar){
-                    pMaquinaDeEstado->popEstado();
                 }
             }
         }

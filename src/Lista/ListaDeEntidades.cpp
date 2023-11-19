@@ -1,4 +1,5 @@
 #include "..\..\include\Lista\ListaDeEntidades.hpp"
+#include "Lista/ListaDeEntidades.hpp"
 #include <iostream>
 
 namespace Lista{
@@ -44,4 +45,8 @@ namespace Lista{
     const bool ListaDeEntidades::getEmpty(){return LE.getEmpty();}
 
     unsigned int ListaDeEntidades::getSize(){return LE.getSize();}
+
+    Lista<Entidades::Entidade>::Iterator  ListaDeEntidades::getPrimeiro(){
+        return LE.getPrimeiro();
+    }
 }

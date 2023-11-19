@@ -1,5 +1,6 @@
 #pragma once
 
+//#include "Menu/MenuPausa.hpp"
 #include "Observer.hpp"
 #include "..\Entidades\Personagens\Jogador\Jogador.hpp"
 #include "..\Estados\MaquinaDeEstado.hpp"

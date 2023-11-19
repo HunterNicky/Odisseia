@@ -1,4 +1,5 @@
 #include "..\..\include\Entidades\Entidade.hpp"
+#include "Entidades/Entidade.hpp"
 #include "Gerenciadores/GerenciadorDeColisao.hpp"
 #include "Gerenciadores/GerenciadorFisico.hpp"
 

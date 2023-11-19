@@ -1,4 +1,6 @@
 #include "..\..\..\include\Entidades\Obstaculos\Gosma.hpp"
+#include "Entidades/Entidade.hpp"
+#include "Entidades/Obstaculos/Gosma.hpp"
 
 namespace Entidades{
     namespace Obstaculos{
@@ -9,13 +11,15 @@ namespace Entidades{
         }
         Gosma::~Gosma(){}
 
+        void Gosma::atrasar(Entidade* entidade){
+            sf::Vector2f vel = entidade->getVel()/2.0f;
+            entidade->setVel(vel);
+        }
+
         void Gosma::tratarColisao(Entidade* entidade){
             if(entidade){
-                if(entidade->getId() == Entidades::ID::jogador){/*
-                    Entidades::Personagens::Personagem* pPers = static_cast<Entidades::Personagens::Personagem*>(entidade);
-                    sf::Vector2f vel = pPers->getVel();
-                    sf::Vector2f fcc = sf::Vector2f(vel.x*18.0f, vel.y*18.0f);
-                    pPers->setForca(pPers->getForca() - fcc);*/
+                if(entidade->getId() == Entidades::ID::jogador){
+                    atrasar(entidade);
                 }
             }
         }
@@ -25,6 +29,10 @@ namespace Entidades{
         }
         void Gosma::update(){
             executar();
+        }
+
+        void Gosma::salvar(std::ostringstream* entrada){
+             (*entrada) << "{ \"ID\": [" << 5 << "], \"Posicao\": [" << pos.x << " , " << pos.y << "] }" << std::endl;
         }
     }
 }

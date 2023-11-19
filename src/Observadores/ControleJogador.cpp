@@ -1,4 +1,8 @@
 #include "..\..\include\Observadores\ControleJogador.hpp"
+#include "Estados/Estado.hpp"
+#include "Estados/Fases/Fase.hpp"
+#include "Menu/MenuPausa.hpp"
+#include "Observadores/ControleMenu.hpp"
 
 namespace Observadores{
     Estados::MaquinaDeEstado* ControleJogador::pMaquinaDeEstado = Estados::MaquinaDeEstado::getInstance();
@@ -28,7 +32,9 @@ namespace Observadores{
                 pJogador->correr();
             }
             if(key == fechar){
-                pMaquinaDeEstado->popEstado();
+                Menu::MenuPausa* pPausa = new Menu::MenuPausa();
+                pMaquinaDeEstado->pushEstado(static_cast<Estados::Estado*>(pPausa));
+                Observadores::ControleMenu* pControleF = new Observadores::ControleMenu(static_cast<Menu::Menu*>(pPausa));
             }
         }
     }

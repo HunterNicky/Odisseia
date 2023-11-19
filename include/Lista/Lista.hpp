@@ -29,17 +29,22 @@ namespace Lista{
             Iterator end();
 
     public:
+        //classe Aninhada 
+        //Iterator - Padrão de Projeto
         class Iterator{
             private:
-                Elemento<TL>* position;
+                Elemento<TL>* atual;
             public:
-                Iterator(Elemento<TL>* position);
+                Iterator(Elemento<TL>* elem = nullptr);
                 ~Iterator();
+                void operator=(Elemento<TL>* outro);
                 bool operator==(const Iterator& it);
                 bool operator!=(const Iterator& it);
                 Iterator& operator++();
                 TL* operator*();
         };
+
+         Lista<TL>::Iterator getPrimeiro();
     };
 
     template <class TE>
@@ -249,7 +254,7 @@ namespace Lista{
 
     template <class TL>
     bool Lista<TL>::Iterator::operator==(const Iterator& it){
-        return it.position == this->position;
+        return it.atual == this->atual;
     }
 
     template <class TL>

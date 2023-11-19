@@ -7,6 +7,13 @@
 #include "Animacao/AnimacaoContext.hpp"
 #include "Animacao/AnimacaoStrategy.hpp"
 #include "Entidades/Personagens/Personagem.hpp"
+#include "Estados/Fases/json.hpp"
+#include <vector>
+
+#define TAM_X_JOGADOR 50.0f
+#define TAM_Y_JOGADOR 50.0f
+#define VEL_X_JOGADOR 0.0f
+#define VEL_Y_JOGADOR 0.0f
 
 namespace Entidades{
     namespace Personagens{
@@ -20,6 +27,7 @@ namespace Entidades{
             Animacao::AnimacaoContext contextoAnimacao;
         public:
             Jogador(const sf::Vector2f pos, const sf::Vector2f size, const Entidades::ID id);
+            Jogador(nlohmann::json atributos, const int pos, const Entidades::ID id);
             ~Jogador();
             void operator--(const int dano);
             const float getEstamina() const;
@@ -32,6 +40,7 @@ namespace Entidades{
             void parar();
             void executar();
             void update();
+            void salvar(std::ostringstream* entrada);
         };
     }
 }

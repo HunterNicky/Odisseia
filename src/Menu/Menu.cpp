@@ -2,8 +2,8 @@
 namespace Menu{
     Estados::MaquinaDeEstado* Menu::pMaquinaDeEstado = Estados::MaquinaDeEstado::getInstance();
 
-    Menu::Menu():
-    Estado(static_cast<Estados::MaquinaDeEstado*>(pMaquinaDeEstado), 0),
+    Menu::Menu(const int id):
+    Estado(static_cast<Estados::MaquinaDeEstado*>(pMaquinaDeEstado), id),
     controleMenu(new Observadores::ControleMenu(this)), numOpc(3), numSelec(0)
     {
         controleMenu->setMenu(this);
@@ -20,7 +20,7 @@ namespace Menu{
         delete controleMenu;
     }
 
-    void Menu::update(){
+    void Menu::update(const double dt){
         std::list<Botoes::Botao*>::iterator it2;
         it2 = lBotao.begin();
         pGrafico->setViewCenter(sf::Vector2f(1280.f/2, 720.f/2));

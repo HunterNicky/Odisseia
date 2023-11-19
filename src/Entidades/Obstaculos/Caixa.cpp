@@ -1,6 +1,7 @@
 #include "..\..\..\include\Entidades\Obstaculos\Caixa.hpp"
 #include "Animacao/AnimacaoContext.hpp"
 #include "Entidades/Entidade.hpp"
+#include "Entidades/Obstaculos/Caixa.hpp"
 
 namespace Entidades{
     namespace Obstaculos{
@@ -10,6 +11,18 @@ namespace Entidades{
             contexto()
         {
             contexto.setStrategy(&bloco, 1.f);
+            this->body->setFillColor(sf::Color::White);
+        }
+
+        ObstaculoFacil::ObstaculoFacil(nlohmann::json atributos, const int pos, const Entidades::ID id):
+            Obstaculo(sf::Vector2f(atributos[pos]["Posicao"][0],atributos[pos]["Posicao"][1]), sf::Vector2f(TAM_PLATAFORMA_X, TAM_PLATAFORMA_Y), id)
+        {
+            /*
+            for(int i = 0; i < (int)atributos.size(); i++){
+                if(atributos[i]["ID"][0] == id){
+                    this->setPrevPos(sf::Vector2f(atributos[i]["Posicao"][0], atributos[i]["Posicao"][1]));
+                }
+            */
             this->body->setFillColor(sf::Color::White);
         }
         ObstaculoFacil::~ObstaculoFacil(){
@@ -23,6 +36,9 @@ namespace Entidades{
         }
         void ObstaculoFacil::update(){
             executar();
+        }
+        void ObstaculoFacil::salvar(std::ostringstream* entrada){
+             (*entrada) << "{ \"ID\": [" << 5 << "], \"Posicao\": [" << pos.x << " , " << pos.y << "] }"<< std::endl;
         }
     }
 }

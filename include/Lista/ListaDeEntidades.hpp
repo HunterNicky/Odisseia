@@ -2,6 +2,8 @@
 
 #include "Lista.hpp"
 #include "..\Entidades\Entidade.hpp"
+#include "Lista/Lista.hpp"
+#include "Lista/ListaDeEntidades.hpp"
 
 namespace Entidades{
     class Entidade;
@@ -27,5 +29,6 @@ namespace Lista{
             void clear();
             const bool getEmpty();
             unsigned int getSize();
+            Lista<Entidades::Entidade>::Iterator getPrimeiro();
     };
 }

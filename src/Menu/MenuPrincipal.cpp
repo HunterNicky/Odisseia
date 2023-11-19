@@ -1,14 +1,15 @@
 #include "..\..\include\Menu\MenuPrincipal.hpp"
-#include "Menu/Menu.hpp"
+#include "Estados/Fases/Fase2.hpp"
+#include <fstream>
 #include <string>
 
 namespace Menu{
     Estados::MaquinaDeEstado* MenuPrincipal::pMaquinaDeEstado = Estados::MaquinaDeEstado::getInstance();
 
     MenuPrincipal::MenuPrincipal(Estados::Jogo* pJogo):
-    Menu(),
-    pJogo(pJogo){
-        fase1 = NULL;
+        Menu(0),
+        pJogo(pJogo){
+        fase2 = NULL;
         inicializaBotao();
     }
 
@@ -17,22 +18,35 @@ namespace Menu{
     }
 
     void MenuPrincipal::update(const double dt){
-        Menu::update();
+        Menu::update(dt);
     }
 
     void MenuPrincipal::draw(){
         Menu::draw();
     }
 
+    void MenuPrincipal::carregarJogo(){
+    }
+
     void MenuPrincipal::executar(){
         switch(numSelec){
             case 0:
-                fase1 = new Fases::Fase1();
-                pMaquinaDeEstado->pushEstado(static_cast<Estado*>(fase1));
+                fase2 = new Estados::Fases::Fase2();
+                pMaquinaDeEstado->pushEstado(static_cast<Estados::Estado*>(fase2));
                 break;
             case 1:
+
                 break;
-            case 2:
+            case 2: {
+                nlohmann::json arquivoEntidades;
+                std::ifstream arquivo("data/Save/arquivoEntidades.json");
+                arquivo >> arquivoEntidades;
+
+                if(!arquivo){
+                    std::cout << "ERRO AO ABRIR ARQUIVOPERSONAGENS!"<< std::endl;
+                }
+                fase2 = new Estados::Fases::Fase2(arquivoEntidades);
+                pMaquinaDeEstado->pushEstado(static_cast<Estados::Estado*>(fase2));}
                 break;
             case 3:
                 pGrafico->close();

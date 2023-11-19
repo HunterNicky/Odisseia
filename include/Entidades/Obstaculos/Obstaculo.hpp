@@ -16,7 +16,7 @@ namespace Entidades{
             virtual void tratarColisao(Entidade* entidade) = 0;
             virtual void executar() = 0;
             virtual void update() = 0;
-            //...
+            virtual void salvar(std::ostringstream* entrada) = 0;
         };
     }
 }
