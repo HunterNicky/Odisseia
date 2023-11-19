@@ -46,18 +46,24 @@ namespace Gerenciadores{
         (entidade->getVel().x * entidade->getVel().x * test.x,
         entidade->getVel().y * entidade->getVel().y * test.y);
         float area = entidade->getSize().x * entidade->getSize().y;
-        sf::Vector2f dragForce(area * squareVel.x * 0.4f, area * squareVel.y * 0.4f);
+        sf::Vector2f dragForce(area * squareVel.x * 0.1f, area * squareVel.y * 0.1f);
         return (dragForce);
     }
 
     void GerenciadorFisico::calAcc(Entidades::Entidade* entidade){
         sf::Vector2f acc = entidade->getAcc();
-        sf::Vector2f forca(0.0f, 9810.f);
+        sf::Vector2f forca(0.0f, 50000.f);
         sf::Vector2f dragForce = calDrag(entidade);
         float massa = entidade->getMass();
-        
+        int multi = 1;
+        if(entidade->getForca().x == 0 && entidade->getForca().y == 0){
+            multi *= 5;
+        }
+        if(dynamic_cast<Entidades::Personagens::Personagem*>(entidade)){
+            
+        }
         forca += entidade->getForca();
-        forca.x += -dragForce.x;
+        forca.x += -dragForce.x * multi;
         forca.y += -dragForce.y;
         acc = forca / massa;
         entidade->setAcc(acc);

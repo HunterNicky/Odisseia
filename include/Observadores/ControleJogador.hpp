@@ -15,7 +15,7 @@ namespace Observadores{
         private:
             static Estados::MaquinaDeEstado* pMaquinaDeEstado;
             Entidades::Personagens::Jogador* pJogador;
-            std::string pular, esquerda, direita;
+            std::string pular, esquerda, direita, correr;
             std::string fechar;
         public:
             ControleJogador(Entidades::Personagens::Jogador* pJogador);

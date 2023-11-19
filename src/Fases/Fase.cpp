@@ -90,7 +90,6 @@ namespace Fases{
                 pFisico->executarFisica(LE.operator[](i));
             }   
             updateVida();
-            draw();
             LE.updateAll();
         }
     }

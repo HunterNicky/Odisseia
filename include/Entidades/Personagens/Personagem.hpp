@@ -9,6 +9,7 @@ namespace Entidades {
         class Personagem : public Entidade {
         protected:
             bool onFloor;
+            float jumpTime;
             int num_vidas;
 
         public:
@@ -19,6 +20,7 @@ namespace Entidades {
             virtual void tratarColisao(Entidade* entidade) = 0;
             virtual void verificaSolo(const sf::Vector2f mtv);
             void setOnFloor(const bool floor);
+            const float getJumpTime() const;
             const int getNum_vidas() const;
             virtual void executar() = 0;
             virtual void update() = 0;
