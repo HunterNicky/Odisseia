@@ -24,7 +24,6 @@ namespace Observadores{
                             pMenu->executar();
                         break;
                         case(1): //MenuPausa
-                            std::cout << "estive aq" << std::endl;
                             pMenu->executar();
                         break;
                         default:

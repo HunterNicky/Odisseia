@@ -16,7 +16,9 @@ namespace Menu {
     void MenuPausa::inicializaBotao(){
         Botoes::Botao* pBotao = NULL;
 
-        pBotao = new Botoes::Botao(sf::Vector2f(1280.f / 2 - 200, 720.f / 2 - 100), std::string(" Salvar Jogo"));
+        pBotao = new Botoes::Botao(sf::Vector2f(1280.f / 2 - 200, 720.f / 2 - 200), std::string(" Voltar "));
+        Menu::lBotao.push_back(pBotao);
+        pBotao = new Botoes::Botao(sf::Vector2f(1280.f / 2 - 200, 720.f / 2 - 50), std::string(" Salvar Jogo"));
         Menu::lBotao.push_back(pBotao);
         pBotao = new Botoes::Botao(sf::Vector2f(1280.f / 2 - 200, 720.f / 2 + 100), std::string(" Sair "));
         Menu::lBotao.push_back(pBotao);
@@ -27,8 +29,11 @@ namespace Menu {
             pGrafico->close();
             pMaquinaDeEstado->popEstado();
         }
-        std::cout << "menuPausa" << std::endl;
-
+        else if(numSelec == 1){
+            pGrafico->close();
+            pMaquinaDeEstado->popEstado();
+            pMaquinaDeEstado->popEstado();
+        }
     }
     void MenuPausa::update(const double dt){
         Menu::draw();
