@@ -1,5 +1,6 @@
 #include "..\..\..\include\Entidades\Obstaculos\Gosma.hpp"
 #include "Entidades/Entidade.hpp"
+#include "Entidades/Obstaculos/Gosma.hpp"
 
 namespace Entidades{
     namespace Obstaculos{
@@ -28,6 +29,10 @@ namespace Entidades{
         }
         void Gosma::update(){
             executar();
+        }
+
+        void Gosma::salvar(std::ostringstream* entrada){
+             (*entrada) << "{ \"ID\": [" << 5 << "], \"Posicao\": [" << pos.x << " , " << pos.y << "] }" << std::endl;
         }
     }
 }

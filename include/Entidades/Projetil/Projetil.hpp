@@ -12,7 +12,6 @@ namespace Entidades{
         static int dano;
         sf::Vector2f vel;
         bool onFloor;
-        Personagens::InimigoMedio* pinim;
     public:
         Projetil(const sf::Vector2f pos, const Entidades::ID id, const bool direita);
         ~Projetil();
@@ -22,5 +21,6 @@ namespace Entidades{
         void draw();
         void executar();
         void update();
+        void salvar(std::ostringstream* entrada);
     };
 }

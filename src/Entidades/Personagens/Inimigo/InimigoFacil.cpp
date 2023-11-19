@@ -1,4 +1,7 @@
 #include "..\..\..\..\include\Entidades\Personagens\Inimigo\InimigoFacil.hpp"
+#include "Entidades/Personagens/Inimigo/Inimigo.hpp"
+#include "Entidades/Personagens/Inimigo/InimigoFacil.hpp"
+#include <sstream>
 #include <stdlib.h>
 
 namespace Entidades{
@@ -6,7 +9,7 @@ namespace Entidades{
         void InimigoFacil::inicializa(){
             vel = sf::Vector2f(0.1f, 0.1f);
             body->setFillColor(sf::Color::Red);
-            range = 200;
+            raio = RAIO;
             num_vidas = 10;
             srand(time(NULL));
             moveAleatorio = rand()%4;
@@ -21,7 +24,21 @@ namespace Entidades{
             }else{
                 dano = 10;
             }
-
+        }
+        InimigoFacil::InimigoFacil(nlohmann::json atributos, const int pos, const Entidades::ID id, Entidades::Personagens::Jogador* pJog):
+            Inimigo(sf::Vector2f(atributos[pos]["Posicao"][0], atributos[pos]["Posicao"][1]), sf::Vector2f(TAM_INIMIGO_FACIL_X, TAM_INIMIGO_FACIL_Y), id, pJog)
+        {
+            this->setVel(sf::Vector2f(atributos[pos]["Velocidade"][0], atributos[pos]["Velocidade"][1]));
+            body->setFillColor(sf::Color::Red);
+            this->num_vidas = 10;
+            raio = RAIO;
+            srand(time(NULL));
+            this->raivosidade = rand()%10;
+            if((raivosidade >= 0) && (raivosidade < 3)){//30% chance de ser raivoso
+                dano = 20;
+            }else{
+                dano = 10;
+            }
         }
         InimigoFacil::~InimigoFacil(){
 
@@ -46,7 +63,7 @@ namespace Entidades{
         }
 
         void InimigoFacil::movimentoAleatorio(){
-
+            moveAleatorio = rand()%4;
             if(moveAleatorio == 0){
                 forca.x = 3000.0f;
             }else if(moveAleatorio == 1){
@@ -62,12 +79,12 @@ namespace Entidades{
             sf::Vector2f posJogador = pJogador->getBody()->getPosition();
             sf::Vector2f posInimigo = body->getPosition();
 
-            if((fabs(posJogador.x - posInimigo.x) <= (float)range) && (fabs(posJogador.y - posInimigo.y) <= (float)range))
+            if((fabs(posJogador.x - posInimigo.x) <= raio) && (fabs(posJogador.y - posInimigo.y) <= raio))
             {
                 persegueJogador(posJogador, posInimigo);
             }
             else{
-                movimentoAleatorio();
+                movimentoAleatorio();   
             }
             Entidade::body->setPosition(pos);
             gColisao->checkCollision(static_cast<Entidades::Entidade*>(this));
@@ -76,7 +93,7 @@ namespace Entidades{
         void InimigoFacil::danificar(Entidade* entidade){
             if(entidade){
                 Entidades::Personagens::Personagem* pPers = static_cast<Entidades::Personagens::Personagem*>(entidade);
-                pPers->operator--(1);
+                pPers->operator--(dano);
             }
         }
 
@@ -92,6 +109,9 @@ namespace Entidades{
 
         void InimigoFacil::update(){
             executar();
+        }
+        void InimigoFacil::salvar(std::ostringstream* entrada){
+            (*entrada) << "{ \"ID\": [" << 2 << "], \"Posicao\": [" << pos.x << " , " << pos.y << "], \"Velocidade\": [" << vel.x << " , " << vel.y << "] }" << std::endl;
         }
     }
 }

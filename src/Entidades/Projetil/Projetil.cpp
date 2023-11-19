@@ -1,5 +1,6 @@
 #include "..\..\..\include\Entidades\Projetil\Projetil.hpp"
 #include "Entidades/Entidade.hpp"
+#include "Entidades/Projetil/Projetil.hpp"
 
 namespace Entidades{
     //Dano do projetil
@@ -26,10 +27,10 @@ namespace Entidades{
             std::cout << "Projetil colidiu com jogador!" << std::endl;
             Entidades::Personagens::Personagem* pPers = static_cast<Entidades::Personagens::Personagem*>(entidade);
             pPers->operator--(dano);
-            pinim->deletarProjetil();
+            //pinim->deletarProjetil();
         }
         else if(entidade->getId() == Entidades::ID::Plataforma){
-            pinim->deletarProjetil();
+            //pinim->deletarProjetil();
         }
     }
 
@@ -55,5 +56,8 @@ namespace Entidades{
 
     void Projetil::update(){
         executar();
+    }
+    void Projetil::salvar(std::ostringstream* entrada){
+         (*entrada) << "{ \"ID\": [" << 7 << "], \"Posicao\": [" << pos.x << " , " << pos.y << "], \"Velocidade\": [" << vel.x << " , " << vel.y << "] }" << std::endl;
     }
 }

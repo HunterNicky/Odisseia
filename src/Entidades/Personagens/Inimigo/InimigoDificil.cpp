@@ -1,4 +1,6 @@
 #include "..\..\..\..\include\Entidades\Personagens\Inimigo\InimigoDificil.hpp"
+#include "Entidades/Personagens/Inimigo/Inimigo.hpp"
+#include <sstream>
 
 namespace Entidades{
     namespace Personagens{
@@ -11,6 +13,12 @@ namespace Entidades{
         InimigoDificil::InimigoDificil(const sf::Vector2f pos, const sf::Vector2f size, const Entidades::ID id, Entidades::Personagens::Jogador* pJog):
             Inimigo(pos, size, id, pJog){
             inicializa();
+        }
+
+        InimigoDificil::InimigoDificil(nlohmann::json atributos, const int pos, const Entidades::ID id, Entidades::Personagens::Jogador* pJog):
+            Inimigo(sf::Vector2f(atributos[pos]["Posicao"][0], atributos[pos]["Posicao"][1]),sf::Vector2f(TAM_INIMIGO_DIF_X, TAM_INIMIGO_DIF_Y), id, pJog )
+        {
+            this->setVel(sf::Vector2f(atributos[pos]["Velocidade"][0], atributos[pos]["Velocidade"][1]));
         }
 
         InimigoDificil::~InimigoDificil(){
@@ -44,6 +52,10 @@ namespace Entidades{
         }
         void InimigoDificil::update(){
             executar();
+        }
+
+        void InimigoDificil::salvar(std::ostringstream* entrada){
+             (*entrada) << "{ \"ID\": [" << 4 << "], \"Posicao\": [" << pos.x << " , " << pos.y << "], \"Velocidade\": [" << vel.x << " , " << vel.y << "] }" << std::endl;
         }
     }
 }

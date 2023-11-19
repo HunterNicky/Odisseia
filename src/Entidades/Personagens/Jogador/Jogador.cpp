@@ -19,8 +19,10 @@ namespace Entidades{
             inicializa();
         }
 
-        Jogador::Jogador(nlohmann::json atributos, const Entidades::ID id):
-            Personagem(sf::Vector2f(atributos[0]["Posicao"][0], atributos[0]["Posicao"][1]), sf::Vector2f(50.f, 50.0f), id){
+        Jogador::Jogador(nlohmann::json atributos, const int pos, const Entidades::ID id):
+            Personagem(sf::Vector2f(atributos[pos]["Posicao"][0], atributos[pos]["Posicao"][1]), sf::Vector2f(TAM_X_JOGADOR, TAM_Y_JOGADOR), id){
+            
+            this->setVel(sf::Vector2f(atributos[pos]["Velocidade"][0], atributos[pos]["Velocidade"][1]));
             body->setFillColor(sf::Color::Blue);
             this->num_vidas = 1000;
         }
@@ -57,7 +59,7 @@ namespace Entidades{
         void Jogador::tratarColisao(Entidade* entidade){
             switch (entidade->getId())
             {
-            case (ID::Inimigo):
+            case (ID::InimigoFacil):
                 neutralizarInimigo(entidade);
                 break;
             case (ID::Plataforma):

@@ -22,10 +22,6 @@ namespace Entidades{
 
         const int Personagem::getNum_vidas() const{return num_vidas;}
 
-        void Personagem::salvar(std::ostringstream* entrada){
-            
-        }
-
         void Personagem::move(){
             Entidade::body->setPosition(pos);
             gColisao->checkCollision(static_cast<Entidades::Entidade*>(this));

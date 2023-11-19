@@ -8,7 +8,7 @@ namespace Estados{
         public:
             Fase1();
             ~Fase1();
-            void recuperarJogada();
+            void recuperarJogada(nlohmann::json arquivoPersonagens);
             void loadMap();
             void draw();
             void update();

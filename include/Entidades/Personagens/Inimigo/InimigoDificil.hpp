@@ -1,5 +1,7 @@
 #include "Inimigo.hpp"
 
+#define TAM_INIMIGO_DIF_X 40.0f
+#define TAM_INIMIGO_DIF_Y 50.0f
 namespace Entidades{
     namespace Personagens{
         class InimigoDificil: public Inimigo{
@@ -7,6 +9,7 @@ namespace Entidades{
             void inicializa();
         public: 
             InimigoDificil(const sf::Vector2f pos, const sf::Vector2f size, const Entidades::ID id, Entidades::Personagens::Jogador* pJog);
+            InimigoDificil(nlohmann::json atributos, const int pos, const Entidades::ID id, Entidades::Personagens::Jogador* pJog);
             ~InimigoDificil();
             void operator--(const int dano);
             void movimentoAleatorio();
@@ -15,7 +18,7 @@ namespace Entidades{
             void tratarColisao(Entidade* entidade);
             void executar();
             void update() ;
-
+            void salvar(std::ostringstream* entrada);
         };
     }
 }

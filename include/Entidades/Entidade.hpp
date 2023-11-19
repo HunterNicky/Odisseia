@@ -15,7 +15,9 @@ namespace Entidades{
     enum class ID{
         empty = 0,
         jogador,
-        Inimigo,
+        InimigoFacil,
+        InimigoMedio,
+        InimigoDificil,
         Plataforma,
         Caixa, 
         Gosma,
@@ -56,7 +58,7 @@ namespace Entidades{
             virtual void update() = 0;
             virtual void tratarColisao(Entidade* entidade) = 0;
             virtual void verificaSolo(const sf::Vector2f mtv) = 0;
-            virtual void salvar(std::ostringstream* entrada);
+            virtual void salvar(std::ostringstream* entrada) = 0;
             virtual void draw();      
     };
 }

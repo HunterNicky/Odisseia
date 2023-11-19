@@ -17,7 +17,8 @@ namespace Entidades{
             void queimar(Entidade* entidade);
             void tratarColisao(Entidade* entidade);
             void executar();
-            void update();  
+            void update();
+            void salvar(std::ostringstream* entrada);
         };
     }
 }

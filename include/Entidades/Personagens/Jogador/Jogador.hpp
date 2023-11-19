@@ -5,6 +5,11 @@
 #include "Estados/Fases/json.hpp"
 #include <vector>
 
+#define TAM_X_JOGADOR 50.0f
+#define TAM_Y_JOGADOR 50.0f
+#define VEL_X_JOGADOR 0.0f
+#define VEL_Y_JOGADOR 0.0f
+
 namespace Entidades{
     namespace Personagens{
         class Jogador: public Personagem {
@@ -12,7 +17,7 @@ namespace Entidades{
             void inicializa();
         public:
             Jogador(const sf::Vector2f pos, const sf::Vector2f size, const Entidades::ID id);
-            Jogador(nlohmann::json atributos, const Entidades::ID id);
+            Jogador(nlohmann::json atributos, const int pos, const Entidades::ID id);
             ~Jogador();
             void operator--(const int dano);
             void move();

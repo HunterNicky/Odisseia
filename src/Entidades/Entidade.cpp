@@ -43,9 +43,4 @@ namespace Entidades{
     void Entidade::setPrevPos(const sf::Vector2f prevPos){this->prevPos = prevPos;}
 
     const sf::Vector2f Entidade::getPrevPos() const{return prevPos;}
-    
-    void Entidade::salvar(std::ostringstream* entrada){
-
-    }
-
 }

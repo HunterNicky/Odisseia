@@ -1,8 +1,8 @@
 #include "..\..\..\include\Estados\Fases\Fase2.hpp"
-#include "Entidades/Entidade.hpp"
-#include "Estados/Fases/Fase2.hpp"
+
 #include <fstream>
 #include <sstream>
+#include <stdlib.h>
 #include <string>
 
 namespace Estados{
@@ -10,6 +10,11 @@ namespace Estados{
         Fase2::Fase2(): 
             Fase(){
             loadMap();
+        }
+
+        Fase2::Fase2(nlohmann::json arquivoPersonagens):
+            Fase(){
+            recuperarJogada(arquivoPersonagens);
         }
 
         Fase2::~Fase2(){
@@ -22,19 +27,46 @@ namespace Estados{
             LE.push_back(static_cast<Entidades::Entidade*>(pLava));
         }
 
-        void Fase2::recuperarJogada(){ 
-            std::ifstream arquivo("jogador.json");
-            nlohmann::json jsonStream;
-            arquivo >> jsonStream;
-
-            std::string str = jsonStream.dump();
-        
-            std::cout << jsonStream[0] << std::endl;
-
-            if(1 == 1){
-                Entidades::Personagens::Jogador* pJog = new Entidades::Personagens::Jogador(jsonStream, Entidades::ID::jogador);
-                pJog->setGerenciadorDeColisao(pColisao);
-                LE.push_back(static_cast<Entidades::Entidade*>(pJog));
+        void Fase2::recuperarJogada(nlohmann::json arquivoPersonagens){ 
+            for (int i = 0; i < (int)arquivoPersonagens.size(); i++) {
+                if (arquivoPersonagens[i]["ID"][0] == Entidades::ID::jogador){
+                    pJogador = new Entidades::Personagens::Jogador(arquivoPersonagens, i, Entidades::ID::jogador);
+                    pJogador->setGerenciadorDeColisao(pColisao);
+                    controleJog->setJogador(pJogador);
+                    LE.push_back(static_cast<Entidades::Entidade*>(pJogador));
+                }
+                else if (arquivoPersonagens[i]["ID"][0] == Entidades::ID::InimigoFacil){
+                    if(this->pJogador == nullptr){
+                        std::cout << "ERRO EM RECUPERAR JOGADA!" << std::endl;
+                        exit(1);
+                    }
+                    Entidades::Personagens::InimigoFacil* pInimigo = new Entidades::Personagens::InimigoFacil(arquivoPersonagens, i, Entidades::ID::InimigoFacil, pJogador);
+                    pInimigo->setGerenciadorDeColisao(pColisao);
+                    LE.push_back(static_cast<Entidades::Entidade*>(pInimigo));
+                }
+                else if (arquivoPersonagens[i]["ID"][0] == Entidades::ID::InimigoMedio) {
+                    if(pJogador == nullptr){
+                        std::cout << "ERRO EM RECUPERAR JOGADA! 2" << std::endl;
+                        exit(1);
+                    }
+                    Entidades::Personagens::InimigoMedio* pInimigo = new Entidades::Personagens::InimigoMedio(arquivoPersonagens, i, Entidades::ID::InimigoFacil, this->pJogador);
+                    pInimigo->setGerenciadorDeColisao(pColisao);
+                    LE.push_back(static_cast<Entidades::Entidade*>(pInimigo));
+                }
+                else if (arquivoPersonagens[i]["ID"][0] == Entidades::ID::InimigoDificil){
+                    if(pJogador == nullptr){
+                        std::cout << "ERRO EM RECUPERAR JOGADA! 3" << std::endl;
+                        exit(1);
+                    }
+                    Entidades::Personagens::InimigoDificil* pInimigo = new Entidades::Personagens::InimigoDificil(arquivoPersonagens, i, Entidades::ID::InimigoFacil, this->pJogador);
+                    pInimigo->setGerenciadorDeColisao(pColisao);
+                    LE.push_back(static_cast<Entidades::Entidade*>(pInimigo));
+                }
+                else if (arquivoPersonagens[i]["ID"][0] == Entidades::ID::Plataforma){
+                    Entidades::Obstaculos::ObstaculoFacil* pPlataforma = new Entidades::Obstaculos::ObstaculoFacil(arquivoPersonagens, i, Entidades::ID::Plataforma);
+                    pPlataforma->setGerenciadorDeColisao(pColisao);
+                    LE.push_back(static_cast<Entidades::Entidade*>(pPlataforma));
+                } 
             }
         }
 
@@ -57,6 +89,7 @@ namespace Estados{
                 case '2':
                     pos.x += 20.f;
                     newInimigo(pos, sf::Vector2f(20.f, 30.f));
+                    break;
                 case 'i':
                     pos.x += 20.f;
                     newInimigoMedio(pos, sf::Vector2f(20.f, 30.f));
@@ -82,6 +115,7 @@ namespace Estados{
         }
 
         void Fase2::update(){
+            executar();
         }
 
         void Fase2::executar(){

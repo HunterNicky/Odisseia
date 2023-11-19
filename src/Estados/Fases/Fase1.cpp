@@ -10,7 +10,7 @@ namespace Estados{
         Fase1::~Fase1(){
         }
         
-        void Fase1::recuperarJogada(){
+        void Fase1::recuperarJogada(nlohmann::json arquivoPersonagens){
 
         }
 
@@ -34,6 +34,7 @@ namespace Estados{
                 case '2':
                     pos.x += 200.f;
                     newInimigo(pos, sf::Vector2f(20.f, 30.f));
+                    break;
                 case 'i':
                     pos.x += 20.f;
                     newInimigoMedio(pos, sf::Vector2f(20.f, 30.f));
@@ -58,10 +59,11 @@ namespace Estados{
             Fase::draw();
         }
 
-        void Estados::Fases::Fase1::update(){
+        void Fases::Fase1::update(){
+            
         }
 
-        void Estados::Fases::Fase1::executar(){
+        void Fases::Fase1::executar(){
             Fase::executar();
         }
     }

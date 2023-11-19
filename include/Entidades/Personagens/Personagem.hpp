@@ -20,7 +20,7 @@ namespace Entidades {
             virtual void verificaSolo(const sf::Vector2f mtv);
             void setOnFloor(const bool floor);
             const int getNum_vidas() const;
-            virtual void salvar(std::ostringstream* entrada);
+            virtual void salvar(std::ostringstream* entrada) = 0;
             virtual void executar() = 0;
             virtual void update() = 0;
         };

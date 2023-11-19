@@ -5,7 +5,6 @@ namespace Estados{
     class MaquinaDeEstado;
 
     class Estado : public Ente{
-
     protected:
         MaquinaDeEstado* pMaquinaDeEstado;
         unsigned int id;
@@ -18,6 +17,7 @@ namespace Estados{
         void setAtivo(const bool ativo);
         unsigned int getID() const;
         virtual void update(const double dt) = 0;
+        void update(){}
         virtual void executar() = 0;
         virtual void draw() = 0;
     };

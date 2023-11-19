@@ -22,6 +22,10 @@
 #include <sstream>
 #include "json.hpp"
 
+namespace Observadores {
+    class ControleFase;
+
+}
 namespace Estados{
     namespace Fases{
         class Fase : public Estados::Estado{
@@ -31,7 +35,8 @@ namespace Estados{
                 static Gerenciadores::GerenciadorFisico* pFisico;
                 static Gerenciadores::GerenciadorDeColisao* pColisao;
                 static MaquinaDeEstado* pMaquinaDeEstado;
-                Observadores::ControleJogador* controle;
+                Observadores::ControleJogador* controleJog;
+                Observadores::ControleFase* controleFase;
                 Entidades::Personagens::Jogador* pJogador;
                 Lista::ListaDeEntidades LE;
                 std::ostringstream buffer;
@@ -50,7 +55,7 @@ namespace Estados{
                 //void newGosma(sf::Vector2f pos, sf::Vector2f size);
                 void newObstaculo(sf::Vector2f pos, sf::Vector2f size);
                 void updateVida();
-                virtual void recuperarJogada() = 0;
+                virtual void recuperarJogada(nlohmann::json arquivoPersonagens) = 0;
                 void update(double dt);
                 void executar();
                 void draw();

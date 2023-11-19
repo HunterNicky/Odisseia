@@ -20,7 +20,7 @@ namespace Menu{
             ~MenuPrincipal();
             void draw() override;
             void carregarJogo();
-            void executar();
+            void executar() override;
             void update(const double dt) override;
             //void draw() override;
             void inicializaBotao();

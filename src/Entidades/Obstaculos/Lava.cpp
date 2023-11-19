@@ -34,5 +34,9 @@ namespace Entidades
         void Lava::update(){
             executar();
         }
+
+        void Lava::salvar(std::ostringstream* entrada){
+             (*entrada) << "{ \"ID\": [" << 6 << "], \"Posicao\": [" << pos.x << " , " << pos.y << "] }" << std::endl;
+        }
     }
 }

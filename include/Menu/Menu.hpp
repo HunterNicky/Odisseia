@@ -20,11 +20,11 @@ namespace Menu{
             unsigned int numOpc;
             unsigned int numSelec;
         public:
-            Menu();
+            Menu(const int id);
             virtual ~Menu();
             virtual void executar() = 0;
             void select(const bool direcao);    
-            void update();
+            void update(const double dt);
             void draw();
     };
 }
