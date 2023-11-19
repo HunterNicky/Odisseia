@@ -12,12 +12,14 @@ namespace Observadores{
     class ControleMenu : public Observer{
         private:
             static Estados::MaquinaDeEstado* pMaquinaDeEstado;
+            static ControleMenu* instance;
             Menu::Menu* pMenu;
             std::string cima, baixo, enter;
             std::string fechar;
+            ControleMenu();
         public:
-            ControleMenu(Menu::Menu* pMenu);
             ~ControleMenu();
+            static ControleMenu* getInstance();
             void setMenu(Menu::Menu* pMenu);
             void notifyPressed(const std::string key);
             void notifyReleased(const std::string key);

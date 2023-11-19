@@ -3,32 +3,35 @@
 
 namespace Menu {
     MenuPausa::MenuPausa():
-        Menu(1)
+        Menu(1,2)
     {
         inicializaBotao();
-        pControlePausa = new Observadores::ControleMenu(this);
     }
     MenuPausa::~MenuPausa(){
-        if(pControlePausa){
-            delete pControlePausa;
-        }
     }
+    
     void MenuPausa::inicializaBotao(){
         Botoes::Botao* pBotao = NULL;
 
         pBotao = new Botoes::Botao(sf::Vector2f(1280.f / 2 - 200, 720.f / 2 - 100), std::string(" Salvar Jogo"));
+        pBotao->selecionado(true);
+
         Menu::lBotao.push_back(pBotao);
+        Menu::it = Menu::lBotao.begin();
+
         pBotao = new Botoes::Botao(sf::Vector2f(1280.f / 2 - 200, 720.f / 2 + 100), std::string(" Sair "));
         Menu::lBotao.push_back(pBotao);
     }
     
     void MenuPausa::executar(){
-        if(numSelec == 0){
-            pGrafico->close();
-            pMaquinaDeEstado->popEstado();
-        }
         std::cout << "menuPausa" << std::endl;
-
+        switch(numSelec){
+            case 0:
+                pMaquinaDeEstado->popEstado();
+                break;
+            default:
+                break;
+        }
     }
     void MenuPausa::update(const double dt){
         Menu::draw();
