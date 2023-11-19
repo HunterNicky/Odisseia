@@ -1,26 +1,28 @@
 #pragma once
 
-#include "..\..\Gerenciadores\GerenciadorGrafico.hpp"
-#include "..\..\Gerenciadores\GerenciadorDeColisao.hpp"
-#include "..\..\Lista\ListaDeEntidades.hpp"
-#include "..\..\Entidades\Personagens\Jogador\Jogador.hpp"
-#include "..\..\Entidades\Personagens\Inimigo\InimigoFacil.hpp"
-#include "..\..\Entidades\Personagens\Inimigo\InimigoMedio.hpp"
-#include "..\..\Entidades\Personagens\Inimigo\InimigoDificil.hpp"
-#include "..\..\Entidades\Projetil\Projetil.hpp"
-#include "..\..\Entidades\Obstaculos\Caixa.hpp"
-#include "..\..\Entidades\Obstaculos\Lava.hpp"
-#include "..\..\Observadores\ControleJogador.hpp"
-#include "..\..\Gerenciadores\GerenciadorDeEvento.hpp"
-#include "..\Estado.hpp"
-#include "..\MaquinaDeEstado.hpp"
-#include "Entidades/Entidade.hpp"
+#include "Gerenciadores/GerenciadorGrafico.hpp"
+#include "Gerenciadores/GerenciadorDeColisao.hpp"
+#include "Gerenciadores/GerenciadorDeEvento.hpp"
 #include "Gerenciadores/GerenciadorFisico.hpp"
+#include "Lista/ListaDeEntidades.hpp"
+#include "Entidades/Personagens/Jogador/Jogador.hpp"
+#include "Entidades/Personagens/Inimigo/InimigoDificil.hpp"
+#include "Entidades/Personagens/Inimigo/InimigoFacil.hpp"
+#include "Entidades/Personagens/Inimigo/InimigoMedio.hpp"
+#include "Entidades/Projetil/Projetil.hpp"
+#include "Observadores/ControleFase.hpp"
+#include "Entidades/Obstaculos/Caixa.hpp"
+#include "Entidades/Obstaculos/Gosma.hpp"
+#include "Entidades/Obstaculos/Lava.hpp"
+#include "Estados/Estado.hpp"
+#include "Estados/MaquinaDeEstado.hpp"
+#include "Entidades/Entidade.hpp"
+#include "Observadores/ControleJogador.hpp"
+#include "json.hpp"
 
 #include <iostream>
 #include <fstream>
 #include <sstream>
-#include "json.hpp"
 
 namespace Observadores {
     class ControleFase;

@@ -1,10 +1,12 @@
+#pragma once
+
 #include "Menu/MenuPausa.hpp"
 #include "Observer.hpp"
 
+namespace Fases {
+    class Fase;
+}
 namespace Estados {
-    namespace Fases {
-        class Fase;
-    }
     class MaquinaDeEstado;
 }
 
@@ -17,7 +19,7 @@ namespace Observadores {
     private:
     public:
         static Estados::MaquinaDeEstado* pMaquinaDeEstado;
-        Estados::Fases::Fase* pFase;
+        Fases::Fase* pFase;
         Menu::MenuPausa* pPausa;
         std::string cima, baixo, enter, fechar;
     public:

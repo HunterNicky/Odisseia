@@ -1,4 +1,4 @@
-#include "..\..\..\include\Estados\Fases\Fase2.hpp"
+#include "Fases/Fase2.hpp"
 
 #include <fstream>
 #include <sstream>

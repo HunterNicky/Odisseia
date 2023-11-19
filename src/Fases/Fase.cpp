@@ -1,6 +1,5 @@
-#include "..\..\..\include\Estados\Fases\Fase.hpp"
+#include "Fases/Fase.hpp"
 #include "Entidades/Entidade.hpp"
-#include "Estados/Fases/Fase.hpp"
 #include <list>
 #include "Observadores/ControleFase.hpp"
 

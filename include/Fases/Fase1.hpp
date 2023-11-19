@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Fase.hpp"
+#include "Fases/Fase.hpp"
 
 namespace Fases{
     class Fase1 : public Fase{

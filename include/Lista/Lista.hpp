@@ -247,7 +247,9 @@ namespace Lista{
     }
 
     template <class TL>
-    Lista<TL>::Iterator::Iterator(Elemento<TL>* position) : position(position){}
+    Lista<TL>::Iterator::Iterator(Elemento<TL>* position){
+        this->position = position;
+    }
 
     template <class TL>
     Lista<TL>::Iterator::~Iterator(){}

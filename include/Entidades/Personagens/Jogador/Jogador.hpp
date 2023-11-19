@@ -7,7 +7,7 @@
 #include "Animacao/AnimacaoContext.hpp"
 #include "Animacao/AnimacaoStrategy.hpp"
 #include "Entidades/Personagens/Personagem.hpp"
-#include "Estados/Fases/json.hpp"
+#include "Fases/json.hpp"
 #include <vector>
 
 #define TAM_X_JOGADOR 50.0f

@@ -1,5 +1,4 @@
-#include "..\..\..\include\Estados\Fases\Fase1.hpp"
-#include "Estados/Fases/Fase1.hpp"
+#include "Fases/Fase1.hpp"
 
 namespace Fases{
     Fase1::Fase1(): 
