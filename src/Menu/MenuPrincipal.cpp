@@ -1,5 +1,4 @@
 #include "..\..\include\Menu\MenuPrincipal.hpp"
-#include "Estados/Fases/Fase2.hpp"
 #include <fstream>
 #include <string>
 
@@ -31,7 +30,7 @@ namespace Menu{
     void MenuPrincipal::executar(){
         switch(numSelec){
             case 0:
-                fase2 = new Estados::Fases::Fase2();
+                fase2 = new Fases::Fase2();
                 pMaquinaDeEstado->pushEstado(static_cast<Estados::Estado*>(fase2));
                 break;
             case 1:
@@ -45,7 +44,7 @@ namespace Menu{
                 if(!arquivo){
                     std::cout << "ERRO AO ABRIR ARQUIVOPERSONAGENS!"<< std::endl;
                 }
-                fase2 = new Estados::Fases::Fase2(arquivoEntidades);
+                fase2 = new Fases::Fase2(arquivoEntidades);
                 pMaquinaDeEstado->pushEstado(static_cast<Estados::Estado*>(fase2));}
                 break;
             case 3:

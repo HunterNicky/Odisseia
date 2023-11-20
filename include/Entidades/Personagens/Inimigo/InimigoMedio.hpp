@@ -1,22 +1,23 @@
 #pragma once
 
+#include "Fases/Fase.hpp"
 #include "Inimigo.hpp"
 #include <math.h>
 
 #define TAM_INIMIGO_MED_X 40.0f
 #define TAM_INIMIGO_MED_Y 50.0f
-namespace Estados{
-    namespace Fases{
-            class Fase;
-    }
+
+namespace Fases{
+        class Fase;
 }
+
 
 #define RANGE 200.0f
 namespace Entidades{
     namespace Personagens{
         class InimigoMedio: public Inimigo{
         private:
-            //Estados::Fases::Fase* pFase;
+            Fases::Fase* pFase;
             bool ProjAtivo;
             void inicializa();
         public:

@@ -1,6 +1,6 @@
 #include "..\..\include\Observadores\ControleJogador.hpp"
 #include "Estados/Estado.hpp"
-#include "Estados/Fases/Fase.hpp"
+#include "Fases/Fase.hpp"
 #include "Menu/MenuPausa.hpp"
 #include "Observadores/ControleMenu.hpp"
 

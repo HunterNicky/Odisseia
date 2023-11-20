@@ -2,6 +2,7 @@
 
 #include "..\Ente.hpp"
 #include "..\Gerenciadores\GerenciadorDeColisao.hpp"
+#include "Fases/json.hpp"
 #include <iostream>
 #include <fstream>
 #include <sstream>

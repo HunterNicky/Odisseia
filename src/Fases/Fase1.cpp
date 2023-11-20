@@ -1,6 +1,5 @@
 #include "Fases/Fase1.hpp"
 
-
 namespace Fases{
     Fase1::Fase1(): 
         Fase(){
@@ -8,6 +7,11 @@ namespace Fases{
     }
     Fase1::~Fase1(){
     }
+    
+    void Fase1::recuperarJogada(nlohmann::json arquivoPersonagens){
+
+    }
+
     void Fase1::loadMap(){
 
         std::ifstream file("data\\mapa.txt");
@@ -23,11 +27,12 @@ namespace Fases{
                 break;
             case '1':
                 pos.x += 200.f;
-                newJogador(pos+sf::Vector2f(100.f, -200.f),sf::Vector2f(80.f, 128.f));
+                newJogador(pos+sf::Vector2f(100.f, -200.f),sf::Vector2f(30.f, 50.f));
                 break;
             case '2':
                 pos.x += 200.f;
                 newInimigo(pos, sf::Vector2f(20.f, 30.f));
+                break;
             case 'i':
                 pos.x += 20.f;
                 newInimigoMedio(pos, sf::Vector2f(20.f, 30.f));
@@ -38,11 +43,7 @@ namespace Fases{
                 break;
             case '3':
                 pos.x += 200.f;
-                newObstaculo(pos, sf::Vector2f(200.f, 100.f));
-                break;
-            case 'l':
-                pos.x += 40.f;
-                newLava(pos, sf::Vector2f(50.f, 10.f));
+                newObstaculo(pos, sf::Vector2f(200.f, 200.f));
                 break;
             default:
                 pos.x = 0;
@@ -57,10 +58,10 @@ namespace Fases{
     }
 
     void Fases::Fase1::update(){
+        
     }
 
     void Fases::Fase1::executar(){
         Fase::executar();
     }
 }
-

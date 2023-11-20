@@ -31,17 +31,17 @@ namespace Fases{
         LE.push_back(static_cast<Entidades::Entidade*>(pJogador));
     }
     void Fase::newInimigo(sf::Vector2f pos, sf::Vector2f size){
-        Entidades::Personagens::InimigoFacil* pInimigo = new Entidades::Personagens::InimigoFacil(pos, size, Entidades::ID::Inimigo, pJogador);
+        Entidades::Personagens::InimigoFacil* pInimigo = new Entidades::Personagens::InimigoFacil(pos, size, Entidades::ID::InimigoFacil, pJogador);
         pInimigo->setGerenciadorDeColisao(pColisao);
         LE.push_back(static_cast<Entidades::Entidade*>(pInimigo));
     }
     void Fase::newInimigoMedio(sf::Vector2f pos, sf::Vector2f size){
-        Entidades::Personagens::InimigoMedio* pInimigo = new Entidades::Personagens::InimigoMedio(pos, size, Entidades::ID::Inimigo, pJogador, this);
+        Entidades::Personagens::InimigoMedio* pInimigo = new Entidades::Personagens::InimigoMedio(pos, size, Entidades::ID::InimigoMedio, pJogador);
         pInimigo->setGerenciadorDeColisao(pColisao);
         LE.push_back(static_cast<Entidades::Entidade*>(pInimigo));
     }
     void Fase::newChefao(sf::Vector2f pos, sf::Vector2f size){
-        Entidades::Personagens::InimigoDificil* pInimigo = new Entidades::Personagens::InimigoDificil(pos, size, Entidades::ID::Inimigo, pJogador);
+        Entidades::Personagens::InimigoDificil* pInimigo = new Entidades::Personagens::InimigoDificil(pos, size, Entidades::ID::InimigoDificil, pJogador);
         pInimigo->setGerenciadorDeColisao(pColisao);
         LE.push_back(static_cast<Entidades::Entidade*>(pInimigo));
     }
@@ -70,7 +70,7 @@ namespace Fases{
 
     void Fase::updateVida(){
         for(unsigned int i = 0; i < LE.getSize(); i++){
-            if((LE[i]->getId() == Entidades::ID::Inimigo) || (LE[i]->getId() == Entidades::ID::jogador)){
+            if((LE[i]->getId() == Entidades::ID::InimigoFacil) || (LE[i]->getId() == Entidades::ID::jogador)){
                 Entidades::Personagens::Personagem* pPers = static_cast<Entidades::Personagens::Personagem*>(LE[i]);
                 if(pPers->getNum_vidas() < 0)
                     LE.remove(i);

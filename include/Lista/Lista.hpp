@@ -33,9 +33,9 @@ namespace Lista{
         //Iterator - Padrão de Projeto
         class Iterator{
             private:
-                Elemento<TL>* atual;
+                Elemento<TL>* position;
             public:
-                Iterator(Elemento<TL>* elem = nullptr);
+                Iterator(Elemento<TL>* position = nullptr);
                 ~Iterator();
                 void operator=(Elemento<TL>* outro);
                 bool operator==(const Iterator& it);

@@ -4,7 +4,6 @@
 #include <stack>
 
 namespace Estados {
-
     class MaquinaDeEstado {
     private:
         std::stack<Estado*> estadoStack;

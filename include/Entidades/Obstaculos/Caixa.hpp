@@ -3,7 +3,6 @@
 #include "Animacao/AnimacaoBloco.hpp"
 #include "Animacao/AnimacaoContext.hpp"
 #include "Entidades/Entidade.hpp"
-#include "Estados/Fases/json.hpp"
 #include "Obstaculo.hpp"
 
 #define TAM_PLATAFORMA_X 200.f

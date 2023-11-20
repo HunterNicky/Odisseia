@@ -1,8 +1,7 @@
 #pragma once
 
-
 #include "Entidades/Personagens/Jogador/Jogador.hpp"
-#include "Estados/Estado.hpp"
+//#include "Estados/Estado.hpp"
 #include "Estados/MaquinaDeEstado.hpp"
 #include "Gerenciadores/GerenciadorDeColisao.hpp"
 #include "Gerenciadores/GerenciadorDeEvento.hpp"
@@ -18,6 +17,11 @@
 #include "Entidades/Obstaculos/Lava.hpp"
 #include "Entidades/Obstaculos/Obstaculo.hpp"
 #include "Entidades/Personagens/Jogador/Jogador.hpp"
+
+#include <iostream>
+#include <fstream>
+#include <sstream>
+#include "json.hpp"
 
 namespace Fases{
     class Fase : public Estados::Estado{
@@ -41,6 +45,7 @@ namespace Fases{
             void newProjetil(sf::Vector2f pos, const bool direita);
             //void newPlataforma(sf::Vector2f pos, sf::Vector2f size);
             //void newGosma(sf::Vector2f pos, sf::Vector2f size);
+            virtual void recuperarJogada(nlohmann::json arquivoPersonagens) = 0;
             void newObstaculo(sf::Vector2f pos, sf::Vector2f size);
             void newLava(sf::Vector2f pos, sf::Vector2f size);
             void updateVida();
