@@ -49,7 +49,8 @@ namespace Entidades{
     }
 
     void Projetil::executar(){
-        body->move(vel);
+        move();
+        Entidade::body->setPosition(pos);
         gColisao->Notify(static_cast<Entidades::Entidade*>(this));
     }
 

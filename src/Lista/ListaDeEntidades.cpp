@@ -1,6 +1,4 @@
-#include "..\..\include\Lista\ListaDeEntidades.hpp"
 #include "Lista/ListaDeEntidades.hpp"
-#include <iostream>
 
 namespace Lista{
     ListaDeEntidades::ListaDeEntidades(){}
@@ -24,7 +22,6 @@ namespace Lista{
     void ListaDeEntidades::remove(const unsigned int index){LE.remove(index);}
 
     void ListaDeEntidades::drawAll(){
-        //Lista::Iterator::
         if(LE[0] != nullptr){
             for(unsigned int i = 0; i < LE.getSize(); i++){
                 LE[i]->draw();
@@ -45,8 +42,4 @@ namespace Lista{
     const bool ListaDeEntidades::getEmpty(){return LE.getEmpty();}
 
     unsigned int ListaDeEntidades::getSize(){return LE.getSize();}
-
-    Lista<Entidades::Entidade>::Iterator  ListaDeEntidades::getPrimeiro(){
-        return LE.getPrimeiro();
-    }
 }

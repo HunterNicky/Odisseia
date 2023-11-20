@@ -245,19 +245,21 @@ namespace Lista{
     }
 
     template <class TL>
-    Lista<TL>::Iterator::Iterator(Elemento<TL>* position) : position(position){}
+    Lista<TL>::Iterator::Iterator(Elemento<TL>* position){
+        this->position = position;
+    }
 
     template <class TL>
     Lista<TL>::Iterator::~Iterator(){}
 
     template <class TL>
     bool Lista<TL>::Iterator::operator==(const Iterator& it){
-        return it.position == this->position;
+        return it.atual == this->atual;
     }
 
     template <class TL>
     bool Lista<TL>::Iterator::operator!=(const Iterator& it){
-        return it.atual != this->atual;
+        return it.position != this->position;
     }
 
     template <class TL>

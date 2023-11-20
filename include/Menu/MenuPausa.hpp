@@ -1,5 +1,5 @@
 #pragma once
-#include "Fases/Fase2.hpp"
+
 #include "Menu.hpp"
 #include "Observadores/ControleMenu.hpp"
 

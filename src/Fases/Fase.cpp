@@ -14,13 +14,16 @@ namespace Fases{
     Fase::Fase():
     Estado(pMaquinaDeEstado, 1){
         pJogador = nullptr;
-        controle = new Observadores::ControleJogador(pJogador);
+        controleFase = new Observadores::ControleFase();
+        //controleFase->setFase(this);
+        controleJog = new Observadores::ControleJogador(pJogador);
         pColisao->setList(&LE);
-        pEvento->addObserver(static_cast<Observadores::Observer*>(controle));
+        pEvento->addObserver(static_cast<Observadores::Observer*>(controleJog));
         dt = 0.f;
     }
     Fase::~Fase(){
         salvarJogo();
+        salvar();
         for(unsigned int i = 0; i < LE.getSize(); i++){
             LE.remove(i);
         }
@@ -28,10 +31,35 @@ namespace Fases{
         pEvento->removeObserver(static_cast<Observadores::Observer*>(controle));
 
     }
+
+    void Fase::salvar(){
+        std::ofstream arquivo(ARQUIVO_ENTIDADES);
+        if(!arquivo){
+            std::cout << "Erro ao abrir arquivo" << std::endl;
+            exit(1);
+        } 
+        //salvar Personagens
+        //Lista::Lista<Entidades::Entidade>::Iterator it = LE.getPrimeiro();
+        buffer.str("");
+        buffer << "[";
+
+        if(LE[0] != nullptr){
+            LE[0]->salvar(&buffer);
+        }
+        for(unsigned int i = 1; i < LE.getSize(); i++){
+            buffer << ",";
+            LE[i]->salvar(&buffer);
+        }
+
+        buffer << "]";
+        arquivo << buffer.str() << std::endl;
+        arquivo.close();
+    }
+
     void Fase::newJogador(sf::Vector2f pos, sf::Vector2f size){
         pJogador = new Entidades::Personagens::Jogador(pos, size, Entidades::ID::jogador);
         pJogador->setGerenciadorDeColisao(pColisao);
-        controle->setJogador(pJogador);
+        controleJog->setJogador(pJogador);
         LE.push_back(static_cast<Entidades::Entidade*>(pJogador));
     }
     void Fase::newInimigo(sf::Vector2f pos, sf::Vector2f size){
@@ -55,6 +83,14 @@ namespace Fases{
         pProj->setGerenciadorDeColisao(pColisao);
         LE.push_back(static_cast<Entidades::Entidade*>(pProj));
     }
+
+    void Fase::deleteProjetil(){
+        for(unsigned int i = 0; i < LE.getSize(); i++){
+            if(LE[i]->getId() == Entidades::ID::Projetil){
+                LE.remove(i);
+            }
+        }
+    }
     
     void Fase::newObstaculo(sf::Vector2f pos, sf::Vector2f size){
         Entidades::Obstaculos::ObstaculoFacil* pObstaculoFacil = new Entidades::Obstaculos::ObstaculoFacil(pos, size, Entidades::ID::Plataforma);
@@ -64,12 +100,6 @@ namespace Fases{
     void Fase::update(double dt){
         this->dt = dt;
         executar();
-    }
-
-    void Fase::newLava(sf::Vector2f pos, sf::Vector2f size){
-        Entidades::Obstaculos::Lava* pLava = new Entidades::Obstaculos::Lava(pos, size, Entidades::ID::Lava);
-        pLava->setGerenciadorDeColisao(pColisao);
-        LE.push_back(static_cast<Entidades::Entidade*>(pLava));
     }
 
     void Fase::updateVida(){
@@ -94,6 +124,7 @@ namespace Fases{
                 pFisico->executarFisica(LE.operator[](i));
             }   
             updateVida();
+            draw();
             LE.updateAll();
         }
     }

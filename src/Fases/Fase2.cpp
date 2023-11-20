@@ -13,6 +13,11 @@ namespace Fases{
         recuperarJogada(arquivoPersonagens);
     }
 
+    Fase2::Fase2(nlohmann::json arquivoPersonagens):
+        Fase(){
+        recuperarJogada(arquivoPersonagens);
+    }
+
     Fase2::~Fase2(){
 
     }

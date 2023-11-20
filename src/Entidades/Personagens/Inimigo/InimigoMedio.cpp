@@ -1,5 +1,5 @@
-#include "Entidades/Personagens/Inimigo/InimigoMedio.hpp"
-
+#include "..\..\..\..\include\Entidades\Personagens\Inimigo\InimigoMedio.hpp"
+#include <sstream>
 
 namespace Entidades{
     namespace Personagens{

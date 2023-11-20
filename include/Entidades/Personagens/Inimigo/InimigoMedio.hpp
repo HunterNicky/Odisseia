@@ -6,9 +6,8 @@
 
 #define TAM_INIMIGO_MED_X 40.0f
 #define TAM_INIMIGO_MED_Y 50.0f
-
 namespace Fases{
-        class Fase;
+    class Fase;
 }
 
 
@@ -17,7 +16,7 @@ namespace Entidades{
     namespace Personagens{
         class InimigoMedio: public Inimigo{
         private:
-            Fases::Fase* pFase;
+            //Estados::Fases::Fase* pFase;
             bool ProjAtivo;
             void inicializa();
         public:
