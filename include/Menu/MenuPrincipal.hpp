@@ -2,10 +2,6 @@
 
 #include "Fases/Fase2.hpp"
 #include "Menu.hpp"
-<<<<<<<<< Temporary merge branch 1
-#include "Fases/Fase1.hpp"
-=========
->>>>>>>>> Temporary merge branch 2
 #include "..\Estados\Estado.hpp"
 #include "..\Estados\Jogo.hpp"
 

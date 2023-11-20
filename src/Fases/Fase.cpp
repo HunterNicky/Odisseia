@@ -16,13 +16,12 @@ namespace Fases{
         pJogador = nullptr;
         controleFase = new Observadores::ControleFase();
         //controleFase->setFase(this);
-        controleJog = new Observadores::ControleJogador(pJogador);
+        controle = new Observadores::ControleJogador(pJogador);
         pColisao->setList(&LE);
-        pEvento->addObserver(static_cast<Observadores::Observer*>(controleJog));
+        pEvento->addObserver(static_cast<Observadores::Observer*>(controle));
         dt = 0.f;
     }
     Fase::~Fase(){
-        salvarJogo();
         salvar();
         for(unsigned int i = 0; i < LE.getSize(); i++){
             LE.remove(i);
@@ -59,7 +58,7 @@ namespace Fases{
     void Fase::newJogador(sf::Vector2f pos, sf::Vector2f size){
         pJogador = new Entidades::Personagens::Jogador(pos, size, Entidades::ID::jogador);
         pJogador->setGerenciadorDeColisao(pColisao);
-        controleJog->setJogador(pJogador);
+        controle->setJogador(pJogador);
         LE.push_back(static_cast<Entidades::Entidade*>(pJogador));
     }
     void Fase::newInimigo(sf::Vector2f pos, sf::Vector2f size){

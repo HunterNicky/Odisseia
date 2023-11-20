@@ -22,7 +22,6 @@
 #include "Entidades/Entidade.hpp"
 #include "Observadores/ControleJogador.hpp"
 #include "json.hpp"
-
 #include <iostream>
 #include <fstream>
 #include <sstream>
@@ -40,10 +39,11 @@ namespace Fases{
             static Gerenciadores::GerenciadorFisico* pFisico;
             static Gerenciadores::GerenciadorDeColisao* pColisao;
             static Estados::MaquinaDeEstado* pMaquinaDeEstado;
-            Observadores::ControleJogador* controleJog;
+            Observadores::ControleJogador* controle;
             Observadores::ControleFase* controleFase;
             Entidades::Personagens::Jogador* pJogador;
             Lista::ListaDeEntidades LE;
+            std::ostringstream buffer;
             double dt;
         public:
             Fase();
@@ -60,7 +60,6 @@ namespace Fases{
             virtual void recuperarJogada(nlohmann::json arquivoPersonagens) = 0;
             void newObstaculo(sf::Vector2f pos, sf::Vector2f size);
             void updateVida();
-            virtual void recuperarJogada(nlohmann::json arquivoPersonagens) = 0;
             void update(double dt);
             void executar();
             void draw();
