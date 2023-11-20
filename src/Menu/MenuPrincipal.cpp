@@ -18,6 +18,7 @@ namespace Menu{
 
     void MenuPrincipal::update(const double dt){
         Menu::update(dt);
+        pControleMenu->setMenu(this);
     }
 
     void MenuPrincipal::draw(){

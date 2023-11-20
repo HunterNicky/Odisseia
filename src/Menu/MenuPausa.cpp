@@ -24,9 +24,12 @@ namespace Menu {
     }
     
     void MenuPausa::executar(){
-        std::cout << "menuPausa" << std::endl;
         switch(numSelec){
             case 0:
+                pMaquinaDeEstado->popEstado();
+                break;
+            case 1:
+                pMaquinaDeEstado->popEstado();
                 pMaquinaDeEstado->popEstado();
                 break;
             default:

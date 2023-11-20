@@ -45,6 +45,9 @@ namespace Fases{
                 pos.x += 200.f;
                 newObstaculo(pos, sf::Vector2f(200.f, 200.f));
                 break;
+            case ' ':
+                pos.x += 200.f;
+                break;
             default:
                 pos.x = 0;
                 pos.y += 50.f;
