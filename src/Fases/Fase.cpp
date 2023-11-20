@@ -2,6 +2,8 @@
 #include "Entidades/Entidade.hpp"
 #include "Entidades/Personagens/Inimigo/InimigoMedio.hpp"
 
+#include <list>
+
 namespace Fases{
     Gerenciadores::GerenciadorGrafico* Fase::pGrafico = Gerenciadores::GerenciadorGrafico::getInstance();
     Gerenciadores::GerenciadorDeEvento* Fase::pEvento = Gerenciadores::GerenciadorDeEvento::getInstance();
@@ -18,11 +20,13 @@ namespace Fases{
         dt = 0.f;
     }
     Fase::~Fase(){
+        salvarJogo();
         for(unsigned int i = 0; i < LE.getSize(); i++){
             LE.remove(i);
         }
         LE.clear();
         pEvento->removeObserver(static_cast<Observadores::Observer*>(controle));
+
     }
     void Fase::newJogador(sf::Vector2f pos, sf::Vector2f size){
         pJogador = new Entidades::Personagens::Jogador(pos, size, Entidades::ID::jogador);
@@ -95,6 +99,33 @@ namespace Fases{
     }
     void Fase::draw(){
         LE.drawAll();
+    }
+    void Fase::salvarJogo(){
+            std::ofstream arquivo(ARQUIVO_ENTIDADES);  
+            if (!arquivo)
+            {
+                std::cout << "Problema em salvar o arquivo" << std::endl;
+                exit(1);
+            }
+
+            buffer.str("");
+            buffer << "[";
+            if (LE[0] != nullptr){
+                LE[0]->salvar(&buffer);
+            }
+
+            for(unsigned int i = 1; i < LE.getSize(); i++){
+                if(LE[i] != nullptr)
+                {
+                    buffer << ",";
+                    LE[i]->salvar(&buffer);
+                }
+            }
+            buffer << "]";
+
+            arquivo << buffer.str();
+
+            arquivo.close();
     }
 }
 

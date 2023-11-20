@@ -23,6 +23,8 @@
 #include <sstream>
 #include "json.hpp"
 
+#define ARQUIVO_ENTIDADES "data/Save/arquivoEntidades.json"
+
 namespace Fases{
     class Fase : public Estados::Estado{
         protected:
@@ -34,6 +36,7 @@ namespace Fases{
             Observadores::ControleJogador* controle;
             Entidades::Personagens::Jogador* pJogador;
             Lista::ListaDeEntidades LE;
+            std::ostringstream buffer;
             double dt;
         public:
             Fase();
@@ -52,6 +55,7 @@ namespace Fases{
             void update(double dt);
             void executar();
             void draw();
+            void salvarJogo();
             //virtual void resetEstate() = 0;
             virtual void loadMap() = 0;
     };

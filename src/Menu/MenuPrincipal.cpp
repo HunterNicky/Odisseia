@@ -42,7 +42,7 @@ namespace Menu{
                 arquivo >> arquivoEntidades;
 
                 if(!arquivo){
-                    std::cout << "ERRO AO ABRIR ARQUIVOPERSONAGENS!"<< std::endl;
+                    std::cout << "ERRO AO ABRIR ARQUIVO_ENTIDADES!"<< std::endl;
                 }
                 fase2 = new Fases::Fase2(arquivoEntidades);
                 pMaquinaDeEstado->pushEstado(static_cast<Estados::Estado*>(fase2));}
