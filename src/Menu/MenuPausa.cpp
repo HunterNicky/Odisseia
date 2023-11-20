@@ -3,37 +3,43 @@
 
 namespace Menu {
     MenuPausa::MenuPausa():
-        Menu(1)
+        Menu(1,2)
     {
         inicializaBotao();
-        pControlePausa = new Observadores::ControleMenu(this);
     }
     MenuPausa::~MenuPausa(){
-        if(pControlePausa){
-            delete pControlePausa;
-        }
     }
+    
     void MenuPausa::inicializaBotao(){
         Botoes::Botao* pBotao = NULL;
 
+        pBotao = new Botoes::Botao(sf::Vector2f(1280.f / 2 - 200, 720.f / 2 - 100), std::string(" Salvar Jogo"));
+        pBotao->selecionado(true);
+
+        Menu::lBotao.push_back(pBotao);
+        Menu::it = Menu::lBotao.begin();
+        
         pBotao = new Botoes::Botao(sf::Vector2f(1280.f / 2 - 200, 720.f / 2 - 200), std::string(" Voltar "));
         Menu::lBotao.push_back(pBotao);
-        pBotao = new Botoes::Botao(sf::Vector2f(1280.f / 2 - 200, 720.f / 2 - 50), std::string(" Salvar Jogo"));
-        Menu::lBotao.push_back(pBotao);
+
         pBotao = new Botoes::Botao(sf::Vector2f(1280.f / 2 - 200, 720.f / 2 + 100), std::string(" Sair "));
         Menu::lBotao.push_back(pBotao);
     }
     
     void MenuPausa::executar(){
-        if(numSelec == 0){
-            pGrafico->close();
-            pMaquinaDeEstado->popEstado();
+        switch(numSelec){
+            case 0:
+                pMaquinaDeEstado->popEstado();
+                break;
+            case 1:
+                pMaquinaDeEstado->popEstado();
+                pMaquinaDeEstado->popEstado();
+                break;
+            default:
+                break;
         }
-        else if(numSelec == 1){
-            pGrafico->close();
-            pMaquinaDeEstado->popEstado();
-            pMaquinaDeEstado->popEstado();
-        }
+        std::cout << "menuPausa" << std::endl;
+
     }
     void MenuPausa::update(const double dt){
         Menu::draw();

@@ -33,7 +33,6 @@ namespace Observadores{
             if(key == fechar){
                 Menu::MenuPausa* pPausa = new Menu::MenuPausa();
                 pMaquinaDeEstado->pushEstado(static_cast<Estados::Estado*>(pPausa));
-                Observadores::ControleMenu* pControleF = new Observadores::ControleMenu(static_cast<Menu::Menu*>(pPausa));
             }
         }
     }

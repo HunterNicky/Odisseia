@@ -6,7 +6,7 @@ namespace Menu{
     Estados::MaquinaDeEstado* MenuPrincipal::pMaquinaDeEstado = Estados::MaquinaDeEstado::getInstance();
 
     MenuPrincipal::MenuPrincipal(Estados::Jogo* pJogo):
-        Menu(0),
+        Menu(0, 3),
         pJogo(pJogo){
         fase2 = NULL;
         inicializaBotao();
@@ -18,6 +18,7 @@ namespace Menu{
 
     void MenuPrincipal::update(const double dt){
         Menu::update(dt);
+        pControleMenu->setMenu(this);
     }
 
     void MenuPrincipal::draw(){

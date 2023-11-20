@@ -16,6 +16,7 @@ namespace Animacao {
     }
 
     void AnimacaoContext::updateStrategy(double dt){
-        strategy->updateSprite(dt, standardTime);
+        if(strategy != nullptr)
+            strategy->updateSprite(dt, standardTime);
     }
 }

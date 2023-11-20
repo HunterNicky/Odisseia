@@ -1,4 +1,4 @@
-#include "..\..\..\..\include\Entidades\Personagens\Jogador\Jogador.hpp"
+#include "Entidades/Personagens/Jogador/Jogador.hpp"
 #include "Animacao/AnimacaoParado.hpp"
 #include "Entidades/Entidade.hpp"
 #include "Entidades/Personagens/Jogador/Jogador.hpp"
@@ -36,7 +36,6 @@ namespace Entidades{
             contextoAnimacao(){
             
             this->setVel(sf::Vector2f(atributos[pos]["Velocidade"][0], atributos[pos]["Velocidade"][1]));
-            body->setFillColor(sf::Color::Blue);
             this->num_vidas = 1000;
         }
         Jogador::~Jogador(){}   
@@ -46,18 +45,21 @@ namespace Entidades{
             this->num_vidas-=dano;
         }
 
-        void Jogador::move(){
-            Entidade::body->setPosition(pos);
-            if(onFloor){
-                if(std::abs(vel.x) > 0.3f){
-                    contextoAnimacao.setStrategy(&andar, 0.1f);
-                }else{
-                    contextoAnimacao.setStrategy(&parado, 0.5f);
-                }
-            }else if (vel.y < -0.5f){
-                contextoAnimacao.setStrategy(&pulando, 0.1f);
+        void Jogador::animacao() {
+            if (onFloor) {
+              if (std::abs(vel.x) > 0.3f) {
+                contextoAnimacao.setStrategy(&andar, 0.1f);
+              } else {
+                contextoAnimacao.setStrategy(&parado, 0.5f);
+              }
+            } else if (vel.y < -0.5f) {
+              contextoAnimacao.setStrategy(&pulando, 0.1f);
             }
             contextoAnimacao.updateStrategy(gFisico->getDeltaTime());
+        }
+
+        void Jogador::move() {
+            Entidade::body->setPosition(pos);
             gColisao->Notify(static_cast<Entidades::Entidade*>(this));
         }
 
@@ -147,8 +149,9 @@ namespace Entidades{
         }
 
         void Jogador::update(){
-            if(estamina < 1.f)estamina += estamina*0.0001f + 0.001f;
+            if(estamina < 1.f)estamina += estamina * 0.0001f + 0.001f;
             executar();
+            animacao();
         }
 
         void Jogador::salvar(std::ostringstream* entrada){

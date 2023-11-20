@@ -27,7 +27,7 @@ namespace Fases{
                 break;
             case '1':
                 pos.x += 200.f;
-                newJogador(pos+sf::Vector2f(100.f, -200.f),sf::Vector2f(30.f, 50.f));
+                newJogador(pos+sf::Vector2f(100.f, -200.f),sf::Vector2f(60.f, 96.f));
                 break;
             case '2':
                 pos.x += 200.f;
@@ -44,6 +44,9 @@ namespace Fases{
             case '3':
                 pos.x += 200.f;
                 newObstaculo(pos, sf::Vector2f(200.f, 200.f));
+                break;
+            case ' ':
+                pos.x += 200.f;
                 break;
             default:
                 pos.x = 0;

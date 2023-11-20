@@ -14,13 +14,13 @@ namespace Menu{
     class Menu : public Estados::Estado{
         protected:
             static Estados::MaquinaDeEstado* pMaquinaDeEstado;
-            Observadores::ControleMenu* controleMenu;
+            static Observadores::ControleMenu* pControleMenu;
             std::list<Botoes::Botao*> lBotao;
             std::list<Botoes::Botao*>::iterator it;
             unsigned int numOpc;
             unsigned int numSelec;
         public:
-            Menu(const int id);
+            Menu(const int id, int numOpc);
             virtual ~Menu();
             virtual void executar() = 0;
             void select(const bool direcao);    

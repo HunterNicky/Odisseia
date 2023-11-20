@@ -1,12 +1,14 @@
 #include "../../include/Menu/Menu.hpp"
+#include "Observadores/ControleMenu.hpp"
 namespace Menu{
     Estados::MaquinaDeEstado* Menu::pMaquinaDeEstado = Estados::MaquinaDeEstado::getInstance();
+    Observadores::ControleMenu* Menu::pControleMenu = Observadores::ControleMenu::getInstance();
 
-    Menu::Menu(const int id):
+    Menu::Menu(const int id, int numOpc):
     Estado(static_cast<Estados::MaquinaDeEstado*>(pMaquinaDeEstado), id),
-    controleMenu(new Observadores::ControleMenu(this)), numOpc(3), numSelec(0)
+    numOpc(numOpc), numSelec(0)
     {
-        controleMenu->setMenu(this);
+        pControleMenu->setMenu(this);
     }
 
     Menu::~Menu(){
@@ -17,7 +19,6 @@ namespace Menu{
             lBotao.pop_back();
         }
         lBotao.clear();
-        delete controleMenu;
     }
 
     void Menu::update(const double dt){

@@ -30,6 +30,7 @@ namespace Entidades{
             ~Jogador();
             void operator--(const int dano);
             const float getEstamina() const;
+            void animacao();
             void move();
             void neutralizarInimigo(Entidade* pInimigo);
             void tratarColisao(Entidade* entidade);
