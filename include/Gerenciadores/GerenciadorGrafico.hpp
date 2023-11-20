@@ -8,6 +8,7 @@ namespace Gerenciadores{
             sf::RenderWindow* window;
             sf::View view;
             static GerenciadorGrafico* instance;
+            std::map<std::string, sf::Texture*> texturaMap;
             GerenciadorGrafico();
         public:
             ~GerenciadorGrafico();
@@ -21,5 +22,6 @@ namespace Gerenciadores{
             void drawText(const sf::Text *text);
             void setViewCenter(const sf::Vector2f center);
             const sf::Vector2f getViewCenter() const;
+            sf::Texture* loadTexture(std::string filepath);
     };
 }

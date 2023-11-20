@@ -25,6 +25,7 @@ namespace Observadores{
         keyboard[sf::Keyboard::Right] = "Right";
         keyboard[sf::Keyboard::Enter] = "Enter";
         keyboard[sf::Keyboard::Escape] = "Escape";
+        keyboard[sf::Keyboard::LShift] = "LShift";
     }
 }
 

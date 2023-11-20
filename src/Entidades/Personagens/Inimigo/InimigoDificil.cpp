@@ -32,7 +32,7 @@ namespace Entidades{
         }
         void InimigoDificil::move(){
             Entidade::body->setPosition(pos);
-            gColisao->checkCollision(static_cast<Entidades::Entidade*>(this));
+            gColisao->Notify(static_cast<Entidades::Entidade*>(this));
         }
 
         void InimigoDificil::danificar(Entidade* entidade){

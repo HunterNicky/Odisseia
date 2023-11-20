@@ -10,7 +10,7 @@ namespace Observadores{
     ControleJogador::ControleJogador(Entidades::Personagens::Jogador *pJogador):
     Observer(),
     pJogador(pJogador),
-    pular("W"), esquerda("A"), direita("D"), fechar( "Escape"){
+    pular("W"), esquerda("A"), direita("D"), correr("LShift"), fechar("Escape"){
     }
 
     ControleJogador::~ControleJogador(){
@@ -28,6 +28,8 @@ namespace Observadores{
             }
             if(key == pular){
                 pJogador->pular();
+            }else if(key == correr){
+                pJogador->correr();
             }
             if(key == fechar){
                 Menu::MenuPausa* pPausa = new Menu::MenuPausa();
@@ -42,6 +44,8 @@ namespace Observadores{
             if(key == direita){
                 pJogador->parar();
             }else if(key == esquerda){
+                pJogador->parar();
+            }else if(key == correr){
                 pJogador->parar();
             }else if(key == pular){
                 pJogador->setOnFloor(false);

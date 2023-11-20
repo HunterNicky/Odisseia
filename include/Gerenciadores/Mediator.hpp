@@ -1,7 +1,4 @@
 #pragma once
-#include "..\Lista\ListaDeEntidades.hpp"
-#include "..\Entidades\Entidade.hpp"
-
 namespace Entidades{
     class Entidade;
 }
@@ -12,9 +9,13 @@ namespace Lista{
 
 namespace Gerenciadores{
     class Mediator{
+        protected:
+            Lista::ListaDeEntidades* LE;
         public:
+            Mediator();
+            ~Mediator();
             virtual void setList(Lista::ListaDeEntidades* LE) = 0;
-            virtual void Notify(Entidades::Entidade* entidade, Entidades::Entidade* entidade2,const sf::Vector2f mtv) const = 0;
+            virtual void Notify(Entidades::Entidade* entidade) = 0;
     };
 
 }

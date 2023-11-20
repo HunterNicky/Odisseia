@@ -49,9 +49,8 @@ namespace Entidades{
     }
 
     void Projetil::executar(){
-        move();
-        Entidade::body->setPosition(pos);
-        gColisao->checkCollision(static_cast<Entidades::Entidade*>(this));
+        body->move(vel);
+        gColisao->Notify(static_cast<Entidades::Entidade*>(this));
     }
 
     void Projetil::update(){

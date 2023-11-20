@@ -1,5 +1,6 @@
 #include "..\..\include\Gerenciadores\GerenciadorGrafico.hpp"
 #include <iostream>
+#include <string>
 
 namespace Gerenciadores{
     GerenciadorGrafico* GerenciadorGrafico::instance = nullptr;
@@ -57,6 +58,7 @@ namespace Gerenciadores{
             view.setCenter(sf::Vector2f(center.x, center.y));
         }
     }
+
     const sf::Vector2f GerenciadorGrafico::getViewCenter() const{
         if(isWindowOpen()){
             return view.getCenter();
@@ -70,5 +72,27 @@ namespace Gerenciadores{
             window->draw(*text);
         }
     }
+
+    //Ideia: código do Matheus Burda
+    sf::Texture* GerenciadorGrafico::loadTexture(std::string filepath) {
+        std::map<std::string, sf::Texture*>::iterator it = texturaMap.begin();
+        while (it != texturaMap.end()) {
+            if (it->first == filepath)
+                return it->second;
+            it++;
+        }
+
+        sf::Texture* textura = new sf::Texture();
+
+        if (!textura->loadFromFile(filepath)) {
+            std::cout << "Textura não carregada " << filepath << std::endl;
+        }
+
+        texturaMap.insert(std::pair<std::string, sf::Texture*>(filepath, textura));
+
+        return textura;
+    }
+
+
 }
 

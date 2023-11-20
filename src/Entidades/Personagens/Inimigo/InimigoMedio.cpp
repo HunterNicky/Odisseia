@@ -1,5 +1,6 @@
-#include "..\..\..\..\include\Entidades\Personagens\Inimigo\InimigoMedio.hpp"
-#include <sstream>
+#include "Fases/Fase.hpp"
+#include "Entidades/Personagens/Inimigo/InimigoMedio.hpp"
+
 
 namespace Entidades{
     namespace Personagens{
@@ -76,7 +77,7 @@ namespace Entidades{
                 movimentoAleatorio();
             }
             Entidade::body->setPosition(pos);
-            gColisao->checkCollision(static_cast<Entidades::Entidade*>(this));
+            gColisao->Notify(static_cast<Entidades::Entidade*>(this));
         }
 
         void InimigoMedio::tratarColisao(Entidade *entidade){
