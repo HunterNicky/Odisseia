@@ -1,4 +1,5 @@
 #include "Fases/Fase2.hpp"
+#include "Entidades/Projetil/Projetil.hpp"
 
 #include <stdlib.h>
 
@@ -28,7 +29,7 @@ namespace Fases{
             if (arquivoPersonagens[i]["ID"][0] == Entidades::ID::jogador){
                 pJogador = new Entidades::Personagens::Jogador(arquivoPersonagens, i, Entidades::ID::jogador);
                 pJogador->setGerenciadorDeColisao(pColisao);
-                controle->setJogador(pJogador);
+                controleJog->setJogador(pJogador);
                 LE.push_back(static_cast<Entidades::Entidade*>(pJogador));
             }
             else if (arquivoPersonagens[i]["ID"][0] == Entidades::ID::InimigoFacil){
@@ -48,6 +49,15 @@ namespace Fases{
                 Entidades::Personagens::InimigoMedio* pInimigo = new Entidades::Personagens::InimigoMedio(arquivoPersonagens, i, Entidades::ID::InimigoFacil, this->pJogador);
                 pInimigo->setGerenciadorDeColisao(pColisao);
                 LE.push_back(static_cast<Entidades::Entidade*>(pInimigo));
+                if(pInimigo->getProjAtivo()){
+                    for (int j = 0; j < (int)arquivoPersonagens.size(); j++){
+                        if(arquivoPersonagens[j]["ID"][0] == Entidades::ID::Projetil){
+                            Entidades::Projetil* pProjetil = new Entidades::Projetil(arquivoPersonagens,j, Entidades::ID::Projetil);
+                            pProjetil->setGerenciadorDeColisao(pColisao);
+                            LE.push_back(static_cast<Entidades::Entidade*>(pProjetil));
+                        }
+                    }
+                }
             }
             else if (arquivoPersonagens[i]["ID"][0] == Entidades::ID::InimigoDificil){
                 if(pJogador == nullptr){

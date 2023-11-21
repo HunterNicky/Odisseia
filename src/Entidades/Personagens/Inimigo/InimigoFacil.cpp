@@ -30,7 +30,7 @@ namespace Entidades{
         {
             this->setVel(sf::Vector2f(atributos[pos]["Velocidade"][0], atributos[pos]["Velocidade"][1]));
             body->setFillColor(sf::Color::Red);
-            this->num_vidas = 10;
+            this->num_vidas = atributos[pos]["Vida"][0];
             raio = RAIO;
             srand(time(NULL));
             this->raivosidade = rand()%10;
@@ -111,7 +111,7 @@ namespace Entidades{
             executar();
         }
         void InimigoFacil::salvar(std::ostringstream* entrada){
-            (*entrada) << "{ \"ID\": [" << 2 << "], \"Posicao\": [" << pos.x << " , " << pos.y << "], \"Velocidade\": [" << vel.x << " , " << vel.y << "] }" << std::endl;
+            (*entrada) << "{ \"ID\": [" << 2 << "], \"Posicao\": [" << pos.x << " , " << pos.y << "], \"Velocidade\": [" << vel.x << " , " << vel.y << "], \"Vida\": [" << this->getNum_vidas() << "] }" << std::endl;
         }
     }
 }

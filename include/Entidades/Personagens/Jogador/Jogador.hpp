@@ -9,8 +9,8 @@
 #include "Entidades/Personagens/Personagem.hpp"
 #include <vector>
 
-#define TAM_X_JOGADOR 50.0f
-#define TAM_Y_JOGADOR 50.0f
+#define TAM_X_JOGADOR 60.0f
+#define TAM_Y_JOGADOR 96.0f
 #define VEL_X_JOGADOR 0.0f
 #define VEL_Y_JOGADOR 0.0f
 

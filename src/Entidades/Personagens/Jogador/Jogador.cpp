@@ -36,7 +36,7 @@ namespace Entidades{
             contextoAnimacao(){
             
             this->setVel(sf::Vector2f(atributos[pos]["Velocidade"][0], atributos[pos]["Velocidade"][1]));
-            this->num_vidas = 1000;
+            this->num_vidas = atributos[pos]["Vida"][0];
         }
         Jogador::~Jogador(){}   
 
@@ -155,7 +155,7 @@ namespace Entidades{
         }
 
         void Jogador::salvar(std::ostringstream* entrada){
-            (*entrada) << "{ \"ID\": [" << 1 << "], \"Posicao\": [" << pos.x << " , " << pos.y << "], \"Velocidade\": [" << vel.x << " , " << vel.y << "] }" << std::endl;
+            (*entrada) << "{ \"ID\": [" << 1 << "], \"Posicao\": [" << pos.x << " , " << pos.y << "], \"Velocidade\": [" << vel.x << " , " << vel.y << "], \"Vida\": [" << this->getNum_vidas() << "] }" << std::endl;
         }
     }
 }

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Fase.hpp"
+#include "Observadores/ControleJogador.hpp"
 namespace Fases{
     class Fase2: public Fase{
     private:

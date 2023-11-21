@@ -1,7 +1,6 @@
 #pragma once
 
-
-#include "Entidades/Personagens/Jogador/Jogador.hpp"
+//#include "Entidades/Personagens/Jogador/Jogador.hpp"
 #include "Estados/Estado.hpp"
 #include "Estados/MaquinaDeEstado.hpp"
 #include "Gerenciadores/GerenciadorDeColisao.hpp"
@@ -13,22 +12,24 @@
 #include "Entidades/Personagens/Inimigo/InimigoFacil.hpp"
 #include "Entidades/Personagens/Inimigo/InimigoMedio.hpp"
 #include "Entidades/Projetil/Projetil.hpp"
-#include "Observadores/ControleFase.hpp"
+//#include "Observadores/ControleFase.hpp"
 #include "Entidades/Obstaculos/Caixa.hpp"
 #include "Entidades/Obstaculos/Gosma.hpp"
 #include "Entidades/Obstaculos/Lava.hpp"
 #include "Estados/Estado.hpp"
 #include "Estados/MaquinaDeEstado.hpp"
 #include "Entidades/Entidade.hpp"
-#include "Observadores/ControleJogador.hpp"
+//#include "Observadores/ControleJogador.hpp"
+#include "Menu/Botoes/Texto.hpp"
 #include "json.hpp"
 #include <iostream>
 #include <fstream>
 #include <sstream>
+#include <string>
 #define ARQUIVO_ENTIDADES "data/Save/arquivoEntidades.json"
 
 namespace Observadores {
-    class ControleFase;
+    class ControleJogador;
 
 }
 namespace Fases{
@@ -39,11 +40,13 @@ namespace Fases{
             static Gerenciadores::GerenciadorFisico* pFisico;
             static Gerenciadores::GerenciadorDeColisao* pColisao;
             static Estados::MaquinaDeEstado* pMaquinaDeEstado;
-            Observadores::ControleJogador* controle;
-            Observadores::ControleFase* controleFase;
+            Observadores::ControleJogador* controleJog;
+            //Observadores::ControleFase* controleFase;
             Entidades::Personagens::Jogador* pJogador;
             Lista::ListaDeEntidades LE;
             std::ostringstream buffer;
+            unsigned int pontuacao_jogador;
+            static Menu::Botoes::Texto textoPontuacao;
             double dt;
         public:
             Fase();
@@ -59,6 +62,9 @@ namespace Fases{
             //void newGosma(sf::Vector2f pos, sf::Vector2f size);
             virtual void recuperarJogada(nlohmann::json arquivoPersonagens) = 0;
             void newObstaculo(sf::Vector2f pos, sf::Vector2f size);
+            void setPontuacaoJog(const unsigned int pontos);
+            const unsigned int getPontuacaoJog();
+            void atualizaPontuacao();
             void updateVida();
             void update(double dt);
             void executar();

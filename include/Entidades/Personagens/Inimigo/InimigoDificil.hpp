@@ -1,7 +1,7 @@
 #include "Inimigo.hpp"
 
-#define TAM_INIMIGO_DIF_X 40.0f
-#define TAM_INIMIGO_DIF_Y 50.0f
+#define TAM_INIMIGO_DIF_X 80.0f
+#define TAM_INIMIGO_DIF_Y 96.0f
 namespace Entidades{
     namespace Personagens{
         class InimigoDificil: public Inimigo{

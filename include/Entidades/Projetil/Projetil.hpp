@@ -10,10 +10,12 @@ namespace Entidades{
     class Projetil: public Entidade{
     private:
         static int dano;
+        Personagens::InimigoMedio* pInim;
         sf::Vector2f vel;
         bool onFloor;
     public:
         Projetil(const sf::Vector2f pos, const Entidades::ID id, const bool direita);
+        Projetil(nlohmann::json atributos, const int pos, const Entidades::ID id);
         ~Projetil();
         void tratarColisao(Entidades::Entidade* entidade);
         void verificaSolo(const sf::Vector2f mtv);  

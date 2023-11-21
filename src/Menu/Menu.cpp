@@ -4,8 +4,9 @@ namespace Menu{
     Estados::MaquinaDeEstado* Menu::pMaquinaDeEstado = Estados::MaquinaDeEstado::getInstance();
     Observadores::ControleMenu* Menu::pControleMenu = Observadores::ControleMenu::getInstance();
 
-    Menu::Menu(const int id, int numOpc):
+    Menu::Menu(const int id, int numOpc, const sf::Vector2f pos, const sf::Vector2f size, const std::string texto, const unsigned int tamF):
     Estado(static_cast<Estados::MaquinaDeEstado*>(pMaquinaDeEstado), id),
+    titulo(pos, size, texto, tamF), 
     numOpc(numOpc), numSelec(0)
     {
         pControleMenu->setMenu(this);
@@ -33,6 +34,7 @@ namespace Menu{
             Botoes::Botao* botao = *it2;
             botao->draw();
         }
+        pGrafico->drawText(titulo.getSfTexto());
     }
     
     void Menu::select(const bool direcao){

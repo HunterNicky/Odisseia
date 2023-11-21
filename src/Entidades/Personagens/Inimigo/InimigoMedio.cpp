@@ -1,22 +1,22 @@
 #include "..\..\..\..\include\Entidades\Personagens\Inimigo\InimigoMedio.hpp"
+#include "Entidades/Personagens/Inimigo/InimigoMedio.hpp"
 #include <sstream>
 
 namespace Entidades{
     namespace Personagens{
         void InimigoMedio::inicializa(){
-            vel = sf::Vector2f(0.01f, 0.01f);
+            vel = sf::Vector2f(0.0f, 0.0f);
             body->setFillColor(sf::Color::Magenta);
             srand(time(NULL));
             moveAleatorio = (int)rand()%2;
             num_vidas = 100;
             ProjAtivo = false;
         }
-        InimigoMedio::InimigoMedio(const sf::Vector2f pos, const sf::Vector2f size, const Entidades::ID id, Entidades::Personagens::Jogador* pJog):   
+        InimigoMedio::InimigoMedio(const sf::Vector2f pos, const sf::Vector2f size, const Entidades::ID id, Entidades::Personagens::Jogador* pJog, Fases::Fase* pFase):   
             Inimigo(pos, size, id, pJog) {
             nivel_maldade = (int)rand()%2;
             inicializa();
-            //this->pFase = pFase;
-            std::cout << "AQ" << std::endl;
+            this->pFase = pFase;
         }
 
         InimigoMedio::InimigoMedio(nlohmann::json atributos, const int pos, const Entidades::ID id, Entidades::Personagens::Jogador* pJog):
@@ -24,7 +24,9 @@ namespace Entidades{
         {
             this->setVel(sf::Vector2f(atributos[pos]["Velocidade"][0], atributos[pos]["Velocidade"][1]));
             body->setFillColor(sf::Color::Magenta);
-            this->num_vidas = 10;
+            this->num_vidas = atributos[pos]["Vida"][0];
+            int ativo = atributos[pos]["Ativo"][0];
+            this->ProjAtivo = (bool)ativo;
         }
 
         InimigoMedio::~InimigoMedio(){}
@@ -35,9 +37,9 @@ namespace Entidades{
 
         void InimigoMedio::movimentoAleatorio(){
             if(moveAleatorio == 0){
-                forca.x = 3000.0f;
+                forca.x = 300.0f;
             }else{
-                forca.x = -3000.0f;
+                forca.x = -300.0f;
             }
         }
 
@@ -45,17 +47,21 @@ namespace Entidades{
             ProjAtivo = true;
             sf::Vector2f newPosition;
             if(direita){
-                newPosition = sf::Vector2f(pos.x+pos.x/2.0f, pos.y);
-                //pFase->newProjetil(newPosition, direita);
+                newPosition = sf::Vector2f(pos.x + 20.f, pos.y);
+                pFase->newProjetil(newPosition, direita);
             }else{
-                newPosition = sf::Vector2f(pos.x-pos.x/2.0f, pos.y);
-                //pFase->newProjetil(newPosition, direita);
+                newPosition = sf::Vector2f(pos.x - 20.f, pos.y);
+                pFase->newProjetil(newPosition, direita);
             }
         }
 
         void InimigoMedio::deletarProjetil(){
             ProjAtivo = false;
-            //pFase->deleteProjetil();
+            pFase->deleteProjetil();
+        }
+
+        const bool InimigoMedio::getProjAtivo(){
+            return this->ProjAtivo;
         }
 
         void InimigoMedio::move(){
@@ -63,7 +69,7 @@ namespace Entidades{
             sf::Vector2f posInimigo = getBody()->getPosition();
             bool direita;
             
-            if(((fabs(posJogador.x - posInimigo.x) <= RANGE) && (fabs(posJogador.x - posInimigo.y <= RANGE)) && (!ProjAtivo))){
+            if((((fabs(posJogador.x - posInimigo.x) <= RANGE) && (fabs(posJogador.y - posInimigo.y <= RANGE))) && (!ProjAtivo))){
                 forca.x = 0.0f;
                 if(posJogador.x > posInimigo.x){
                     direita = true;
@@ -91,7 +97,7 @@ namespace Entidades{
             executar();
         }
         void InimigoMedio::salvar(std::ostringstream* entrada){
-            (*entrada) << "{ \"ID\": [" << 3 << "], \"Posicao\": [" << pos.x << " , " << pos.y << "], \"Velocidade\": [" << vel.x << " , " << vel.y << "] }" << std::endl;
+            (*entrada) << "{ \"ID\": [" << 3 << "], \"Posicao\": [" << pos.x << " , " << pos.y << "], \"Velocidade\": [" << vel.x << " , " << vel.y << "], \"Vida\": [" << this->getNum_vidas() << "], \"Ativo\": [" << this->getProjAtivo() << "] }" << std::endl;
         }
     }
 }

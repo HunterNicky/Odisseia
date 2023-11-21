@@ -1,4 +1,5 @@
 #include "..\..\..\include\Menu\Botoes\Texto.hpp"
+#include "Menu/Botoes/Texto.hpp"
 
 namespace Menu{
     namespace Botoes{
@@ -33,6 +34,10 @@ namespace Menu{
             sfTexto.setFillColor(color);
         }
 
+        void Texto::setTamanhoBorda(const float tamBorda){
+            sfTexto.setOutlineThickness(tamBorda);
+            size = sf::Vector2f(sfTexto.getGlobalBounds().width, sfTexto.getGlobalBounds().height);
+        }
         const sf::Vector2f Texto::getPos() const{
             return pos;
         }

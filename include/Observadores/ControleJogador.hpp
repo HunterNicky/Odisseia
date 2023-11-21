@@ -1,10 +1,15 @@
 #pragma once
 
-//#include "Menu/MenuPausa.hpp"
 #include "Observer.hpp"
 #include "..\Entidades\Personagens\Jogador\Jogador.hpp"
 #include "..\Estados\MaquinaDeEstado.hpp"
+#include "Menu/MenuGameOver.hpp"
+#include "Menu/MenuPausa.hpp"
 
+namespace Fases {
+    class Fase;
+
+}
 namespace Entidades{
     namespace Personagens{
         class Jogador;
@@ -16,12 +21,14 @@ namespace Observadores{
         private:
             static Estados::MaquinaDeEstado* pMaquinaDeEstado;
             Entidades::Personagens::Jogador* pJogador;
+            Fases::Fase* pFase;
             std::string pular, esquerda, direita, correr;
             std::string fechar;
         public:
-            ControleJogador(Entidades::Personagens::Jogador* pJogador);
+            ControleJogador(Entidades::Personagens::Jogador* pJogador, Fases::Fase* pFase);
             ~ControleJogador();
             void setJogador(Entidades::Personagens::Jogador* pJogador);
+            void jogadorNeutralizado();
             void notifyPressed(const std::string key);
             void notifyReleased(const std::string key);
     };

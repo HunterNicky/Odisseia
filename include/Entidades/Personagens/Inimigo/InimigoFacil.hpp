@@ -5,8 +5,8 @@
 #include <stdlib.h>
 #include <time.h>
 
-#define TAM_INIMIGO_FACIL_X 30.f
-#define TAM_INIMIGO_FACIL_Y 40.0f
+#define TAM_INIMIGO_FACIL_X 60.f
+#define TAM_INIMIGO_FACIL_Y 96.0f
 #define RAIO 200.0f
 
 namespace Entidades{
