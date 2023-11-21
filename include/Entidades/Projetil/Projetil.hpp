@@ -10,7 +10,7 @@ namespace Entidades{
     class Projetil: public Entidade{
     private:
         static int dano;
-        Personagens::InimigoMedio* pInim;
+        //Personagens::InimigoMedio* pInim;
         sf::Vector2f vel;
         bool onFloor;
     public:
