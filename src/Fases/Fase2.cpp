@@ -86,7 +86,7 @@ namespace Fases{
 
     void Fase2::loadMap(){
         
-        std::ifstream file("data//mapa.txt");
+        std::ifstream file("data\\mapas\\fase2.txt");
         sf::Vector2f pos(0.f, 0.f);
         char numero;
 
@@ -94,11 +94,11 @@ namespace Fases{
             switch (numero)
             {
             case '0':
-                pos.x += 20.f;
+                pos.x += 200.f;;
                 break;
             case '1':
-                pos.x += 20.f;
-                newJogador(pos,sf::Vector2f(60.f, 96.f));
+                pos.x += 200.f;
+                newJogador(pos+sf::Vector2f(100.f, -200.f),sf::Vector2f(60.f, 96.f));
                 break;
             case '2':
                 pos.x += 20.f;
@@ -107,6 +107,10 @@ namespace Fases{
             case 'i':
                 pos.x += 20.f;
                 newInimigoMedio(pos, sf::Vector2f(60.f, 96.f));
+                break;
+            case 's':
+                pos.x += 200.f;
+                newChefao(pos, sf::Vector2f(60.f, 96.f));
                 break;
             case '3':
                 pos.x += 200.f;

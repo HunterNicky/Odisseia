@@ -1,5 +1,13 @@
 #include "..\..\..\..\include\Entidades\Personagens\Inimigo\Samurai.hpp"
+#include "Animacao/AnimacaoAndar.hpp"
+#include "Animacao/AnimacaoContext.hpp"
+#include "Animacao/AnimacaoParado.hpp"
+#include "Entidades/Entidade.hpp"
+#include "Entidades/Personagens/Inimigo/Guerreiro.hpp"
+
 #include <sstream>
+#include <stdlib.h>
+#include <time.h>
 
 namespace Entidades{
     namespace Personagens{
@@ -10,12 +18,15 @@ namespace Entidades{
         }
 
         Samurai::Samurai(const sf::Vector2f pos, const sf::Vector2f size, const Entidades::ID id, Entidades::Personagens::Jogador* pJog):
-            Inimigo(pos, size, id, pJog){
+            Inimigo(pos, size, id, pJog), andar(static_cast<Entidades::Entidade*>(this), CAMINHO_SAMURAI_ANDAR, CAMINHO_SAMURAI_ANDAR, 8, 8),
+            parado(static_cast<Entidades::Entidade*>(this), CAMINHO_SAMURAI_PARADO, 10), contextoAnimacao(){
             inicializa();
         }
 
         Samurai::Samurai(nlohmann::json atributos, const int pos, const Entidades::ID id, Entidades::Personagens::Jogador* pJog):
-            Inimigo(sf::Vector2f(atributos[pos]["Posicao"][0], atributos[pos]["Posicao"][1]),sf::Vector2f(TAM_INIMIGO_DIF_X, TAM_INIMIGO_DIF_Y), id, pJog )
+            Inimigo(sf::Vector2f(atributos[pos]["Posicao"][0], atributos[pos]["Posicao"][1]),sf::Vector2f(TAM_INIMIGO_DIF_X, TAM_INIMIGO_DIF_Y), id, pJog),
+            andar(static_cast<Entidades::Entidade*>(this), CAMINHO_SAMURAI_ANDAR, CAMINHO_SAMURAI_ANDAR, 8, 8),
+            parado(static_cast<Entidades::Entidade*>(this), CAMINHO_SAMURAI_PARADO, 10), contextoAnimacao()
         {
             this->setVel(sf::Vector2f(atributos[pos]["Velocidade"][0], atributos[pos]["Velocidade"][1]));
             this->num_vidas = atributos[pos]["Vida"][0];
@@ -24,13 +35,33 @@ namespace Entidades{
         Samurai::~Samurai(){
 
         }
+        void Samurai::animacao(){
+           
+        }
+
         void Samurai::operator--(const int dano){
             num_vidas-=dano;
         }
         void Samurai::movimentoAleatorio(){
+            srand(time(NULL));
+            moveAleatorio = rand()%2;
 
+            if(moveAleatorio==0){
+                forca.x = 3000;
+            }else {
+                forca.x = -3000;
+            }
         }
         void Samurai::move(){
+            sf::Vector2f posicaoJog = pJogador->getBody()->getPosition();
+            sf::Vector2f posicaoSamurai = getBody()->getPosition();
+
+            if(((fabs(posicaoJog.x - posicaoSamurai.x) <= R)) && (fabs(posicaoJog.y - posicaoSamurai.y) <= R)){
+                //strategy atacar
+            }else{
+                movimentoAleatorio();
+            }
+
             Entidade::body->setPosition(pos);
             gColisao->Notify(static_cast<Entidades::Entidade*>(this));
         }
@@ -52,6 +83,7 @@ namespace Entidades{
         }
         void Samurai::update(){
             executar();
+            animacao();
         }
 
         void Samurai::salvar(std::ostringstream* entrada){

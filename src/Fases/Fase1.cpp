@@ -6,7 +6,7 @@ namespace Fases{
         loadMap();
     }
     Fase1::Fase1(nlohmann::json arquivosEntidades, nlohmann::json arquivosFase){
-        recuperarJogada(arquivosEntidades, arquivosFase); //
+        recuperarJogada(arquivosEntidades, arquivosFase); 
     }
     Fase1::~Fase1(){
     }
@@ -17,7 +17,7 @@ namespace Fases{
 
     void Fase1::loadMap(){
 
-        std::ifstream file("data\\mapa.txt");
+        std::ifstream file("data\\mapas\\fase1.txt");
         sf::Vector2f pos(0.f, 0.f);
         char numero;
 
@@ -30,19 +30,19 @@ namespace Fases{
                 break;
             case '1':
                 pos.x += 200.f;
-                newJogador(pos+sf::Vector2f(100.f, -200.f),sf::Vector2f(60.f, 96.f));
+                newJogador(pos+sf::Vector2f(100.f, -200.f),sf::Vector2f(TAM_PERSONAGENS_X, TAM_PERSONAGENS_Y));
                 break;
             case '2':
                 pos.x += 200.f;
-                newInimigo(pos, sf::Vector2f(20.f, 30.f));
+                newInimigo(pos, sf::Vector2f(TAM_PERSONAGENS_X, TAM_PERSONAGENS_Y));
                 break;
             case 'i':
                 pos.x += 20.f;
-                newInimigoMedio(pos, sf::Vector2f(20.f, 30.f));
+                newInimigoMedio(pos, sf::Vector2f(TAM_PERSONAGENS_X, TAM_PERSONAGENS_Y));
                 break;
             case 'c':
                 pos.x += 20.0f;
-                newChefao(pos, sf::Vector2f(50.f, 50.f));
+                newChefao(pos, sf::Vector2f(TAM_PERSONAGENS_X, TAM_PERSONAGENS_Y));
                 break;
             case '3':
                 pos.x += 200.f;

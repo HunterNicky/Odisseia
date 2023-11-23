@@ -6,6 +6,11 @@
 
 #define TAM_INIMIGO_MED_X 60.0f
 #define TAM_INIMIGO_MED_Y 96.0f
+
+#define CAMINHO_VIAJANTE_ANDAR "data\\Sprites\\travel\\travelwalk.png"
+#define CAMINHO_VIAJANTE_PARADO "data\\Sprites\\travel\\travelidle.png"
+#define CAMINHO_VIAJANTE_PROJETIL "data\\Sprites\\travel\\travelshoot.png"
+
 namespace Fases{
     class Fase;
 }
@@ -19,11 +24,15 @@ namespace Entidades{
             Entidades::Laser* pProj;
             bool ProjAtivo;
             bool direita;
+            Animacao::AnimacaoAndar andar;
+            Animacao::AnimacaoParado parado;
+            Animacao::AnimacaoContext contextoAnimacao;
             void inicializa();
         public:
             Viajante(const sf::Vector2f pos, const sf::Vector2f size, const Entidades::ID id, Entidades::Personagens::Jogador* pJog, Entidades::Laser* proj);
             Viajante(nlohmann::json atributos, const int pos, const Entidades::ID id, Entidades::Personagens::Jogador* pJog);
             ~Viajante();
+            void animacao();
             void operator--(const int dano);
             void movimentoAleatorio();
             void atirarProjetil(sf::Vector2f pos, const bool direita);

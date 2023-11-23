@@ -7,9 +7,9 @@ namespace Entidades{
     int Laser::dano(100);
 
     Laser::Laser(const sf::Vector2f pos, const Entidades::ID id, Entidades::Personagens::Viajante* pInim):
-        Entidade(pos, sf::Vector2f(TAM_PROJETIL,TAM_PROJETIL), id), pInim(pInim)
+        Entidade(pos, sf::Vector2f(TAM_PROJETIL,TAM_PROJETIL/2), id), pInim(pInim)
     {
-        body->setFillColor(sf::Color::Green);
+        body->setFillColor(sf::Color::Red);
         setPos(sf::Vector2f(-300.f, -300.f));
         if(pInim){
             if(pInim->getDirecaoProj()){
