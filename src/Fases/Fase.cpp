@@ -1,10 +1,12 @@
 #include "Fases/Fase.hpp"
 #include "Entidades/Entidade.hpp"
-#include <list>
-#include "Observadores/ControleFase.hpp"
+#include "Entidades/Personagens/Inimigo/Viajante.hpp"
+#include "Menu/Botoes/Texto.hpp"
+#include "Observadores/ControleJogador.hpp"
 
-#define ARQUIVO_ENTIDADES "data/Save/arquivoEntidades.json"
-#define ARQUIVO_FASE "data/Save/arquivoFase.json"
+#include <list>
+#include <ostream>
+#include <sstream>
 
 namespace Fases{
     Gerenciadores::GerenciadorGrafico* Fase::pGrafico = Gerenciadores::GerenciadorGrafico::getInstance();
@@ -12,19 +14,28 @@ namespace Fases{
     Gerenciadores::GerenciadorFisico* Fase::pFisico = Gerenciadores::GerenciadorFisico::getInstance();
     Gerenciadores::GerenciadorDeColisao* Fase::pColisao = Gerenciadores::GerenciadorDeColisao::getInstance();
     Estados::MaquinaDeEstado* Fase::pMaquinaDeEstado = Estados::MaquinaDeEstado::getInstance();
+    Menu::Botoes::Texto Fase::textoPontuacao(sf::Vector2f(0.f, 0.f), sf::Vector2f(50.f,50.f), "" , 35);
 
     Fase::Fase():
     Estado(pMaquinaDeEstado, 1){
         pJogador = nullptr;
-        controleFase = new Observadores::ControleFase();
+        //controleFase = new Observadores::ControleFase();
         //controleFase->setFase(this);
-        controleJog = new Observadores::ControleJogador(pJogador);
+        controleJog = new Observadores::ControleJogador(pJogador, static_cast<Fases::Fase*>(this));
         pColisao->setList(&LE);
         pEvento->addObserver(static_cast<Observadores::Observer*>(controleJog));
         dt = 0.f;
+        pontuacao_jogador = 0;
+        textoPontuacao.setColor(sf::Color::White);
+        if(textoPontuacao.getText() == ""){
+            textoPontuacao.setTexto("Score: 00000");
+            textoPontuacao.setTamanhoBorda(2.f);
+        }
+        
     }
     Fase::~Fase(){
-        salvar();
+        salvarEntidades();
+        salvarAtributosFase();
         for(unsigned int i = 0; i < LE.getSize(); i++){
             LE.remove(i);
         }
@@ -32,13 +43,13 @@ namespace Fases{
         pEvento->removeObserver(static_cast<Observadores::Observer*>(controleJog));
     }
 
-    void Fase::salvar(){
+    void Fase::salvarEntidades(){
         std::ofstream arquivo(ARQUIVO_ENTIDADES);
         if(!arquivo){
             std::cout << "Erro ao abrir arquivo" << std::endl;
             exit(1);
         } 
-        //salvar Personagens
+        //salvar Entidades
         //Lista::Lista<Entidades::Entidade>::Iterator it = LE.getPrimeiro();
         buffer.str("");
         buffer << "[";
@@ -55,6 +66,23 @@ namespace Fases{
         arquivo << buffer.str() << std::endl;
         arquivo.close();
     }
+    void Fase::salvarAtributosFase(){
+        //Salvando pontuação
+        std::ofstream arquivo(ARQUIVO_FASE); 
+        if(!arquivo){
+            std::cout << "Erro ao abrir arquivo" << std::endl;
+            exit(1);
+        }
+
+        buffer.str("");
+        buffer << "[";
+
+        buffer << "{ \"Pontuacao\": ["<< getPontuacaoJog() <<"] }" << std::endl;
+
+        buffer << "]";
+        arquivo << buffer.str() << std::endl;
+        arquivo.close();
+    }
 
     void Fase::newJogador(sf::Vector2f pos, sf::Vector2f size){
         pJogador = new Entidades::Personagens::Jogador(pos, size, Entidades::ID::jogador);
@@ -63,30 +91,40 @@ namespace Fases{
         LE.push_back(static_cast<Entidades::Entidade*>(pJogador));
     }
     void Fase::newInimigo(sf::Vector2f pos, sf::Vector2f size){
-        Entidades::Personagens::InimigoFacil* pInimigo = new Entidades::Personagens::InimigoFacil(pos, size, Entidades::ID::InimigoFacil, pJogador);
+        Entidades::Personagens::Guerreiro* pInimigo = new Entidades::Personagens::Guerreiro(pos, size, Entidades::ID::Guerreiro, pJogador);
         pInimigo->setGerenciadorDeColisao(pColisao);
         LE.push_back(static_cast<Entidades::Entidade*>(pInimigo));
     }
     void Fase::newInimigoMedio(sf::Vector2f pos, sf::Vector2f size){
-        Entidades::Personagens::InimigoMedio* pInimigo = new Entidades::Personagens::InimigoMedio(pos, size, Entidades::ID::InimigoMedio, pJogador);
+        Entidades::Personagens::Viajante* pInimigo = new Entidades::Personagens::Viajante(pos, size, Entidades::ID::Viajante, pJogador, nullptr);
         pInimigo->setGerenciadorDeColisao(pColisao);
         LE.push_back(static_cast<Entidades::Entidade*>(pInimigo));
+
+        if(pInimigo==nullptr){
+            std::cout << "Erro ao criar Inimigo Viajante!" << std::endl;
+            exit(1);
+        }else{
+            Entidades::Laser* pProj = new Entidades::Laser(pos, Entidades::ID::Laser, pInimigo);
+            pProj->setGerenciadorDeColisao(pColisao);
+            LE.push_back(static_cast<Entidades::Entidade*>(pProj));
+            pInimigo->setProj(pProj);
+        }
     }
     void Fase::newChefao(sf::Vector2f pos, sf::Vector2f size){
-        Entidades::Personagens::InimigoDificil* pInimigo = new Entidades::Personagens::InimigoDificil(pos, size, Entidades::ID::InimigoDificil, pJogador);
+        Entidades::Personagens::Samurai* pInimigo = new Entidades::Personagens::Samurai(pos, size, Entidades::ID::Samurai, pJogador);
         pInimigo->setGerenciadorDeColisao(pColisao);
         LE.push_back(static_cast<Entidades::Entidade*>(pInimigo));
     }
     
-    void Fase::newProjetil(sf::Vector2f pos, const bool direita){
-        Entidades::Projetil* pProj = new Entidades::Projetil(pos, Entidades::ID::Projetil, direita);
+    void Fase::newProjetil(sf::Vector2f pos, const bool direita){/*
+        Entidades::Laser* pProj = new Entidades::Laser(pos, Entidades::ID::Laser, direita);
         pProj->setGerenciadorDeColisao(pColisao);
-        LE.push_back(static_cast<Entidades::Entidade*>(pProj));
+        LE.push_back(static_cast<Entidades::Entidade*>(pProj));*/
     }
 
     void Fase::deleteProjetil(){
         for(unsigned int i = 0; i < LE.getSize(); i++){
-            if(LE[i]->getId() == Entidades::ID::Projetil){
+            if(LE[i]->getId() == Entidades::ID::Laser){
                 LE.remove(i);
             }
         }
@@ -97,6 +135,27 @@ namespace Fases{
         pObstaculoFacil->setGerenciadorDeColisao(pColisao);
         LE.push_back(static_cast<Entidades::Entidade*>(pObstaculoFacil));
     }
+     
+    void Fase::setPontuacaoJog(const unsigned int pontos){
+        this->pontuacao_jogador = pontos;
+        std::string score = std::to_string(this->pontuacao_jogador);
+        while(score.size() < 5){
+            std::string aux = score;
+            score = '0' + aux;
+        }
+        textoPontuacao.setTexto("Score: " + score);
+    }
+    const unsigned int Fase::getPontuacaoJog() const{
+        return pontuacao_jogador;
+    }
+
+    void Fase::atualizaPontuacao(){
+        sf::Vector2f posFundo = pGrafico->getViewCenter();
+        sf::Vector2f tamJan = sf::Vector2f(1280.f, 720.f);
+        textoPontuacao.setPos(sf::Vector2f(posFundo.x - tamJan.x/2, posFundo.y - tamJan.y/2));
+        pGrafico->drawText(textoPontuacao.getSfTexto());
+    }
+
     void Fase::update(double dt){
         this->dt = dt;
         executar();
@@ -104,10 +163,21 @@ namespace Fases{
 
     void Fase::updateVida(){
         for(unsigned int i = 0; i < LE.getSize(); i++){
-            if((LE[i]->getId() == Entidades::ID::InimigoFacil) || (LE[i]->getId() == Entidades::ID::InimigoMedio) || (LE[i]->getId() == Entidades::ID::InimigoDificil) || (LE[i]->getId() == Entidades::ID::jogador)){
+            if(LE[i]->getId() == Entidades::ID::Guerreiro || LE[i]->getId() == Entidades::ID::Viajante){
                 Entidades::Personagens::Personagem* pPers = static_cast<Entidades::Personagens::Personagem*>(LE[i]);
-                if(pPers->getNum_vidas() < 0)
+                if(pPers->getNum_vidas() < 0){
                     LE.remove(i);
+                    setPontuacaoJog(getPontuacaoJog()+200);
+                }
+                   
+            }
+            if(LE[i]->getId() == Entidades::ID::jogador){
+                //remover Jogador
+                Entidades::Personagens::Personagem* pPers = static_cast<Entidades::Personagens::Personagem*>(LE[i]);
+                if(pPers->getNum_vidas() < 0){
+                    controleJog->jogadorNeutralizado();
+                    LE.remove(i);
+                }
             }
         }
     }
@@ -130,6 +200,7 @@ namespace Fases{
     }
     void Fase::draw(){
         LE.drawAll();
+        atualizaPontuacao();
     }
 }
 

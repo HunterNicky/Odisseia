@@ -33,9 +33,9 @@ namespace Lista{
         //Iterator - Padrão de Projeto
         class Iterator{
             private:
-                Elemento<TL>* atual;
+                Elemento<TL>* position;
             public:
-                Iterator(Elemento<TL>* elem = nullptr);
+                Iterator(Elemento<TL>* position = nullptr);
                 ~Iterator();
                 void operator=(Elemento<TL>* outro);
                 bool operator==(const Iterator& it);
@@ -64,10 +64,8 @@ namespace Lista{
     template <class TL>
     Lista<TL>::Lista() : pFirst(nullptr), pLast(nullptr), size(0){}
 
-    template <class TL>
-    Lista<TL>::~Lista(){
-        clear();
-    }
+    template<class TL>
+    Lista<TL>::~Lista(){clear();}
 
     template <class TL>
     TL* Lista<TL>::pop(TL* pData){
@@ -294,5 +292,10 @@ namespace Lista{
     template <class TE>
     Elemento<TE>* Elemento<TE>::getNext(){
         return pNext;
+    }
+
+    template <class TL>
+    typename Lista<TL>::Iterator Lista<TL>::getPrimeiro(){
+        return Iterator(pFirst);
     }
 }

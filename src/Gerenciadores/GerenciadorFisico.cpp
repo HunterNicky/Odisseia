@@ -42,9 +42,7 @@ namespace Gerenciadores{
 
     const sf::Vector2f GerenciadorFisico::calDrag(Entidades::Entidade* entidade) const{
         sf::Vector2f test(entidade->getVel().x > 0 ? 1.f : -1.f, entidade->getVel().y > 0 ? 1.f : -1.f);
-        sf::Vector2f squareVel
-        (entidade->getVel().x * entidade->getVel().x * test.x,
-        entidade->getVel().y * entidade->getVel().y * test.y);
+        sf::Vector2f squareVel(entidade->getVel().x * entidade->getVel().x * test.x, entidade->getVel().y * entidade->getVel().y * test.y);
         float area = entidade->getSize().x * entidade->getSize().y;
         sf::Vector2f dragForce(area * squareVel.x * 0.1f, area * squareVel.y * 0.1f);
         return (dragForce);

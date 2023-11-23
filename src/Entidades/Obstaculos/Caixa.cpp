@@ -19,12 +19,7 @@ namespace Entidades{
             bloco(static_cast<Entidades::Entidade*>(this), "data\\Sprites\\Obstaculo\\Grama.png", 6, sf::Vector2f(1,1)),
             contexto()
         {
-            /*
-            for(int i = 0; i < (int)atributos.size(); i++){
-                if(atributos[i]["ID"][0] == id){
-                    this->setPrevPos(sf::Vector2f(atributos[i]["Posicao"][0], atributos[i]["Posicao"][1]));
-                }
-            */
+            contexto.setStrategy(&bloco, 1.f);
             this->body->setFillColor(sf::Color::White);
         }
         ObstaculoFacil::~ObstaculoFacil(){

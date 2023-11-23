@@ -21,7 +21,7 @@ namespace Observadores{
             ~ControleMenu();
             static ControleMenu* getInstance();
             void setMenu(Menu::Menu* pMenu);
-            void notifyPressed(const std::string key);
-            void notifyReleased(const std::string key);
+            void notifyPressed(const sf::Keyboard::Key key);
+            void notifyReleased(const sf::Keyboard::Key key);
     };
 }

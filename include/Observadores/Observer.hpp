@@ -6,14 +6,16 @@
 namespace Observadores{
 
     class Observer {
-    private:
+    protected:
         std::map<sf::Keyboard::Key, std::string> keyboard;
+        std::map<sf::Keyboard::Key, char> caracteres;
+    private:
         void startKeys();
     public:
         Observer();
         virtual ~Observer();
-        virtual void notifyPressed(const std::string key) = 0;
-        virtual void notifyReleased(const std::string key) = 0;
+        virtual void notifyPressed(const sf::Keyboard::Key key) = 0;
+        virtual void notifyReleased(const sf::Keyboard::Key key) = 0;
         std::string getKeyString(const sf::Keyboard::Key key);
     };
 

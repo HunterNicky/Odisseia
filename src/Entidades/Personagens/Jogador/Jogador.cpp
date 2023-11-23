@@ -1,9 +1,5 @@
-#include "Entidades/Personagens/Jogador/Jogador.hpp"
 #include "Animacao/AnimacaoParado.hpp"
-#include "Entidades/Entidade.hpp"
 #include "Entidades/Personagens/Jogador/Jogador.hpp"
-#include "Entidades/Personagens/Personagem.hpp"
-#include "Fases/json.hpp"
 #include "Gerenciadores/GerenciadorFisico.hpp"
 #include <iostream>
 namespace Entidades{
@@ -37,7 +33,7 @@ namespace Entidades{
             contextoAnimacao(){
             
             this->setVel(sf::Vector2f(atributos[pos]["Velocidade"][0], atributos[pos]["Velocidade"][1]));
-            this->num_vidas = 1000;
+            this->num_vidas = atributos[pos]["Vida"][0];
         }
         Jogador::~Jogador(){}   
 
@@ -115,7 +111,13 @@ namespace Entidades{
         void Jogador::tratarColisao(Entidade* entidade){
             switch (entidade->getId())
             {
-            case (ID::InimigoFacil):
+            case (ID::Guerreiro):
+                neutralizarInimigo(entidade);
+                break;
+            case (ID::Viajante):
+                neutralizarInimigo(entidade);
+                break;
+            case(ID::Samurai):
                 neutralizarInimigo(entidade);
                 break;
             case (ID::Plataforma):
@@ -140,7 +142,6 @@ namespace Entidades{
             return estamina;
         }
 
-
         void Jogador::parar(){
             forca.x = 0;
         }
@@ -156,7 +157,7 @@ namespace Entidades{
         }
 
         void Jogador::salvar(std::ostringstream* entrada){
-            (*entrada) << "{ \"ID\": [" << 1 << "], \"Posicao\": [" << pos.x << " , " << pos.y << "], \"Velocidade\": [" << vel.x << " , " << vel.y << "] }" << std::endl;
+            (*entrada) << "{ \"ID\": [" << 1 << "], \"Posicao\": [" << pos.x << " , " << pos.y << "], \"Velocidade\": [" << vel.x << " , " << vel.y << "], \"Vida\": [" << this->getNum_vidas() << "] }" << std::endl;
         }
     }
 }

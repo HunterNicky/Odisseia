@@ -1,31 +1,35 @@
 #pragma once
 
-#include "Gerenciadores/GerenciadorGrafico.hpp"
+//#include "Entidades/Personagens/Jogador/Jogador.hpp"
+#include "Estados/Estado.hpp"
+#include "Estados/MaquinaDeEstado.hpp"
 #include "Gerenciadores/GerenciadorDeColisao.hpp"
 #include "Gerenciadores/GerenciadorDeEvento.hpp"
 #include "Gerenciadores/GerenciadorFisico.hpp"
 #include "Lista/ListaDeEntidades.hpp"
 #include "Entidades/Personagens/Jogador/Jogador.hpp"
-#include "Entidades/Personagens/Inimigo/InimigoDificil.hpp"
-#include "Entidades/Personagens/Inimigo/InimigoFacil.hpp"
-#include "Entidades/Personagens/Inimigo/InimigoMedio.hpp"
-#include "Entidades/Projetil/Projetil.hpp"
-#include "Observadores/ControleFase.hpp"
+#include "Entidades/Personagens/Inimigo/Samurai.hpp"
+#include "Entidades/Personagens/Inimigo/Guerreiro.hpp"
+#include "Entidades/Personagens/Inimigo/Viajante.hpp"
+#include "Entidades/Projetil/Laser.hpp"
+//#include "Observadores/ControleFase.hpp"
 #include "Entidades/Obstaculos/Caixa.hpp"
 #include "Entidades/Obstaculos/Gosma.hpp"
 #include "Entidades/Obstaculos/Lava.hpp"
 #include "Estados/Estado.hpp"
 #include "Estados/MaquinaDeEstado.hpp"
 #include "Entidades/Entidade.hpp"
-#include "Observadores/ControleJogador.hpp"
+//#include "Observadores/ControleJogador.hpp"
+#include "Menu/Botoes/Texto.hpp"
 #include "json.hpp"
-
 #include <iostream>
 #include <fstream>
 #include <sstream>
-
+#include <string>
+#define ARQUIVO_ENTIDADES "data/Save/arquivoEntidades.json"
+#define ARQUIVO_FASE "data/Save/arquivoFase.json"
 namespace Observadores {
-    class ControleFase;
+    class ControleJogador;
 
 }
 namespace Fases{
@@ -37,15 +41,18 @@ namespace Fases{
             static Gerenciadores::GerenciadorDeColisao* pColisao;
             static Estados::MaquinaDeEstado* pMaquinaDeEstado;
             Observadores::ControleJogador* controleJog;
-            Observadores::ControleFase* controleFase;
+            //Observadores::ControleFase* controleFase;
             Entidades::Personagens::Jogador* pJogador;
             Lista::ListaDeEntidades LE;
             std::ostringstream buffer;
-            double dt, alpha;
+            unsigned int pontuacao_jogador;
+            static Menu::Botoes::Texto textoPontuacao;
+            double dt;
         public:
             Fase();
             ~Fase();
-            void salvar();
+            void salvarEntidades();
+            void salvarAtributosFase();
             void newJogador(sf::Vector2f pos, sf::Vector2f size);
             void newInimigo(sf::Vector2f pos, sf::Vector2f size);
             void newInimigoMedio(sf::Vector2f pos, sf::Vector2f size);
@@ -54,9 +61,12 @@ namespace Fases{
             void deleteProjetil();
             //void newPlataforma(sf::Vector2f pos, sf::Vector2f size);
             //void newGosma(sf::Vector2f pos, sf::Vector2f size);
+            virtual void recuperarJogada(nlohmann::json arquivoEntidades, nlohmann::json arquivoFase) = 0;
             void newObstaculo(sf::Vector2f pos, sf::Vector2f size);
+            void setPontuacaoJog(const unsigned int pontos);
+            const unsigned int getPontuacaoJog() const;
+            void atualizaPontuacao();
             void updateVida();
-            virtual void recuperarJogada(nlohmann::json arquivoPersonagens) = 0;
             void update(double dt);
             void executar();
             void draw();

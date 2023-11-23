@@ -5,6 +5,7 @@
 #include "..\Observadores\ControleMenu.hpp"
 #include "..\Estados\Estado.hpp"
 #include "Botoes/Botao.hpp"
+#include "Menu/Botoes/Texto.hpp"
 
 namespace Observadores{
     class ControleMenu;
@@ -17,14 +18,19 @@ namespace Menu{
             static Observadores::ControleMenu* pControleMenu;
             std::list<Botoes::Botao*> lBotao;
             std::list<Botoes::Botao*>::iterator it;
+            Botoes::Texto titulo;
             unsigned int numOpc;
             unsigned int numSelec;
         public:
-            Menu(const int id, int numOpc);
+            Menu(const int id, int numOpc, const sf::Vector2f pos, const sf::Vector2f size, const std::string texto, const unsigned int tamF);
             virtual ~Menu();
             virtual void executar() = 0;
+            virtual void inicializaBotao() = 0;
+            virtual void ajustarTexto() {}
+            virtual void addCaracter(char caracter) {}
+            virtual void removerCaracter() {}
             void select(const bool direcao);    
             void update(const double dt);
-            void draw();
+            virtual void draw();
     };
 }

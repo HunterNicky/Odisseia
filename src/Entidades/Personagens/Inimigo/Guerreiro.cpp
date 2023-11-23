@@ -1,14 +1,15 @@
-#include "..\..\..\..\include\Entidades\Personagens\Inimigo\InimigoFacil.hpp"
-#include "Entidades/Personagens/Inimigo/Inimigo.hpp"
-#include "Entidades/Personagens/Inimigo/InimigoFacil.hpp"
-#include <sstream>
-#include <stdlib.h>
+#include "Entidades/Personagens/Inimigo/Guerreiro.hpp"
+#include "Animacao/AnimacaoAndar.hpp"
+#include "Animacao/AnimacaoContext.hpp"
+#include "Animacao/AnimacaoParado.hpp"
+#include "Entidades/Entidade.hpp"
+#include <exception>
 
 namespace Entidades{
     namespace Personagens{
-        void InimigoFacil::inicializa(){
+        void Guerreiro::inicializa(){
             vel = sf::Vector2f(0.1f, 0.1f);
-            body->setFillColor(sf::Color::Red);
+            //body->setFillColor(sf::Color::Red);
             raio = RAIO;
             num_vidas = 10;
             srand(time(NULL));
@@ -16,8 +17,9 @@ namespace Entidades{
             raivosidade = rand()%10;
         }
 
-        InimigoFacil::InimigoFacil(const sf::Vector2f pos, const sf::Vector2f size, const Entidades::ID id, Entidades::Personagens::Jogador* pJog):
-            Inimigo(pos, size, id, pJog){
+        Guerreiro::Guerreiro(const sf::Vector2f pos, const sf::Vector2f size, const Entidades::ID id, Entidades::Personagens::Jogador* pJog):
+            Inimigo(pos, size, id, pJog), andar(static_cast<Entidades::Entidade*>(this), CAMINHO_GUERREIRO_ANDAR,CAMINHO_GUERREIRO_ANDAR, 8, 8),
+            parado(static_cast<Entidades::Entidade*>(this), CAMINHO_GUERREIRO_PARADO, 10), contextoAnimacao(){
             inicializa();
             if((raivosidade >= 0) && (raivosidade < 3)){//30% chance de ser raivoso
                 dano = 20;
@@ -25,12 +27,14 @@ namespace Entidades{
                 dano = 10;
             }
         }
-        InimigoFacil::InimigoFacil(nlohmann::json atributos, const int pos, const Entidades::ID id, Entidades::Personagens::Jogador* pJog):
-            Inimigo(sf::Vector2f(atributos[pos]["Posicao"][0], atributos[pos]["Posicao"][1]), sf::Vector2f(TAM_INIMIGO_FACIL_X, TAM_INIMIGO_FACIL_Y), id, pJog)
+        Guerreiro::Guerreiro(nlohmann::json atributos, const int pos, const Entidades::ID id, Entidades::Personagens::Jogador* pJog):
+            Inimigo(sf::Vector2f(atributos[pos]["Posicao"][0], atributos[pos]["Posicao"][1]), sf::Vector2f(TAM_INIMIGO_FACIL_X, TAM_INIMIGO_FACIL_Y), id, pJog), 
+            andar(static_cast<Entidades::Entidade*>(this), CAMINHO_GUERREIRO_ANDAR,CAMINHO_GUERREIRO_ANDAR, 8, 8),
+            parado(static_cast<Entidades::Entidade*>(this), CAMINHO_GUERREIRO_PARADO, 10), contextoAnimacao()
         {
             this->setVel(sf::Vector2f(atributos[pos]["Velocidade"][0], atributos[pos]["Velocidade"][1]));
             body->setFillColor(sf::Color::Red);
-            this->num_vidas = 10;
+            this->num_vidas = atributos[pos]["Vida"][0];
             raio = RAIO;
             srand(time(NULL));
             this->raivosidade = rand()%10;
@@ -40,15 +44,25 @@ namespace Entidades{
                 dano = 10;
             }
         }
-        InimigoFacil::~InimigoFacil(){
+        Guerreiro::~Guerreiro(){
 
         }
 
-        void InimigoFacil::operator--(const int dano){
+        void Guerreiro::animacao(){
+            if (onFloor) {
+                if (std::abs(vel.x) > 0.3f) {
+                    contextoAnimacao.setStrategy(&andar, 0.1f);
+                } else {
+                    contextoAnimacao.setStrategy(&parado, 0.5f);
+                }
+            } 
+            contextoAnimacao.updateStrategy(gFisico->getDeltaTime());
+        }
+        void Guerreiro::operator--(const int dano){
             num_vidas-=dano;
         }
 
-        void InimigoFacil::persegueJogador(sf::Vector2f posJogador, sf::Vector2f posInimigo){
+        void Guerreiro::persegueJogador(sf::Vector2f posJogador, sf::Vector2f posInimigo){
             if(posJogador.x - posInimigo.x > 0.0f){
                 forca.x = 3000.f;
             }else{
@@ -62,7 +76,7 @@ namespace Entidades{
             }
         }
 
-        void InimigoFacil::movimentoAleatorio(){
+        void Guerreiro::movimentoAleatorio(){
             moveAleatorio = rand()%4;
             if(moveAleatorio == 0){
                 forca.x = 3000.0f;
@@ -75,7 +89,7 @@ namespace Entidades{
             }
         }
 
-        void InimigoFacil::move(){
+        void Guerreiro::move(){
             sf::Vector2f posJogador = pJogador->getBody()->getPosition();
             sf::Vector2f posInimigo = body->getPosition();
 
@@ -90,28 +104,29 @@ namespace Entidades{
             gColisao->Notify(static_cast<Entidades::Entidade*>(this));
         }
 
-        void InimigoFacil::danificar(Entidade* entidade){
+        void Guerreiro::danificar(Entidade* entidade){
             if(entidade){
                 Entidades::Personagens::Personagem* pPers = static_cast<Entidades::Personagens::Personagem*>(entidade);
                 pPers->operator--(dano);
             }
         }
 
-        void InimigoFacil::tratarColisao(Entidade* entidade){
+        void Guerreiro::tratarColisao(Entidade* entidade){
             if(entidade->getId() == Entidades::ID::jogador){
                 danificar(entidade);
             }
         }
 
-        void InimigoFacil::executar(){
+        void Guerreiro::executar(){
             move();
         }
 
-        void InimigoFacil::update(){
+        void Guerreiro::update(){
             executar();
+            animacao();
         }
-        void InimigoFacil::salvar(std::ostringstream* entrada){
-            (*entrada) << "{ \"ID\": [" << 2 << "], \"Posicao\": [" << pos.x << " , " << pos.y << "], \"Velocidade\": [" << vel.x << " , " << vel.y << "] }" << std::endl;
+        void Guerreiro::salvar(std::ostringstream* entrada){
+            (*entrada) << "{ \"ID\": [" << 2 << "], \"Posicao\": [" << pos.x << " , " << pos.y << "], \"Velocidade\": [" << vel.x << " , " << vel.y << "], \"Vida\": [" << this->getNum_vidas() << "] }" << std::endl;
         }
     }
 }

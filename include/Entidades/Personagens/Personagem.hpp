@@ -16,6 +16,8 @@ namespace Entidades {
             Personagem(const sf::Vector2f pos, const sf::Vector2f size, const Entidades::ID id);
             ~Personagem();
             void move();
+            virtual void inicializa() = 0;
+            virtual void animacao() = 0;
             virtual void operator--(const int dano) = 0;
             virtual void tratarColisao(Entidade* entidade) = 0;
             virtual void verificaSolo(const sf::Vector2f mtv);

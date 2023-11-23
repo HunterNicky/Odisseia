@@ -1,4 +1,5 @@
 #include "..\..\..\include\Menu\Botoes\Texto.hpp"
+#include "Menu/Botoes/Texto.hpp"
 
 namespace Menu{
     namespace Botoes{
@@ -33,6 +34,18 @@ namespace Menu{
             sfTexto.setFillColor(color);
         }
 
+        void Texto::setTamanhoBorda(const float tamBorda){
+            sfTexto.setOutlineThickness(tamBorda);
+            size = sf::Vector2f(sfTexto.getGlobalBounds().width, sfTexto.getGlobalBounds().height);
+        }
+        void Texto::setFontSize(const unsigned int sizeFont){
+            this->sizeFont = sizeFont;
+            sfTexto.setCharacterSize(sizeFont);
+        }
+        void Texto::setTextFont(std::string font){
+            fonte.loadFromFile(font);
+            sfTexto.setFont(fonte);
+        }
         const sf::Vector2f Texto::getPos() const{
             return pos;
         }
@@ -47,11 +60,6 @@ namespace Menu{
 
         const std::string Texto::getText() const{
             return texto;
-        }
-
-        void Texto::setFontSize(const unsigned int sizeFont){
-            this->sizeFont = sizeFont;
-            sfTexto.setCharacterSize(sizeFont);
         }
     }
 }
