@@ -12,7 +12,7 @@ namespace Animacao {
             void updateAnimationFrame(double dt, float standardTime);
             void updateSpriteRect();
         public:
-            AnimacaoParado(Entidades::Entidade* entidade ,std::string path, int numFrames);
+            AnimacaoParado(Entidades::Entidade* entidade ,std::string path, int numFrames, sf::Vector2f escala);
             ~AnimacaoParado();
             void updateSprite(double dt, float standardTime);
             void changeTexture();

@@ -18,10 +18,10 @@ namespace Entidades{
         Jogador::Jogador(const sf::Vector2f pos, const sf::Vector2f size, const Entidades::ID id):
             Personagem(pos, size, id), 
             andar(static_cast<Entidades::Entidade*>(this) ,"data\\Sprites\\Jogador\\PlayerWalk.png",
-            "data\\Sprites\\Jogador\\PlayerRun.png" , 8, 8), 
-            parado(static_cast<Entidades::Entidade*>(this), "data\\Sprites\\Jogador\\PlayerIdle.png", 10),
+            "data\\Sprites\\Jogador\\PlayerRun.png" , 8, 8, sf::Vector2f(5.82,6),sf::Vector2f(5.4,6)), 
+            parado(static_cast<Entidades::Entidade*>(this), "data\\Sprites\\Jogador\\PlayerIdle.png", 10, sf::Vector2f(4,6)),
             pulando(static_cast<Entidades::Entidade*>(this), "data\\Sprites\\Jogador\\PlayerJump.png", 
-            "data\\Sprites\\Jogador\\PlayerSpin.png", 3, 6),
+            "data\\Sprites\\Jogador\\PlayerSpin.png", 3, 6, sf::Vector2f(6.56,6),sf::Vector2f(6.56,6)),
             contextoAnimacao()
         {
             inicializa();
@@ -30,10 +30,10 @@ namespace Entidades{
         Jogador::Jogador(nlohmann::json atributos, const int pos, const Entidades::ID id):
             Personagem(sf::Vector2f(atributos[pos]["Posicao"][0], atributos[pos]["Posicao"][1]), sf::Vector2f(TAM_X_JOGADOR, TAM_Y_JOGADOR), id),
             andar(static_cast<Entidades::Entidade*>(this) ,"data\\Sprites\\Jogador\\PlayerWalk.png",
-            "data\\Sprites\\Jogador\\PlayerRun.png" , 8, 8), 
-            parado(static_cast<Entidades::Entidade*>(this), "data\\Sprites\\Jogador\\PlayerIdle.png", 10),
+            "data\\Sprites\\Jogador\\PlayerRun.png" , 8, 8, sf::Vector2f(5.82,2),sf::Vector2f(5.4,2)), 
+            parado(static_cast<Entidades::Entidade*>(this), "data\\Sprites\\Jogador\\PlayerIdle.png", 10, sf::Vector2f(4,2)),
             pulando(static_cast<Entidades::Entidade*>(this), "data\\Sprites\\Jogador\\PlayerJump.png", 
-            "data\\Sprites\\Jogador\\PlayerSpin.png", 3, 6),
+            "data\\Sprites\\Jogador\\PlayerSpin.png", 3, 6, sf::Vector2f(6.56,2),sf::Vector2f(6.56,2)),
             contextoAnimacao(){
             
             this->setVel(sf::Vector2f(atributos[pos]["Velocidade"][0], atributos[pos]["Velocidade"][1]));

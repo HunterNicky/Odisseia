@@ -2,8 +2,8 @@
 
 namespace Animacao {
 
-    AnimacaoBloco::AnimacaoBloco(Entidades::Entidade* entidade, std::string path, int numFrames):
-    AnimacaoStrategy(entidade, numFrames), actualFrame(0.f){
+    AnimacaoBloco::AnimacaoBloco(Entidades::Entidade* entidade, std::string path, int numFrames, const sf::Vector2f escala):
+    AnimacaoStrategy(entidade, numFrames, escala), actualFrame(0.f){
         textura = pGrafico->loadTexture(path);
         rectSize.width = (textura->getSize().x / numFrames);
         rectSize.height = (textura->getSize().y);
@@ -39,6 +39,7 @@ namespace Animacao {
     }
 
     void AnimacaoBloco::changeTexture(){
+        entidade->getBody()->setScale(escala);
         entidade->getBody()->setTexture(textura);
     }
 }

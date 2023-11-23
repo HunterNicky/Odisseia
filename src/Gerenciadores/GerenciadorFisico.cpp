@@ -59,12 +59,14 @@ namespace Gerenciadores{
         if(entidade->getForca().x == 0 && entidade->getForca().y == 0){
             multi *= 5;
         }
-        if(dynamic_cast<Entidades::Personagens::Personagem*>(entidade)){
-            
-        }
         forca += entidade->getForca();
         forca.x += -dragForce.x * multi;
         forca.y += -dragForce.y;
+        if(dynamic_cast<Entidades::Personagens::Personagem*>(entidade)){
+        }
+        else{
+            forca = sf::Vector2f(0,0);
+        }
         acc = forca / massa;
         entidade->setAcc(acc);
     }

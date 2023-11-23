@@ -4,8 +4,8 @@
 namespace Animacao {
     Gerenciadores::GerenciadorGrafico* AnimacaoStrategy::pGrafico = Gerenciadores::GerenciadorGrafico::getInstance();
     
-    AnimacaoStrategy::AnimacaoStrategy(Entidades::Entidade* entidade, int numFrames):
-    entidade(entidade), rectSize(), textura(nullptr), numFrames(numFrames){}
+    AnimacaoStrategy::AnimacaoStrategy(Entidades::Entidade* entidade, int numFrames, const sf::Vector2f escala):
+    entidade(entidade), rectSize(), textura(nullptr), escala(escala), numFrames(numFrames){}
 
     AnimacaoStrategy::~AnimacaoStrategy(){
         entidade = nullptr;

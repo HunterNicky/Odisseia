@@ -4,15 +4,21 @@
 
 namespace Animacao {
 
-    AnimacaoPular::AnimacaoPular(Entidades::Entidade* entidade, std::string path, std::string path2, const int numFrameLowJump, const int numFrameHighJump):
-    AnimacaoStrategy(entidade, numFrameLowJump),
-    numFrameHighJump(numFrameHighJump), numFrameLowJump(numFrameLowJump), actualFrame(0.f), jumpTime(0.f){
-        textura = pGrafico->loadTexture(path);
-        HighJump = pGrafico->loadTexture(path2);
-        rectSize.width = (textura->getSize().x / numFrames);
-        rectSize.height = (textura->getSize().y);
-        entidade->getBody()->setTexture(textura);
-    }
+AnimacaoPular::AnimacaoPular(Entidades::Entidade *entidade, std::string path,
+                             std::string path2, const int numFrameLowJump,
+                             const int numFrameHighJump,
+                             const sf::Vector2f escalaLowJump,
+                             const sf::Vector2f escalaHighJump)
+    : AnimacaoStrategy(entidade, numFrameLowJump, escalaHighJump),
+      numFrameHighJump(numFrameHighJump), numFrameLowJump(numFrameLowJump),
+      escalaLowJump(escalaLowJump), actualFrame(0.f), jumpTime(0.f){
+
+  textura = pGrafico->loadTexture(path);
+  HighJump = pGrafico->loadTexture(path2);
+  rectSize.width = (textura->getSize().x / numFrames);
+  rectSize.height = (textura->getSize().y);
+  entidade->getBody()->setTexture(textura);
+}
 
     AnimacaoPular::~AnimacaoPular(){};
 
@@ -50,12 +56,14 @@ namespace Animacao {
             rectSize.width = (HighJump->getSize().x / numFrames);
             rectSize.height = (HighJump->getSize().y);
             rectSize.left = 0;
+            entidade->getBody()->setScale(escala);
             changeTexture(HighJump);
         }else{
             numFrames = numFrameLowJump;
             rectSize.width = (textura->getSize().x / numFrames);
             rectSize.height = (textura->getSize().y);
             rectSize.left = 0;
+            entidade->getBody()->setScale(escalaLowJump);
             changeTexture(textura);
         }
     }

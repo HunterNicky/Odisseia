@@ -5,8 +5,8 @@
 
 namespace Animacao {
 
-    AnimacaoParado::AnimacaoParado(Entidades::Entidade* entidade, std::string path, int numFrames):
-    AnimacaoStrategy(entidade, numFrames), actualFrame(0.f), deepBreath(0.f){
+    AnimacaoParado::AnimacaoParado(Entidades::Entidade* entidade, std::string path, int numFrames, sf::Vector2f escala):
+    AnimacaoStrategy(entidade, numFrames, escala), actualFrame(0.f), deepBreath(0.f){
         textura = pGrafico->loadTexture(path);
         rectSize.width = (textura->getSize().x / numFrames);
         rectSize.height = (textura->getSize().y);
@@ -44,6 +44,7 @@ namespace Animacao {
     }
 
     void AnimacaoParado::changeTexture(){
+        entidade->getBody()->setScale(escala);
         entidade->getBody()->setTexture(textura);
     }
 }

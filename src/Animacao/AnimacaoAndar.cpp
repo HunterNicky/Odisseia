@@ -3,14 +3,17 @@
 
 namespace Animacao {
 
-    AnimacaoAndar::AnimacaoAndar(Entidades::Entidade* entidade ,std::string path, std::string path2, const int numFrameWalk, const int numFrameRun):
-    AnimacaoStrategy(entidade, numFrameWalk), numFrameWalk(numFrameWalk), numFrameRun(numFrameRun), actualFrame(0.f){
-        textura = pGrafico->loadTexture(path);
-        run = pGrafico->loadTexture(path2);
-        rectSize.width = (textura->getSize().x / numFrames);
-        rectSize.height = (textura->getSize().y);
-        entidade->getBody()->setTexture(textura);
-    }
+AnimacaoAndar::AnimacaoAndar(Entidades::Entidade *entidade, std::string path,
+                             std::string path2, const int numFrameWalk,
+                             const int numFrameRun, const sf::Vector2f escalaRun, const sf::Vector2f escalaWalk)
+    : AnimacaoStrategy(entidade, numFrameWalk, escalaWalk), numFrameWalk(numFrameWalk),
+      numFrameRun(numFrameRun), actualFrame(0.f) {
+  textura = pGrafico->loadTexture(path);
+  run = pGrafico->loadTexture(path2);
+  rectSize.width = (textura->getSize().x / numFrames);
+  rectSize.height = (textura->getSize().y);
+  entidade->getBody()->setTexture(textura);
+}
 
     AnimacaoAndar::~AnimacaoAndar(){};
 
@@ -44,16 +47,18 @@ namespace Animacao {
     void AnimacaoAndar::updateRun(){
         if(std::abs(entidade->getForca().x) > 5050.f){
             numFrames = numFrameRun;
-            changeTexture(run);
             rectSize.width = (run->getSize().x / numFrames);
             rectSize.height = (run->getSize().y);
             rectSize.left = 0;
+            entidade->getBody()->setScale(escalaRun);
+            changeTexture(run);
         }else{
             numFrames = numFrameWalk;
-            changeTexture(textura);
             rectSize.width = (textura->getSize().x / numFrames);
             rectSize.height = (textura->getSize().y);
             rectSize.left = 0;
+            entidade->getBody()->setScale(escala);
+            changeTexture(textura);
         }
     }
 

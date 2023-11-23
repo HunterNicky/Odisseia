@@ -19,7 +19,6 @@ namespace Observadores {
     void ControleFase::notifyPressed(const std::string key){
         if(pPausa && pMaquinaDeEstado->getEstadoAtual()->getAtivo()){
             if(key == fechar){
-                std::cout << "aqqui " << std::endl;
                 pMaquinaDeEstado->popEstado();
             }else if(key == cima){
                 pPausa->select(true);

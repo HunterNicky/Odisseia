@@ -83,7 +83,7 @@ namespace Fases{
                 break;
             case '1':
                 pos.x += 20.f;
-                newJogador(pos,sf::Vector2f(60.f, 96.f));
+                newJogador(pos,sf::Vector2f(32.f, 32.f));
                 break;
             case '2':
                 pos.x += 20.f;

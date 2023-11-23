@@ -7,7 +7,7 @@ namespace Entidades{
     namespace Obstaculos{
         ObstaculoFacil::ObstaculoFacil(const sf::Vector2f pos, const sf::Vector2f size, const Entidades::ID id) :
             Obstaculo(pos, size, id),
-            bloco(static_cast<Entidades::Entidade*>(this), "data\\Sprites\\Obstaculo\\Grama.png", 6),
+            bloco(static_cast<Entidades::Entidade*>(this), "data\\Sprites\\Obstaculo\\Grama.png", 6, sf::Vector2f(1,1)),
             contexto()
         {
             contexto.setStrategy(&bloco, 1.f);
@@ -16,7 +16,7 @@ namespace Entidades{
 
         ObstaculoFacil::ObstaculoFacil(nlohmann::json atributos, const int pos, const Entidades::ID id):
             Obstaculo(sf::Vector2f(atributos[pos]["Posicao"][0],atributos[pos]["Posicao"][1]), sf::Vector2f(TAM_PLATAFORMA_X, TAM_PLATAFORMA_Y), id),
-            bloco(static_cast<Entidades::Entidade*>(this), "data\\Sprites\\Obstaculo\\Grama.png", 6),
+            bloco(static_cast<Entidades::Entidade*>(this), "data\\Sprites\\Obstaculo\\Grama.png", 6, sf::Vector2f(1,1)),
             contexto()
         {
             /*
