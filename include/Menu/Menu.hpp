@@ -28,7 +28,7 @@ namespace Menu{
             virtual void inicializaBotao() = 0;
             virtual void ajustarTexto() {}
             virtual void addCaracter(char caracter) {}
-            virtual void removeCaracter() {}
+            virtual void removerCaracter() {}
             void select(const bool direcao);    
             void update(const double dt);
             virtual void draw();

@@ -44,8 +44,8 @@ namespace Observadores{
 
     void ControleMenu::notifyReleased(const sf::Keyboard::Key key){
         if(pMaquinaDeEstado->getEstadoAtual()->getID() == 3){//menu Game Over
-            if(keyboard[key] == "Backspace"){
-                pMenu->removeCaracter();
+            if(keyboard[key] == "BackSpace"){
+                pMenu->removerCaracter();
             }
             for(int i = 97; i < 123; i++){
                 if(caracteres[key] == i){

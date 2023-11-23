@@ -88,7 +88,6 @@ namespace Menu {
         texto.setPos(sf::Vector2f(posCaixa.x + tamCaixa.x/2 - 80.f , posCaixa.y + tamCaixa.y/2 - 30.f) );
     }
     void MenuGameOver::addCaracter(char caracter){
-        std::cout << caracter << std::endl;
         std::string nome = texto.getText();
         if(nome.length() <= 10){
             nome += caracter;
