@@ -2,37 +2,34 @@
 #include "Entidades/Entidade.hpp"
 #include "Entidades/Obstaculos/Gosma.hpp"
 
-namespace Entidades{
-    namespace Obstaculos{
-        Gosma::Gosma(const sf::Vector2f pos, const sf::Vector2f size, const Entidades::ID id):
-            Obstaculo(pos, size, id)
-        {
-            this->body->setFillColor(sf::Color::Green);
-        }
-        Gosma::~Gosma(){}
-
-        void Gosma::atrasar(Entidade* entidade){
-            sf::Vector2f vel = entidade->getVel()/2.0f;
-            entidade->setVel(vel);
-        }
-
-        void Gosma::tratarColisao(Entidade* entidade){
-            if(entidade){
-                if(entidade->getId() == Entidades::ID::jogador){
-                    atrasar(entidade);
-                }
-            }
-        }
-        
-        void Gosma::executar(){
-
-        }
-        void Gosma::update(){
-            executar();
-        }
-
-        void Gosma::salvar(std::ostringstream* entrada){
-             (*entrada) << "{ \"ID\": [" << 5 << "], \"Posicao\": [" << pos.x << " , " << pos.y << "] }" << std::endl;
-        }
-    }
+namespace Entidades {
+namespace Obstaculos {
+Gosma::Gosma(const sf::Vector2f pos, const sf::Vector2f size,
+             const Entidades::ID id)
+    : Obstaculo(pos, size, id) {
+  this->body->setFillColor(sf::Color::Green);
 }
+Gosma::~Gosma() {}
+
+void Gosma::atrasar(Entidade *entidade) {
+  sf::Vector2f vel = entidade->getVel() / 2.0f;
+  entidade->setVel(vel);
+}
+
+void Gosma::tratarColisao(Entidade *entidade) {
+  if (entidade) {
+    if (entidade->getId() == Entidades::ID::jogador) {
+      atrasar(entidade);
+    }
+  }
+}
+
+void Gosma::executar() {}
+void Gosma::update() { executar(); }
+
+void Gosma::salvar(std::ostringstream *entrada) {
+  (*entrada) << "{ \"ID\": [" << 5 << "], \"Posicao\": [" << pos.x << " , "
+             << pos.y << "] }" << std::endl;
+}
+} // namespace Obstaculos
+} // namespace Entidades

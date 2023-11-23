@@ -10,17 +10,18 @@
 #define POS_TEXTO_OPTION_Y 100.f
 
 namespace Menu {
-    class MenuOpcoes: public Menu{
-    private:  
-        Fases::Fase1* pFase1;
-        Fases::Fase2* pFase2;
-    public:
-        MenuOpcoes();
-        ~MenuOpcoes();
-        //void setFase(Fases::Fase* pFase);
-        void executar();
-        void inicializaBotao();
-        void update(const double dt);
-        void draw();
-    };
-}
+class MenuOpcoes : public Menu {
+private:
+  Fases::Fase1 *pFase1;
+  Fases::Fase2 *pFase2;
+
+public:
+  MenuOpcoes();
+  ~MenuOpcoes();
+  // void setFase(Fases::Fase* pFase);
+  void executar();
+  void inicializaBotao();
+  void update(const double dt);
+  void draw();
+};
+} // namespace Menu

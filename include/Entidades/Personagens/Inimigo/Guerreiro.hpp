@@ -12,31 +12,33 @@
 #define CAMINHO_GUERREIRO_PARADO "data\\Sprites\\warrior\\warrioridle.png"
 #define CAMINHO_GUERREIRO_ATAQUE "data\\Sprites\\warrior\\warriorattack.png"
 
+namespace Entidades {
+namespace Personagens {
+class Guerreiro : public Inimigo {
+private:
+  int raivosidade;
 
-namespace Entidades{
-    namespace Personagens{
-        class Guerreiro : public Inimigo{
-        private:
-            int raivosidade;
-            
-            Animacao::AnimacaoAndar andar;
-            Animacao::AnimacaoParado parado;
-            Animacao::AnimacaoContext contextoAnimacao;
-            void inicializa();
-        public:
-            Guerreiro(const sf::Vector2f pos, const sf::Vector2f size, const Entidades::ID id, Entidades::Personagens::Jogador* pJog);
-            Guerreiro(nlohmann::json atributos, const int pos, const Entidades::ID id, Entidades::Personagens::Jogador* pJog);
-            ~Guerreiro();
-            void animacao();
-            void operator--(const int dano);
-            void persegueJogador(sf::Vector2f posJogador, sf::Vector2f posInimigo);
-            void movimentoAleatorio();
-            void move();
-            void danificar(Entidade* entidade);
-            void tratarColisao(Entidade* entidade);
-            void executar();
-            void update() ;
-            void salvar(std::ostringstream* entrada);
-        };
-    }
-}
+  Animacao::AnimacaoAndar andar;
+  Animacao::AnimacaoParado parado;
+  Animacao::AnimacaoContext contextoAnimacao;
+  void inicializa();
+
+public:
+  Guerreiro(const sf::Vector2f pos, const sf::Vector2f size,
+            const Entidades::ID id, Entidades::Personagens::Jogador *pJog);
+  Guerreiro(nlohmann::json atributos, const int pos, const Entidades::ID id,
+            Entidades::Personagens::Jogador *pJog);
+  ~Guerreiro();
+  void animacao();
+  void operator--(const int dano);
+  void persegueJogador(sf::Vector2f posJogador, sf::Vector2f posInimigo);
+  void movimentoAleatorio();
+  void move();
+  void danificar(Entidade *entidade);
+  void tratarColisao(Entidade *entidade);
+  void executar();
+  void update();
+  void salvar(std::ostringstream *entrada);
+};
+} // namespace Personagens
+} // namespace Entidades
