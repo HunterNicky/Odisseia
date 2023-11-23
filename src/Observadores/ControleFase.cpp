@@ -16,17 +16,17 @@ namespace Observadores {
 
     void ControleFase::jogadorMorreu(){}
 
-    void ControleFase::notifyPressed(const std::string key){
+    void ControleFase::notifyPressed(const sf::Keyboard::Key key){
         if(pPausa && pMaquinaDeEstado->getEstadoAtual()->getAtivo()){
-            if(key == fechar){
+            if(keyboard[key] == fechar){
                 pMaquinaDeEstado->popEstado();
-            }else if(key == cima){
+            }else if(keyboard[key] == cima){
                 pPausa->select(true);
-            }else if(key == baixo){
+            }else if(keyboard[key] == baixo){
                 pPausa->select(false);
             }
         }
     }
 
-    void ControleFase::notifyReleased(const std::string key){}
+    void ControleFase::notifyReleased(const sf::Keyboard::Key key){}
 }

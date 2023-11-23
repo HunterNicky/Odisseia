@@ -5,10 +5,13 @@ namespace Fases{
         Fase(){
         loadMap();
     }
+    Fase1::Fase1(nlohmann::json arquivosEntidades, nlohmann::json arquivosFase){
+        recuperarJogada(arquivosEntidades, arquivosFase); //
+    }
     Fase1::~Fase1(){
     }
     
-    void Fase1::recuperarJogada(nlohmann::json arquivoPersonagens){
+    void Fase1::recuperarJogada(nlohmann::json arquivoEntidades, nlohmann::json arquivosFase){
 
     }
 

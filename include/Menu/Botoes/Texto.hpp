@@ -23,6 +23,7 @@ namespace Menu{
                 void setSize(const sf::Vector2f size);
                 void setColor(const sf::Color color);
                 void setFontSize(const unsigned int tamanhoFonte);
+                void setTextFont(std::string font);
                 void setTamanhoBorda(const float tamBorda);
                 const sf::Vector2f getPos() const;
                 const sf::Vector2f getSize() const;

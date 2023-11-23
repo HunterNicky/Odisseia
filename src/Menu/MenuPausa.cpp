@@ -52,6 +52,8 @@ namespace Menu {
 
     void MenuPausa::draw(){
         pFase->draw();
+
+        
         Menu::draw();
     }
 

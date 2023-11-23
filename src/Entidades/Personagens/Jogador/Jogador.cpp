@@ -1,8 +1,5 @@
-#include "Entidades/Personagens/Jogador/Jogador.hpp"
 #include "Animacao/AnimacaoParado.hpp"
-#include "Entidades/Entidade.hpp"
 #include "Entidades/Personagens/Jogador/Jogador.hpp"
-#include "Entidades/Personagens/Personagem.hpp"
 #include "Gerenciadores/GerenciadorFisico.hpp"
 #include <iostream>
 namespace Entidades{
@@ -16,11 +13,11 @@ namespace Entidades{
 
         Jogador::Jogador(const sf::Vector2f pos, const sf::Vector2f size, const Entidades::ID id):
             Personagem(pos, size, id), 
-            andar(static_cast<Entidades::Entidade*>(this) ,"data\\Sprites\\Jogador\\PlayerWalk.png",
-            "data\\Sprites\\Jogador\\PlayerRun.png" , 8, 8), 
-            parado(static_cast<Entidades::Entidade*>(this), "data\\Sprites\\Jogador\\PlayerIdle.png", 10),
-            pulando(static_cast<Entidades::Entidade*>(this), "data\\Sprites\\Jogador\\PlayerJump.png", 
-            "data\\Sprites\\Jogador\\PlayerSpin.png", 3, 6),
+            andar(static_cast<Entidades::Entidade*>(this) ,"data\\Sprites\\player\\playerwalk.png",
+            "data\\Sprites\\player\\playerrun.png" , 8, 8), 
+            parado(static_cast<Entidades::Entidade*>(this), "data\\Sprites\\player\\playeridle.png", 10),
+            pulando(static_cast<Entidades::Entidade*>(this), "data\\Sprites\\player\\playerjump.png", 
+            "data\\Sprites\\player\\playerspin.png", 3, 6),
             contextoAnimacao()
         {
             inicializa();
@@ -28,11 +25,11 @@ namespace Entidades{
 
         Jogador::Jogador(nlohmann::json atributos, const int pos, const Entidades::ID id):
             Personagem(sf::Vector2f(atributos[pos]["Posicao"][0], atributos[pos]["Posicao"][1]), sf::Vector2f(TAM_X_JOGADOR, TAM_Y_JOGADOR), id),
-            andar(static_cast<Entidades::Entidade*>(this) ,"data\\Sprites\\Jogador\\PlayerWalk.png",
-            "data\\Sprites\\Jogador\\PlayerRun.png" , 8, 8), 
-            parado(static_cast<Entidades::Entidade*>(this), "data\\Sprites\\Jogador\\PlayerIdle.png", 10),
-            pulando(static_cast<Entidades::Entidade*>(this), "data\\Sprites\\Jogador\\PlayerJump.png", 
-            "data\\Sprites\\Jogador\\PlayerSpin.png", 3, 6),
+            andar(static_cast<Entidades::Entidade*>(this) ,"data\\Sprites\\player\\PlayerWalk.png",
+            "data\\Sprites\\player\\PlayerRun.png" , 8, 8), 
+            parado(static_cast<Entidades::Entidade*>(this), "data\\Sprites\\player\\PlayerIdle.png", 10),
+            pulando(static_cast<Entidades::Entidade*>(this), "data\\Sprites\\player\\PlayerJump.png", 
+            "data\\Sprites\\player\\PlayerSpin.png", 3, 6),
             contextoAnimacao(){
             
             this->setVel(sf::Vector2f(atributos[pos]["Velocidade"][0], atributos[pos]["Velocidade"][1]));
@@ -114,7 +111,13 @@ namespace Entidades{
         void Jogador::tratarColisao(Entidade* entidade){
             switch (entidade->getId())
             {
-            case (ID::InimigoFacil):
+            case (ID::Guerreiro):
+                neutralizarInimigo(entidade);
+                break;
+            case (ID::Viajante):
+                neutralizarInimigo(entidade);
+                break;
+            case(ID::Samurai):
                 neutralizarInimigo(entidade);
                 break;
             case (ID::Plataforma):
@@ -138,7 +141,6 @@ namespace Entidades{
         const float Jogador::getEstamina() const{
             return estamina;
         }
-
 
         void Jogador::parar(){
             forca.x = 0;

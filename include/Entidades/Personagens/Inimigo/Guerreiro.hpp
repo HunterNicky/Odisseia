@@ -11,15 +11,15 @@
 
 namespace Entidades{
     namespace Personagens{
-        class InimigoFacil : public Inimigo{
+        class Guerreiro : public Inimigo{
         private:
             int raivosidade;
             int dano;
             void inicializa();
         public:
-            InimigoFacil(const sf::Vector2f pos, const sf::Vector2f size, const Entidades::ID id, Entidades::Personagens::Jogador* pJog);
-            InimigoFacil(nlohmann::json atributos, const int pos, const Entidades::ID id, Entidades::Personagens::Jogador* pJog);
-            ~InimigoFacil();
+            Guerreiro(const sf::Vector2f pos, const sf::Vector2f size, const Entidades::ID id, Entidades::Personagens::Jogador* pJog);
+            Guerreiro(nlohmann::json atributos, const int pos, const Entidades::ID id, Entidades::Personagens::Jogador* pJog);
+            ~Guerreiro();
             void operator--(const int dano);
             void persegueJogador(sf::Vector2f posJogador, sf::Vector2f posInimigo);
             void movimentoAleatorio();

@@ -11,14 +11,14 @@ namespace Menu{
     MenuPrincipal::MenuPrincipal(Estados::Jogo* pJogo):
         Menu(0, 5, sf::Vector2f(POS_BOTAO_X, POS_BOTAO_Y), sf::Vector2f(TAMANHO_BOTAO_X, TAMANHO_BOTAO_Y), "MINION++", 180),
         pJogo(pJogo), pOpcao(nullptr){
-        fase2 = nullptr;
+        fase = nullptr;
         inicializaBotao();
         titulo.setColor(sf::Color::Green);
     }
 
     MenuPrincipal::~MenuPrincipal(){
-        if(fase2 != nullptr){
-            delete fase2;
+        if(fase != nullptr){
+            delete fase;
         }/*
         if(pOpcao != nullptr){
             delete pOpcao;
@@ -32,28 +32,35 @@ namespace Menu{
     }
 
     void MenuPrincipal::carregarJogo(){
+        nlohmann::json arquivoEntidades;
+        nlohmann::json arquivoFase;
+        std::ifstream arquivo1("data/Save/arquivoEntidades.json");
+        std::ifstream arquivo2("data/Save/arquivoFase.json");
+        arquivo1 >> arquivoEntidades;
+        arquivo2 >> arquivoFase;
+
+        if(!arquivo1){
+            std::cout << "ERRO AO ABRIR ARQUIVO_ENTIDADES!"<< std::endl;
+        }
+        if(!arquivo2){
+            std::cout << "ERRO AO ABRIR ARQUIVO_FASE!"<< std::endl;
+        }
+        fase = new Fases::Fase1(arquivoEntidades, arquivoFase);
+        pMaquinaDeEstado->pushEstado(static_cast<Estados::Estado*>(fase));
     }
 
     void MenuPrincipal::executar(){
         switch(numSelec){
             case 0:
-                fase2 = new Fases::Fase2();
-                pMaquinaDeEstado->pushEstado(static_cast<Estados::Estado*>(fase2));
+                fase = new Fases::Fase1();
+                pMaquinaDeEstado->pushEstado(static_cast<Estados::Estado*>(fase));
                 break;
             case 1:
                 pOpcao = new MenuOpcoes();
                 pMaquinaDeEstado->pushEstado(static_cast<Estados::Estado*>(pOpcao));
                 break;
-            case 2: {
-                nlohmann::json arquivoEntidades;
-                std::ifstream arquivo("data/Save/arquivoEntidades.json");
-                arquivo >> arquivoEntidades;
-
-                if(!arquivo){
-                    std::cout << "ERRO AO ABRIR ARQUIVO_ENTIDADES!"<< std::endl;
-                }
-                fase2 = new Fases::Fase2(arquivoEntidades);
-                pMaquinaDeEstado->pushEstado(static_cast<Estados::Estado*>(fase2));}
+            case 2:
+                carregarJogo();
                 break;
             case 3:{
                 MenuRanking* pRanking = new MenuRanking();

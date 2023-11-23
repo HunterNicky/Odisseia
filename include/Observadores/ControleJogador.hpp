@@ -29,7 +29,7 @@ namespace Observadores{
             ~ControleJogador();
             void setJogador(Entidades::Personagens::Jogador* pJogador);
             void jogadorNeutralizado();
-            void notifyPressed(const std::string key);
-            void notifyReleased(const std::string key);
+            void notifyPressed(const sf::Keyboard::Key key);
+            void notifyReleased(const sf::Keyboard::Key key);
     };
 }

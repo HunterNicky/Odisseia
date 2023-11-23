@@ -23,7 +23,7 @@ namespace Menu {
         switch(numSelec){
             case 0: //Fase 1
                 pFase1 = new Fases::Fase1();
-                pMaquinaDeEstado->pushEstado(static_cast<Estados::Estado*>(pFase2));
+                pMaquinaDeEstado->pushEstado(static_cast<Estados::Estado*>(pFase1));
                 break;
             case 1: //Fase 2
                 pFase2 = new Fases::Fase2();

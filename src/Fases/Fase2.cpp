@@ -1,5 +1,5 @@
 #include "Fases/Fase2.hpp"
-#include "Entidades/Projetil/Projetil.hpp"
+#include "Entidades/Projetil/Laser.hpp"
 
 #include <stdlib.h>
 
@@ -9,9 +9,9 @@ namespace Fases{
         loadMap();
     }
 
-    Fase2::Fase2(nlohmann::json arquivoPersonagens):
+    Fase2::Fase2(nlohmann::json arquivoEntidades, nlohmann::json arquivoFase):
         Fase(){
-        recuperarJogada(arquivoPersonagens);
+        recuperarJogada(arquivoEntidades, arquivoFase);
     }
 
     Fase2::~Fase2(){
@@ -24,55 +24,63 @@ namespace Fases{
         LE.push_back(static_cast<Entidades::Entidade*>(pLava));
     }
 
-    void Fase2::recuperarJogada(nlohmann::json arquivoPersonagens){ 
-        for (int i = 0; i < (int)arquivoPersonagens.size(); i++) {
-            if (arquivoPersonagens[i]["ID"][0] == Entidades::ID::jogador){
-                pJogador = new Entidades::Personagens::Jogador(arquivoPersonagens, i, Entidades::ID::jogador);
+    void Fase2::recuperarJogada(nlohmann::json arquivoEntidades, nlohmann::json arquivoFase){ 
+        for (int i = 0; i < (int)arquivoEntidades.size(); i++) {
+            if (arquivoEntidades[i]["ID"][0] == Entidades::ID::jogador){
+                pJogador = new Entidades::Personagens::Jogador(arquivoEntidades, i, Entidades::ID::jogador);
                 pJogador->setGerenciadorDeColisao(pColisao);
                 controleJog->setJogador(pJogador);
                 LE.push_back(static_cast<Entidades::Entidade*>(pJogador));
             }
-            else if (arquivoPersonagens[i]["ID"][0] == Entidades::ID::InimigoFacil){
+            else if (arquivoEntidades[i]["ID"][0] == Entidades::ID::Guerreiro){
                 if(this->pJogador == nullptr){
                     std::cout << "ERRO EM RECUPERAR JOGADA!" << std::endl;
                     exit(1);
                 }
-                Entidades::Personagens::InimigoFacil* pInimigo = new Entidades::Personagens::InimigoFacil(arquivoPersonagens, i, Entidades::ID::InimigoFacil, pJogador);
+                Entidades::Personagens::Guerreiro* pInimigo = new Entidades::Personagens::Guerreiro(arquivoEntidades, i, Entidades::ID::Guerreiro, pJogador);
                 pInimigo->setGerenciadorDeColisao(pColisao);
                 LE.push_back(static_cast<Entidades::Entidade*>(pInimigo));
             }
-            else if (arquivoPersonagens[i]["ID"][0] == Entidades::ID::InimigoMedio) {
+            else if (arquivoEntidades[i]["ID"][0] == Entidades::ID::Viajante) {
                 if(pJogador == nullptr){
                     std::cout << "ERRO EM RECUPERAR JOGADA! 2" << std::endl;
                     exit(1);
                 }
-                Entidades::Personagens::InimigoMedio* pInimigo = new Entidades::Personagens::InimigoMedio(arquivoPersonagens, i, Entidades::ID::InimigoFacil, this->pJogador);
+                Entidades::Personagens::Viajante* pInimigo = new Entidades::Personagens::Viajante(arquivoEntidades, i, Entidades::ID::Viajante, this->pJogador);
                 pInimigo->setGerenciadorDeColisao(pColisao);
                 LE.push_back(static_cast<Entidades::Entidade*>(pInimigo));
-                if(pInimigo->getProjAtivo()){
-                    for (int j = 0; j < (int)arquivoPersonagens.size(); j++){
-                        if(arquivoPersonagens[j]["ID"][0] == Entidades::ID::Projetil){
-                            Entidades::Projetil* pProjetil = new Entidades::Projetil(arquivoPersonagens,j, Entidades::ID::Projetil);
+
+                if(pInimigo == nullptr){
+                    std::cout << "ERRO EM RECUPERAR JOGADA! Inimigo Viajante" << std::endl;
+                    exit(1);
+                }else{
+                    for (int j = 0; j < (int)arquivoEntidades.size(); j++){
+                        if(arquivoEntidades[j]["ID"][0] == Entidades::ID::Laser){
+                            Entidades::Laser* pProjetil = new Entidades::Laser(arquivoEntidades,j, Entidades::ID::Laser, pInimigo);
                             pProjetil->setGerenciadorDeColisao(pColisao);
                             LE.push_back(static_cast<Entidades::Entidade*>(pProjetil));
+                            pInimigo->setProj(pProjetil);
                         }
                     }
                 }
             }
-            else if (arquivoPersonagens[i]["ID"][0] == Entidades::ID::InimigoDificil){
+            else if (arquivoEntidades[i]["ID"][0] == Entidades::ID::Samurai){
                 if(pJogador == nullptr){
                     std::cout << "ERRO EM RECUPERAR JOGADA! 3" << std::endl;
                     exit(1);
                 }
-                Entidades::Personagens::InimigoDificil* pInimigo = new Entidades::Personagens::InimigoDificil(arquivoPersonagens, i, Entidades::ID::InimigoFacil, this->pJogador);
+                Entidades::Personagens::Samurai* pInimigo = new Entidades::Personagens::Samurai(arquivoEntidades, i, Entidades::ID::Samurai, this->pJogador);
                 pInimigo->setGerenciadorDeColisao(pColisao);
                 LE.push_back(static_cast<Entidades::Entidade*>(pInimigo));
             }
-            else if (arquivoPersonagens[i]["ID"][0] == Entidades::ID::Plataforma){
-                Entidades::Obstaculos::ObstaculoFacil* pPlataforma = new Entidades::Obstaculos::ObstaculoFacil(arquivoPersonagens, i, Entidades::ID::Plataforma);
+            else if (arquivoEntidades[i]["ID"][0] == Entidades::ID::Plataforma){
+                Entidades::Obstaculos::ObstaculoFacil* pPlataforma = new Entidades::Obstaculos::ObstaculoFacil(arquivoEntidades, i, Entidades::ID::Plataforma);
                 pPlataforma->setGerenciadorDeColisao(pColisao);
                 LE.push_back(static_cast<Entidades::Entidade*>(pPlataforma));
             } 
+        }
+        for (int i = 0; i < (int)arquivoFase.size(); i++) {
+            setPontuacaoJog(arquivoFase[i]["Pontuacao"][0]);
         }
     }
 
@@ -98,7 +106,7 @@ namespace Fases{
                 break;
             case 'i':
                 pos.x += 20.f;
-                newInimigoMedio(pos, sf::Vector2f(20.f, 30.f));
+                newInimigoMedio(pos, sf::Vector2f(60.f, 96.f));
                 break;
             case '3':
                 pos.x += 200.f;

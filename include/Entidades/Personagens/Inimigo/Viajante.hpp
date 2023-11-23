@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Fases/Fase.hpp"
+//#include "Entidades/Laser/Laser.hpp"
 #include "Inimigo.hpp"
 #include <math.h>
 
@@ -12,21 +12,25 @@ namespace Fases{
 
 #define RANGE 200.0f
 namespace Entidades{
+    class Laser;
     namespace Personagens{
-        class InimigoMedio: public Inimigo{
+        class Viajante: public Inimigo{
         private:
-            Fases::Fase* pFase;
+            Entidades::Laser* pProj;
             bool ProjAtivo;
+            bool direita;
             void inicializa();
         public:
-            InimigoMedio(const sf::Vector2f pos, const sf::Vector2f size, const Entidades::ID id, Entidades::Personagens::Jogador* pJog, Fases::Fase* pFase);
-            InimigoMedio(nlohmann::json atributos, const int pos, const Entidades::ID id, Entidades::Personagens::Jogador* pJog);
-            ~InimigoMedio();
+            Viajante(const sf::Vector2f pos, const sf::Vector2f size, const Entidades::ID id, Entidades::Personagens::Jogador* pJog, Entidades::Laser* proj);
+            Viajante(nlohmann::json atributos, const int pos, const Entidades::ID id, Entidades::Personagens::Jogador* pJog);
+            ~Viajante();
             void operator--(const int dano);
             void movimentoAleatorio();
             void atirarProjetil(sf::Vector2f pos, const bool direita);
             void deletarProjetil();
+            void setProj(Entidades::Laser* pProj);
             const bool getProjAtivo();
+            const bool getDirecaoProj();
             void move();
             void tratarColisao(Entidade* entidade);
             void executar();

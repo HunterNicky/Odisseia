@@ -8,10 +8,10 @@
 #include "Gerenciadores/GerenciadorFisico.hpp"
 #include "Lista/ListaDeEntidades.hpp"
 #include "Entidades/Personagens/Jogador/Jogador.hpp"
-#include "Entidades/Personagens/Inimigo/InimigoDificil.hpp"
-#include "Entidades/Personagens/Inimigo/InimigoFacil.hpp"
-#include "Entidades/Personagens/Inimigo/InimigoMedio.hpp"
-#include "Entidades/Projetil/Projetil.hpp"
+#include "Entidades/Personagens/Inimigo/Samurai.hpp"
+#include "Entidades/Personagens/Inimigo/Guerreiro.hpp"
+#include "Entidades/Personagens/Inimigo/Viajante.hpp"
+#include "Entidades/Projetil/Laser.hpp"
 //#include "Observadores/ControleFase.hpp"
 #include "Entidades/Obstaculos/Caixa.hpp"
 #include "Entidades/Obstaculos/Gosma.hpp"
@@ -27,7 +27,7 @@
 #include <sstream>
 #include <string>
 #define ARQUIVO_ENTIDADES "data/Save/arquivoEntidades.json"
-
+#define ARQUIVO_FASE "data/Save/arquivoFase.json"
 namespace Observadores {
     class ControleJogador;
 
@@ -51,7 +51,8 @@ namespace Fases{
         public:
             Fase();
             ~Fase();
-            void salvar();
+            void salvarEntidades();
+            void salvarAtributosFase();
             void newJogador(sf::Vector2f pos, sf::Vector2f size);
             void newInimigo(sf::Vector2f pos, sf::Vector2f size);
             void newInimigoMedio(sf::Vector2f pos, sf::Vector2f size);
@@ -60,16 +61,15 @@ namespace Fases{
             void deleteProjetil();
             //void newPlataforma(sf::Vector2f pos, sf::Vector2f size);
             //void newGosma(sf::Vector2f pos, sf::Vector2f size);
-            virtual void recuperarJogada(nlohmann::json arquivoPersonagens) = 0;
+            virtual void recuperarJogada(nlohmann::json arquivoEntidades, nlohmann::json arquivoFase) = 0;
             void newObstaculo(sf::Vector2f pos, sf::Vector2f size);
             void setPontuacaoJog(const unsigned int pontos);
-            const unsigned int getPontuacaoJog();
+            const unsigned int getPontuacaoJog() const;
             void atualizaPontuacao();
             void updateVida();
             void update(double dt);
             void executar();
             void draw();
-            void salvarJogo();
             //virtual void resetEstate() = 0;
             virtual void loadMap() = 0;
     };

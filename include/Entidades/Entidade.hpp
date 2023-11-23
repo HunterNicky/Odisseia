@@ -16,14 +16,14 @@ namespace Entidades{
     enum class ID{
         empty = 0,
         jogador,
-        InimigoFacil,
-        InimigoMedio,
-        InimigoDificil,
+        Guerreiro,
+        Viajante,
+        Samurai,
         Plataforma,
         Caixa, 
         Gosma,
         Lava,
-        Projetil
+        Laser
     };
 
     class Entidade : public Ente{

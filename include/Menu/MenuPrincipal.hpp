@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Fases/Fase2.hpp"
+#include "Fases/Fase1.hpp"
 #include "Menu/Botoes/Botao.hpp"
 #include "Menu/Botoes/Texto.hpp"
 #include "Menu/MenuOpcoes.hpp"
@@ -20,7 +20,7 @@ namespace Menu{
     class MenuPrincipal : public Menu{
     private:
         static Estados::MaquinaDeEstado* pMaquinaDeEstado;
-        Fases::Fase2* fase2;
+        Fases::Fase1* fase;
         Estados::Jogo* pJogo;
         MenuOpcoes* pOpcao;
     public:

@@ -6,7 +6,7 @@
 #include "Obstaculo.hpp"
 
 #define TAM_PLATAFORMA_X 200.f
-#define TAM_PLATAFORMA_Y 50.0f
+#define TAM_PLATAFORMA_Y 60.0f
 namespace Entidades{
     namespace Obstaculos
     {

@@ -27,7 +27,7 @@ namespace Observadores {
         ~ControleFase();
         void setFase(Menu::MenuPausa* pPausa);
         void jogadorMorreu();
-        void notifyPressed(const std::string key);
-        void notifyReleased(const std::string key);
+        void notifyPressed(const sf::Keyboard::Key key);
+        void notifyReleased(const sf::Keyboard::Key key);
     };
 }

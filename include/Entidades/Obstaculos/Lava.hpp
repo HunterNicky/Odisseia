@@ -10,7 +10,7 @@ namespace Entidades{
     namespace Obstaculos{
         class Lava : public Obstaculo{
         private:
-            int queimadura;
+            unsigned int queimadura;
         public:
             Lava(const sf::Vector2f pos, const sf::Vector2f size, const Entidades::ID id);
             ~Lava();
