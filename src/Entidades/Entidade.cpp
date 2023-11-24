@@ -14,6 +14,7 @@ Entidade::Entidade(const sf::Vector2f pos, const sf::Vector2f size,
     : Ente(pos, size), body(new sf::RectangleShape(size)), ID(id), prevPos(pos),
       massa(20) {
   body->setPosition(pos);
+  body->setOrigin(sf::Vector2f(size.x / 2, size.y / 2));
 }
 
 Entidade::~Entidade() { delete (body); }

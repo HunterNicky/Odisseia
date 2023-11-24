@@ -8,7 +8,6 @@ namespace Personagens {
 void Jogador::inicializa() {
   vel = sf::Vector2f(0.0f, 0.0f);
   num_vidas = 1000;
-  body->setOrigin(sf::Vector2f(size.x / 2, size.y / 2));
   contextoAnimacao.setStrategy(
       static_cast<Animacao::AnimacaoStrategy *>(&parado), 0.1f);
   estamina = 1.f;
