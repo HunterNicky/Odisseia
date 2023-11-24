@@ -3,6 +3,7 @@
 #include "Entidades/Personagens/Inimigo/Viajante.hpp"
 #include "Menu/Botoes/Texto.hpp"
 #include "Observadores/ControleJogador.hpp"
+#define CAMINHO_BLOCO_PORTAL "data\\Sprites\\blocos\\buracoNegro.png"
 
 #include <list>
 #include <ostream>
@@ -126,6 +127,9 @@ namespace Fases{
         Entidades::Obstaculos::Caixa* pCaixa = new Entidades::Obstaculos::Caixa(pos, size, Entidades::ID::Caixa, path);
         pCaixa->setGerenciadorDeColisao(pColisao);
         LE.push_back(static_cast<Entidades::Entidade*>(pCaixa));
+        if(path == CAMINHO_BLOCO_PORTAL){
+            pCaixa->setPortalAtivo(true);
+        }
     }
     void Fase::setPontuacaoJog(const unsigned int pontos){
         this->pontuacao_jogador = pontos;
@@ -162,6 +166,12 @@ namespace Fases{
         this->dt = dt;
         executar();
     }
+    void Fase::proximaFase(){
+        //Passar de fase
+        if(pJogador->getProximaFase()){
+            pMaquinaDeEstado->popEstado();
+        }
+    }
 
     void Fase::updateVida(){
         for(unsigned int i = 0; i < LE.getSize(); i++){
@@ -170,8 +180,7 @@ namespace Fases{
                 if(pPers->getNum_vidas() < 0){
                     LE.remove(i);
                     setPontuacaoJog(getPontuacaoJog()+200);
-                }
-                   
+                }      
             }
             if(LE[i]->getId() == Entidades::ID::jogador){
                 //remover Jogador
@@ -198,12 +207,14 @@ namespace Fases{
             updateVida();
             draw();
             LE.updateAll();
+            
         }
     }
     void Fase::draw(){
         LE.drawAll();
         atualizaPontuacao();
         atualizaBarraDeVida();
+        proximaFase();
     }
 }
 

@@ -29,6 +29,7 @@ namespace Observadores{
             ~ControleJogador();
             void setJogador(Entidades::Personagens::Jogador* pJogador);
             void jogadorNeutralizado();
+            const bool proximaFase();
             void notifyPressed(const sf::Keyboard::Key key);
             void notifyReleased(const sf::Keyboard::Key key);
     };

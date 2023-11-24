@@ -129,7 +129,7 @@ namespace Fases{
                 break;
             case 'w':
                 pos.x += 200.0f;
-                newCaixa(pos, sf::Vector2f(200.f, 50.f), CAMINHO_BLOCO_PORTAL);
+                newCaixa(pos, sf::Vector2f(50.f, 100.f), CAMINHO_BLOCO_PORTAL);
                 break;
             case '@':{//inimigos aleatório
                 int sort = (int)rand()%3;

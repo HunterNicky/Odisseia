@@ -3,7 +3,7 @@
 namespace Entidades{
     namespace Obstaculos{
         Caixa::Caixa(const sf::Vector2f pos, const sf::Vector2f size, const Entidades::ID id, const std::string path) :
-            Obstaculo(pos, size, id),
+            Obstaculo(pos, size, id), PortalAtivo(false),
             bloco(static_cast<Entidades::Entidade*>(this), path, 1),
             contexto()
         {
@@ -27,8 +27,15 @@ namespace Entidades{
         void Caixa::colocarTextura(const char c){
  
         }
+
+        void Caixa::setPortalAtivo(const bool ativo){
+            PortalAtivo = ativo;
+        }
+        const bool Caixa::getPortalAtivo() const{
+            return PortalAtivo;
+        }
         void Caixa::tratarColisao(Entidade* entidade){
-            if(ativo){ //portal
+            if(PortalAtivo){ //portal
                 
             }
         }

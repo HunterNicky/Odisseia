@@ -27,6 +27,7 @@ namespace Entidades{
         private:
             void inicializa();
             float estamina;
+            bool proximaFase;
             Animacao::AnimacaoAndar andar;
             Animacao::AnimacaoParado parado;
             Animacao::AnimacaoPular pulando;
@@ -39,8 +40,7 @@ namespace Entidades{
             void operator--(const int dano);
             const float getEstamina() const;
             void animacao();
-            void inicializarBarraDeVida();
-            void atualizarBarraDeVida();
+            const bool getProximaFase();
             void move();
             void neutralizarInimigo(Entidade* pInimigo);
             void tratarColisao(Entidade* entidade);

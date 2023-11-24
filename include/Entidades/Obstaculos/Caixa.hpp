@@ -11,7 +11,7 @@ namespace Entidades{
     {
         class Caixa : public Obstaculo{
         private:
-            bool ativo;
+            bool PortalAtivo;
             Animacao::AnimacaoBloco bloco;
             Animacao::AnimacaoContext contexto;
         public:
@@ -20,6 +20,8 @@ namespace Entidades{
             ~Caixa();
             void animacao();
             void colocarTextura(const char c);
+            const bool getPortalAtivo() const;
+            void setPortalAtivo(const bool ativo);
             void tratarColisao(Entidade* entidade);
             void executar();
             void update();

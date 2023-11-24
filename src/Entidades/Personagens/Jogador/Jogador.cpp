@@ -1,4 +1,5 @@
 #include "Entidades/Personagens/Jogador/Jogador.hpp"
+#include "Entidades/Obstaculos/Caixa.hpp"
 #include "Gerenciadores/GerenciadorFisico.hpp"
 #include <iostream>
 namespace Entidades{
@@ -17,7 +18,6 @@ namespace Entidades{
             pulando(static_cast<Entidades::Entidade*>(this), CAMINHO_PULAR_JOG, CAMINHO_SPIN_JOG, 3, 6),
             contextoAnimacao(){
             inicializa();
-            inicializarBarraDeVida();
         }
 
         Jogador::Jogador(nlohmann::json atributos, const int pos, const Entidades::ID id):
@@ -49,17 +49,8 @@ namespace Entidades{
             contextoAnimacao.updateStrategy(gFisico->getDeltaTime());
         }
 
-        void Jogador::inicializarBarraDeVida(){/**/
-            
-        }
-
-        void Jogador::atualizarBarraDeVida(){/*
-            sf::Vector2f posJanela = pGrafico->getViewCenter();
-            sf::Vector2f tamJanela(1280.f, 640.f);
-            sf::Vector2f posBarra = sf::Vector2f(posJanela.x - tamJanela.x / 2.0f + 10.0f, posJanela.y + tamJanela.y / 2.0f - 30.0f);
-            //tuboBarraVida.setPosition(posBarra);
-            //barraDeVida->setSize(sf::Vector2f((BARRA_VIDA_JOG_X - 40.0f) * (num_vidas / 100.0f), BARRA_VIDA_JOG_Y - 13.0f));
-            barraDeVida->setPosition(sf::Vector2f(posBarra.x, posBarra.y  - barraDeVida->getSize().y / 2.0f));*/
+        const bool Jogador::getProximaFase(){
+            return proximaFase;
         }
 
         void Jogador::move() {
@@ -131,8 +122,14 @@ namespace Entidades{
                 entidade->tratarColisao(static_cast<Entidades::Entidade*>(this));
                 pos.x -= vel.x*0.01;
                 break;
-            case (ID::Caixa):
+            case (ID::Caixa):{
                 entidade->tratarColisao(static_cast<Entidades::Entidade*>(this));
+                Entidades::Obstaculos::Caixa* pPortal = static_cast<Entidades::Obstaculos::Caixa*>(entidade);
+                if(pPortal->getPortalAtivo()) {
+                    proximaFase = true;
+                    std::cout << "Portal " << std::endl;
+                }
+                }
                 break;
             case (ID::Gosma):
                 entidade->tratarColisao(static_cast<Entidades::Entidade*>(this));
@@ -161,7 +158,6 @@ namespace Entidades{
 
         void Jogador::update(){
             if(estamina < 1.f)estamina += estamina * 0.0001f + 0.001f;
-            atualizarBarraDeVida();
             executar();
         }
 

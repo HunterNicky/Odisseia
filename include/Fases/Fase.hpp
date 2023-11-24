@@ -58,6 +58,7 @@ namespace Fases{
             const unsigned int getPontuacaoJog() const;
             void atualizaPontuacao();
             void atualizaBarraDeVida();
+            void proximaFase();
             void updateVida();
             void update(double dt);
             void executar();
