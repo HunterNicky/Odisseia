@@ -164,7 +164,5 @@ namespace Fases{
         executar();
     }
 
-    void Fases::Fase1::executar(){
-        Fase::executar();
-    }
-}
+void Fases::Fase1::executar() { Fase::executar(); }
+} // namespace Fases

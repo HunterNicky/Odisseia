@@ -14,14 +14,12 @@ namespace Fases{
         loadMap();
     }
 
-    Fase2::Fase2(nlohmann::json arquivoEntidades, nlohmann::json arquivoFase):
-        Fase(){
-        recuperarJogada(arquivoEntidades, arquivoFase);
-    }
+Fase2::Fase2(nlohmann::json arquivoEntidades, nlohmann::json arquivoFase)
+    : Fase() {
+  recuperarJogada(arquivoEntidades, arquivoFase);
+}
 
-    Fase2::~Fase2(){
-
-    }
+Fase2::~Fase2() {}
 
     void Fase2::newLava(sf::Vector2f pos, sf::Vector2f size){
         Entidades::Obstaculos::Lava* pLava = new Entidades::Obstaculos::Lava(pos, size, Entidades::ID::Lava);
@@ -165,11 +163,7 @@ namespace Fases{
         Fase::draw();
     }
 
-    void Fase2::update(){
-        executar();
-    }
+void Fase2::update() { executar(); }
 
-    void Fase2::executar(){
-        Fase::executar();
-    }
-}
+void Fase2::executar() { Fase::executar(); }
+} // namespace Fases

@@ -9,13 +9,19 @@
 #include <ostream>
 #include <sstream>
 
-namespace Fases{
-    Gerenciadores::GerenciadorGrafico* Fase::pGrafico = Gerenciadores::GerenciadorGrafico::getInstance();
-    Gerenciadores::GerenciadorDeEvento* Fase::pEvento = Gerenciadores::GerenciadorDeEvento::getInstance();
-    Gerenciadores::GerenciadorFisico* Fase::pFisico = Gerenciadores::GerenciadorFisico::getInstance();
-    Gerenciadores::GerenciadorDeColisao* Fase::pColisao = Gerenciadores::GerenciadorDeColisao::getInstance();
-    Estados::MaquinaDeEstado* Fase::pMaquinaDeEstado = Estados::MaquinaDeEstado::getInstance();
-    Menu::Botoes::Texto Fase::textoPontuacao(sf::Vector2f(0.f, 0.f), sf::Vector2f(50.f,50.f), "" , 35);
+namespace Fases {
+Gerenciadores::GerenciadorGrafico *Fase::pGrafico =
+    Gerenciadores::GerenciadorGrafico::getInstance();
+Gerenciadores::GerenciadorDeEvento *Fase::pEvento =
+    Gerenciadores::GerenciadorDeEvento::getInstance();
+Gerenciadores::GerenciadorFisico *Fase::pFisico =
+    Gerenciadores::GerenciadorFisico::getInstance();
+Gerenciadores::GerenciadorDeColisao *Fase::pColisao =
+    Gerenciadores::GerenciadorDeColisao::getInstance();
+Estados::MaquinaDeEstado *Fase::pMaquinaDeEstado =
+    Estados::MaquinaDeEstado::getInstance();
+Menu::Botoes::Texto Fase::textoPontuacao(sf::Vector2f(0.f, 0.f),
+                                         sf::Vector2f(50.f, 50.f), "", 35);
 
     Fase::Fase():
     Estado(pMaquinaDeEstado, 1){
@@ -63,30 +69,30 @@ namespace Fases{
         buffer.str("");
         buffer << "[";
 
-        if(LE[0] != nullptr){
-            LE[0]->salvar(&buffer);
-        }
-        for(unsigned int i = 1; i < LE.getSize(); i++){
-            buffer << ",";
-            LE[i]->salvar(&buffer);
-        }
+  if (LE[0] != nullptr) {
+    LE[0]->salvar(&buffer);
+  }
+  for (unsigned int i = 1; i < LE.getSize(); i++) {
+    buffer << ",";
+    LE[i]->salvar(&buffer);
+  }
 
-        buffer << "]";
-        arquivo << buffer.str() << std::endl;
-        arquivo.close();
-    }
-    void Fase::salvarAtributosFase(){
-        //Salvando pontuação
-        std::ofstream arquivo(ARQUIVO_FASE); 
-        if(!arquivo){
-            std::cout << "Erro ao abrir arquivo" << std::endl;
-            exit(1);
-        }
+  buffer << "]";
+  arquivo << buffer.str() << std::endl;
+  arquivo.close();
+}
+void Fase::salvarAtributosFase() {
+  // Salvando pontuação
+  std::ofstream arquivo(ARQUIVO_FASE);
+  if (!arquivo) {
+    std::cout << "Erro ao abrir arquivo" << std::endl;
+    exit(1);
+  }
 
-        buffer.str("");
-        buffer << "[";
+  buffer.str("");
+  buffer << "[";
 
-        buffer << "{ \"Pontuacao\": ["<< getPontuacaoJog() <<"] }" << std::endl;
+  buffer << "{ \"Pontuacao\": [" << getPontuacaoJog() << "] }" << std::endl;
 
         buffer << "]";
         arquivo << buffer.str() << std::endl;

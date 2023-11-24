@@ -27,13 +27,13 @@ namespace Entidades
             pPers->operator--(queimadura);
         }
 
-        void Lava::tratarColisao(Entidade* entidade){
-            if(entidade){
-                if(entidade->getId() == Entidades::ID::jogador){
-                    queimar(entidade);
-                }
-            }
-        }
+void Lava::tratarColisao(Entidade *entidade) {
+  if (entidade) {
+    if (entidade->getId() == Entidades::ID::jogador) {
+      queimar(entidade);
+    }
+  }
+}
 
         void Lava::executar(){
             animacao();

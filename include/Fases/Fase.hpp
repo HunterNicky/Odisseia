@@ -14,17 +14,19 @@
 #include "Estados/Estado.hpp"
 #include "Estados/MaquinaDeEstado.hpp"
 #include "Entidades/Entidade.hpp"
+//#include "Observadores/ControleJogador.hpp"
 #include "Menu/Botoes/Texto.hpp"
 #include "json.hpp"
-#include <iostream>
 #include <fstream>
+#include <iostream>
 #include <sstream>
 #include <string>
+
 #define ARQUIVO_ENTIDADES "data/Save/arquivoEntidades.json"
 #define ARQUIVO_FASE "data/Save/arquivoFase.json"
 #define CAMINHO_FONTE_PONTUACAO "data/Font/menus.ttf"
 namespace Observadores {
-    class ControleJogador;
+class ControleJogador;
 
 }
 namespace Fases{

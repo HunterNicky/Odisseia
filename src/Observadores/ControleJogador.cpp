@@ -1,17 +1,16 @@
 #include "Observadores/ControleJogador.hpp"
 #include "Estados/Estado.hpp"
 
-namespace Observadores{
-    Estados::MaquinaDeEstado* ControleJogador::pMaquinaDeEstado = Estados::MaquinaDeEstado::getInstance();
+namespace Observadores {
+Estados::MaquinaDeEstado *ControleJogador::pMaquinaDeEstado =
+    Estados::MaquinaDeEstado::getInstance();
 
-    ControleJogador::ControleJogador(Entidades::Personagens::Jogador *pJogador, Fases::Fase* pFase):
-    Observer(),
-    pJogador(pJogador), pFase(pFase),
-    pular("W"), esquerda("A"), direita("D"), correr("LShift"), fechar("Escape"){
-    }
+ControleJogador::ControleJogador(Entidades::Personagens::Jogador *pJogador,
+                                 Fases::Fase *pFase)
+    : Observer(), pJogador(pJogador), pFase(pFase), pular("W"), esquerda("A"),
+      direita("D"), correr("LShift"), atacar("Space"), fechar("Escape") {}
 
-    ControleJogador::~ControleJogador(){
-    }
+ControleJogador::~ControleJogador() {}
 
     void ControleJogador::setJogador(Entidades::Personagens::Jogador *pJogador){
         this->pJogador = pJogador;
@@ -44,18 +43,18 @@ namespace Observadores{
         }
     }
 
-    void ControleJogador::notifyReleased(const sf::Keyboard::Key key){
-        if(pJogador){
-            if(keyboard[key] == direita){
-                pJogador->parar();
-            }else if(keyboard[key] == esquerda){
-                pJogador->parar();
-            }else if(keyboard[key] == correr){
-                pJogador->parar();
-            }else if(keyboard[key] == pular){
-                pJogador->setOnFloor(false);
-                pJogador->pular();
-            }
-        }
+void ControleJogador::notifyReleased(const sf::Keyboard::Key key) {
+  if (pJogador) {
+    if (keyboard[key] == direita) {
+      pJogador->parar();
+    } else if (keyboard[key] == esquerda) {
+      pJogador->parar();
+    } else if (keyboard[key] == correr) {
+      pJogador->parar();
+    } else if (keyboard[key] == pular) {
+      pJogador->setOnFloor(false);
+      pJogador->pular();
     }
+  }
 }
+} // namespace Observadores

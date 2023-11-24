@@ -9,14 +9,14 @@ namespace Menu {
         titulo.setColor(sf::Color::White);
     }
 
-    MenuOpcoes::~MenuOpcoes(){/*
-        if(pFase1 != nullptr){
-            delete pFase1;
-        }
-        if(pFase2 != nullptr){
-            delete pFase2;
-        }*/
-    }
+MenuOpcoes::~MenuOpcoes() { /*
+      if(pFase1 != nullptr){
+          delete pFase1;
+      }
+      if(pFase2 != nullptr){
+          delete pFase2;
+      }*/
+}
 
     void MenuOpcoes::selecionaBotao(){
         if(pBotao!= nullptr){
@@ -47,21 +47,19 @@ namespace Menu {
         pBotao = new Botoes::Botao(sf::Vector2f(640.f - 100, 360.f - 100), std::string(" Fase 1"));
         pBotao->selecionado(true);
 
-        Menu::lBotao.push_back(pBotao);
-        Menu::it = Menu::lBotao.begin();
+  Menu::lBotao.push_back(pBotao);
+  Menu::it = Menu::lBotao.begin();
 
-        pBotao = new Botoes::Botao(sf::Vector2f(640.f - 100, 360.f), std::string(" Fase 2"));
-        Menu::lBotao.push_back(pBotao);
+  pBotao = new Botoes::Botao(sf::Vector2f(640.f - 100, 360.f),
+                             std::string(" Fase 2"));
+  Menu::lBotao.push_back(pBotao);
 
-        pBotao = new Botoes::Botao(sf::Vector2f(640.f - 100, 360.f + 100), std::string(" Voltar"));
-        Menu::lBotao.push_back(pBotao);
-        numOpc = 3;
-    }
-
-    void MenuOpcoes::update(const double dt){
-        Menu::update(dt);
-    }
-    void MenuOpcoes::draw(){
-        Menu::draw();
-    }
+  pBotao = new Botoes::Botao(sf::Vector2f(640.f - 100, 360.f + 100),
+                             std::string(" Voltar"));
+  Menu::lBotao.push_back(pBotao);
+  numOpc = 3;
 }
+
+void MenuOpcoes::update(const double dt) { Menu::update(dt); }
+void MenuOpcoes::draw() { Menu::draw(); }
+} // namespace Menu

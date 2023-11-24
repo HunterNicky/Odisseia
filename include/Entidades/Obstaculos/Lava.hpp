@@ -4,7 +4,7 @@
 #include "Animacao/AnimacaoContext.hpp"
 #include "Entidades/Entidade.hpp"
 #include "Obstaculo.hpp"
-#include "..\Personagens\Personagem.hpp"
+
 
 #define TEMPO_QUEIMADURA 1.f
 #define CAMINHO_BLOCO_LAVA "data\\Sprites\\blocos\\lava.png"

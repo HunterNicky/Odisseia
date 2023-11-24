@@ -1,6 +1,4 @@
 #pragma once
-
-#include "..\Entidade.hpp"
 #include "Entidades/Entidade.hpp"
 #include "Gerenciadores/GerenciadorFisico.hpp"
 #include "Animacao/AnimacaoBloco.hpp"
