@@ -108,7 +108,13 @@ void Viajante::move() {
   gColisao->Notify(static_cast<Entidades::Entidade *>(this));
 }
 
-void Viajante::tratarColisao(Entidade *entidade) {}
+void Viajante::tratarColisao(Entidade *entidade, const sf::Vector2f mtv) {
+  if (entidade->getId() == Entidades::ID::Plataforma){
+    entidade->tratarColisao(static_cast<Entidades::Entidade*>(this), mtv);
+    verificaSolo(mtv);
+    pos.x -= vel.x * 0.01f;
+  }
+}
 
 void Viajante::executar() { move(); }
 

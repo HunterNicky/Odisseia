@@ -7,7 +7,7 @@ namespace Animacao {
 
 AnimacaoParado::AnimacaoParado(Entidades::Entidade *entidade, std::string path,
                                int numFrames, sf::Vector2f escala)
-    : AnimacaoStrategy(entidade, numFrames, escala), actualFrame(0.f),
+    : AnimacaoStrategy(entidade, numFrames, escala), actualFrame(1.f),
       deepBreath(0.f) {
   textura = pGrafico->loadTexture(path);
   rectSize.width = (textura->getSize().x / numFrames);

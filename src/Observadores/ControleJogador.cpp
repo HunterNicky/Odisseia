@@ -29,7 +29,9 @@ void ControleJogador::notifyPressed(const sf::Keyboard::Key key) {
     } else if (keyboard[key] == esquerda) {
       pJogador->direcionar(false);
     }
-    if (keyboard[key] == pular) {
+    if (keyboard[key] == atacar) {
+      pJogador->atacar();
+    } else if (keyboard[key] == pular) {
       pJogador->pular();
     } else if (keyboard[key] == correr) {
       pJogador->correr();

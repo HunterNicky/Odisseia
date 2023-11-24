@@ -138,11 +138,17 @@ void Guerreiro::danificar(Entidade *entidade) {
   }
 }
 
-void Guerreiro::tratarColisao(Entidade *entidade) {
-  if (entidade->getId() == Entidades::ID::jogador) {
+void Guerreiro::tratarColisao(Entidade *entidade, const sf::Vector2f mtv) {
+  if (entidade->getId() == Entidades::ID::Plataforma){
+    entidade->tratarColisao(static_cast<Entidades::Entidade*>(this), mtv);
+    verificaSolo(mtv);
+    pos.x -= vel.x * 0.01f;
+  }
+  else if (entidade->getId() == Entidades::ID::jogador) {
     danificar(entidade);
     ataque = true;
   }
+  
 }
 
 void Guerreiro::executar() { move(); }

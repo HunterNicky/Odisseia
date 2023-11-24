@@ -56,8 +56,6 @@ Jogador::~Jogador() {}
 
 void Jogador::operator--(const int dano) {
   std::cout << num_vidas << std::endl;
-  danoTime = gFisico->getDeltaTime();
-  tomarDano = true;
   this->num_vidas -= dano;
 }
 
@@ -161,18 +159,10 @@ void Jogador::tratarColisao(Entidade *entidade) {
     break;
   case (ID::Plataforma):
     entidade->tratarColisao(static_cast<Entidades::Entidade *>(this));
-    pos.x -= vel.x * 0.01;
+    pos.x -= vel.x * 0.01f;
     break;
-  case (ID::Caixa): {
+  case (ID::Caixa):
     entidade->tratarColisao(static_cast<Entidades::Entidade *>(this));
-    Entidades::Obstaculos::Caixa *pPortal =
-        static_cast<Entidades::Obstaculos::Caixa *>(entidade);
-    pos.x -= vel.x * 0.01;
-    if (pPortal->getPortalAtivo()) {
-      proximaFase = true;
-      std::cout << "Portal " << std::endl;
-    }
-  } break;
   case (ID::Gosma):
     entidade->tratarColisao(static_cast<Entidades::Entidade *>(this));
     break;

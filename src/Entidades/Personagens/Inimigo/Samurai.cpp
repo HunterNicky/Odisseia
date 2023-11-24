@@ -87,11 +87,13 @@ void Samurai::danificar(Entidade *entidade) {
   pPers->operator--(200);
 }
 
-void Samurai::tratarColisao(Entidade *entidade) {
-  if (entidade) {
-    if (entidade->getId() == Entidades::ID::jogador) {
-      danificar(entidade);
-    }
+void Samurai::tratarColisao(Entidade *entidade, const sf::Vector2f mtv) {
+  if (entidade->getId() == Entidades::ID::Plataforma){
+    entidade->tratarColisao(static_cast<Entidades::Entidade*>(this), mtv);
+    verificaSolo(mtv);
+    pos.x -= vel.x * 0.01f;
+  }else if (entidade->getId() == Entidades::ID::jogador) {
+    danificar(entidade);
   }
 }
 

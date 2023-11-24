@@ -33,7 +33,7 @@ Laser::Laser(nlohmann::json atributos, const int pos, const Entidades::ID id,
 
 Laser::~Laser() {}
 
-void Laser::tratarColisao(Entidades::Entidade *entidade) {
+void Laser::tratarColisao(Entidades::Entidade *entidade, const sf::Vector2f mtv) {
   if (entidade->getId() == Entidades::ID::jogador) {
     std::cout << "Laser colidiu com jogador!" << std::endl;
     Entidades::Personagens::Personagem *pPers =

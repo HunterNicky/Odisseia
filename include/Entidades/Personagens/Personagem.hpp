@@ -22,10 +22,11 @@ public:
   virtual void inicializa() = 0;
   virtual void animacao() = 0;
   virtual void operator--(const int dano) = 0;
-  virtual void tratarColisao(Entidade *entidade) = 0;
+  virtual void tratarColisao(Entidade *entidade, const sf::Vector2f mtv) = 0;
   virtual void verificaSolo(const sf::Vector2f mtv);
   void setOnFloor(const bool floor);
   void setAtaque(const bool ataque);
+  const bool getAtacando();
   const float getJumpTime() const;
   const int getNum_vidas() const;
   virtual void salvar(std::ostringstream *entrada) = 0;

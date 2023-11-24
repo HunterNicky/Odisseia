@@ -1,5 +1,6 @@
 #include "..\..\include\Gerenciadores\GerenciadorFisico.hpp"
 #include "Entidades/Entidade.hpp"
+#include "Entidades/Obstaculos/Obstaculo.hpp"
 #include "Gerenciadores/GerenciadorFisico.hpp"
 #include <iostream>
 
@@ -54,14 +55,16 @@ void GerenciadorFisico::calAcc(Entidades::Entidade *entidade) {
   sf::Vector2f dragForce = calDrag(entidade);
   float massa = entidade->getMass();
   int multi = 1;
+
   if (entidade->getForca().x == 0 && entidade->getForca().y == 0) {
     multi *= 5;
   }
+
   forca += entidade->getForca();
   forca.x += -dragForce.x * multi;
   forca.y += -dragForce.y;
-  if (dynamic_cast<Entidades::Personagens::Personagem *>(entidade)) {
-  } else {
+
+  if (entidade->getEstatico()) {
     forca = sf::Vector2f(0, 0);
   }
   acc = forca / massa;

@@ -219,6 +219,7 @@ void Fase::executar() {
   if (pJogador) {
     sf::Vector2f cameraPos = pGrafico->getViewCenter();
     sf::Vector2f jogadorPos = pJogador->getBody()->getPosition();
+    jogadorPos.y -= 100.f;
     sf::Vector2f novaPosCamera = cameraPos + (jogadorPos - cameraPos) * 0.01f;
     pGrafico->setViewCenter(novaPosCamera);
     pEvento->stage();

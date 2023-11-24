@@ -47,7 +47,7 @@ public:
   const bool getProximaFase();
   void move();
   void danificarInimigo(Entidade *pInimigo);
-  void tratarColisao(Entidade *entidade);
+  void tratarColisao(Entidade *entidade, const sf::Vector2f mtv);
   void atacar();
   void pular();
   void correr();

@@ -5,7 +5,7 @@
 namespace Animacao {
 AnimacaoAtaque::AnimacaoAtaque(Entidades::Entidade *entidade, std::string path,
                                const int numFrames, const sf::Vector2f escala)
-    : AnimacaoStrategy(entidade, numFrames, escala), actualFrame(0.f) {
+    : AnimacaoStrategy(entidade, numFrames, escala), actualFrame(1.f) {
   textura = pGrafico->loadTexture(path);
   rectSize.width = (textura->getSize().x / numFrames);
   rectSize.height = (textura->getSize().y);

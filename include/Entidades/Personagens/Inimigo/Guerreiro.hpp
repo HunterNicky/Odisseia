@@ -36,7 +36,7 @@ public:
   void movimentoAleatorio();
   void move();
   void danificar(Entidade *entidade);
-  void tratarColisao(Entidade *entidade);
+  void tratarColisao(Entidade *entidade, const sf::Vector2f mtv);
   void atacar();
   void executar();
   void update();
