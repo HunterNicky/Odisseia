@@ -1,7 +1,8 @@
-
  
   j           @  @              @ @ w
          @  pppppppp      @   p pppppppp
-        cc  2     @ 1    cc     1   2
-aaaaaaaaaaaaaagggaaaaaaaaaaaaaaaaaaaaaa
-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
+         pp  2     @ 1    cc     1   2
+       # 
+      cc
+      1 1           #  #   #  #  #  # 
+aaaaaaaaaagggaaaaaaaaaaaaaaaaaaaaaaaaaaaa

@@ -1,11 +1,12 @@
 #include "Fases/Fase2.hpp"
+#include "Fases/Fase1.hpp"
 
 #include <stdlib.h>
 #define CAMINHO_BLOCO_GRAMA "data\\Sprites\\blocos\\grass.png"
 #define CAMINHO_BLOCO_TERRA "data\\Sprites\\blocos\\dirt.png"
 #define CAMINHO_BLOCO_PEDRA "data\\Sprites\\blocos\\cobblestone.png"
 #define CAMINHO_BLOCO_PEDRA_R "data\\Sprites\\blocos\\roadcobblestone.png"
-#define CAMINHO_BLOCO_PEDRA_V "data\\Sprites\\blocos\\woodcobblestone.png"
+#define CAMINHO_BLOCO_PEDRA_V "data\\Sprites\\blocos\\woodplataformcobblestone.png"
 #define CAMINHO_BLOCO_PORTAL "data\\Sprites\\blocos\\buracoNegro.png"
 #define CAMINHO_BLOCO_CAIXA "data\\Sprites\\blocos\\caixa.png"
 namespace Fases {
@@ -116,43 +117,36 @@ void Fase2::loadMap() {
       break;
     case 'j':
       pos.x += 200.f;
-      newJogador(pos + sf::Vector2f(100.f, 0.f), sf::Vector2f(60.f, 96.f));
+      newJogador(pos + sf::Vector2f(100.f, -400.f), sf::Vector2f(TAM_PERSONAGENS_X, TAM_PERSONAGENS_Y));
       break;
     case '1':
       pos.x += 20.f;
-      newGuerreiro(pos, sf::Vector2f(60.f, 96.f));
+      newGuerreiro(pos, sf::Vector2f(TAM_PERSONAGENS_X, TAM_PERSONAGENS_Y));
       break;
     case '2':
       pos.x += 20.f;
-      newViajante(pos, sf::Vector2f(60.f, 96.f));
+      newViajante(pos, sf::Vector2f(TAM_PERSONAGENS_X, TAM_PERSONAGENS_Y));
       break;
     case '3':
       pos.x += 200.f;
-      newSamurai(pos, sf::Vector2f(60.f, 96.f));
+      newSamurai(pos, sf::Vector2f(TAM_PERSONAGENS_X, TAM_PERSONAGENS_Y));
       break;
     case 'p':
       pos.x += 200.f;
-      newPlataforma(pos, sf::Vector2f(200.f, 100.f), CAMINHO_BLOCO_PEDRA);
-      break;
-    case 'a': // grama
-      pos.x += 200.f;
-      newCaixa(pos, sf::Vector2f(200.f, 100.f), CAMINHO_BLOCO_GRAMA);
-      break;
-    case 'b': // terra
-      pos.x += 200.f;
-      newCaixa(pos, sf::Vector2f(200.f, 100.f), CAMINHO_BLOCO_TERRA);
+      newPlataforma(pos, sf::Vector2f(200.f, 200.f), CAMINHO_BLOCO_PEDRA);
       break;
     case 'c': // caixa
-      pos.x += 200.f;
-      newCaixa(pos, sf::Vector2f(200.f, 100.f), CAMINHO_BLOCO_CAIXA);
+      pos.x += 50.f;
+      pos.y -= 100.f;
+      newCaixa(pos, sf::Vector2f(50.f, 50.f), CAMINHO_BLOCO_CAIXA);
       break;
     case 'd':
       pos.x += 200.f;
-      newCaixa(pos, sf::Vector2f(200.f, 100.f), CAMINHO_BLOCO_PEDRA);
+      newCaixa(pos, sf::Vector2f(200.f, 200.f), CAMINHO_BLOCO_PEDRA);
       break;
     case 'e':
       pos.x += 200.f;
-      newCaixa(pos, sf::Vector2f(200.f, 100.f), CAMINHO_BLOCO_PEDRA_R);
+      newCaixa(pos, sf::Vector2f(200.f, 200.f), CAMINHO_BLOCO_PEDRA_V);
       break;
     case 'l':
       pos.x += 200.f;

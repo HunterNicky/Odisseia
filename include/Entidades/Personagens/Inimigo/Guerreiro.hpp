@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Animacao/AnimacaoAtaque.hpp"
 #include "Inimigo.hpp"
 #include <math.h>
 #include <stdlib.h>
@@ -17,7 +18,7 @@ namespace Personagens {
 class Guerreiro : public Inimigo {
 private:
   int raivosidade;
-
+  Animacao::AnimacaoAtaque atacando;
   Animacao::AnimacaoAndar andar;
   Animacao::AnimacaoParado parado;
   Animacao::AnimacaoContext contextoAnimacao;

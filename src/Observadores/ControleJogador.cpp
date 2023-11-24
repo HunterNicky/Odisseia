@@ -34,6 +34,9 @@ void ControleJogador::notifyPressed(const sf::Keyboard::Key key) {
     } else if (keyboard[key] == correr) {
       pJogador->correr();
     }
+    if (keyboard[key] == atacar) {
+      pJogador->atacar();
+    }
     if (keyboard[key] == fechar) {
       Menu::MenuPausa *pPausa =
           new Menu::MenuPausa(static_cast<Fases::Fase *>(pFase));

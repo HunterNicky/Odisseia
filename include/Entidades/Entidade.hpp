@@ -49,6 +49,7 @@ public:
   void setGerenciadorDeColisao(Gerenciadores::GerenciadorDeColisao *gColisao);
   void setVel(const sf::Vector2f vel);
   void setAcc(const sf::Vector2f acc);
+  void setForca(const sf::Vector2f forca);
   void setMassa(const float massa);
   void setPrevPos(const sf::Vector2f prevPos);
   const sf::Vector2f getVel() const;

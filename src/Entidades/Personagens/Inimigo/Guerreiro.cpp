@@ -1,5 +1,6 @@
 #include "Entidades/Personagens/Inimigo/Guerreiro.hpp"
 #include "Animacao/AnimacaoAndar.hpp"
+#include "Animacao/AnimacaoAtaque.hpp"
 #include "Animacao/AnimacaoContext.hpp"
 #include "Animacao/AnimacaoParado.hpp"
 #include "Entidades/Entidade.hpp"
@@ -11,7 +12,7 @@ void Guerreiro::inicializa() {
   vel = sf::Vector2f(0.1f, 0.1f);
   // body->setFillColor(sf::Color::Red);
   raio = RAIO;
-  num_vidas = 10;
+  num_vidas = 100;
   srand(time(NULL));
   moveAleatorio = rand() % 4;
   raivosidade = rand() % 10;
@@ -21,6 +22,7 @@ Guerreiro::Guerreiro(const sf::Vector2f pos, const sf::Vector2f size,
                      const Entidades::ID id,
                      Entidades::Personagens::Jogador *pJog)
     : Inimigo(pos, size, id, pJog),
+      atacando(static_cast<Entidades::Entidade *>(this), CAMINHO_GUERREIRO_ATAQUE, 8, sf::Vector2f(3, 3)),
       andar(static_cast<Entidades::Entidade *>(this), CAMINHO_GUERREIRO_ANDAR,
             CAMINHO_GUERREIRO_ANDAR, 8, 8, sf::Vector2f(3, 3),
             sf::Vector2f(3, 3)),
@@ -40,6 +42,7 @@ Guerreiro::Guerreiro(nlohmann::json atributos, const int pos,
     : Inimigo(sf::Vector2f(atributos[pos]["Posicao"][0],
                            atributos[pos]["Posicao"][1]),
               sf::Vector2f(TAM_INIMIGO_FACIL_X, TAM_INIMIGO_FACIL_Y), id, pJog),
+      atacando(static_cast<Entidades::Entidade *>(this), CAMINHO_GUERREIRO_ATAQUE, 8, sf::Vector2f(3, 3)),
       andar(static_cast<Entidades::Entidade *>(this), CAMINHO_GUERREIRO_ANDAR,
             CAMINHO_GUERREIRO_ANDAR, 8, 8, sf::Vector2f(3, 3),
             sf::Vector2f(3, 3)),
@@ -69,9 +72,16 @@ void Guerreiro::animacao() {
       contextoAnimacao.setStrategy(&parado, 0.5f);
     }
   }
+  if(ataque){
+    contextoAnimacao.setStrategy(&atacando, 0.1f);
+  }
   contextoAnimacao.updateStrategy(gFisico->getDeltaTime());
 }
-void Guerreiro::operator--(const int dano) { num_vidas -= dano; }
+void Guerreiro::operator--(const int dano) { 
+  danoTime = gFisico->getDeltaTime();
+  tomarDano = true;
+  num_vidas -= dano;
+}
 
 void Guerreiro::persegueJogador(sf::Vector2f posJogador,
                                 sf::Vector2f posInimigo) {
@@ -116,16 +126,22 @@ void Guerreiro::move() {
 }
 
 void Guerreiro::danificar(Entidade *entidade) {
-  if (entidade) {
+  if((gFisico->getDeltaTime() - danoTime) > 5.f){
+    tomarDano = false;
+  }
+ 
+  if(ataque && (!tomarDano) && (this->getPos().x - entidade->getPos().x) <= raio){
     Entidades::Personagens::Personagem *pPers =
         static_cast<Entidades::Personagens::Personagem *>(entidade);
-    pPers->operator--(dano);
+    pPers->operator--(20);
+    std::cout << "estive aq" << std::endl;
   }
 }
 
 void Guerreiro::tratarColisao(Entidade *entidade) {
   if (entidade->getId() == Entidades::ID::jogador) {
     danificar(entidade);
+    ataque = true;
   }
 }
 

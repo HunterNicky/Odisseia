@@ -19,6 +19,7 @@
 #define CAMINHO_PARADO_JOG "data\\Sprites\\player\\playeridle.png"
 #define CAMINHO_PULAR_JOG "data\\Sprites\\player\\playerjump.png"
 #define CAMINHO_SPIN_JOG "data\\Sprites\\player\\playerspin.png"
+#define CAMINHO_ATACAR_JOG "data\\Sprites\\player\\playerpunch.png"
 #define BARRA_VIDA_JOG_X 300.0f
 #define BARRA_VIDA_JOG_Y 80.0f
 
@@ -45,7 +46,7 @@ public:
   void animacao();
   const bool getProximaFase();
   void move();
-  void neutralizarInimigo(Entidade *pInimigo);
+  void danificarInimigo(Entidade *pInimigo);
   void tratarColisao(Entidade *entidade);
   void atacar();
   void pular();
