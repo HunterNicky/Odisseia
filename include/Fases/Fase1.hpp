@@ -3,7 +3,7 @@
 #include "Fase.hpp"
 #include "Fases/json.hpp"
 
-#define TAM_PERSONAGENS_X 32.f
+#define TAM_PERSONAGENS_X 20.f
 #define TAM_PERSONAGENS_Y 32.f
 namespace Fases {
 class Fase1 : public Fase {

@@ -8,6 +8,7 @@ namespace Personagens {
 void Jogador::inicializa() {
   vel = sf::Vector2f(0.0f, 0.0f);
   num_vidas = 1000;
+  body->setOrigin(sf::Vector2f(size.x / 2, size.y / 2));
   contextoAnimacao.setStrategy(
       static_cast<Animacao::AnimacaoStrategy *>(&parado), 0.1f);
   estamina = 1.f;
@@ -19,13 +20,17 @@ Jogador::Jogador(const sf::Vector2f pos, const sf::Vector2f size,
       andar(static_cast<Entidades::Entidade *>(this),
             "data\\Sprites\\Jogador\\PlayerWalk.png",
             "data\\Sprites\\Jogador\\PlayerRun.png", 8, 8,
-            sf::Vector2f(5.82, 6), sf::Vector2f(5.4, 6)),
+            sf::Vector2f(3 * 1.35, 3 * 0.96), sf::Vector2f(3 * 1.4, 3 * 0.90)),
       parado(static_cast<Entidades::Entidade *>(this),
-             "data\\Sprites\\Jogador\\PlayerIdle.png", 10, sf::Vector2f(4, 6)),
+             "data\\Sprites\\Jogador\\PlayerIdle.png", 10, sf::Vector2f(3, 3)),
       pulando(static_cast<Entidades::Entidade *>(this),
               "data\\Sprites\\Jogador\\PlayerJump.png",
               "data\\Sprites\\Jogador\\PlayerSpin.png", 3, 6,
-              sf::Vector2f(6.56, 6), sf::Vector2f(6.56, 6)),
+              sf::Vector2f(3 * 1.10, 3 * 1.09),
+              sf::Vector2f(3 * 1.4, 3 * 1.09)),
+      atacando(static_cast<Entidades::Entidade *>(this),
+               "data\\Sprites\\player\\playerpunch.png", 7,
+               sf::Vector2f(3 * 3.7, 3 * 0.93)),
       contextoAnimacao() {
   inicializa();
 }
@@ -38,13 +43,17 @@ Jogador::Jogador(nlohmann::json atributos, const int pos,
       andar(static_cast<Entidades::Entidade *>(this),
             "data\\Sprites\\Jogador\\PlayerWalk.png",
             "data\\Sprites\\Jogador\\PlayerRun.png", 8, 8,
-            sf::Vector2f(5.82, 2), sf::Vector2f(5.4, 2)),
+            sf::Vector2f(3 * 1.35, 3 * 0.96), sf::Vector2f(3 * 1.4, 3 * 0.90)),
       parado(static_cast<Entidades::Entidade *>(this),
-             "data\\Sprites\\Jogador\\PlayerIdle.png", 10, sf::Vector2f(4, 2)),
+             "data\\Sprites\\Jogador\\PlayerIdle.png", 10, sf::Vector2f(3, 3)),
       pulando(static_cast<Entidades::Entidade *>(this),
               "data\\Sprites\\Jogador\\PlayerJump.png",
               "data\\Sprites\\Jogador\\PlayerSpin.png", 3, 6,
-              sf::Vector2f(6.56, 2), sf::Vector2f(6.56, 2)),
+              sf::Vector2f(3 * 1.10, 3 * 1.09),
+              sf::Vector2f(3 * 1.4, 3 * 1.09)),
+      atacando(static_cast<Entidades::Entidade *>(this),
+               "data\\Sprites\\player\\playerpunch.png", 7,
+               sf::Vector2f(3 * 3.7, 3 * 0.93)),
       contextoAnimacao() {
 
   this->setVel(sf::Vector2f(atributos[pos]["Velocidade"][0],
@@ -59,7 +68,9 @@ void Jogador::operator--(const int dano) {
 }
 
 void Jogador::animacao() {
-  if (onFloor) {
+  if (ataque) {
+    contextoAnimacao.setStrategy(&atacando, 0.1f);
+  } else if (onFloor) {
     if (std::abs(vel.x) > 0.3f) {
       contextoAnimacao.setStrategy(&andar, 0.1f);
     } else {
@@ -78,9 +89,9 @@ void Jogador::move() {
 
 void Jogador::direcionar(bool side) {
   if (side) {
-    forca.x = 5000.f;
+    forca.x = 3000.f;
   } else {
-    forca.x = -5000.f;
+    forca.x = -3000.f;
   }
   if (!onFloor)
     forca.y = 0;
@@ -104,6 +115,8 @@ void Jogador::correr() {
     }
   }
 }
+
+void Jogador::atacar() { ataque = true; }
 
 void Jogador::pular() {
   jumpTime += gFisico->getDeltaTime();

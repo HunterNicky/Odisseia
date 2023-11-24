@@ -1,5 +1,6 @@
 #include "Gerenciadores/QuadTree.hpp"
 #include "Entidades/Entidade.hpp"
+#include <valarray>
 
 namespace Gerenciadores {
 Quadtree::Quadtree(sf::FloatRect boundary, int capacity) {
@@ -101,12 +102,13 @@ bool Quadtree::detectCollision(Entidades::Entidade *entidade,
                                 collisionRect.top + collisionRect.height) -
                        std::max(collisionRect2.top, collisionRect.top);
 
-      if (overlapX < overlapY) {
+      if (overlapX - overlapY < -std::abs(entidade->getVel().y * 1.1f)) {
         mtv.x = (collisionRect2.left + collisionRect2.width / 2.f <
                  collisionRect.left + collisionRect.width / 2.f)
                     ? -overlapX
                     : overlapX;
-      } else {
+      } else if ((overlapY - overlapX) <
+                 -std::abs(entidade->getVel().x * 1.1f)) {
         mtv.y = (collisionRect2.top + collisionRect2.height / 2.f <
                  collisionRect.top + collisionRect.height / 2.f)
                     ? -overlapY
@@ -125,7 +127,6 @@ bool Quadtree::detectCollision(Entidades::Entidade *entidade,
       if (nodes[i]->detectCollision(entidade, colliEnti, childCollisionRect,
                                     childMTV)) {
         collisionDetected = true;
-
         if (std::abs(childMTV.x) < std::abs(mtv.x))
           mtv.x = childMTV.x;
         if (std::abs(childMTV.y) < std::abs(mtv.y))

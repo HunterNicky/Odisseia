@@ -23,7 +23,7 @@ private:
   static Estados::MaquinaDeEstado *pMaquinaDeEstado;
   Entidades::Personagens::Jogador *pJogador;
   Fases::Fase *pFase;
-  std::string pular, esquerda, direita, correr;
+  std::string pular, esquerda, direita, correr, atacar;
   std::string fechar;
 
 public:

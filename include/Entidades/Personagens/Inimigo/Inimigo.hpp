@@ -28,6 +28,7 @@ public:
   virtual void executar() = 0;
   virtual void update() = 0;
   virtual void salvar(std::ostringstream *entrada) = 0;
+  virtual void atacar() = 0;
 };
 } // namespace Personagens
 } // namespace Entidades

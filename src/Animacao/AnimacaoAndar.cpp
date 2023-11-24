@@ -15,6 +15,7 @@ AnimacaoAndar::AnimacaoAndar(Entidades::Entidade *entidade, std::string path,
   rectSize.width = (textura->getSize().x / numFrames);
   rectSize.height = (textura->getSize().y);
   entidade->getBody()->setTexture(textura);
+  entidade->getBody()->setScale(escalaWalk);
 }
 
 AnimacaoAndar::~AnimacaoAndar(){};
@@ -47,12 +48,11 @@ void AnimacaoAndar::updateSpriteRect() {
 }
 
 void AnimacaoAndar::updateRun() {
-  if (std::abs(entidade->getForca().x) > 5050.f) {
+  if (std::abs(entidade->getForca().x) > 3050.f) {
     numFrames = numFrameRun;
     rectSize.width = (run->getSize().x / numFrames);
     rectSize.height = (run->getSize().y);
     rectSize.left = 0;
-    entidade->getBody()->setScale(escalaRun);
     changeTexture(run);
   } else {
     numFrames = numFrameWalk;

@@ -4,8 +4,8 @@
 #include "Inimigo.hpp"
 #include <math.h>
 
-#define TAM_INIMIGO_MED_X 60.0f
-#define TAM_INIMIGO_MED_Y 96.0f
+#define TAM_INIMIGO_MED_X 20.0f
+#define TAM_INIMIGO_MED_Y 32.0f
 
 #define CAMINHO_VIAJANTE_ANDAR "data\\Sprites\\travel\\travelwalk.png"
 #define CAMINHO_VIAJANTE_PARADO "data\\Sprites\\travel\\travelidle.png"
@@ -45,6 +45,7 @@ public:
   const bool getProjAtivo();
   const bool getDirecaoProj();
   void move();
+  void atacar();
   void tratarColisao(Entidade *entidade);
   void executar();
   void update();

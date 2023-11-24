@@ -8,6 +8,7 @@ namespace Personagens {
 class Personagem : public Entidade {
 protected:
   bool onFloor;
+  bool ataque;
   float jumpTime;
   int num_vidas;
 
@@ -22,11 +23,13 @@ public:
   virtual void tratarColisao(Entidade *entidade) = 0;
   virtual void verificaSolo(const sf::Vector2f mtv);
   void setOnFloor(const bool floor);
+  void setAtaque(const bool ataque);
   const float getJumpTime() const;
   const int getNum_vidas() const;
   virtual void salvar(std::ostringstream *entrada) = 0;
   virtual void executar() = 0;
   virtual void update() = 0;
+  virtual void atacar() = 0;
 };
 } // namespace Personagens
 } // namespace Entidades

@@ -112,6 +112,11 @@ void Viajante::tratarColisao(Entidade *entidade) {}
 
 void Viajante::executar() { move(); }
 
+void Viajante::atacar(){
+  
+}
+
+
 void Viajante::update() {
   executar();
   animacao();

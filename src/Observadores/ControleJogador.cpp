@@ -8,7 +8,7 @@ Estados::MaquinaDeEstado *ControleJogador::pMaquinaDeEstado =
 ControleJogador::ControleJogador(Entidades::Personagens::Jogador *pJogador,
                                  Fases::Fase *pFase)
     : Observer(), pJogador(pJogador), pFase(pFase), pular("W"), esquerda("A"),
-      direita("D"), correr("LShift"), fechar("Escape") {}
+      direita("D"), correr("LShift"), atacar("Space"), fechar("Escape") {}
 
 ControleJogador::~ControleJogador() {}
 
@@ -22,6 +22,9 @@ void ControleJogador::jogadorNeutralizado() {
 }
 void ControleJogador::notifyPressed(const sf::Keyboard::Key key) {
   if (pJogador && pMaquinaDeEstado->getEstadoAtual()->getAtivo()) {
+    if (keyboard[key] == atacar) {
+      pJogador->atacar();
+    }
     if (keyboard[key] == direita) {
       pJogador->direcionar(true);
     } else if (keyboard[key] == esquerda) {

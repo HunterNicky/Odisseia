@@ -135,10 +135,16 @@ void Guerreiro::update() {
   executar();
   animacao();
 }
+
 void Guerreiro::salvar(std::ostringstream *entrada) {
   (*entrada) << "{ \"ID\": [" << 2 << "], \"Posicao\": [" << pos.x << " , "
              << pos.y << "], \"Velocidade\": [" << vel.x << " , " << vel.y
              << "], \"Vida\": [" << this->getNum_vidas() << "] }" << std::endl;
 }
+
+void Guerreiro::atacar(){
+
+}
+
 } // namespace Personagens
 } // namespace Entidades

@@ -87,7 +87,14 @@ void Samurai::tratarColisao(Entidade *entidade) {
     }
   }
 }
+
+void Samurai::atacar(){
+
+}
+
+
 void Samurai::executar() { move(); }
+
 void Samurai::update() {
   executar();
   animacao();

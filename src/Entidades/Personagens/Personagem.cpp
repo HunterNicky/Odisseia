@@ -5,7 +5,7 @@ namespace Entidades {
 namespace Personagens {
 Personagem::Personagem(const sf::Vector2f pos, const sf::Vector2f size,
                        const Entidades::ID id)
-    : Entidade(pos, size, id), jumpTime(0) {}
+    : Entidade(pos, size, id), ataque(false), jumpTime(0) {}
 Personagem::~Personagem() {}
 
 void Personagem::verificaSolo(const sf::Vector2f mtv) {
@@ -18,6 +18,8 @@ void Personagem::verificaSolo(const sf::Vector2f mtv) {
 }
 
 void Personagem::setOnFloor(const bool floor) { this->onFloor = floor; }
+
+void Personagem::setAtaque(const bool ataque) { this->ataque = ataque; }
 
 const int Personagem::getNum_vidas() const { return num_vidas; }
 
