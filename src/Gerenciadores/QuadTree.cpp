@@ -1,5 +1,6 @@
 #include "Gerenciadores/QuadTree.hpp"
 #include "Entidades/Entidade.hpp"
+#include "Entidades/Personagens/Personagem.hpp"
 #include <valarray>
 
 namespace Gerenciadores {
@@ -107,12 +108,18 @@ bool Quadtree::detectCollision(Entidades::Entidade *entidade,
                  collisionRect.left + collisionRect.width / 2.f)
                     ? -overlapX
                     : overlapX;
-      }else if(overlapY - overlapX < -std::abs(entidade->getVel().x)) {
+      } else if (overlapY - overlapX < -std::abs(entidade->getVel().x)) {
         mtv.y = (collisionRect2.top + collisionRect2.height / 2.f <
                  collisionRect.top + collisionRect.height / 2.f)
                     ? -overlapY
                     : overlapY;
       }
+      if (!otherEntity->getEstatico()) {
+        entidade->setPos(entidade->getPos() + mtv);
+        entidade->setPrevPos(entidade->getPrevPos() + mtv);
+        mtv = sf::Vector2f(0, 0);
+      }
+
       colliEnti.push_back(otherEntity);
       collisionDetected = true;
     }

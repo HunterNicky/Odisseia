@@ -62,8 +62,8 @@ Jogador::Jogador(nlohmann::json atributos, const int pos,
 Jogador::~Jogador() {}
 
 void Jogador::operator--(const int dano) {
-  std::cout << num_vidas << std::endl;
-  this->num_vidas -= dano;
+  //std::cout << num_vidas << std::endl;
+  //this->num_vidas -= dano;
 }
 
 void Jogador::animacao() {

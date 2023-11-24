@@ -25,6 +25,8 @@ const int Personagem::getNum_vidas() const { return num_vidas; }
 
 const float Personagem::getJumpTime() const { return jumpTime; }
 
+const bool Personagem::getAtacando() { return ataque; }
+
 void Personagem::move() {
   Entidade::body->setPosition(pos);
   gColisao->Notify(static_cast<Entidades::Entidade *>(this));

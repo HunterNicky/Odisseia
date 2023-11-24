@@ -13,15 +13,14 @@ Entidade::Entidade(const sf::Vector2f pos, const sf::Vector2f size,
                    const Entidades::ID id)
     : Ente(pos, size), body(new sf::RectangleShape(size)), ID(id), prevPos(pos),
       massa(20) {
-  if (id == Entidades::ID::jogador || id == Entidades::ID::Guerreiro ||
-      id == Entidades::ID::Samurai || id == Entidades::ID::Viajante ||
-      id == Entidades::ID::Laser) {
-    entidadeEstatica = false;
-  } else {
+  if (id == Entidades::ID::Gosma || id == Entidades::ID::Lava ||
+      id == Entidades::ID::Plataforma) {
     entidadeEstatica = true;
+  } else {
+    entidadeEstatica = false;
   }
   body->setPosition(pos);
-  body->setOrigin(sf::Vector2f(size.x / 2, size.y));
+  body->setOrigin(sf::Vector2f(size.x / 2, size.y / 2));
 }
 
 Entidade::~Entidade() { delete (body); }
