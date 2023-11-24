@@ -7,7 +7,6 @@
 #include "Menu/Botoes/Texto.hpp"
 #include <list>
 
-
 namespace Observadores {
 class ControleMenu;
 }

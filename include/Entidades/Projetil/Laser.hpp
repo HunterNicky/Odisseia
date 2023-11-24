@@ -19,7 +19,7 @@ public:
   Laser(nlohmann::json atributos, const int pos, const Entidades::ID id,
         Entidades::Personagens::Viajante *pInim = nullptr);
   ~Laser();
-  void tratarColisao(Entidades::Entidade *entidade);
+  void tratarColisao(Entidades::Entidade *entidade, const sf::Vector2f mtv);
   void verificaSolo(const sf::Vector2f mtv);
   void move();
   void draw();

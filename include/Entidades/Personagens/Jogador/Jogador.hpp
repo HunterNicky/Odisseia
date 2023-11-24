@@ -37,7 +37,7 @@ public:
   void animacao();
   void move();
   void neutralizarInimigo(Entidade *pInimigo);
-  void tratarColisao(Entidade *entidade);
+  void tratarColisao(Entidade *entidade, const sf::Vector2f mtv);
   void atacar();
   void pular();
   void correr();

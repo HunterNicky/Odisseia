@@ -16,7 +16,7 @@ void Gosma::atrasar(Entidade *entidade) {
   entidade->setVel(vel);
 }
 
-void Gosma::tratarColisao(Entidade *entidade) {
+void Gosma::tratarColisao(Entidade *entidade, const sf::Vector2f mtv) {
   if (entidade) {
     if (entidade->getId() == Entidades::ID::jogador) {
       atrasar(entidade);

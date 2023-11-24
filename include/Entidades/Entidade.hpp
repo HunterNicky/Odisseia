@@ -7,7 +7,6 @@
 #include <iostream>
 #include <sstream>
 
-
 namespace Gerenciadores {
 class GerenciadorDeColisao;
 class GerenciadorFisico;
@@ -34,6 +33,7 @@ protected:
   static Gerenciadores::GerenciadorDeColisao *gColisao;
   static Gerenciadores::GerenciadorFisico *gFisico;
   const Entidades::ID ID;
+  bool entidadeEstatica;
   sf::Vector2f vel;
   sf::Vector2f acc;
   sf::Vector2f forca;
@@ -51,6 +51,7 @@ public:
   void setAcc(const sf::Vector2f acc);
   void setMassa(const float massa);
   void setPrevPos(const sf::Vector2f prevPos);
+  const bool getEstatico();
   const sf::Vector2f getVel() const;
   const sf::Vector2f getAcc() const;
   const sf::Vector2f getForca() const;
@@ -59,7 +60,7 @@ public:
   sf::RectangleShape *getBody();
   virtual void executar() = 0;
   virtual void update() = 0;
-  virtual void tratarColisao(Entidade *entidade) = 0;
+  virtual void tratarColisao(Entidade *entidade, const sf::Vector2f mtv) = 0;
   virtual void verificaSolo(const sf::Vector2f mtv) = 0;
   virtual void salvar(std::ostringstream *entrada) = 0;
   virtual void draw();

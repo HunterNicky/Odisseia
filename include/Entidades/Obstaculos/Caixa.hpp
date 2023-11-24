@@ -20,7 +20,7 @@ public:
   ObstaculoFacil(nlohmann::json atributos, const int pos,
                  const Entidades::ID id);
   ~ObstaculoFacil();
-  void tratarColisao(Entidade *entidade);
+  void tratarColisao(Entidade *entidade, const sf::Vector2f mtv);
   void executar();
   void update();
   void salvar(std::ostringstream *entrada);

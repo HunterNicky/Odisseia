@@ -17,7 +17,7 @@ public:
   Lava(const sf::Vector2f pos, const sf::Vector2f size, const Entidades::ID id);
   ~Lava();
   void queimar(Entidade *entidade);
-  void tratarColisao(Entidade *entidade);
+  void tratarColisao(Entidade *entidade, const sf::Vector2f mtv);
   void executar();
   void update();
   void salvar(std::ostringstream *entrada);

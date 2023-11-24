@@ -46,7 +46,16 @@ Samurai::Samurai(nlohmann::json atributos, const int pos,
 }
 
 Samurai::~Samurai() {}
-void Samurai::animacao() {}
+void Samurai::animacao() {
+  if (onFloor) {
+    if (std::abs(vel.x) > 0.3f) {
+      contextoAnimacao.setStrategy(&andar, 0.1f);
+    } else {
+      contextoAnimacao.setStrategy(&parado, 0.5f);
+    }
+  }
+  contextoAnimacao.updateStrategy(gFisico->getDeltaTime());
+}
 
 void Samurai::operator--(const int dano) { num_vidas -= dano; }
 void Samurai::movimentoAleatorio() {
@@ -80,11 +89,13 @@ void Samurai::danificar(Entidade *entidade) {
   pPers->operator--(200);
 }
 
-void Samurai::tratarColisao(Entidade *entidade) {
-  if (entidade) {
-    if (entidade->getId() == Entidades::ID::jogador) {
-      danificar(entidade);
-    }
+void Samurai::tratarColisao(Entidade *entidade, const sf::Vector2f mtv) {
+  if (entidade->getId() == Entidades::ID::Plataforma){
+    entidade->tratarColisao(static_cast<Entidades::Entidade*>(this), mtv);
+    verificaSolo(mtv);
+    pos.x -= vel.x * 0.01f;
+  }else if (entidade->getId() == Entidades::ID::jogador) {
+    danificar(entidade);
   }
 }
 

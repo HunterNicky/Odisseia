@@ -2,7 +2,7 @@
 #include "Entidades/Entidade.hpp"
 
 namespace Animacao {
-AnimacaoContext::AnimacaoContext() : strategy(nullptr), standardTime(0.f) {}
+AnimacaoContext::AnimacaoContext() : strategy(nullptr), standardTime(1.f) {}
 
 AnimacaoContext::~AnimacaoContext() { strategy = nullptr; }
 

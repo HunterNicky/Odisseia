@@ -22,15 +22,14 @@ void ControleJogador::jogadorNeutralizado() {
 }
 void ControleJogador::notifyPressed(const sf::Keyboard::Key key) {
   if (pJogador && pMaquinaDeEstado->getEstadoAtual()->getAtivo()) {
-    if (keyboard[key] == atacar) {
-      pJogador->atacar();
-    }
     if (keyboard[key] == direita) {
       pJogador->direcionar(true);
     } else if (keyboard[key] == esquerda) {
       pJogador->direcionar(false);
     }
-    if (keyboard[key] == pular) {
+    if (keyboard[key] == atacar) {
+      pJogador->atacar();
+    } else if (keyboard[key] == pular) {
       pJogador->pular();
     } else if (keyboard[key] == correr) {
       pJogador->correr();

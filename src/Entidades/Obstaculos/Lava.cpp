@@ -20,7 +20,7 @@ void Lava::queimar(Entidade *entidade) {
   pPers->operator--(queimadura);
 }
 
-void Lava::tratarColisao(Entidade *entidade) {
+void Lava::tratarColisao(Entidade *entidade, const sf::Vector2f mtv) {
   if (entidade) {
     if (entidade->getId() == Entidades::ID::jogador) {
       queimar(entidade);

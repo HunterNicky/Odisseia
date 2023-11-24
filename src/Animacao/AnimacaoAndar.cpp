@@ -9,7 +9,7 @@ AnimacaoAndar::AnimacaoAndar(Entidades::Entidade *entidade, std::string path,
                              const sf::Vector2f escalaRun,
                              const sf::Vector2f escalaWalk)
     : AnimacaoStrategy(entidade, numFrameWalk, escalaWalk),
-      numFrameWalk(numFrameWalk), numFrameRun(numFrameRun), actualFrame(0.f) {
+      numFrameWalk(numFrameWalk), numFrameRun(numFrameRun), actualFrame(1.f) {
   textura = pGrafico->loadTexture(path);
   run = pGrafico->loadTexture(path2);
   rectSize.width = (textura->getSize().x / numFrames);
