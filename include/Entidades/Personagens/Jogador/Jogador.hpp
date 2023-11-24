@@ -28,13 +28,12 @@ class Jogador : public Personagem {
 private:
   void inicializa();
   float estamina;
-            bool proximaFase;
+  bool proximaFase;
   Animacao::AnimacaoAndar andar;
   Animacao::AnimacaoParado parado;
   Animacao::AnimacaoPular pulando;
   Animacao::AnimacaoAtaque atacando;
   Animacao::AnimacaoContext contextoAnimacao;
-            
 
 public:
   Jogador(const sf::Vector2f pos, const sf::Vector2f size,
@@ -44,7 +43,7 @@ public:
   void operator--(const int dano);
   const float getEstamina() const;
   void animacao();
-            const bool getProximaFase();
+  const bool getProximaFase();
   void move();
   void neutralizarInimigo(Entidade *pInimigo);
   void tratarColisao(Entidade *entidade);

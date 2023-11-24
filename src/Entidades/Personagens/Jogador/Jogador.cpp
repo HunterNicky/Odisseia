@@ -1,4 +1,5 @@
 #include "Entidades/Personagens/Jogador/Jogador.hpp"
+#include "Entidades/Obstaculos/Caixa.hpp"
 #include "Gerenciadores/GerenciadorFisico.hpp"
 #include <iostream>
 
@@ -80,9 +81,7 @@ void Jogador::animacao() {
   contextoAnimacao.updateStrategy(gFisico->getDeltaTime());
 }
 
-        const bool Jogador::getProximaFase(){
-            return proximaFase;
-        }
+const bool Jogador::getProximaFase() { return proximaFase; }
 
 void Jogador::move() {
   Entidade::body->setPosition(pos);
@@ -143,51 +142,50 @@ void Jogador::neutralizarInimigo(Entidade *pInimigo) {
   }
 }
 
-        void Jogador::tratarColisao(Entidade* entidade){
-            switch (entidade->getId())
-            {
-            case (ID::Guerreiro):
-                neutralizarInimigo(entidade);
-                break;
-            case (ID::Viajante):
-                neutralizarInimigo(entidade);
-                break;
-            case(ID::Samurai):
-                neutralizarInimigo(entidade);
-                break;
-            case (ID::Plataforma):
-                entidade->tratarColisao(static_cast<Entidades::Entidade*>(this));
-                pos.x -= vel.x*0.01;
-                break;
-            case (ID::Caixa):{
-                entidade->tratarColisao(static_cast<Entidades::Entidade*>(this));
-                Entidades::Obstaculos::Caixa* pPortal = static_cast<Entidades::Obstaculos::Caixa*>(entidade);
-                if(pPortal->getPortalAtivo()) {
-                    proximaFase = true;
-                    std::cout << "Portal " << std::endl;
-                }
-                }
-                break;
-            case (ID::Gosma):
-                entidade->tratarColisao(static_cast<Entidades::Entidade*>(this));
-                break;
-            case (ID::Lava):
-                entidade->tratarColisao(static_cast<Entidades::Entidade*>(this));
-                break;
-            default:
-                break;
-            }
-        }
+void Jogador::tratarColisao(Entidade *entidade) {
+  switch (entidade->getId()) {
+  case (ID::Guerreiro):
+    neutralizarInimigo(entidade);
+    break;
+  case (ID::Viajante):
+    neutralizarInimigo(entidade);
+    break;
+  case (ID::Samurai):
+    neutralizarInimigo(entidade);
+    break;
+  case (ID::Plataforma):
+    entidade->tratarColisao(static_cast<Entidades::Entidade *>(this));
+    pos.x -= vel.x * 0.01;
+    break;
+  case (ID::Caixa): {
+    entidade->tratarColisao(static_cast<Entidades::Entidade *>(this));
+    Entidades::Obstaculos::Caixa *pPortal =
+        static_cast<Entidades::Obstaculos::Caixa *>(entidade);
+    if (pPortal->getPortalAtivo()) {
+      proximaFase = true;
+      std::cout << "Portal " << std::endl;
+    }
+  } break;
+  case (ID::Gosma):
+    entidade->tratarColisao(static_cast<Entidades::Entidade *>(this));
+    break;
+  case (ID::Lava):
+    entidade->tratarColisao(static_cast<Entidades::Entidade *>(this));
+    break;
+  default:
+    break;
+  }
+}
 
 const float Jogador::getEstamina() const { return estamina; }
 
 void Jogador::parar() { forca.x = 0; }
 
-        void Jogador::executar(){
-            animacao();
-            move();
-            //pGrafico->draw(static_cast<sf::Drawable*>(barraDeVida));
-        }
+void Jogador::executar() {
+  animacao();
+  move();
+  // pGrafico->draw(static_cast<sf::Drawable*>(barraDeVida));
+}
 
 void Jogador::update() {
   if (estamina < 1.f)

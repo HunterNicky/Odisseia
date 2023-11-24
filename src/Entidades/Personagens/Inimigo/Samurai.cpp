@@ -43,19 +43,17 @@ Samurai::Samurai(nlohmann::json atributos, const int pos,
   this->num_vidas = atributos[pos]["Vida"][0];
 }
 
-        Samurai::~Samurai(){
-
-        }
-        void Samurai::animacao(){
-           if (onFloor) {
-                if (std::abs(vel.x) > 0.3f) {
-                    contextoAnimacao.setStrategy(&andar, 0.1f);
-                } else {
-                    contextoAnimacao.setStrategy(&parado, 0.5f);
-                }
-            } 
-            contextoAnimacao.updateStrategy(gFisico->getDeltaTime());
-        }
+Samurai::~Samurai() {}
+void Samurai::animacao() {
+  if (onFloor) {
+    if (std::abs(vel.x) > 0.3f) {
+      contextoAnimacao.setStrategy(&andar, 0.1f);
+    } else {
+      contextoAnimacao.setStrategy(&parado, 0.5f);
+    }
+  }
+  contextoAnimacao.updateStrategy(gFisico->getDeltaTime());
+}
 
 void Samurai::operator--(const int dano) { num_vidas -= dano; }
 void Samurai::movimentoAleatorio() {
@@ -97,10 +95,7 @@ void Samurai::tratarColisao(Entidade *entidade) {
   }
 }
 
-void Samurai::atacar(){
-
-}
-
+void Samurai::atacar() {}
 
 void Samurai::executar() { move(); }
 

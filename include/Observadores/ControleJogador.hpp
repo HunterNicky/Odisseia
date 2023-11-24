@@ -6,7 +6,6 @@
 #include "Menu/MenuPausa.hpp"
 #include "Observer.hpp"
 
-
 namespace Fases {
 class Fase;
 
@@ -32,7 +31,7 @@ public:
   ~ControleJogador();
   void setJogador(Entidades::Personagens::Jogador *pJogador);
   void jogadorNeutralizado();
-            const bool proximaFase();
+  const bool proximaFase();
   void notifyPressed(const sf::Keyboard::Key key);
   void notifyReleased(const sf::Keyboard::Key key);
 };

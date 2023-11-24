@@ -8,7 +8,6 @@
 #include "Menu/MenuOpcoes.hpp"
 #include "Menu/MenuRanking.hpp"
 
-
 #define TAMANHO_BOTAO_X 200.f
 #define TAMANHO_BOTAO_Y 50.f
 #define POS_BOTAO_X 640.f
