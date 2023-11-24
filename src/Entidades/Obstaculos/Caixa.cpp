@@ -1,20 +1,17 @@
-#include "..\..\..\include\Entidades\Obstaculos\Caixa.hpp"
-#include "Animacao/AnimacaoContext.hpp"
-#include "Entidades/Entidade.hpp"
 #include "Entidades/Obstaculos/Caixa.hpp"
 
 namespace Entidades{
     namespace Obstaculos{
-        ObstaculoFacil::ObstaculoFacil(const sf::Vector2f pos, const sf::Vector2f size, const Entidades::ID id) :
+        Caixa::Caixa(const sf::Vector2f pos, const sf::Vector2f size, const Entidades::ID id, const std::string path) :
             Obstaculo(pos, size, id),
-            bloco(static_cast<Entidades::Entidade*>(this), "data\\Sprites\\Obstaculo\\Grama.png", 6),
+            bloco(static_cast<Entidades::Entidade*>(this), path, 1),
             contexto()
         {
             contexto.setStrategy(&bloco, 1.f);
             this->body->setFillColor(sf::Color::White);
         }
 
-        ObstaculoFacil::ObstaculoFacil(nlohmann::json atributos, const int pos, const Entidades::ID id):
+        Caixa::Caixa(nlohmann::json atributos, const int pos, const Entidades::ID id):
             Obstaculo(sf::Vector2f(atributos[pos]["Posicao"][0],atributos[pos]["Posicao"][1]), sf::Vector2f(TAM_PLATAFORMA_X, TAM_PLATAFORMA_Y), id),
             bloco(static_cast<Entidades::Entidade*>(this), "data\\Sprites\\Obstaculo\\Grama.png", 6),
             contexto()
@@ -22,19 +19,26 @@ namespace Entidades{
             contexto.setStrategy(&bloco, 1.f);
             this->body->setFillColor(sf::Color::White);
         }
-        ObstaculoFacil::~ObstaculoFacil(){
-
-        }
-        void ObstaculoFacil::tratarColisao(Entidade* entidade){
-
-        }
-        void ObstaculoFacil::executar(){
+        Caixa::~Caixa(){}
+        
+        void Caixa::animacao(){
             contexto.updateStrategy(gFisico->getDeltaTime());
         }
-        void ObstaculoFacil::update(){
+        void Caixa::colocarTextura(const char c){
+ 
+        }
+        void Caixa::tratarColisao(Entidade* entidade){
+            if(ativo){ //portal
+                
+            }
+        }
+        void Caixa::executar(){
+            animacao();
+        }
+        void Caixa::update(){
             executar();
         }
-        void ObstaculoFacil::salvar(std::ostringstream* entrada){
+        void Caixa::salvar(std::ostringstream* entrada){
              (*entrada) << "{ \"ID\": [" << 5 << "], \"Posicao\": [" << pos.x << " , " << pos.y << "] }"<< std::endl;
         }
     }

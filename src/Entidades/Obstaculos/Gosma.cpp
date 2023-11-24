@@ -1,18 +1,25 @@
 #include "..\..\..\include\Entidades\Obstaculos\Gosma.hpp"
+#include "Animacao/AnimacaoContext.hpp"
 #include "Entidades/Entidade.hpp"
 #include "Entidades/Obstaculos/Gosma.hpp"
 
 namespace Entidades{
     namespace Obstaculos{
+        float Gosma::slow = 0.5;
+
         Gosma::Gosma(const sf::Vector2f pos, const sf::Vector2f size, const Entidades::ID id):
-            Obstaculo(pos, size, id)
-        {
+            Obstaculo(pos, size, id), bloco(static_cast<Entidades::Entidade*>(this), CAMINHO_BLOCO_GOSMA, 10), contexto(){
             this->body->setFillColor(sf::Color::Green);
+            contexto.setStrategy(&bloco, 0.1f);
         }
         Gosma::~Gosma(){}
 
+        void Gosma::animacao(){
+            contexto.updateStrategy(gFisico->getDeltaTime());
+        }
+
         void Gosma::atrasar(Entidade* entidade){
-            sf::Vector2f vel = entidade->getVel()/2.0f;
+            sf::Vector2f vel = entidade->getVel()*slow;
             entidade->setVel(vel);
         }
 
@@ -25,7 +32,7 @@ namespace Entidades{
         }
         
         void Gosma::executar(){
-
+            animacao();
         }
         void Gosma::update(){
             executar();

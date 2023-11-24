@@ -3,7 +3,8 @@
 
 namespace Menu {
     MenuOpcoes::MenuOpcoes(): 
-        Menu(1, 2, sf::Vector2f(POS_TEXTO_OPTION_X - TAM_TEXTO_OPTION_X*1.5, POS_TEXTO_OPTION_Y -TAM_TEXTO_OPTION_Y/2), sf::Vector2f(TAM_TEXTO_OPTION_X, TAM_TEXTO_OPTION_Y), "OPCOES", 120){
+        Menu(1, 2, sf::Vector2f(POS_TEXTO_OPTION_X - TAM_TEXTO_OPTION_X*1.5, POS_TEXTO_OPTION_Y -TAM_TEXTO_OPTION_Y/2), sf::Vector2f(TAM_TEXTO_OPTION_X, TAM_TEXTO_OPTION_Y), "OPCOES", 120),
+        pBotao(nullptr){
         inicializaBotao();
         titulo.setColor(sf::Color::White);
     }
@@ -17,7 +18,12 @@ namespace Menu {
         }*/
     }
 
-    //void MenuOpcoes::setFase(Fases::Fase* pFase){ this->pFase = pFase;}
+    void MenuOpcoes::selecionaBotao(){
+        if(pBotao!= nullptr){
+            pBotao->selecionado(true);
+            Menu::it = Menu::lBotao.begin();
+        }
+    }
 
     void MenuOpcoes::executar(){
         switch(numSelec){
@@ -37,7 +43,6 @@ namespace Menu {
         }
     }
     void MenuOpcoes::inicializaBotao(){
-        Botoes::Botao* pBotao = NULL;
          
         pBotao = new Botoes::Botao(sf::Vector2f(640.f - 100, 360.f - 100), std::string(" Fase 1"));
         pBotao->selecionado(true);

@@ -16,8 +16,8 @@ namespace Entidades{
             num_vidas = 100;
         }
         Viajante::Viajante(const sf::Vector2f pos, const sf::Vector2f size, const Entidades::ID id, Entidades::Personagens::Jogador* pJog, Entidades::Laser* proj):   
-            Inimigo(pos, size, id, pJog), pProj(proj), andar(static_cast<Entidades::Entidade*>(this), CAMINHO_VIAJANTE_ANDAR, CAMINHO_VIAJANTE_ANDAR, 8, 8),
-            parado(static_cast<Entidades::Entidade*>(this), CAMINHO_VIAJANTE_PARADO, 10), contextoAnimacao(){
+            Inimigo(pos, size, id, pJog), pProj(proj), andar(static_cast<Entidades::Entidade*>(this), CAMINHO_VIAJANTE_ANDAR, CAMINHO_VIAJANTE_ANDAR, 1, 1),
+            parado(static_cast<Entidades::Entidade*>(this), CAMINHO_VIAJANTE_PARADO, 1), contextoAnimacao(){
             inicializa();
         }
 

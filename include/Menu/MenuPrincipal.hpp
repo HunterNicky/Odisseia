@@ -12,6 +12,7 @@
 #define TAMANHO_BOTAO_Y 50.f
 #define POS_BOTAO_X 640.f
 #define POS_BOTAO_Y 200.f
+#define CAMINHO_FONTE_TITULO "data\\Font\\menus.TTF"
 namespace Estados{
     class Jogo;
 }

@@ -1,4 +1,3 @@
-#include "Animacao/AnimacaoParado.hpp"
 #include "Entidades/Personagens/Jogador/Jogador.hpp"
 #include "Gerenciadores/GerenciadorFisico.hpp"
 #include <iostream>
@@ -13,25 +12,20 @@ namespace Entidades{
 
         Jogador::Jogador(const sf::Vector2f pos, const sf::Vector2f size, const Entidades::ID id):
             Personagem(pos, size, id), 
-            andar(static_cast<Entidades::Entidade*>(this) ,"data\\Sprites\\player\\playerwalk.png",
-            "data\\Sprites\\player\\playerrun.png" , 8, 8), 
-            parado(static_cast<Entidades::Entidade*>(this), "data\\Sprites\\player\\playeridle.png", 10),
-            pulando(static_cast<Entidades::Entidade*>(this), "data\\Sprites\\player\\playerjump.png", 
-            "data\\Sprites\\player\\playerspin.png", 3, 6),
-            contextoAnimacao()
-        {
+            andar(static_cast<Entidades::Entidade*>(this) ,CAMINHO_ANDAR_JOG, CAMINHO_CORRER_JOG , 8, 8), 
+            parado(static_cast<Entidades::Entidade*>(this), CAMINHO_PARADO_JOG, 10),
+            pulando(static_cast<Entidades::Entidade*>(this), CAMINHO_PULAR_JOG, CAMINHO_SPIN_JOG, 3, 6),
+            contextoAnimacao(){
             inicializa();
+            inicializarBarraDeVida();
         }
 
         Jogador::Jogador(nlohmann::json atributos, const int pos, const Entidades::ID id):
             Personagem(sf::Vector2f(atributos[pos]["Posicao"][0], atributos[pos]["Posicao"][1]), sf::Vector2f(TAM_X_JOGADOR, TAM_Y_JOGADOR), id),
-            andar(static_cast<Entidades::Entidade*>(this) ,"data\\Sprites\\player\\PlayerWalk.png",
-            "data\\Sprites\\player\\PlayerRun.png" , 8, 8), 
-            parado(static_cast<Entidades::Entidade*>(this), "data\\Sprites\\player\\PlayerIdle.png", 10),
-            pulando(static_cast<Entidades::Entidade*>(this), "data\\Sprites\\player\\PlayerJump.png", 
-            "data\\Sprites\\player\\PlayerSpin.png", 3, 6),
-            contextoAnimacao(){
-            
+            andar(static_cast<Entidades::Entidade*>(this) ,CAMINHO_ANDAR_JOG, CAMINHO_CORRER_JOG , 8, 8), 
+            parado(static_cast<Entidades::Entidade*>(this), CAMINHO_PARADO_JOG, 10),
+            pulando(static_cast<Entidades::Entidade*>(this), CAMINHO_PULAR_JOG, CAMINHO_SPIN_JOG, 3, 6),
+            contextoAnimacao(){  
             this->setVel(sf::Vector2f(atributos[pos]["Velocidade"][0], atributos[pos]["Velocidade"][1]));
             this->num_vidas = atributos[pos]["Vida"][0];
         }
@@ -53,6 +47,19 @@ namespace Entidades{
               contextoAnimacao.setStrategy(&pulando, 0.1f);
             }
             contextoAnimacao.updateStrategy(gFisico->getDeltaTime());
+        }
+
+        void Jogador::inicializarBarraDeVida(){/**/
+            
+        }
+
+        void Jogador::atualizarBarraDeVida(){/*
+            sf::Vector2f posJanela = pGrafico->getViewCenter();
+            sf::Vector2f tamJanela(1280.f, 640.f);
+            sf::Vector2f posBarra = sf::Vector2f(posJanela.x - tamJanela.x / 2.0f + 10.0f, posJanela.y + tamJanela.y / 2.0f - 30.0f);
+            //tuboBarraVida.setPosition(posBarra);
+            //barraDeVida->setSize(sf::Vector2f((BARRA_VIDA_JOG_X - 40.0f) * (num_vidas / 100.0f), BARRA_VIDA_JOG_Y - 13.0f));
+            barraDeVida->setPosition(sf::Vector2f(posBarra.x, posBarra.y  - barraDeVida->getSize().y / 2.0f));*/
         }
 
         void Jogador::move() {
@@ -147,13 +154,15 @@ namespace Entidades{
         }
 
         void Jogador::executar(){
+            animacao();
             move();
+            //pGrafico->draw(static_cast<sf::Drawable*>(barraDeVida));
         }
 
         void Jogador::update(){
             if(estamina < 1.f)estamina += estamina * 0.0001f + 0.001f;
+            atualizarBarraDeVida();
             executar();
-            animacao();
         }
 
         void Jogador::salvar(std::ostringstream* entrada){

@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Fase.hpp"
-#include "Fases/json.hpp"
+#include "Entidades/Obstaculos/Gosma.hpp"
 
 #define TAM_PERSONAGENS_X 60.f
 #define TAM_PERSONAGENS_Y 96.f
@@ -12,7 +12,7 @@ namespace Fases{
         Fase1(nlohmann::json arquivosEntidades, nlohmann::json arquivosFase);
         ~Fase1();
         void newGosma(sf::Vector2f pos, sf::Vector2f size);
-        void recuperarJogada(nlohmann::json arquivoEntidades, nlohmann::json arquivosFase);
+        void recuperarJogada(nlohmann::json arquivoEntidades, nlohmann::json arquivoFase);
         void loadMap();
         void draw();
         void update();

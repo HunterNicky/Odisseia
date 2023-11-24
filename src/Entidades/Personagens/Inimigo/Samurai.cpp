@@ -2,8 +2,6 @@
 #include "Animacao/AnimacaoAndar.hpp"
 #include "Animacao/AnimacaoContext.hpp"
 #include "Animacao/AnimacaoParado.hpp"
-#include "Entidades/Entidade.hpp"
-#include "Entidades/Personagens/Inimigo/Guerreiro.hpp"
 
 #include <sstream>
 #include <stdlib.h>
@@ -25,8 +23,8 @@ namespace Entidades{
 
         Samurai::Samurai(nlohmann::json atributos, const int pos, const Entidades::ID id, Entidades::Personagens::Jogador* pJog):
             Inimigo(sf::Vector2f(atributos[pos]["Posicao"][0], atributos[pos]["Posicao"][1]),sf::Vector2f(TAM_INIMIGO_DIF_X, TAM_INIMIGO_DIF_Y), id, pJog),
-            andar(static_cast<Entidades::Entidade*>(this), CAMINHO_SAMURAI_ANDAR, CAMINHO_SAMURAI_ANDAR, 8, 8),
-            parado(static_cast<Entidades::Entidade*>(this), CAMINHO_SAMURAI_PARADO, 10), contextoAnimacao()
+            andar(static_cast<Entidades::Entidade*>(this), CAMINHO_SAMURAI_ANDAR, CAMINHO_SAMURAI_ANDAR, 1, 1),
+            parado(static_cast<Entidades::Entidade*>(this), CAMINHO_SAMURAI_PARADO, 1), contextoAnimacao()
         {
             this->setVel(sf::Vector2f(atributos[pos]["Velocidade"][0], atributos[pos]["Velocidade"][1]));
             this->num_vidas = atributos[pos]["Vida"][0];
@@ -36,7 +34,14 @@ namespace Entidades{
 
         }
         void Samurai::animacao(){
-           
+           if (onFloor) {
+                if (std::abs(vel.x) > 0.3f) {
+                    contextoAnimacao.setStrategy(&andar, 0.1f);
+                } else {
+                    contextoAnimacao.setStrategy(&parado, 0.5f);
+                }
+            } 
+            contextoAnimacao.updateStrategy(gFisico->getDeltaTime());
         }
 
         void Samurai::operator--(const int dano){

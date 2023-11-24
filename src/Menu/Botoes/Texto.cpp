@@ -5,7 +5,7 @@ namespace Menu{
     namespace Botoes{
         Texto::Texto(const sf::Vector2f pos, const sf::Vector2f size, const std::string texto, unsigned int sizeFont)
             :fonte(), texto(texto), pos(pos), size(size), color(sf::Color::Blue), sizeFont(sizeFont){
-            fonte.loadFromFile("data/Font/froufrou.ttf");
+            fonte.loadFromFile("data/Font/menuRanking.ttf");
             sfTexto.setFillColor(color);
             sfTexto.setFont(fonte);
             sfTexto.setString(std::string(texto));

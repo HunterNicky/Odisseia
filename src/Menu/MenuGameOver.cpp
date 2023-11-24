@@ -111,6 +111,9 @@ namespace Menu {
             case 1:
                 pMaquinaDeEstado->popEstado();
                 pMaquinaDeEstado->popEstado();
+                if(pMaquinaDeEstado->getEstadoAtual()->getID() == 1){//Menu de opções
+                    pMaquinaDeEstado->popEstado();
+                }
                 break;
             default:
                 break;

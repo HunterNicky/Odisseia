@@ -3,6 +3,8 @@
 #include "Fases/Fase1.hpp"
 #include "Fases/Fase2.hpp"
 #include "Menu.hpp"
+#include "Menu/Botoes/Botao.hpp"
+#include "Menu/Botoes/Texto.hpp"
 
 #define TAM_TEXTO_OPTION_X 100.f
 #define TAM_TEXTO_OPTION_Y 100.f
@@ -14,10 +16,11 @@ namespace Menu {
     private:  
         Fases::Fase1* pFase1;
         Fases::Fase2* pFase2;
+        Botoes::Botao* pBotao;
     public:
         MenuOpcoes();
         ~MenuOpcoes();
-        //void setFase(Fases::Fase* pFase);
+        void selecionaBotao();
         void executar();
         void inicializaBotao();
         void update(const double dt);

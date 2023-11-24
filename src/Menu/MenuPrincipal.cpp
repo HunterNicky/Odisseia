@@ -14,6 +14,7 @@ namespace Menu{
         fase = nullptr;
         inicializaBotao();
         titulo.setColor(sf::Color::Green);
+        titulo.setTextFont(CAMINHO_FONTE_TITULO);
     }
 
     MenuPrincipal::~MenuPrincipal(){

@@ -1,4 +1,7 @@
 #include "..\..\..\include\Entidades\Obstaculos\Lava.hpp"
+#include "Animacao/AnimacaoBloco.hpp"
+#include "Animacao/AnimacaoContext.hpp"
+#include "Entidades/Entidade.hpp"
 #include "Entidades/Obstaculos/Lava.hpp"
 #include "Entidades/Personagens/Personagem.hpp"
 #include <cstdlib>
@@ -7,14 +10,18 @@
 namespace Entidades
 {
     namespace Obstaculos{
+        unsigned int Lava::queimadura = 50;
+
         Lava::Lava(const sf::Vector2f pos, const sf::Vector2f size, const Entidades::ID id):
-            Obstaculo(pos, size, id), queimadura(0)
+            Obstaculo(pos, size, id), bloco(static_cast<Entidades::Entidade*>(this), CAMINHO_BLOCO_LAVA, 10), contexto()
         {
             this->body->setFillColor(sf::Color::Red);
-            this->queimadura = 1;
+            contexto.setStrategy(&bloco, 0.1);
         }
         Lava::~Lava(){}
-
+        void Lava::animacao(){
+             contexto.updateStrategy(gFisico->getDeltaTime());
+        }
         void Lava::queimar(Entidade* entidade){
             Entidades::Personagens::Personagem* pPers = static_cast<Entidades::Personagens::Personagem*>(entidade);   
             pPers->operator--(queimadura);
@@ -29,7 +36,7 @@ namespace Entidades
         }
 
         void Lava::executar(){
-
+            animacao();
         }
         void Lava::update(){
             executar();
