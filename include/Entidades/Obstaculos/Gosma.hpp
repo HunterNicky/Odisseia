@@ -21,7 +21,7 @@ public:
   ~Gosma();
   void animacao();
   void atrasar(Entidade *entidade);
-  void tratarColisao(Entidade *entidade);
+  void tratarColisao(Entidade *entidade, const sf::Vector2f mtv);
   void executar();
   void update();
   void salvar(std::ostringstream *entrada);

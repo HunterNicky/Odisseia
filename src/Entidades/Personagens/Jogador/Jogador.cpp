@@ -146,7 +146,7 @@ void Jogador::danificarInimigo(Entidade *pInimigo) {
   }*/
 }
 
-void Jogador::tratarColisao(Entidade *entidade) {
+void Jogador::tratarColisao(Entidade *entidade, const sf::Vector2f mtv) {
   switch (entidade->getId()) {
   case (ID::Guerreiro):
     danificarInimigo(entidade);
@@ -158,16 +158,21 @@ void Jogador::tratarColisao(Entidade *entidade) {
     //neutralizarInimigo(entidade);
     break;
   case (ID::Plataforma):
-    entidade->tratarColisao(static_cast<Entidades::Entidade *>(this));
+    entidade->tratarColisao(static_cast<Entidades::Entidade *>(this), mtv);
+    verificaSolo(mtv);
     pos.x -= vel.x * 0.01f;
     break;
   case (ID::Caixa):
-    entidade->tratarColisao(static_cast<Entidades::Entidade *>(this));
+    entidade->tratarColisao(static_cast<Entidades::Entidade *>(this), mtv);
+    verificaSolo(mtv);
+break;
   case (ID::Gosma):
-    entidade->tratarColisao(static_cast<Entidades::Entidade *>(this));
+    entidade->tratarColisao(static_cast<Entidades::Entidade *>(this), mtv);
+    verificaSolo(mtv);
     break;
   case (ID::Lava):
-    entidade->tratarColisao(static_cast<Entidades::Entidade *>(this));
+    entidade->tratarColisao(static_cast<Entidades::Entidade *>(this), mtv);
+    verificaSolo(mtv);
     break;
   default:
     break;

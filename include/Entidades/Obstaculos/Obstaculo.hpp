@@ -16,8 +16,7 @@ public:
             const Entidades::ID id);
   ~Obstaculo();
   virtual void verificaSolo(sf::Vector2f mtv);
-  virtual void animacao() = 0;
-  virtual void tratarColisao(Entidade *entidade) = 0;
+  virtual void tratarColisao(Entidade *entidade, const sf::Vector2f mtv) = 0;
   virtual void executar() = 0;
   virtual void update() = 0;
   virtual void salvar(std::ostringstream *entrada) = 0;
