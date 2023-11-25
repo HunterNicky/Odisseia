@@ -22,12 +22,13 @@ Guerreiro::Guerreiro(const sf::Vector2f pos, const sf::Vector2f size,
                      const Entidades::ID id,
                      Entidades::Personagens::Jogador *pJog)
     : Inimigo(pos, size, id, pJog),
-      atacando(static_cast<Entidades::Entidade *>(this), CAMINHO_GUERREIRO_ATAQUE, 8, sf::Vector2f(3, 3)),
+      atacando(static_cast<Entidades::Entidade *>(this),
+               CAMINHO_GUERREIRO_ATAQUE, 6, sf::Vector2f(3 * 2.95, 3 * 1.28)),
       andar(static_cast<Entidades::Entidade *>(this), CAMINHO_GUERREIRO_ANDAR,
-            CAMINHO_GUERREIRO_ANDAR, 8, 8, sf::Vector2f(3, 3),
-            sf::Vector2f(3, 3)),
+            CAMINHO_GUERREIRO_ANDAR, 8, 8, sf::Vector2f(3 * 1.05, 3 * 1.06),
+            sf::Vector2f(3 * 1.05, 3 * 1.06)),
       parado(static_cast<Entidades::Entidade *>(this), CAMINHO_GUERREIRO_PARADO,
-             10, sf::Vector2f(3, 3)),
+             10, sf::Vector2f(3 * 1.1, 3 * 1.09)),
       contextoAnimacao() {
   inicializa();
   if ((raivosidade >= 0) && (raivosidade < 3)) { // 30% chance de ser raivoso
@@ -42,12 +43,13 @@ Guerreiro::Guerreiro(nlohmann::json atributos, const int pos,
     : Inimigo(sf::Vector2f(atributos[pos]["Posicao"][0],
                            atributos[pos]["Posicao"][1]),
               sf::Vector2f(TAM_INIMIGO_FACIL_X, TAM_INIMIGO_FACIL_Y), id, pJog),
-      atacando(static_cast<Entidades::Entidade *>(this), CAMINHO_GUERREIRO_ATAQUE, 8, sf::Vector2f(3, 3)),
+      atacando(static_cast<Entidades::Entidade *>(this),
+               CAMINHO_GUERREIRO_ATAQUE, 8, sf::Vector2f(3 * 2.95, 3 * 1.28)),
       andar(static_cast<Entidades::Entidade *>(this), CAMINHO_GUERREIRO_ANDAR,
-            CAMINHO_GUERREIRO_ANDAR, 8, 8, sf::Vector2f(3, 3),
-            sf::Vector2f(3, 3)),
+            CAMINHO_GUERREIRO_ANDAR, 8, 8, sf::Vector2f(3 * 1.05, 3 * 1.06),
+            sf::Vector2f(3 * 1.05, 3 * 1.06)),
       parado(static_cast<Entidades::Entidade *>(this), CAMINHO_GUERREIRO_PARADO,
-             10, sf::Vector2f(3, 3)),
+             10, sf::Vector2f(3 * 1.1, 3 * 1.09)),
       contextoAnimacao() {
   this->setVel(sf::Vector2f(atributos[pos]["Velocidade"][0],
                             atributos[pos]["Velocidade"][1]));
@@ -66,18 +68,18 @@ Guerreiro::~Guerreiro() {}
 
 void Guerreiro::animacao() {
   if (onFloor) {
-    if (std::abs(vel.x) > 0.3f) {
+    if (std::abs(vel.x) > 0.1f) {
       contextoAnimacao.setStrategy(&andar, 0.1f);
     } else {
-      contextoAnimacao.setStrategy(&parado, 0.5f);
+      contextoAnimacao.setStrategy(&parado, 1.f);
     }
   }
-  if(ataque){
-    contextoAnimacao.setStrategy(&atacando, 0.1f);
+  if (ataque) {
+    contextoAnimacao.setStrategy(&atacando, 0.3f);
   }
   contextoAnimacao.updateStrategy(gFisico->getDeltaTime());
 }
-void Guerreiro::operator--(const int dano) { 
+void Guerreiro::operator--(const int dano) {
   danoTime = gFisico->getDeltaTime();
   tomarDano = true;
   num_vidas -= dano;
@@ -126,11 +128,12 @@ void Guerreiro::move() {
 }
 
 void Guerreiro::danificar(Entidade *entidade) {
-  if((gFisico->getDeltaTime() - danoTime) > 5.f){
+  if ((gFisico->getDeltaTime() - danoTime) > 5.f) {
     tomarDano = false;
   }
- 
-  if(ataque && (!tomarDano) && (this->getPos().x - entidade->getPos().x) <= raio){
+
+  if (ataque && (!tomarDano) &&
+      (this->getPos().x - entidade->getPos().x) <= raio) {
     Entidades::Personagens::Personagem *pPers =
         static_cast<Entidades::Personagens::Personagem *>(entidade);
     pPers->operator--(20);
@@ -139,16 +142,14 @@ void Guerreiro::danificar(Entidade *entidade) {
 }
 
 void Guerreiro::tratarColisao(Entidade *entidade, const sf::Vector2f mtv) {
-  if (entidade->getId() == Entidades::ID::Plataforma){
-    entidade->tratarColisao(static_cast<Entidades::Entidade*>(this), mtv);
+  if (entidade->getId() == Entidades::ID::Plataforma) {
+    entidade->tratarColisao(static_cast<Entidades::Entidade *>(this), mtv);
     verificaSolo(mtv);
     pos.x -= vel.x * 0.01f;
-  }
-  else if (entidade->getId() == Entidades::ID::jogador) {
+  } else if (entidade->getId() == Entidades::ID::jogador) {
     danificar(entidade);
     ataque = true;
   }
-  
 }
 
 void Guerreiro::executar() { move(); }
@@ -164,9 +165,7 @@ void Guerreiro::salvar(std::ostringstream *entrada) {
              << "], \"Vida\": [" << this->getNum_vidas() << "] }" << std::endl;
 }
 
-void Guerreiro::atacar(){
-
-}
+void Guerreiro::atacar() {}
 
 } // namespace Personagens
 } // namespace Entidades

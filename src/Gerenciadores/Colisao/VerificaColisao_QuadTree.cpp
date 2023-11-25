@@ -89,39 +89,49 @@ bool VerificaColisao_QuadTree::detectCollision(
   if (!boundary.intersects(entidade->getBody()->getGlobalBounds()))
     return false;
 
-  bool collisionDetected = false;
   sf::FloatRect collisionRect2 = entidade->getBody()->getGlobalBounds();
+  bool collisionDetected = false;
+  sf::Vector2f escala1 = entidade->getBody()->getScale();
   for (auto &otherEntity : entities) {
     if (otherEntity != entidade &&
         otherEntity->getBody()->getGlobalBounds().intersects(
             entidade->getBody()->getGlobalBounds())) {
+      sf::Vector2f escala2 = otherEntity->getBody()->getScale();
+      if (escala1.x != 1) {
+        entidade->getBody()->setScale(3, escala1.y);
+      }
+      if (escala2.x != 1) {
+        otherEntity->getBody()->setScale(3, escala2.y);
+      }
       collisionRect = otherEntity->getBody()->getGlobalBounds();
+      collisionRect2 = entidade->getBody()->getGlobalBounds();
+      if (collisionRect.intersects(collisionRect2)) {
+            float overlapX =
+                std::min(collisionRect2.left + collisionRect2.width,
+                         collisionRect.left + collisionRect.width) -
+                std::max(collisionRect2.left, collisionRect.left);
 
-      float overlapX = std::min(collisionRect2.left + collisionRect2.width,
-                                collisionRect.left + collisionRect.width) -
-                       std::max(collisionRect2.left, collisionRect.left);
+            float overlapY =
+                std::min(collisionRect2.top + collisionRect2.height,
+                         collisionRect.top + collisionRect.height) -
+                std::max(collisionRect2.top, collisionRect.top);
 
-      float overlapY = std::min(collisionRect2.top + collisionRect2.height,
-                                collisionRect.top + collisionRect.height) -
-                       std::max(collisionRect2.top, collisionRect.top);
-
-      if (overlapX - overlapY < -std::abs(entidade->getVel().y)) {
-        mtv.x = (collisionRect2.left + collisionRect2.width / 2.f <
-                 collisionRect.left + collisionRect.width / 2.f)
-                    ? -overlapX
-                    : overlapX;
-      } else if (overlapY - overlapX < -std::abs(entidade->getVel().x)) {
-        mtv.y = (collisionRect2.top + collisionRect2.height / 2.f <
-                 collisionRect.top + collisionRect.height / 2.f)
-                    ? -overlapY
-                    : overlapY;
-      }
-      if (!otherEntity->getEstatico()) {
-        entidade->setPos(entidade->getPos() + mtv);
-        entidade->setPrevPos(entidade->getPrevPos() + mtv);
-        mtv = sf::Vector2f(0, 0);
-      }
-
+            if (overlapX - overlapY < -std::abs(entidade->getVel().y)) {
+              mtv.x = (collisionRect2.left + collisionRect2.width / 2.f <
+                       collisionRect.left + collisionRect.width / 2.f)
+                          ? -overlapX
+                          : overlapX;
+            } else if (overlapY - overlapX < -std::abs(entidade->getVel().x)) {
+              mtv.y = (collisionRect2.top + collisionRect2.height / 2.f <
+                       collisionRect.top + collisionRect.height / 2.f)
+                          ? -overlapY
+                          : overlapY;
+            }
+            if(entidade->getId() == Entidades::ID::jogador)
+              std::cout << mtv.x << " " << mtv.y << std::endl;
+          }
+      entidade->getBody()->setScale(escala1);
+      otherEntity->getBody()->setScale(escala2);
       colliEnti.push_back(otherEntity);
       collisionDetected = true;
     }

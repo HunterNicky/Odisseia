@@ -73,12 +73,12 @@ void CalculadorFisico::calAcc(Entidades::Entidade *entidade) {
 void CalculadorFisico::calVel(Entidades::Entidade *entidade) {
   sf::Vector2f acc = entidade->getAcc();
   sf::Vector2f position = entidade->getPos();
-  sf::Vector2f OldPosition = position;
+  sf::Vector2f oldPosition = position;
   position.x += (position.x - entidade->getPrevPos().x) + (acc.x * (dt * dt));
   position.y += (position.y - entidade->getPrevPos().y) + (acc.y * (dt * dt));
-  entidade->setPrevPos(OldPosition);
+  entidade->setPrevPos(oldPosition);
   entidade->setPos(position);
-  entidade->setVel(position - OldPosition);
+  entidade->setVel(position - oldPosition);
 }
 } // namespace Colisao
 } // namespace Gerenciadores

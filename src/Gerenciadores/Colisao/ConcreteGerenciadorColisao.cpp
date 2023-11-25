@@ -10,7 +10,7 @@ ConcreteGerenciadorColisao *ConcreteGerenciadorColisao::instance = nullptr;
 
 ConcreteGerenciadorColisao::ConcreteGerenciadorColisao()
     : VerificaColisao_QuadTree(
-          sf::FloatRect(sf::Vector2f(0.f, 0.f), sf::Vector2f(10000.f, 1000.f)),
+          sf::FloatRect(sf::Vector2f(0.f, 0.f), sf::Vector2f(10000.f, 3000.f)),
           0) {}
 ConcreteGerenciadorColisao::~ConcreteGerenciadorColisao() { delete (instance); }
 

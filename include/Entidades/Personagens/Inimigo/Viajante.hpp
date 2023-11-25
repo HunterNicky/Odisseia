@@ -1,6 +1,10 @@
 #pragma once
 
 // #include "Entidades/Laser/Laser.hpp"
+#include "Animacao/AnimacaoAndar.hpp"
+#include "Animacao/AnimacaoAtaque.hpp"
+#include "Animacao/AnimacaoContext.hpp"
+#include "Animacao/AnimacaoParado.hpp"
 #include "Inimigo.hpp"
 #include <math.h>
 
@@ -26,6 +30,7 @@ private:
   bool direita;
   Animacao::AnimacaoAndar andar;
   Animacao::AnimacaoParado parado;
+  Animacao::AnimacaoAtaque atacando;
   Animacao::AnimacaoContext contextoAnimacao;
   void inicializa();
 

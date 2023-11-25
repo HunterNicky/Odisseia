@@ -1,7 +1,7 @@
 #include "Entidades/Personagens/Jogador/Jogador.hpp"
 #include "Animacao/AnimacaoParado.hpp"
-#include "Gerenciadores/Colisao/CalculadorFisico.hpp"
 #include "Entidades/Obstaculos/Caixa.hpp"
+#include "Gerenciadores/Colisao/CalculadorFisico.hpp"
 #include <iostream>
 #include <ostream>
 
@@ -79,7 +79,8 @@ const bool Jogador::getProximaFase() { return proximaFase; }
 
 void Jogador::move() {
   Entidade::body->setPosition(pos);
-  gColisao->Notify(static_cast<Entidades::Entidade *>(this));
+  if (prevPos != pos)
+    gColisao->Notify(static_cast<Entidades::Entidade *>(this));
 }
 
 void Jogador::direcionar(bool side) {
@@ -128,11 +129,12 @@ void Jogador::pular() {
 void Jogador::danificarInimigo(Entidade *pInimigo) {
   float range = 100.f;
 
-  if((gFisico->getDeltaTime() - danoTime ) > 5.f){
+  if ((gFisico->getDeltaTime() - danoTime) > 5.f) {
     tomarDano = false;
   }
 
-  if((ataque && (!tomarDano)) && (this->getPos().x - pInimigo->getPos().x) <= range){
+  if ((ataque && (!tomarDano)) &&
+      (this->getPos().x - pInimigo->getPos().x) <= range) {
     Entidades::Personagens::Personagem *pPers =
         static_cast<Entidades::Personagens::Personagem *>(pInimigo);
     pPers->operator--(20);
@@ -146,10 +148,10 @@ void Jogador::tratarColisao(Entidade *entidade, const sf::Vector2f mtv) {
     danificarInimigo(entidade);
     break;
   case (ID::Viajante):
-    //neutralizarInimigo(entidade);
+    // neutralizarInimigo(entidade);
     break;
   case (ID::Samurai):
-    //neutralizarInimigo(entidade);
+    // neutralizarInimigo(entidade);
     break;
   case (ID::Plataforma):
     entidade->tratarColisao(static_cast<Entidades::Entidade *>(this), mtv);

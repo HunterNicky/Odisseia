@@ -20,9 +20,11 @@ Samurai::Samurai(const sf::Vector2f pos, const sf::Vector2f size,
     : Inimigo(pos, size, id, pJog),
       andar(static_cast<Entidades::Entidade *>(this), CAMINHO_SAMURAI_ANDAR,
             CAMINHO_SAMURAI_ANDAR, 8, 8, sf::Vector2f(3, 3),
-            sf::Vector2f(3, 3)),
+            sf::Vector2f(3 * 1.15, 3 * 1.03)),
       parado(static_cast<Entidades::Entidade *>(this), CAMINHO_SAMURAI_PARADO,
-             10, sf::Vector2f(3, 3)),
+             10, sf::Vector2f(3 * 0.95, 3 * 1.06)),
+      atacando(static_cast<Entidades::Entidade *>(this), CAMINHO_SAMURAI_ATAQUE,
+               9, sf::Vector2f(3 * 3.8, 3 * 1.56)),
       contextoAnimacao() {
   inicializa();
 }
@@ -34,9 +36,11 @@ Samurai::Samurai(nlohmann::json atributos, const int pos,
               sf::Vector2f(TAM_INIMIGO_DIF_X, TAM_INIMIGO_DIF_Y), id, pJog),
       andar(static_cast<Entidades::Entidade *>(this), CAMINHO_SAMURAI_ANDAR,
             CAMINHO_SAMURAI_ANDAR, 8, 8, sf::Vector2f(3, 3),
-            sf::Vector2f(3, 3)),
+            sf::Vector2f(3 * 1.15, 3 * 1.03)),
       parado(static_cast<Entidades::Entidade *>(this), CAMINHO_SAMURAI_PARADO,
-             10, sf::Vector2f(3, 3)),
+             10, sf::Vector2f(3 * 0.95, 3 * 1.06)),
+      atacando(static_cast<Entidades::Entidade *>(this), CAMINHO_SAMURAI_ATAQUE,
+               9, sf::Vector2f(3 * 3.8, 3 * 1.56)),
       contextoAnimacao() {
   this->setVel(sf::Vector2f(atributos[pos]["Velocidade"][0],
                             atributos[pos]["Velocidade"][1]));
@@ -49,7 +53,7 @@ void Samurai::animacao() {
     if (std::abs(vel.x) > 0.3f) {
       contextoAnimacao.setStrategy(&andar, 0.1f);
     } else {
-      contextoAnimacao.setStrategy(&parado, 0.5f);
+      contextoAnimacao.setStrategy(&parado, 1.0f);
     }
   }
   contextoAnimacao.updateStrategy(gFisico->getDeltaTime());
@@ -88,11 +92,11 @@ void Samurai::danificar(Entidade *entidade) {
 }
 
 void Samurai::tratarColisao(Entidade *entidade, const sf::Vector2f mtv) {
-  if (entidade->getId() == Entidades::ID::Plataforma){
-    entidade->tratarColisao(static_cast<Entidades::Entidade*>(this), mtv);
+  if (entidade->getId() == Entidades::ID::Plataforma) {
+    entidade->tratarColisao(static_cast<Entidades::Entidade *>(this), mtv);
     verificaSolo(mtv);
     pos.x -= vel.x * 0.01f;
-  }else if (entidade->getId() == Entidades::ID::jogador) {
+  } else if (entidade->getId() == Entidades::ID::jogador) {
     danificar(entidade);
   }
 }

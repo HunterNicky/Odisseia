@@ -1,4 +1,5 @@
 #include "Animacao/AnimacaoAndar.hpp"
+#include <complex>
 #include <iostream>
 
 namespace Animacao {
@@ -9,7 +10,8 @@ AnimacaoAndar::AnimacaoAndar(Entidades::Entidade *entidade, std::string path,
                              const sf::Vector2f escalaRun,
                              const sf::Vector2f escalaWalk)
     : AnimacaoStrategy(entidade, numFrameWalk, escalaWalk),
-      numFrameWalk(numFrameWalk), numFrameRun(numFrameRun), actualFrame(1.f) {
+      numFrameWalk(numFrameWalk), numFrameRun(numFrameRun),
+      escalaRun(escalaRun), actualFrame(1.f) {
   textura = pGrafico->loadTexture(path);
   run = pGrafico->loadTexture(path2);
   rectSize.width = (textura->getSize().x / numFrames);
@@ -48,11 +50,12 @@ void AnimacaoAndar::updateSpriteRect() {
 }
 
 void AnimacaoAndar::updateRun() {
-  if (std::abs(entidade->getForca().x) > 3050.f) {
+  if ((int)std::abs(entidade->getForca().x)%1000 > 50.f) {
     numFrames = numFrameRun;
     rectSize.width = (run->getSize().x / numFrames);
     rectSize.height = (run->getSize().y);
     rectSize.left = 0;
+    entidade->getBody()->setScale(escalaRun);
     changeTexture(run);
   } else {
     numFrames = numFrameWalk;

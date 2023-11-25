@@ -20,8 +20,8 @@ AnimacaoParado::~AnimacaoParado(){};
 void AnimacaoParado::updateSprite(double dt, float standardTime) {
   deepBreath = std::min(
       static_cast<Entidades::Personagens::Personagem *>(entidade)
-              ->getNum_vidas() /
-          1000.f,
+              ->getNum_vidas() *
+          0.3f,
       static_cast<Entidades::Personagens::Jogador *>(entidade)->getEstamina());
   updateAnimationFrame(dt, standardTime);
   updateSpriteRect();

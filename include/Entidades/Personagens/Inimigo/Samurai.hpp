@@ -1,3 +1,4 @@
+#include "Animacao/AnimacaoAtaque.hpp"
 #include "Inimigo.hpp"
 
 #define TAM_INIMIGO_DIF_X 20.0f
@@ -14,6 +15,7 @@ class Samurai : public Inimigo {
 private:
   Animacao::AnimacaoAndar andar;
   Animacao::AnimacaoParado parado;
+  Animacao::AnimacaoAtaque atacando;
   Animacao::AnimacaoContext contextoAnimacao;
   void inicializa();
 
