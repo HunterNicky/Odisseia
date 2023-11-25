@@ -1,7 +1,7 @@
 #include "Entidades/Personagens/Jogador/Jogador.hpp"
+#include "Animacao/AnimacaoParado.hpp"
 #include "Entidades/Obstaculos/Caixa.hpp"
-#include "Entidades/Personagens/Personagem.hpp"
-#include "Gerenciadores/GerenciadorFisico.hpp"
+#include "Gerenciadores/Colisao/CalculadorFisico.hpp"
 #include <iostream>
 #include <ostream>
 
@@ -87,7 +87,8 @@ void Jogador::setProximaFase(const bool proximaFase) {
 }
 void Jogador::move() {
   Entidade::body->setPosition(pos);
-  gColisao->Notify(static_cast<Entidades::Entidade *>(this));
+  if (prevPos != pos)
+    gColisao->Notify(static_cast<Entidades::Entidade *>(this));
 }
 
 void Jogador::direcionar(bool side) {

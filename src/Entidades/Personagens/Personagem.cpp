@@ -1,5 +1,5 @@
 #include "Entidades/Personagens/Personagem.hpp"
-#include "Gerenciadores/GerenciadorFisico.hpp"
+#include "Gerenciadores/Colisao/CalculadorFisico.hpp"
 #include <iostream>
 namespace Entidades {
 namespace Personagens {

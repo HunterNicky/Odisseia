@@ -16,10 +16,10 @@ Gerenciadores::GerenciadorGrafico *Fase::pGrafico =
     Gerenciadores::GerenciadorGrafico::getInstance();
 Gerenciadores::GerenciadorDeEvento *Fase::pEvento =
     Gerenciadores::GerenciadorDeEvento::getInstance();
-Gerenciadores::GerenciadorFisico *Fase::pFisico =
-    Gerenciadores::GerenciadorFisico::getInstance();
-Gerenciadores::GerenciadorDeColisao *Fase::pColisao =
-    Gerenciadores::GerenciadorDeColisao::getInstance();
+Gerenciadores::Colisao::CalculadorFisico *Fase::pFisico =
+    Gerenciadores::Colisao::CalculadorFisico::getInstance();
+Gerenciadores::Colisao::ConcreteGerenciadorColisao *Fase::pColisao =
+    Gerenciadores::Colisao::ConcreteGerenciadorColisao::getInstance();
 Estados::MaquinaDeEstado *Fase::pMaquinaDeEstado =
     Estados::MaquinaDeEstado::getInstance();
 Menu::Botoes::Texto Fase::textoPontuacao(sf::Vector2f(0.f, 0.f),
@@ -93,7 +93,7 @@ void Fase::salvarAtributosFase() {
 void Fase::newJogador(sf::Vector2f pos, sf::Vector2f size) {
   pJogador =
       new Entidades::Personagens::Jogador(pos, size, Entidades::ID::jogador);
-  pJogador->setGerenciadorDeColisao(pColisao);
+  pJogador->setConcreteGerenciadorColisao(pColisao);
   controleJog->setJogador(pJogador);
   LE.push_back(static_cast<Entidades::Entidade *>(pJogador));
 }
@@ -101,14 +101,14 @@ void Fase::newGuerreiro(sf::Vector2f pos, sf::Vector2f size) {
   Entidades::Personagens::Guerreiro *pInimigo =
       new Entidades::Personagens::Guerreiro(pos, size, Entidades::ID::Guerreiro,
                                             pJogador);
-  pInimigo->setGerenciadorDeColisao(pColisao);
+  pInimigo->setConcreteGerenciadorColisao(pColisao);
   LE.push_back(static_cast<Entidades::Entidade *>(pInimigo));
 }
 void Fase::newViajante(sf::Vector2f pos, sf::Vector2f size) {
   Entidades::Personagens::Viajante *pInimigo =
       new Entidades::Personagens::Viajante(pos, size, Entidades::ID::Viajante,
                                            pJogador, nullptr);
-  pInimigo->setGerenciadorDeColisao(pColisao);
+  pInimigo->setConcreteGerenciadorColisao(pColisao);
   LE.push_back(static_cast<Entidades::Entidade *>(pInimigo));
 
   if (pInimigo == nullptr) {
@@ -117,7 +117,7 @@ void Fase::newViajante(sf::Vector2f pos, sf::Vector2f size) {
   } else {
     Entidades::Laser *pProj =
         new Entidades::Laser(pos, Entidades::ID::Laser, pInimigo);
-    pProj->setGerenciadorDeColisao(pColisao);
+    pProj->setConcreteGerenciadorColisao(pColisao);
     LE.push_back(static_cast<Entidades::Entidade *>(pProj));
     pInimigo->setProj(pProj);
   }
@@ -126,14 +126,14 @@ void Fase::newPlataforma(sf::Vector2f pos, sf::Vector2f size,
                          const std::string path) {
   Entidades::Obstaculos::Caixa *pCaixa = new Entidades::Obstaculos::Caixa(
       pos, size, Entidades::ID::Plataforma, path);
-  pCaixa->setGerenciadorDeColisao(pColisao);
+  pCaixa->setConcreteGerenciadorColisao(pColisao);
   LE.push_back(static_cast<Entidades::Entidade *>(pCaixa));
 }
 void Fase::newCaixa(sf::Vector2f pos, sf::Vector2f size,
                     const std::string path) {
   Entidades::Obstaculos::Caixa *pCaixa =
       new Entidades::Obstaculos::Caixa(pos, size, Entidades::ID::Caixa, path);
-  pCaixa->setGerenciadorDeColisao(pColisao);
+  pCaixa->setConcreteGerenciadorColisao(pColisao);
   LE.push_back(static_cast<Entidades::Entidade *>(pCaixa));
   if (path == CAMINHO_BLOCO_PORTAL) {
     pCaixa->setPortalAtivo(true);

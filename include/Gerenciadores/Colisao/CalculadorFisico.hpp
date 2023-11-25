@@ -1,25 +1,23 @@
 #pragma once
 
-#include "..\..\include\Entidades\Entidade.hpp"
-#include "..\..\include\Entidades\Personagens\Personagem.hpp"
-#include "Entidades/Personagens/Personagem.hpp"
+#include "Entidades/Obstaculos/Obstaculo.hpp"
 #include <SFML/Graphics.hpp>
-
 
 namespace Entidades {
 class Entidade;
 }
 namespace Gerenciadores {
-class GerenciadorFisico {
+namespace Colisao {
+class CalculadorFisico {
 private:
-  GerenciadorFisico();
-  static GerenciadorFisico *instance;
+  CalculadorFisico();
+  static CalculadorFisico *instance;
   double dt;
 
 public:
-  ~GerenciadorFisico();
+  ~CalculadorFisico();
   void update(double dt);
-  static GerenciadorFisico *getInstance();
+  static CalculadorFisico *getInstance();
   void calVel(Entidades::Entidade *entidade);
   void calAcc(Entidades::Entidade *entidade);
   void calColision(Entidades::Entidade *entidade,
@@ -28,4 +26,6 @@ public:
   const sf::Vector2f calDrag(Entidades::Entidade *entidade) const;
   float getDeltaTime() const;
 };
+
+} // namespace Colisao
 } // namespace Gerenciadores

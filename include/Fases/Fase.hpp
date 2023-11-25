@@ -8,9 +8,9 @@
 #include "Entidades/Projetil/Laser.hpp"
 #include "Estados/Estado.hpp"
 #include "Estados/MaquinaDeEstado.hpp"
-#include "Gerenciadores/GerenciadorDeColisao.hpp"
+#include "Gerenciadores/Colisao/ConcreteGerenciadorColisao.hpp"
 #include "Gerenciadores/GerenciadorDeEvento.hpp"
-#include "Gerenciadores/GerenciadorFisico.hpp"
+#include "Gerenciadores/Colisao/CalculadorFisico.hpp"
 #include "Lista/ListaDeEntidades.hpp"
 
 // #include "Observadores/ControleJogador.hpp"
@@ -33,8 +33,8 @@ class Fase : public Estados::Estado {
 protected:
   static Gerenciadores::GerenciadorGrafico *pGrafico;
   static Gerenciadores::GerenciadorDeEvento *pEvento;
-  static Gerenciadores::GerenciadorFisico *pFisico;
-  static Gerenciadores::GerenciadorDeColisao *pColisao;
+  static Gerenciadores::Colisao::CalculadorFisico *pFisico;
+  static Gerenciadores::Colisao::ConcreteGerenciadorColisao *pColisao;
   static Estados::MaquinaDeEstado *pMaquinaDeEstado;
   Observadores::ControleJogador *controleJog;
   Entidades::Personagens::Jogador *pJogador;

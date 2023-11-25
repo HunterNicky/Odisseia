@@ -1,15 +1,18 @@
 #pragma once
 
-#include "..\Ente.hpp"
-#include "..\Gerenciadores\GerenciadorDeColisao.hpp"
+#include "Ente.hpp"
 #include "Fases/json.hpp"
+#include "Gerenciadores/Colisao/ConcreteGerenciadorColisao.hpp"
 #include <fstream>
 #include <iostream>
 #include <sstream>
 
+
 namespace Gerenciadores {
-class GerenciadorDeColisao;
-class GerenciadorFisico;
+namespace Colisao {
+class ConcreteGerenciadorColisao;
+class CalculadorFisico;
+} // namespace Colisao
 } // namespace Gerenciadores
 
 namespace Entidades {
@@ -30,8 +33,8 @@ class Entidade : public Ente {
 protected:
   int id;
   sf::RectangleShape *body;
-  static Gerenciadores::GerenciadorDeColisao *gColisao;
-  static Gerenciadores::GerenciadorFisico *gFisico;
+  static Gerenciadores::Colisao::ConcreteGerenciadorColisao *gColisao;
+  static Gerenciadores::Colisao::CalculadorFisico *gFisico;
   const Entidades::ID ID;
   bool entidadeEstatica;
   sf::Vector2f vel;
@@ -46,7 +49,8 @@ public:
   virtual ~Entidade();
   const Entidades::ID getId() const;
   void setBody(sf::RectangleShape *body);
-  void setGerenciadorDeColisao(Gerenciadores::GerenciadorDeColisao *gColisao);
+  void setConcreteGerenciadorColisao(
+      Gerenciadores::Colisao::ConcreteGerenciadorColisao *gColisao);
   void setVel(const sf::Vector2f vel);
   void setAcc(const sf::Vector2f acc);
   void setForca(const sf::Vector2f forca);

@@ -22,7 +22,7 @@ Fase1::~Fase1() {}
 void Fase1::newGosma(sf::Vector2f pos, sf::Vector2f size) {
   Entidades::Obstaculos::Gosma *pGosma =
       new Entidades::Obstaculos::Gosma(pos, size, Entidades::ID::Gosma);
-  pGosma->setGerenciadorDeColisao(pColisao);
+  pGosma->setConcreteGerenciadorColisao(pColisao);
   LE.push_back(static_cast<Entidades::Entidade *>(pGosma));
 }
 void Fase1::recuperarJogada(nlohmann::json arquivoEntidades,
@@ -32,7 +32,7 @@ void Fase1::recuperarJogada(nlohmann::json arquivoEntidades,
       if (arquivoEntidades[i]["ID"][0] == Entidades::ID::jogador) {
         pJogador = new Entidades::Personagens::Jogador(arquivoEntidades, i,
                                                        Entidades::ID::jogador);
-        pJogador->setGerenciadorDeColisao(pColisao);
+        pJogador->setConcreteGerenciadorColisao(pColisao);
         controleJog->setJogador(pJogador);
         LE.push_back(static_cast<Entidades::Entidade *>(pJogador));
       }
@@ -46,7 +46,7 @@ void Fase1::recuperarJogada(nlohmann::json arquivoEntidades,
         Entidades::Personagens::Guerreiro *pInimigo =
             new Entidades::Personagens::Guerreiro(
                 arquivoEntidades, i, Entidades::ID::Guerreiro, this->pJogador);
-        pInimigo->setGerenciadorDeColisao(pColisao);
+        pInimigo->setConcreteGerenciadorColisao(pColisao);
         LE.push_back(static_cast<Entidades::Entidade *>(pInimigo));
       } else if (arquivoEntidades[i]["ID"][0] == Entidades::ID::Viajante) {
         if (pJogador == nullptr) {
@@ -56,7 +56,7 @@ void Fase1::recuperarJogada(nlohmann::json arquivoEntidades,
         Entidades::Personagens::Viajante *pInimigo =
             new Entidades::Personagens::Viajante(
                 arquivoEntidades, i, Entidades::ID::Viajante, this->pJogador);
-        pInimigo->setGerenciadorDeColisao(pColisao);
+        pInimigo->setConcreteGerenciadorColisao(pColisao);
         LE.push_back(static_cast<Entidades::Entidade *>(pInimigo));
 
         if (pInimigo == nullptr) {
@@ -68,20 +68,20 @@ void Fase1::recuperarJogada(nlohmann::json arquivoEntidades,
           if (arquivoEntidades[j]["ID"][0] == Entidades::ID::Laser) {
             Entidades::Laser *pProjetil = new Entidades::Laser(
                 arquivoEntidades, j, Entidades::ID::Laser, pInimigo);
-            pProjetil->setGerenciadorDeColisao(pColisao);
+            pProjetil->setConcreteGerenciadorColisao(pColisao);
             LE.push_back(static_cast<Entidades::Entidade *>(pProjetil));
             pInimigo->setProj(pProjetil);
           }
         }
       } else if (arquivoEntidades[i]["ID"][0] == Entidades::ID::Gosma) {
         Entidades::Obstaculos::Gosma *pGosma = new Entidades::Obstaculos::Gosma(arquivoEntidades, i, Entidades::ID::Gosma);
-        pGosma->setGerenciadorDeColisao(pColisao);
+        pGosma->setConcreteGerenciadorColisao(pColisao);
         LE.push_back(static_cast<Entidades::Entidade *>(pGosma));
       } else if (arquivoEntidades[i]["ID"][0] == Entidades::ID::Plataforma) {
         Entidades::Obstaculos::Caixa *pPlataforma =
             new Entidades::Obstaculos::Caixa(arquivoEntidades, i,
                                              Entidades::ID::Plataforma);
-        pPlataforma->setGerenciadorDeColisao(pColisao);
+        pPlataforma->setConcreteGerenciadorColisao(pColisao);
         LE.push_back(static_cast<Entidades::Entidade *>(pPlataforma));
       }
     }

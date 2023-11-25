@@ -16,9 +16,9 @@ private:
   bool invisibilidade;
   float tempoInvisivel;
   float tempoVisivel;
-  Animacao::AnimacaoAtaque atacando;
   Animacao::AnimacaoAndar andar;
   Animacao::AnimacaoParado parado;
+  Animacao::AnimacaoAtaque atacando;
   Animacao::AnimacaoContext contextoAnimacao;
   void inicializa();
 

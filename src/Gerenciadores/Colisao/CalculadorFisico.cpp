@@ -1,32 +1,31 @@
-#include "..\..\include\Gerenciadores\GerenciadorFisico.hpp"
+#include "Gerenciadores/Colisao/CalculadorFisico.hpp"
 #include "Entidades/Entidade.hpp"
-#include "Entidades/Obstaculos/Obstaculo.hpp"
-#include "Gerenciadores/GerenciadorFisico.hpp"
 #include <iostream>
 
 namespace Gerenciadores {
-GerenciadorFisico *GerenciadorFisico::instance = nullptr;
+namespace Colisao {
+CalculadorFisico *CalculadorFisico::instance = nullptr;
 
-GerenciadorFisico::GerenciadorFisico() : dt(0.0f) {}
+CalculadorFisico::CalculadorFisico() : dt(0.0f) {}
 
-GerenciadorFisico::~GerenciadorFisico() { delete (instance); }
+CalculadorFisico::~CalculadorFisico() { delete (instance); }
 
-float GerenciadorFisico::getDeltaTime() const { return dt; }
+float CalculadorFisico::getDeltaTime() const { return dt; }
 
-GerenciadorFisico *GerenciadorFisico::getInstance() {
+CalculadorFisico *CalculadorFisico::getInstance() {
   if (instance == nullptr) {
-    instance = new GerenciadorFisico();
+    instance = new CalculadorFisico();
   }
   return instance;
 }
 
-void GerenciadorFisico::executarFisica(Entidades::Entidade *entidade) {
+void CalculadorFisico::executarFisica(Entidades::Entidade *entidade) {
   calAcc(entidade);
   calVel(entidade);
 }
 
-void GerenciadorFisico::calColision(Entidades::Entidade *entidade,
-                                    Entidades::Entidade *entidade1) {
+void CalculadorFisico::calColision(Entidades::Entidade *entidade,
+                                   Entidades::Entidade *entidade1) {
   sf::Vector2f v1 = entidade->getVel();
   sf::Vector2f v2 = entidade1->getVel();
   float m1 = entidade->getMass();
@@ -36,10 +35,10 @@ void GerenciadorFisico::calColision(Entidades::Entidade *entidade,
   entidade->setVel(newV1);
 }
 
-void GerenciadorFisico::update(double dt) { this->dt = dt; }
+void CalculadorFisico::update(double dt) { this->dt = dt; }
 
 const sf::Vector2f
-GerenciadorFisico::calDrag(Entidades::Entidade *entidade) const {
+CalculadorFisico::calDrag(Entidades::Entidade *entidade) const {
   sf::Vector2f test(entidade->getVel().x > 0 ? 1.f : -1.f,
                     entidade->getVel().y > 0 ? 1.f : -1.f);
   sf::Vector2f squareVel(entidade->getVel().x * entidade->getVel().x * test.x,
@@ -49,7 +48,7 @@ GerenciadorFisico::calDrag(Entidades::Entidade *entidade) const {
   return (dragForce);
 }
 
-void GerenciadorFisico::calAcc(Entidades::Entidade *entidade) {
+void CalculadorFisico::calAcc(Entidades::Entidade *entidade) {
   sf::Vector2f acc = entidade->getAcc();
   sf::Vector2f forca(0.0f, 50000.f);
   sf::Vector2f dragForce = calDrag(entidade);
@@ -71,14 +70,15 @@ void GerenciadorFisico::calAcc(Entidades::Entidade *entidade) {
   entidade->setAcc(acc);
 }
 
-void GerenciadorFisico::calVel(Entidades::Entidade *entidade) {
+void CalculadorFisico::calVel(Entidades::Entidade *entidade) {
   sf::Vector2f acc = entidade->getAcc();
   sf::Vector2f position = entidade->getPos();
-  sf::Vector2f OldPosition = position;
+  sf::Vector2f oldPosition = position;
   position.x += (position.x - entidade->getPrevPos().x) + (acc.x * (dt * dt));
   position.y += (position.y - entidade->getPrevPos().y) + (acc.y * (dt * dt));
-  entidade->setPrevPos(OldPosition);
+  entidade->setPrevPos(oldPosition);
   entidade->setPos(position);
-  entidade->setVel(position - OldPosition);
+  entidade->setVel(position - oldPosition);
 }
+} // namespace Colisao
 } // namespace Gerenciadores

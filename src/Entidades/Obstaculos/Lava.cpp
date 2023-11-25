@@ -55,6 +55,12 @@ void Lava::tratarColisao(Entidade *entidade, const sf::Vector2f mtv) {
     if (entidade->getId() == Entidades::ID::jogador) {
       queimar(entidade);
     }
+    if (!entidade->getEstatico()) {
+      entidade->setPos(sf::Vector2f(entidade->getPos().x + mtv.x,
+                                    entidade->getPos().y + mtv.y));
+      entidade->setPrevPos(sf::Vector2f(entidade->getPrevPos().x + mtv.x * 0.9f,
+                                      entidade->getPrevPos().y + mtv.y * 0.9f));
+    }
   }
 }
 

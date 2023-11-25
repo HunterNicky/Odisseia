@@ -2,13 +2,12 @@
 #include "Animacao/AnimacaoBloco.hpp"
 #include "Animacao/AnimacaoContext.hpp"
 #include "Entidades/Entidade.hpp"
-#include "Gerenciadores/GerenciadorFisico.hpp"
-
+#include "Gerenciadores/Colisao/CalculadorFisico.hpp"
 namespace Entidades {
 namespace Obstaculos {
 class Obstaculo : public Entidade {
 protected:
-  static Gerenciadores::GerenciadorFisico *gFisico;
+  static Gerenciadores::Colisao::CalculadorFisico *gFisico;
   bool danoso;
 public:
   Obstaculo(const sf::Vector2f pos, const sf::Vector2f size,

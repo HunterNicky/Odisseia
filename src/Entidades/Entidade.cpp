@@ -1,13 +1,10 @@
-#include "..\..\include\Entidades\Entidade.hpp"
 #include "Entidades/Entidade.hpp"
-#include "Gerenciadores/GerenciadorDeColisao.hpp"
-#include "Gerenciadores/GerenciadorFisico.hpp"
-
+#include "Gerenciadores/Colisao/CalculadorFisico.hpp"
 namespace Entidades {
-Gerenciadores::GerenciadorFisico *Entidade::gFisico =
-    Gerenciadores::GerenciadorFisico::getInstance();
-Gerenciadores::GerenciadorDeColisao *Entidade::gColisao =
-    Gerenciadores::GerenciadorDeColisao::getInstance();
+Gerenciadores::Colisao::CalculadorFisico *Entidade::gFisico =
+    Gerenciadores::Colisao::CalculadorFisico::getInstance();
+Gerenciadores::Colisao::ConcreteGerenciadorColisao *Entidade::gColisao =
+    Gerenciadores::Colisao::ConcreteGerenciadorColisao::getInstance();
 
 Entidade::Entidade(const sf::Vector2f pos, const sf::Vector2f size,
                    const Entidades::ID id)
@@ -33,8 +30,8 @@ sf::RectangleShape *Entidade::getBody() { return body; }
 
 void Entidade::draw() { pGrafico->draw(body); }
 
-void Entidade::setGerenciadorDeColisao(
-    Gerenciadores::GerenciadorDeColisao *gColisao) {
+void Entidade::setConcreteGerenciadorColisao(
+    Gerenciadores::Colisao::ConcreteGerenciadorColisao *gColisao) {
   this->gColisao = gColisao;
 }
 

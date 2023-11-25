@@ -1,7 +1,4 @@
 #include "Entidades/Personagens/Inimigo/Viajante.hpp"
-#include "Animacao/AnimacaoAndar.hpp"
-#include "Animacao/AnimacaoContext.hpp"
-#include "Animacao/AnimacaoParado.hpp"
 #include "Entidades/Entidade.hpp"
 #include "Entidades/Projetil/Laser.hpp"
 #include "Fases/Fase.hpp"
@@ -21,12 +18,12 @@ Viajante::Viajante(const sf::Vector2f pos, const sf::Vector2f size,
                    Entidades::Laser *proj)
     : Inimigo(pos, size, id, pJog), pProj(proj),
       atacando(static_cast<Entidades::Entidade *>(this),
-               CAMINHO_VIAJANTE_PROJETIL, 10, sf::Vector2f(3, 3)),
+               CAMINHO_VIAJANTE_PROJETIL, 10, sf::Vector2f(3 * 2.2, 3 * 0.937)),
       andar(static_cast<Entidades::Entidade *>(this), CAMINHO_VIAJANTE_ANDAR,
-            CAMINHO_VIAJANTE_ANDAR, 8, 8, sf::Vector2f(3, 3),
-            sf::Vector2f(3, 3)),
+            CAMINHO_VIAJANTE_ANDAR, 8, 8, sf::Vector2f(3 * 1.05, 3 * 0.9),
+            sf::Vector2f(3 * 1.05, 3 * 0.9)),
       parado(static_cast<Entidades::Entidade *>(this), CAMINHO_VIAJANTE_PARADO,
-             10, sf::Vector2f(3, 3)),
+             10, sf::Vector2f(3 * 0.95, 3 * 0.937)),
       contextoAnimacao() {
   inicializa();
   danoTime = 0;
@@ -40,12 +37,12 @@ Viajante::Viajante(nlohmann::json atributos, const int pos,
                            atributos[pos]["Posicao"][1]),
               sf::Vector2f(TAM_INIMIGO_MED_X, TAM_INIMIGO_MED_Y), id, pJog),
       atacando(static_cast<Entidades::Entidade *>(this),
-               CAMINHO_VIAJANTE_PROJETIL, 10, sf::Vector2f(3, 3)),
+               CAMINHO_VIAJANTE_PROJETIL, 10, sf::Vector2f(3 * 2.2, 3 * 0.937)),
       andar(static_cast<Entidades::Entidade *>(this), CAMINHO_VIAJANTE_ANDAR,
-            CAMINHO_VIAJANTE_ANDAR, 8, 8, sf::Vector2f(3, 3),
-            sf::Vector2f(3, 3)),
+            CAMINHO_VIAJANTE_ANDAR, 8, 8, sf::Vector2f(3 * 1.05, 3 * 0.9),
+            sf::Vector2f(3 * 1.05, 3 * 0.9)),
       parado(static_cast<Entidades::Entidade *>(this), CAMINHO_VIAJANTE_PARADO,
-             10, sf::Vector2f(3, 3)),
+             10, sf::Vector2f(3 * 0.95, 3 * 0.937)),
       contextoAnimacao() {
   this->setVel(sf::Vector2f(atributos[pos]["Velocidade"][0],
                             atributos[pos]["Velocidade"][1]));
@@ -57,10 +54,10 @@ Viajante::~Viajante() {}
 
 void Viajante::animacao() {
   if (onFloor) {
-    if (std::abs(vel.x) > 0.3f) {
-      contextoAnimacao.setStrategy(&andar, 0.5f);
+    if (std::abs(vel.x) > 0.1f) {
+      contextoAnimacao.setStrategy(&andar, 0.1f);
     } else {
-      contextoAnimacao.setStrategy(&parado, 0.5f);
+      contextoAnimacao.setStrategy(&parado, 1.0f);
     }
     if(ataque){
       contextoAnimacao.setStrategy(&atacando, 0.1f);
@@ -140,8 +137,7 @@ void Viajante::tratarColisao(Entidade *entidade, const sf::Vector2f mtv) {
 
 void Viajante::executar() { move(); }
 
-void Viajante::atacar() {
-}
+void Viajante::atacar() {}
 
 void Viajante::update() {
   recoveryTime +=gFisico->getDeltaTime();
