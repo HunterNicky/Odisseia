@@ -9,14 +9,14 @@ namespace Menu {
 Estados::MaquinaDeEstado *MenuPrincipal::pMaquinaDeEstado =
     Estados::MaquinaDeEstado::getInstance();
 
-MenuPrincipal::MenuPrincipal(Estados::Jogo *pJogo)
-    : Menu(0, 5, sf::Vector2f(POS_BOTAO_X, POS_BOTAO_Y),
-           sf::Vector2f(TAMANHO_BOTAO_X, TAMANHO_BOTAO_Y), "MINION++", 180),
-      pJogo(pJogo), pOpcao(nullptr) {
-  fase = nullptr;
-  inicializaBotao();
-  titulo.setColor(sf::Color::Green);
-}
+    MenuPrincipal::MenuPrincipal(Estados::Jogo* pJogo):
+        Menu(0, 5, sf::Vector2f(POS_BOTAO_X, POS_BOTAO_Y), sf::Vector2f(TAMANHO_BOTAO_X, TAMANHO_BOTAO_Y), "MINION++", 180),
+        pJogo(pJogo), pOpcao(nullptr){
+        fase = nullptr;
+        inicializaBotao();
+        titulo.setColor(sf::Color::Green);
+        titulo.setTextFont(CAMINHO_FONTE_TITULO);
+    }
 
 MenuPrincipal::~MenuPrincipal() {
   if (fase != nullptr) {

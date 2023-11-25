@@ -1,7 +1,8 @@
 #pragma once
 
+#include "Entidades/Obstaculos/Gosma.hpp"
 #include "Fase.hpp"
-#include "Fases/json.hpp"
+
 
 #define TAM_PERSONAGENS_X 20.f
 #define TAM_PERSONAGENS_Y 32.f

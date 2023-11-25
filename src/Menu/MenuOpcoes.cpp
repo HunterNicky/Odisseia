@@ -1,5 +1,6 @@
 #include "Menu/MenuOpcoes.hpp"
 #include "Fases/Fase.hpp"
+#include "Menu/Botoes/Botao.hpp"
 
 namespace Menu {
 MenuOpcoes::MenuOpcoes()
@@ -21,18 +22,14 @@ MenuOpcoes::~MenuOpcoes() { /*
       }*/
 }
 
-// void MenuOpcoes::setFase(Fases::Fase* pFase){ this->pFase = pFase;}
-
 void MenuOpcoes::executar() {
   switch (numSelec) {
   case 0: // Fase 1
     pFase1 = new Fases::Fase1();
-    pMaquinaDeEstado->popEstado();
     pMaquinaDeEstado->pushEstado(static_cast<Estados::Estado *>(pFase1));
     break;
   case 1: // Fase 2
     pFase2 = new Fases::Fase2();
-    pMaquinaDeEstado->popEstado();
     pMaquinaDeEstado->pushEstado(static_cast<Estados::Estado *>(pFase2));
     break;
   case 2:
@@ -43,8 +40,7 @@ void MenuOpcoes::executar() {
   }
 }
 void MenuOpcoes::inicializaBotao() {
-  Botoes::Botao *pBotao = NULL;
-
+  Botoes::Botao *pBotao = nullptr;
   pBotao = new Botoes::Botao(sf::Vector2f(640.f - 100, 360.f - 100),
                              std::string(" Fase 1"));
   pBotao->selecionado(true);

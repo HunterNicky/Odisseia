@@ -27,29 +27,39 @@ void MenuPausa::inicializaBotao() {
                              std::string(" Salvar Jogo"));
   Menu::lBotao.push_back(pBotao);
 
-  pBotao = new Botoes::Botao(sf::Vector2f(640.f - 100, 360.f + 100),
-                             std::string(" Sair "));
-  Menu::lBotao.push_back(pBotao);
-}
+        pBotao = new Botoes::Botao(sf::Vector2f(640.f - 100, 360.f + 100), std::string(" Sair "));
+        Menu::lBotao.push_back(pBotao);
+    }
+    
+    void MenuPausa::executar(){
+        switch(numSelec){
+            case 0:
+                pMaquinaDeEstado->popEstado();
+                break;
+            case 1:
+                pMaquinaDeEstado->popEstado();
+                pMaquinaDeEstado->popEstado();
+                
+                if(pMaquinaDeEstado->getEstadoAtual()->getID() == 1){ //Menu de opções
+                    pMaquinaDeEstado->popEstado();
+                }
+                break;
+            case 2:
+                pMaquinaDeEstado->popEstado();
+                pMaquinaDeEstado->popEstado();
 
-void MenuPausa::executar() {
-  switch (numSelec) {
-  case 0:
-    pMaquinaDeEstado->popEstado();
-    break;
-  case 1:
-    pMaquinaDeEstado->popEstado();
-    pMaquinaDeEstado->popEstado();
-    break;
-  case 2:
-    pMaquinaDeEstado->popEstado();
-    pMaquinaDeEstado->popEstado();
-    break;
-  default:
-    break;
-  }
-}
-void MenuPausa::update(const double dt) { Menu::update(dt); }
+                if(pMaquinaDeEstado->getEstadoAtual()->getID() == 1){//Menu de opções
+                    pMaquinaDeEstado->popEstado();
+                }
+                break;
+            default:
+                break;
+        }
+
+    }
+    void MenuPausa::update(const double dt){
+        Menu::update(dt);
+    }
 
 void MenuPausa::draw() {
   pFase->draw();

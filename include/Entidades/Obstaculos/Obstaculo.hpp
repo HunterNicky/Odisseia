@@ -1,6 +1,6 @@
 #pragma once
-
-#include "..\Entidade.hpp"
+#include "Animacao/AnimacaoBloco.hpp"
+#include "Animacao/AnimacaoContext.hpp"
 #include "Entidades/Entidade.hpp"
 #include "Gerenciadores/Colisao/CalculadorFisico.hpp"
 namespace Entidades {

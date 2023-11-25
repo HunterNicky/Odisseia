@@ -1,7 +1,9 @@
 #include "Entidades/Personagens/Jogador/Jogador.hpp"
 #include "Animacao/AnimacaoParado.hpp"
 #include "Gerenciadores/Colisao/CalculadorFisico.hpp"
+#include "Entidades/Obstaculos/Caixa.hpp"
 #include <iostream>
+#include <ostream>
 
 namespace Entidades {
 namespace Personagens {
@@ -16,19 +18,15 @@ void Jogador::inicializa() {
 Jogador::Jogador(const sf::Vector2f pos, const sf::Vector2f size,
                  const Entidades::ID id)
     : Personagem(pos, size, id),
-      andar(static_cast<Entidades::Entidade *>(this),
-            "data\\Sprites\\Jogador\\PlayerWalk.png",
-            "data\\Sprites\\Jogador\\PlayerRun.png", 8, 8,
-            sf::Vector2f(3 * 1.35, 3 * 0.96), sf::Vector2f(3 * 1.4, 3 * 0.90)),
-      parado(static_cast<Entidades::Entidade *>(this),
-             "data\\Sprites\\Jogador\\PlayerIdle.png", 10, sf::Vector2f(3, 3)),
-      pulando(static_cast<Entidades::Entidade *>(this),
-              "data\\Sprites\\Jogador\\PlayerJump.png",
-              "data\\Sprites\\Jogador\\PlayerSpin.png", 3, 6,
-              sf::Vector2f(3 * 1.10, 3 * 1.09),
+      andar(static_cast<Entidades::Entidade *>(this), CAMINHO_ANDAR_JOG,
+            CAMINHO_CORRER_JOG, 8, 8, sf::Vector2f(3 * 1.35, 3 * 0.96),
+            sf::Vector2f(3 * 1.4, 3 * 0.90)),
+      parado(static_cast<Entidades::Entidade *>(this), CAMINHO_PARADO_JOG, 10,
+             sf::Vector2f(3, 3)),
+      pulando(static_cast<Entidades::Entidade *>(this), CAMINHO_PULAR_JOG,
+              CAMINHO_SPIN_JOG, 3, 6, sf::Vector2f(3 * 1.10, 3 * 1.09),
               sf::Vector2f(3 * 1.4, 3 * 1.09)),
-      atacando(static_cast<Entidades::Entidade *>(this),
-               "data\\Sprites\\player\\playerpunch.png", 7,
+      atacando(static_cast<Entidades::Entidade *>(this), CAMINHO_ATACAR_JOG, 7,
                sf::Vector2f(3 * 3.7, 3 * 0.93)),
       contextoAnimacao() {
   inicializa();
@@ -39,19 +37,15 @@ Jogador::Jogador(nlohmann::json atributos, const int pos,
     : Personagem(sf::Vector2f(atributos[pos]["Posicao"][0],
                               atributos[pos]["Posicao"][1]),
                  sf::Vector2f(TAM_X_JOGADOR, TAM_Y_JOGADOR), id),
-      andar(static_cast<Entidades::Entidade *>(this),
-            "data\\Sprites\\Jogador\\PlayerWalk.png",
-            "data\\Sprites\\Jogador\\PlayerRun.png", 8, 8,
-            sf::Vector2f(3 * 1.35, 3 * 0.96), sf::Vector2f(3 * 1.4, 3 * 0.90)),
-      parado(static_cast<Entidades::Entidade *>(this),
-             "data\\Sprites\\Jogador\\PlayerIdle.png", 10, sf::Vector2f(3, 3)),
-      pulando(static_cast<Entidades::Entidade *>(this),
-              "data\\Sprites\\Jogador\\PlayerJump.png",
-              "data\\Sprites\\Jogador\\PlayerSpin.png", 3, 6,
-              sf::Vector2f(3 * 1.10, 3 * 1.09),
+      andar(static_cast<Entidades::Entidade *>(this), CAMINHO_ANDAR_JOG,
+            CAMINHO_CORRER_JOG, 8, 8, sf::Vector2f(3 * 1.35, 3 * 0.96),
+            sf::Vector2f(3 * 1.4, 3 * 0.90)),
+      parado(static_cast<Entidades::Entidade *>(this), CAMINHO_PARADO_JOG, 10,
+             sf::Vector2f(3, 3)),
+      pulando(static_cast<Entidades::Entidade *>(this), CAMINHO_PULAR_JOG,
+              CAMINHO_SPIN_JOG, 3, 6, sf::Vector2f(3 * 1.10, 3 * 1.09),
               sf::Vector2f(3 * 1.4, 3 * 1.09)),
-      atacando(static_cast<Entidades::Entidade *>(this),
-               "data\\Sprites\\player\\playerpunch.png", 7,
+      atacando(static_cast<Entidades::Entidade *>(this), CAMINHO_ATACAR_JOG, 7,
                sf::Vector2f(3 * 3.7, 3 * 0.93)),
       contextoAnimacao() {
 
@@ -62,8 +56,8 @@ Jogador::Jogador(nlohmann::json atributos, const int pos,
 Jogador::~Jogador() {}
 
 void Jogador::operator--(const int dano) {
-  //std::cout << num_vidas << std::endl;
-  //this->num_vidas -= dano;
+  std::cout << num_vidas << std::endl;
+  this->num_vidas -= dano;
 }
 
 void Jogador::animacao() {
@@ -81,6 +75,8 @@ void Jogador::animacao() {
   contextoAnimacao.updateStrategy(gFisico->getDeltaTime());
 }
 
+const bool Jogador::getProximaFase() { return proximaFase; }
+
 void Jogador::move() {
   Entidade::body->setPosition(pos);
   gColisao->Notify(static_cast<Entidades::Entidade *>(this));
@@ -88,9 +84,9 @@ void Jogador::move() {
 
 void Jogador::direcionar(bool side) {
   if (side) {
-    forca.x = 3000.f;
+    forca.x = 5000.f;
   } else {
-    forca.x = -3000.f;
+    forca.x = -5000.f;
   }
   if (!onFloor)
     forca.y = 0;
@@ -129,27 +125,31 @@ void Jogador::pular() {
   }
 }
 
-void Jogador::neutralizarInimigo(Entidade *pInimigo) {
-  if (pInimigo) {
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
-      Entidades::Personagens::Personagem *pPers =
-          static_cast<Entidades::Personagens::Personagem *>(pInimigo);
-      pPers->operator--(2);
-      // deletar personagem
-    }
+void Jogador::danificarInimigo(Entidade *pInimigo) {
+  float range = 100.f;
+
+  if((gFisico->getDeltaTime() - danoTime ) > 5.f){
+    tomarDano = false;
+  }
+
+  if((ataque && (!tomarDano)) && (this->getPos().x - pInimigo->getPos().x) <= range){
+    Entidades::Personagens::Personagem *pPers =
+        static_cast<Entidades::Personagens::Personagem *>(pInimigo);
+    pPers->operator--(20);
+    std::cout << "estive aq" << std::endl;
   }
 }
 
 void Jogador::tratarColisao(Entidade *entidade, const sf::Vector2f mtv) {
   switch (entidade->getId()) {
   case (ID::Guerreiro):
-    neutralizarInimigo(entidade);
+    danificarInimigo(entidade);
     break;
   case (ID::Viajante):
-    neutralizarInimigo(entidade);
+    //neutralizarInimigo(entidade);
     break;
   case (ID::Samurai):
-    neutralizarInimigo(entidade);
+    //neutralizarInimigo(entidade);
     break;
   case (ID::Plataforma):
     entidade->tratarColisao(static_cast<Entidades::Entidade *>(this), mtv);
@@ -177,13 +177,15 @@ const float Jogador::getEstamina() const { return estamina; }
 
 void Jogador::parar() { forca.x = 0; }
 
-void Jogador::executar() { move(); }
+void Jogador::executar() {
+  animacao();
+  move();
+}
 
 void Jogador::update() {
   if (estamina < 1.f)
     estamina += estamina * 0.0001f + 0.001f;
   executar();
-  animacao();
 }
 
 void Jogador::salvar(std::ostringstream *entrada) {

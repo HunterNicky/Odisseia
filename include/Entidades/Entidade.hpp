@@ -53,6 +53,7 @@ public:
       Gerenciadores::Colisao::ConcreteGerenciadorColisao *gColisao);
   void setVel(const sf::Vector2f vel);
   void setAcc(const sf::Vector2f acc);
+  void setForca(const sf::Vector2f forca);
   void setMassa(const float massa);
   void setPrevPos(const sf::Vector2f prevPos);
   const bool getEstatico();

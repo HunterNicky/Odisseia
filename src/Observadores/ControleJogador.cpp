@@ -20,6 +20,8 @@ void ControleJogador::jogadorNeutralizado() {
   Menu::MenuGameOver *pGameOver = new Menu::MenuGameOver(pFase);
   pMaquinaDeEstado->pushEstado(static_cast<Estados::Estado *>(pGameOver));
 }
+const bool ControleJogador::proximaFase() { return pJogador->getProximaFase(); }
+
 void ControleJogador::notifyPressed(const sf::Keyboard::Key key) {
   if (pJogador && pMaquinaDeEstado->getEstadoAtual()->getAtivo()) {
     if (keyboard[key] == direita) {
@@ -33,6 +35,9 @@ void ControleJogador::notifyPressed(const sf::Keyboard::Key key) {
       pJogador->pular();
     } else if (keyboard[key] == correr) {
       pJogador->correr();
+    }
+    if (keyboard[key] == atacar) {
+      pJogador->atacar();
     }
     if (keyboard[key] == fechar) {
       Menu::MenuPausa *pPausa =

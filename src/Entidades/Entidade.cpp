@@ -41,6 +41,8 @@ void Entidade::setVel(const sf::Vector2f vel) { this->vel = vel; }
 
 void Entidade::setAcc(const sf::Vector2f acc) { this->acc = acc; }
 
+void Entidade::setForca(const sf::Vector2f forca) { this->forca = forca; }
+
 void Entidade::setMassa(const float massa) { this->massa = massa; }
 
 const sf::Vector2f Entidade::getVel() const { return vel; }

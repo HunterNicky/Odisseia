@@ -1,8 +1,14 @@
 #include "Fases/Fase2.hpp"
-#include "Entidades/Projetil/Laser.hpp"
+#include "Fases/Fase1.hpp"
 
 #include <stdlib.h>
-
+#define CAMINHO_BLOCO_GRAMA "data\\Sprites\\blocos\\grass.png"
+#define CAMINHO_BLOCO_TERRA "data\\Sprites\\blocos\\dirt.png"
+#define CAMINHO_BLOCO_PEDRA "data\\Sprites\\blocos\\cobblestone.png"
+#define CAMINHO_BLOCO_PEDRA_R "data\\Sprites\\blocos\\roadcobblestone.png"
+#define CAMINHO_BLOCO_PEDRA_V "data\\Sprites\\blocos\\woodplataformcobblestone.png"
+#define CAMINHO_BLOCO_PORTAL "data\\Sprites\\blocos\\buracoNegro.png"
+#define CAMINHO_BLOCO_CAIXA "data\\Sprites\\blocos\\caixa.png"
 namespace Fases {
 Fase2::Fase2() : Fase() { loadMap(); }
 
@@ -19,7 +25,17 @@ void Fase2::newLava(sf::Vector2f pos, sf::Vector2f size) {
   pLava->setConcreteGerenciadorColisao(pColisao);
   LE.push_back(static_cast<Entidades::Entidade *>(pLava));
 }
-
+void Fase2::newSamurai(sf::Vector2f pos, sf::Vector2f size) {
+  if (pJogador == nullptr) {
+    std::cout << "Erro em criar Samurai!" << std::endl;
+    exit(1);
+  }
+  Entidades::Personagens::Samurai *pSamurai =
+      new Entidades::Personagens::Samurai(pos, size, Entidades::ID::Samurai,
+                                          this->pJogador);
+  pSamurai->setConcreteGerenciadorColisao(pColisao);
+  LE.push_back(static_cast<Entidades::Entidade *>(pSamurai));
+}
 void Fase2::recuperarJogada(nlohmann::json arquivoEntidades,
                             nlohmann::json arquivoFase) {
   for (int i = 0; i < (int)arquivoEntidades.size(); i++) {
@@ -36,7 +52,7 @@ void Fase2::recuperarJogada(nlohmann::json arquivoEntidades,
       }
       Entidades::Personagens::Guerreiro *pInimigo =
           new Entidades::Personagens::Guerreiro(
-              arquivoEntidades, i, Entidades::ID::Guerreiro, pJogador);
+              arquivoEntidades, i, Entidades::ID::Guerreiro, this->pJogador);
       pInimigo->setConcreteGerenciadorColisao(pColisao);
       LE.push_back(static_cast<Entidades::Entidade *>(pInimigo));
     } else if (arquivoEntidades[i]["ID"][0] == Entidades::ID::Viajante) {
@@ -75,9 +91,9 @@ void Fase2::recuperarJogada(nlohmann::json arquivoEntidades,
       pInimigo->setConcreteGerenciadorColisao(pColisao);
       LE.push_back(static_cast<Entidades::Entidade *>(pInimigo));
     } else if (arquivoEntidades[i]["ID"][0] == Entidades::ID::Plataforma) {
-      Entidades::Obstaculos::ObstaculoFacil *pPlataforma =
-          new Entidades::Obstaculos::ObstaculoFacil(arquivoEntidades, i,
-                                                    Entidades::ID::Plataforma);
+      Entidades::Obstaculos::Caixa *pPlataforma =
+          new Entidades::Obstaculos::Caixa(arquivoEntidades, i,
+                                           Entidades::ID::Plataforma);
       pPlataforma->setConcreteGerenciadorColisao(pColisao);
       LE.push_back(static_cast<Entidades::Entidade *>(pPlataforma));
     }
@@ -89,43 +105,56 @@ void Fase2::recuperarJogada(nlohmann::json arquivoEntidades,
 
 void Fase2::loadMap() {
 
-  std::ifstream file("data\\mapas\\fase2.txt");
+  std::ifstream file("data\\Mapas\\fase2.txt");
   sf::Vector2f pos(0.f, 0.f);
-  char numero;
+  char caracter;
 
-  while (file.get(numero)) {
-    switch (numero) {
+  while (file.get(caracter)) {
+    switch (caracter) {
     case '0':
       pos.x += 200.f;
-      ;
+      pos.y += 10.f;
+      break;
+    case 'j':
+      pos.x += 200.f;
+      newJogador(pos + sf::Vector2f(100.f, -400.f), sf::Vector2f(TAM_PERSONAGENS_X, TAM_PERSONAGENS_Y));
       break;
     case '1':
       pos.x += 20.f;
-      newJogador(pos, sf::Vector2f(32.f, 32.f));
+      newGuerreiro(pos, sf::Vector2f(TAM_PERSONAGENS_X, TAM_PERSONAGENS_Y));
       break;
     case '2':
       pos.x += 20.f;
-      newInimigo(pos, sf::Vector2f(20.f, 30.f));
-      break;
-    case 'i':
-      pos.x += 20.f;
-      newInimigoMedio(pos, sf::Vector2f(60.f, 96.f));
-      break;
-    case 's':
-      pos.x += 200.f;
-      newChefao(pos, sf::Vector2f(60.f, 96.f));
+      newViajante(pos, sf::Vector2f(TAM_PERSONAGENS_X, TAM_PERSONAGENS_Y));
       break;
     case '3':
       pos.x += 200.f;
-      newObstaculo(pos, sf::Vector2f(200.f, 50.f));
+      newSamurai(pos, sf::Vector2f(TAM_PERSONAGENS_X, TAM_PERSONAGENS_Y));
+      break;
+    case 'p':
+      pos.x += 200.f;
+      newPlataforma(pos, sf::Vector2f(200.f, 200.f), CAMINHO_BLOCO_PEDRA);
+      break;
+    case 'c': // caixa
+      pos.x += 50.f;
+      pos.y -= 100.f;
+      newCaixa(pos, sf::Vector2f(50.f, 50.f), CAMINHO_BLOCO_CAIXA);
+      break;
+    case 'd':
+      pos.x += 200.f;
+      newCaixa(pos, sf::Vector2f(200.f, 200.f), CAMINHO_BLOCO_PEDRA);
+      break;
+    case 'e':
+      pos.x += 200.f;
+      newCaixa(pos, sf::Vector2f(200.f, 200.f), CAMINHO_BLOCO_PEDRA_V);
       break;
     case 'l':
-      pos.x += 40.f;
-      newLava(pos, sf::Vector2f(50.f, 10.f));
+      pos.x += 200.f;
+      newLava(pos, sf::Vector2f(200.f, 200.f));
       break;
     default:
       pos.x = 0;
-      pos.y += 50.f;
+      pos.y += 10.f;
       break;
     }
   }

@@ -2,8 +2,6 @@
 #include "Animacao/AnimacaoAndar.hpp"
 #include "Animacao/AnimacaoContext.hpp"
 #include "Animacao/AnimacaoParado.hpp"
-#include "Entidades/Entidade.hpp"
-#include "Entidades/Personagens/Inimigo/Guerreiro.hpp"
 
 #include <sstream>
 #include <stdlib.h>
@@ -99,10 +97,7 @@ void Samurai::tratarColisao(Entidade *entidade, const sf::Vector2f mtv) {
   }
 }
 
-void Samurai::atacar(){
-
-}
-
+void Samurai::atacar() {}
 
 void Samurai::executar() { move(); }
 

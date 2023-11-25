@@ -3,6 +3,8 @@
 #include "Fases/Fase1.hpp"
 #include "Fases/Fase2.hpp"
 #include "Menu.hpp"
+#include "Menu/Botoes/Botao.hpp"
+#include "Menu/Botoes/Texto.hpp"
 
 #define TAM_TEXTO_OPTION_X 100.f
 #define TAM_TEXTO_OPTION_Y 100.f

@@ -1,8 +1,8 @@
 #pragma once
 
-// #include "Entidades/Personagens/Jogador/Jogador.hpp"
+#include "Entidades/Entidade.hpp"
+#include "Entidades/Obstaculos/Caixa.hpp"
 #include "Entidades/Personagens/Inimigo/Guerreiro.hpp"
-#include "Entidades/Personagens/Inimigo/Samurai.hpp"
 #include "Entidades/Personagens/Inimigo/Viajante.hpp"
 #include "Entidades/Personagens/Jogador/Jogador.hpp"
 #include "Entidades/Projetil/Laser.hpp"
@@ -12,14 +12,6 @@
 #include "Gerenciadores/GerenciadorDeEvento.hpp"
 #include "Gerenciadores/Colisao/CalculadorFisico.hpp"
 #include "Lista/ListaDeEntidades.hpp"
-
-// #include "Observadores/ControleFase.hpp"
-#include "Entidades/Entidade.hpp"
-#include "Entidades/Obstaculos/Caixa.hpp"
-#include "Entidades/Obstaculos/Gosma.hpp"
-#include "Entidades/Obstaculos/Lava.hpp"
-#include "Estados/Estado.hpp"
-#include "Estados/MaquinaDeEstado.hpp"
 
 // #include "Observadores/ControleJogador.hpp"
 #include "Menu/Botoes/Texto.hpp"
@@ -31,6 +23,7 @@
 
 #define ARQUIVO_ENTIDADES "data/Save/arquivoEntidades.json"
 #define ARQUIVO_FASE "data/Save/arquivoFase.json"
+#define CAMINHO_FONTE_PONTUACAO "data/Font/menus.ttf"
 namespace Observadores {
 class ControleJogador;
 
@@ -44,8 +37,9 @@ protected:
   static Gerenciadores::Colisao::ConcreteGerenciadorColisao *pColisao;
   static Estados::MaquinaDeEstado *pMaquinaDeEstado;
   Observadores::ControleJogador *controleJog;
-  // Observadores::ControleFase* controleFase;
   Entidades::Personagens::Jogador *pJogador;
+  sf::RectangleShape *barraDeVida;
+  sf::RectangleShape *tuboVida;
   Lista::ListaDeEntidades LE;
   std::ostringstream buffer;
   unsigned int pontuacao_jogador;
@@ -58,24 +52,23 @@ public:
   void salvarEntidades();
   void salvarAtributosFase();
   void newJogador(sf::Vector2f pos, sf::Vector2f size);
-  void newInimigo(sf::Vector2f pos, sf::Vector2f size);
-  void newInimigoMedio(sf::Vector2f pos, sf::Vector2f size);
-  void newChefao(sf::Vector2f pos, sf::Vector2f size);
-  void newProjetil(sf::Vector2f pos, const bool direita);
-  void deleteProjetil();
-  // void newPlataforma(sf::Vector2f pos, sf::Vector2f size);
-  // void newGosma(sf::Vector2f pos, sf::Vector2f size);
-  virtual void recuperarJogada(nlohmann::json arquivoEntidades,
-                               nlohmann::json arquivoFase) = 0;
-  void newObstaculo(sf::Vector2f pos, sf::Vector2f size);
+  void newGuerreiro(sf::Vector2f pos, sf::Vector2f size);
+  void newViajante(sf::Vector2f pos, sf::Vector2f size);
+  void newPlataforma(sf::Vector2f pos, sf::Vector2f size,
+                     const std::string path);
+  void newCaixa(sf::Vector2f pos, sf::Vector2f size, const std::string path);
   void setPontuacaoJog(const unsigned int pontos);
   const unsigned int getPontuacaoJog() const;
   void atualizaPontuacao();
+  void atualizaBarraDeVida();
+  void proximaFase();
   void updateVida();
   void update(double dt);
   void executar();
   void draw();
   // virtual void resetEstate() = 0;
+  virtual void recuperarJogada(nlohmann::json arquivoEntidades,
+                               nlohmann::json arquivoFase) = 0;
   virtual void loadMap() = 0;
 };
 } // namespace Fases
