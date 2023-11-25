@@ -137,13 +137,6 @@ void Jogador::danificarInimigo(Entidade *pInimigo) {
     pPers->operator--(20);
     std::cout << "estive aq" << std::endl;
   }
-
-  /*if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
-    Entidades::Personagens::Personagem *pPers =
-        static_cast<Entidades::Personagens::Personagem *>(pInimigo);
-    pPers->operator--(20);
-    // deletar personagem
-  }*/
 }
 
 void Jogador::tratarColisao(Entidade *entidade, const sf::Vector2f mtv) {
@@ -165,6 +158,7 @@ void Jogador::tratarColisao(Entidade *entidade, const sf::Vector2f mtv) {
   case (ID::Caixa):
     entidade->tratarColisao(static_cast<Entidades::Entidade *>(this), mtv);
     verificaSolo(mtv);
+    pos.x -= vel.x * 0.01f;
 break;
   case (ID::Gosma):
     entidade->tratarColisao(static_cast<Entidades::Entidade *>(this), mtv);
