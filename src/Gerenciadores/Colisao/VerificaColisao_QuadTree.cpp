@@ -1,10 +1,12 @@
-#include "Gerenciadores/QuadTree.hpp"
+#include "Gerenciadores/Colisao/VerificaColisao_QuadTree.hpp"
 #include "Entidades/Entidade.hpp"
 #include "Entidades/Personagens/Personagem.hpp"
 #include <valarray>
 
 namespace Gerenciadores {
-Quadtree::Quadtree(sf::FloatRect boundary, int capacity) {
+namespace Colisao {
+VerificaColisao_QuadTree::VerificaColisao_QuadTree(sf::FloatRect boundary,
+                                                   int capacity) {
   this->boundary = boundary;
   this->capacity = capacity;
   for (int i = 0; i < 4; ++i) {
@@ -12,29 +14,29 @@ Quadtree::Quadtree(sf::FloatRect boundary, int capacity) {
   }
 }
 
-Quadtree::~Quadtree() { clear(); }
+VerificaColisao_QuadTree::~VerificaColisao_QuadTree() { clear(); }
 
-bool Quadtree::isSubdivided() { return nodes[0] != nullptr; }
+bool VerificaColisao_QuadTree::isSubdivided() { return nodes[0] != nullptr; }
 
-void Quadtree::subdivide() {
+void VerificaColisao_QuadTree::subdivide() {
   sf::Vector2f center = boundary.getPosition() + 0.5f * boundary.getSize();
   sf::Vector2f halfSize = 0.5f * boundary.getSize();
 
-  nodes[0] =
-      new Quadtree(sf::FloatRect(center.x - halfSize.x, center.y - halfSize.y,
-                                 halfSize.x, halfSize.y),
-                   capacity);
-  nodes[1] = new Quadtree(
+  nodes[0] = new VerificaColisao_QuadTree(sf::FloatRect(center.x - halfSize.x,
+                                                        center.y - halfSize.y,
+                                                        halfSize.x, halfSize.y),
+                                          capacity);
+  nodes[1] = new VerificaColisao_QuadTree(
       sf::FloatRect(center.x, center.y - halfSize.y, halfSize.x, halfSize.y),
       capacity);
-  nodes[2] = new Quadtree(
+  nodes[2] = new VerificaColisao_QuadTree(
       sf::FloatRect(center.x - halfSize.x, center.y, halfSize.x, halfSize.y),
       capacity);
-  nodes[3] = new Quadtree(
+  nodes[3] = new VerificaColisao_QuadTree(
       sf::FloatRect(center.x, center.y, halfSize.x, halfSize.y), capacity);
 }
 
-void Quadtree::insert(Entidades::Entidade *entidade) {
+void VerificaColisao_QuadTree::insert(Entidades::Entidade *entidade) {
   if (!boundary.intersects(entidade->getBody()->getGlobalBounds()))
     return;
 
@@ -50,8 +52,8 @@ void Quadtree::insert(Entidades::Entidade *entidade) {
   }
 }
 
-void Quadtree::query(sf::FloatRect rect,
-                     std::vector<Entidades::Entidade *> &result) {
+void VerificaColisao_QuadTree::query(
+    sf::FloatRect rect, std::vector<Entidades::Entidade *> &result) {
   if (!boundary.intersects(rect))
     return;
 
@@ -68,7 +70,7 @@ void Quadtree::query(sf::FloatRect rect,
   }
 }
 
-void Quadtree::clear() {
+void VerificaColisao_QuadTree::clear() {
   entities.clear();
 
   for (int i = 0; i < 4; ++i) {
@@ -80,10 +82,10 @@ void Quadtree::clear() {
   }
 }
 
-bool Quadtree::detectCollision(Entidades::Entidade *entidade,
-                               std::vector<Entidades::Entidade *> &colliEnti,
-                               sf::FloatRect &collisionRect,
-                               sf::Vector2f &mtv) {
+bool VerificaColisao_QuadTree::detectCollision(
+    Entidades::Entidade *entidade,
+    std::vector<Entidades::Entidade *> &colliEnti, sf::FloatRect &collisionRect,
+    sf::Vector2f &mtv) {
   if (!boundary.intersects(entidade->getBody()->getGlobalBounds()))
     return false;
 
@@ -147,4 +149,5 @@ bool Quadtree::detectCollision(Entidades::Entidade *entidade,
   }
   return collisionDetected;
 }
+} // namespace Colisao
 } // namespace Gerenciadores

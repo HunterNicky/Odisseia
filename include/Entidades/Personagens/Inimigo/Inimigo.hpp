@@ -1,7 +1,7 @@
 #pragma once
 
 #include "..\Jogador\Jogador.hpp"
-#include "Gerenciadores/GerenciadorFisico.hpp"
+#include "Gerenciadores/Colisao/CalculadorFisico.hpp"
 #include "Lista/ListaDeEntidades.hpp"
 
 #define RAIO 200.0f

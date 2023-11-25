@@ -1,6 +1,6 @@
 #include "Entidades/Personagens/Jogador/Jogador.hpp"
 #include "Animacao/AnimacaoParado.hpp"
-#include "Gerenciadores/GerenciadorFisico.hpp"
+#include "Gerenciadores/Colisao/CalculadorFisico.hpp"
 #include <iostream>
 
 namespace Entidades {

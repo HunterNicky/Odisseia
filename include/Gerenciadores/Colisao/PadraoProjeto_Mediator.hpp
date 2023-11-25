@@ -1,4 +1,5 @@
 #pragma once
+
 namespace Entidades {
 class Entidade;
 }
@@ -8,15 +9,16 @@ class ListaDeEntidades;
 }
 
 namespace Gerenciadores {
-class Mediator {
+namespace Colisao {
+class PadraoProjeto_Mediator {
 protected:
   Lista::ListaDeEntidades *LE;
 
 public:
-  Mediator();
-  ~Mediator();
+  PadraoProjeto_Mediator();
+  ~PadraoProjeto_Mediator();
   virtual void setList(Lista::ListaDeEntidades *LE) = 0;
   virtual void Notify(Entidades::Entidade *entidade) = 0;
 };
-
+} // namespace Colisao
 } // namespace Gerenciadores
