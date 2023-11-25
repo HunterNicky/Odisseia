@@ -25,7 +25,6 @@ void Fase1::newGosma(sf::Vector2f pos, sf::Vector2f size) {
   pGosma->setGerenciadorDeColisao(pColisao);
   LE.push_back(static_cast<Entidades::Entidade *>(pGosma));
 }
-
 void Fase1::recuperarJogada(nlohmann::json arquivoEntidades,
                             nlohmann::json arquivoFase) {
   try {//recupera entidades

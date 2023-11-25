@@ -51,6 +51,7 @@ void Gosma::tratarColisao(Entidade *entidade, const sf::Vector2f mtv) {
 }
 
 void Gosma::executar() { animacao(); }
+
 void Gosma::update() { executar(); }
 
 void Gosma::salvar(std::ostringstream *entrada) {

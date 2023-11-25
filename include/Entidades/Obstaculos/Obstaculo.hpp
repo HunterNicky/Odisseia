@@ -10,7 +10,6 @@ class Obstaculo : public Entidade {
 protected:
   static Gerenciadores::GerenciadorFisico *gFisico;
   bool danoso;
-
 public:
   Obstaculo(const sf::Vector2f pos, const sf::Vector2f size,
             const Entidades::ID id);

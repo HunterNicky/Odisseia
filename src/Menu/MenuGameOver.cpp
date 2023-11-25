@@ -86,51 +86,54 @@ void MenuGameOver::salvarPontuacao() {
       pontuacao.getText().substr(11, pontuacao.getText().length());
   std::string linha = nome + " " + pontos + " ";
 
-        std::ofstream arquivo("data/Colocacao/colocacao.txt");
-        if(!arquivo){
-            std::cout << "Erro ao abrir arquivo Colocao!" << std::endl;
-            exit(1);
-        }
-        arquivo << linha << std::endl;
-        arquivo.close();
+  std::fstream arquivo("data/Colocacao/colocacao.txt", std::ios::out);
+  if (!arquivo) {
+    std::cout << "Erro ao abrir arquivo Colocao!" << std::endl;
+    exit(1);
+  }
+  const char quebraLinha = 10; 
+  arquivo << linha << " " << quebraLinha;
+
+  arquivo.close();
+}
+void MenuGameOver::ajustarTexto() {
+  sf::Vector2f posCaixa = fundoCaracter->getPosition();
+  sf::Vector2f tamCaixa = fundoCaracter->getSize();
+  texto.setPos(sf::Vector2f(posCaixa.x + tamCaixa.x / 2 - 80.f,
+                            posCaixa.y + tamCaixa.y / 2 - 30.f));
+}
+void MenuGameOver::addCaracter(char caracter) {
+  std::string nome = texto.getText();
+  if (nome.length() <= 10) {
+    nome += caracter;
+    texto.setTexto(nome);
+    ajustarTexto();
+  }
+}
+void MenuGameOver::removerCaracter() {
+  std::string nome = texto.getText();
+  if (nome != "") {
+    nome = nome.substr(0, nome.length() - 1);
+    texto.setTexto(nome);
+    ajustarTexto();
+  }
+}
+void MenuGameOver::executar() {
+  switch (numSelec) {
+  case 0:
+    salvarPontuacao();
+    break;
+  case 1:
+    pMaquinaDeEstado->popEstado();
+    pMaquinaDeEstado->popEstado();
+    if (pMaquinaDeEstado->getEstadoAtual()->getID() == 1) { // Menu de opções
+      pMaquinaDeEstado->popEstado();
     }
-    void MenuGameOver::ajustarTexto(){
-        sf::Vector2f posCaixa = fundoCaracter->getPosition();
-        sf::Vector2f tamCaixa = fundoCaracter->getSize();
-        texto.setPos(sf::Vector2f(posCaixa.x + tamCaixa.x/2 - 80.f , posCaixa.y + tamCaixa.y/2 - 30.f) );
-    }
-    void MenuGameOver::addCaracter(char caracter){
-        std::string nome = texto.getText();
-        if(nome.length() <= 10){
-            nome += caracter;
-            texto.setTexto(nome);
-            ajustarTexto();
-        }
-    }
-    void MenuGameOver::removerCaracter(){
-        std::string nome = texto.getText();
-        if(nome != ""){
-            nome = nome.substr(0, nome.length() - 1);
-            texto.setTexto(nome);
-            ajustarTexto();
-        }
-    }
-    void MenuGameOver::executar(){
-        switch (numSelec) {
-            case 0:
-                salvarPontuacao();
-                break;
-            case 1:
-                pMaquinaDeEstado->popEstado();
-                pMaquinaDeEstado->popEstado();
-                if(pMaquinaDeEstado->getEstadoAtual()->getID() == 1){//Menu de opções
-                    pMaquinaDeEstado->popEstado();
-                }
-                break;
-            default:
-                break;
-        }
-    }
+    break;
+  default:
+    break;
+  }
+}
 
 void MenuGameOver::update(const double dt) { Menu::update(dt); }
 void MenuGameOver::draw() {
