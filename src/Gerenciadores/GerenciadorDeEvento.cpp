@@ -7,10 +7,7 @@ GerenciadorGrafico *GerenciadorDeEvento::pGrafico =
 
 GerenciadorDeEvento::GerenciadorDeEvento() : removido(false) {}
 
-GerenciadorDeEvento::~GerenciadorDeEvento() {
-  lObserver.clear();
-  delete (pEvento);
-}
+GerenciadorDeEvento::~GerenciadorDeEvento() { delete (pEvento); }
 
 GerenciadorDeEvento *GerenciadorDeEvento::getInstance() {
   if (pEvento == nullptr) {
@@ -33,7 +30,7 @@ void GerenciadorDeEvento::removeObserver(Observadores::Observer *observer) {
   }
 }
 
-void GerenciadorDeEvento::stage() {
+void GerenciadorDeEvento::notify() {
   sf::Event event;
   while (pGrafico->pollEvent(event)) {
     if (event.type == sf::Event::Closed) {
@@ -56,5 +53,4 @@ void GerenciadorDeEvento::stage() {
     removido = false;
   }
 }
-
 } // namespace Gerenciadores

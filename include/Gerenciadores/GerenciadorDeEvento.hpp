@@ -1,24 +1,21 @@
 #pragma once
 
-#include "..\Observadores\Observer.hpp"
 #include "GerenciadorGrafico.hpp"
-#include <list>
-
+#include "Observadores/Subject.hpp"
 
 namespace Gerenciadores {
-class GerenciadorDeEvento {
+class GerenciadorDeEvento : public Observadores::Subject {
 private:
   static GerenciadorGrafico *pGrafico;
   static GerenciadorDeEvento *pEvento;
-  std::list<Observadores::Observer *> lObserver;
   bool removido;
   GerenciadorDeEvento();
 
 public:
-  ~GerenciadorDeEvento();
+  virtual ~GerenciadorDeEvento();
   static GerenciadorDeEvento *getInstance();
   void addObserver(Observadores::Observer *observer);
   void removeObserver(Observadores::Observer *observer);
-  void stage();
+  void notify();
 };
 } // namespace Gerenciadores

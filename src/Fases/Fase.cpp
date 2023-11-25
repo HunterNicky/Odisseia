@@ -222,7 +222,6 @@ void Fase::executar() {
     jogadorPos.y -= 100.f;
     sf::Vector2f novaPosCamera = cameraPos + (jogadorPos - cameraPos) * 0.01f;
     pGrafico->setViewCenter(novaPosCamera);
-    pEvento->stage();
     pFisico->update(dt);
     for (unsigned int i = 0; i < LE.getSize(); i++) {
       pFisico->executarFisica(LE.operator[](i));
