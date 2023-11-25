@@ -35,6 +35,8 @@ Guerreiro::Guerreiro(const sf::Vector2f pos, const sf::Vector2f size,
   } else {
     dano = 10;
   }
+  danoTime = 0;
+  recoveryTime = 0;
 }
 Guerreiro::Guerreiro(nlohmann::json atributos, const int pos,
                      const Entidades::ID id,
@@ -42,7 +44,7 @@ Guerreiro::Guerreiro(nlohmann::json atributos, const int pos,
     : Inimigo(sf::Vector2f(atributos[pos]["Posicao"][0],
                            atributos[pos]["Posicao"][1]),
               sf::Vector2f(TAM_INIMIGO_FACIL_X, TAM_INIMIGO_FACIL_Y), id, pJog),
-      atacando(static_cast<Entidades::Entidade *>(this), CAMINHO_GUERREIRO_ATAQUE, 8, sf::Vector2f(3, 3)),
+      atacando(static_cast<Entidades::Entidade *>(this), CAMINHO_GUERREIRO_ATAQUE, 10, sf::Vector2f(3, 3)),
       andar(static_cast<Entidades::Entidade *>(this), CAMINHO_GUERREIRO_ANDAR,
             CAMINHO_GUERREIRO_ANDAR, 8, 8, sf::Vector2f(3, 3),
             sf::Vector2f(3, 3)),
@@ -73,13 +75,13 @@ void Guerreiro::animacao() {
     }
   }
   if(ataque){
-    contextoAnimacao.setStrategy(&atacando, 0.1f);
+    contextoAnimacao.setStrategy(&atacando, 0.3f);
   }
   contextoAnimacao.updateStrategy(gFisico->getDeltaTime());
 }
 void Guerreiro::operator--(const int dano) { 
-  danoTime = gFisico->getDeltaTime();
-  tomarDano = true;
+  recoveryTime = gFisico->getDeltaTime();
+  tomouDano = true;
   num_vidas -= dano;
 }
 
@@ -126,15 +128,13 @@ void Guerreiro::move() {
 }
 
 void Guerreiro::danificar(Entidade *entidade) {
-  if((gFisico->getDeltaTime() - danoTime) > 5.f){
-    tomarDano = false;
-  }
  
-  if(ataque && (!tomarDano) && (this->getPos().x - entidade->getPos().x) <= raio){
-    Entidades::Personagens::Personagem *pPers =
-        static_cast<Entidades::Personagens::Personagem *>(entidade);
-    pPers->operator--(20);
-    std::cout << "estive aq" << std::endl;
+  if(danar && (this->getPos().x - entidade->getPos().x) <= raio){
+      Entidades::Personagens::Personagem *pPers =
+          static_cast<Entidades::Personagens::Personagem *>(entidade);
+      pPers->operator--(dano);
+
+      danar = false;   
   }
 }
 
@@ -150,10 +150,28 @@ void Guerreiro::tratarColisao(Entidade *entidade, const sf::Vector2f mtv) {
   }
   
 }
+void Guerreiro::atualizaBarraDeVida(){
+  sf::Vector2f posBarraVida(sf::Vector2f(pos.x + getSize().x / 2.0f - body->getSize().x - 20.f, pos.y - 50.0f)); 
+  barraVida->setPosition(posBarraVida);
+  barraVida->setSize(sf::Vector2f((getNum_vidas() / 100.0f) * 60.f, 6.f));
+  pGrafico->draw(dynamic_cast<sf::Drawable*>(barraVida));
+}
 
 void Guerreiro::executar() { move(); }
 
 void Guerreiro::update() {
+  recoveryTime +=gFisico->getDeltaTime();
+  danoTime += gFisico->getDeltaTime();
+
+  //Atualiza timers
+  if(recoveryTime > TEMPO_DESCANSO) {
+    recoveryTime = 0;
+    tomouDano = false;
+  }
+  if(danoTime > TEMPO_DANO) { 
+    danoTime = 0;
+    danar = true;
+  }
   executar();
   animacao();
 }

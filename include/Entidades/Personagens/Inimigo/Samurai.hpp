@@ -1,3 +1,4 @@
+#include "Animacao/AnimacaoAtaque.hpp"
 #include "Inimigo.hpp"
 
 #define TAM_INIMIGO_DIF_X 20.0f
@@ -12,6 +13,10 @@ namespace Entidades {
 namespace Personagens {
 class Samurai : public Inimigo {
 private:
+  bool invisibilidade;
+  float tempoInvisivel;
+  float tempoVisivel;
+  Animacao::AnimacaoAtaque atacando;
   Animacao::AnimacaoAndar andar;
   Animacao::AnimacaoParado parado;
   Animacao::AnimacaoContext contextoAnimacao;
@@ -29,6 +34,7 @@ public:
   void move();
   void danificar(Entidade *entidade);
   void atacar();
+  void atualizaBarraDeVida();
   void tratarColisao(Entidade *entidade, const sf::Vector2f mtv);
   void executar();
   void update();

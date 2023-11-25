@@ -38,6 +38,7 @@ public:
   void danificar(Entidade *entidade);
   void tratarColisao(Entidade *entidade, const sf::Vector2f mtv);
   void atacar();
+  void atualizaBarraDeVida();
   void executar();
   void update();
   void salvar(std::ostringstream *entrada);

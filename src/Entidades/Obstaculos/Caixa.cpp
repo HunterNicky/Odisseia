@@ -1,15 +1,22 @@
 #include "Entidades/Obstaculos/Caixa.hpp"
+#include "Entidades/Entidade.hpp"
+#include "Entidades/Personagens/Jogador/Jogador.hpp"
 
 namespace Entidades {
 namespace Obstaculos {
 Caixa::Caixa(const sf::Vector2f pos, const sf::Vector2f size,
              const Entidades::ID id, const std::string path)
     : Obstaculo(pos, size, id), PortalAtivo(false),
-      bloco(static_cast<Entidades::Entidade *>(this), path, 5,
+      bloco(static_cast<Entidades::Entidade *>(this), path, 2,
             sf::Vector2f(1, 1)),
       contexto() {
-  contexto.setStrategy(&bloco, 0.5f);
+  contexto.setStrategy(&bloco, 1.f);
   this->body->setFillColor(sf::Color::White);
+  if(path == CAMINHO_BLOCO_PORTAL){
+    PortalAtivo = true;
+  }else{
+    PortalAtivo = false;
+  }
 }
 
 Caixa::Caixa(nlohmann::json atributos, const int pos, const Entidades::ID id)
@@ -47,8 +54,11 @@ void Caixa::tratarColisao(Entidade *entidade, const sf::Vector2f mtv) {
   entidade->setPos(sf::Vector2f(entidade->getPos().x + mtv.x, entidade->getPos().y + mtv.y));
   entidade->setPrevPos(sf::Vector2f(entidade->getPrevPos().x + mtv.x * 0.9, entidade->getPrevPos().y + mtv.y * 0.9));
 }
+
 void Caixa::executar() { animacao(); }
+
 void Caixa::update() { executar(); }
+
 void Caixa::salvar(std::ostringstream *entrada) {
   (*entrada) << "{ \"ID\": [" << 5 << "], \"Posicao\": [" << pos.x << " , "
              << pos.y << "], \"Tamanho\": [" << this->getSize().x << ", "

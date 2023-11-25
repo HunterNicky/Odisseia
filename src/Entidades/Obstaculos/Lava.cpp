@@ -14,11 +14,12 @@ unsigned int Lava::queimadura = 50;
 Lava::Lava(const sf::Vector2f pos, const sf::Vector2f size,
            const Entidades::ID id)
     : Obstaculo(pos, size, id),
-      bloco(static_cast<Entidades::Entidade *>(this), CAMINHO_BLOCO_LAVA, 10,
+      bloco(static_cast<Entidades::Entidade *>(this), CAMINHO_BLOCO_LAVA,8,
             sf::Vector2f(1, 1)),
       contexto() {
   this->body->setFillColor(sf::Color::Red);
-  contexto.setStrategy(&bloco, 0.1);
+  contexto.setStrategy(&bloco, 1.f);
+  danoTime = 0;
 }
 
 Lava::Lava(nlohmann::json atributos, const int pos, const Entidades::ID id)
@@ -32,16 +33,21 @@ Lava::Lava(nlohmann::json atributos, const int pos, const Entidades::ID id)
       contexto() {
   this->body->setFillColor(sf::Color::Red);
   contexto.setStrategy(&bloco, 0.1);
+  danoTime = 0;
 }
 Lava::~Lava() {}
 
 void Lava::animacao() { contexto.updateStrategy(gFisico->getDeltaTime()); }
 
 void Lava::queimar(Entidade *entidade) {
-  Entidades::Personagens::Personagem *pPers =
-      static_cast<Entidades::Personagens::Personagem *>(entidade);
 
-  pPers->operator--(queimadura);
+  if(danoso){
+    Entidades::Personagens::Personagem *pPers =
+        static_cast<Entidades::Personagens::Personagem *>(entidade);
+
+    pPers->operator--(queimadura);
+    danoso = false;
+  }
 }
 
 void Lava::tratarColisao(Entidade *entidade, const sf::Vector2f mtv) {
@@ -54,7 +60,15 @@ void Lava::tratarColisao(Entidade *entidade, const sf::Vector2f mtv) {
 
 void Lava::executar() { animacao(); }
 
-void Lava::update() { executar(); }
+void Lava::update() { 
+  danoTime += gFisico->getDeltaTime();
+
+  if(danoTime > 2.0f){
+    danoso = true;
+    danoTime = 0.0f;
+  }
+  executar(); 
+  }
 
 void Lava::salvar(std::ostringstream *entrada) {
   (*entrada) << "{ \"ID\": [" << 8 << "], \"Posicao\": [" << pos.x << " , "

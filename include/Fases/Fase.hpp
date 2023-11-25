@@ -40,6 +40,8 @@ protected:
   Entidades::Personagens::Jogador *pJogador;
   sf::RectangleShape *barraDeVida;
   sf::RectangleShape *tuboVida;
+  sf::RectangleShape* fundo;
+  sf::Texture* imgFundo;
   Lista::ListaDeEntidades LE;
   std::ostringstream buffer;
   unsigned int pontuacao_jogador;
@@ -60,7 +62,9 @@ public:
   void setPontuacaoJog(const unsigned int pontos);
   const unsigned int getPontuacaoJog() const;
   void atualizaPontuacao();
-  void atualizaBarraDeVida();
+  void inicializaVidaJog();
+  void atualizaBarraDeVidaJog();
+  void atualizaBarraDeVidaIni();
   void proximaFase();
   void updateVida();
   void update(double dt);
@@ -70,5 +74,6 @@ public:
   virtual void recuperarJogada(nlohmann::json arquivoEntidades,
                                nlohmann::json arquivoFase) = 0;
   virtual void loadMap() = 0;
+  virtual void carregarFundo() = 0;
 };
 } // namespace Fases

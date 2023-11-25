@@ -9,7 +9,7 @@ GerenciadorDeColisao *GerenciadorDeColisao::instance = nullptr;
 
 GerenciadorDeColisao::GerenciadorDeColisao()
     : quadTree(
-          sf::FloatRect(sf::Vector2f(0.f, 0.f), sf::Vector2f(10000.f, 1000.f)),
+          sf::FloatRect(sf::Vector2f(0.f, 0.f), sf::Vector2f(10000.f, 2000.f)),
           0) {}
 GerenciadorDeColisao::~GerenciadorDeColisao() { delete (instance); }
 

@@ -1,6 +1,7 @@
 #pragma once
 
 // #include "Entidades/Laser/Laser.hpp"
+#include "Animacao/AnimacaoAtaque.hpp"
 #include "Inimigo.hpp"
 #include <math.h>
 
@@ -24,6 +25,7 @@ private:
   Entidades::Laser *pProj;
   bool ProjAtivo;
   bool direita;
+  Animacao::AnimacaoAtaque atacando;
   Animacao::AnimacaoAndar andar;
   Animacao::AnimacaoParado parado;
   Animacao::AnimacaoContext contextoAnimacao;
@@ -46,6 +48,7 @@ public:
   const bool getDirecaoProj();
   void move();
   void atacar();
+  void atualizaBarraDeVida();
   void tratarColisao(Entidade *entidade, const sf::Vector2f mtv);
   void executar();
   void update();

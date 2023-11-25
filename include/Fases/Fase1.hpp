@@ -16,6 +16,7 @@ public:
   void recuperarJogada(nlohmann::json arquivoEntidades,
                        nlohmann::json arquivosFase);
   void loadMap();
+  void carregarFundo();
   void draw();
   void update();
   void executar();

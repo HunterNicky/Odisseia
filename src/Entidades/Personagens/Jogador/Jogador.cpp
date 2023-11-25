@@ -1,5 +1,6 @@
 #include "Entidades/Personagens/Jogador/Jogador.hpp"
 #include "Entidades/Obstaculos/Caixa.hpp"
+#include "Entidades/Personagens/Personagem.hpp"
 #include "Gerenciadores/GerenciadorFisico.hpp"
 #include <iostream>
 #include <ostream>
@@ -29,6 +30,9 @@ Jogador::Jogador(const sf::Vector2f pos, const sf::Vector2f size,
                sf::Vector2f(3 * 3.7, 3 * 0.93)),
       contextoAnimacao() {
   inicializa();
+  danoTime = 0;
+  recoveryTime = 0;
+  proximaFase = false;
 }
 
 Jogador::Jogador(nlohmann::json atributos, const int pos,
@@ -56,6 +60,9 @@ Jogador::~Jogador() {}
 
 void Jogador::operator--(const int dano) {
   std::cout << num_vidas << std::endl;
+  recoveryTime = gFisico->getDeltaTime();
+  tomouDano = true;
+
   this->num_vidas -= dano;
 }
 
@@ -76,6 +83,8 @@ void Jogador::animacao() {
 
 const bool Jogador::getProximaFase() { return proximaFase; }
 
+void Jogador::setProximaFase(const bool proximaFase) {
+}
 void Jogador::move() {
   Entidade::body->setPosition(pos);
   gColisao->Notify(static_cast<Entidades::Entidade *>(this));
@@ -127,15 +136,14 @@ void Jogador::pular() {
 void Jogador::danificarInimigo(Entidade *pInimigo) {
   float range = 100.f;
 
-  if((gFisico->getDeltaTime() - danoTime ) > 5.f){
-    tomarDano = false;
-  }
+  if(ataque){
+    if(danar && (this->getPos().x - pInimigo->getPos().x) <= range){
+      Entidades::Personagens::Personagem *pPers =
+          static_cast<Entidades::Personagens::Personagem *>(pInimigo);
+      pPers->operator--(50);
 
-  if((ataque && (!tomarDano)) && (this->getPos().x - pInimigo->getPos().x) <= range){
-    Entidades::Personagens::Personagem *pPers =
-        static_cast<Entidades::Personagens::Personagem *>(pInimigo);
-    pPers->operator--(20);
-    std::cout << "estive aq" << std::endl;
+      danar = false;
+    }
   }
 }
 
@@ -145,19 +153,24 @@ void Jogador::tratarColisao(Entidade *entidade, const sf::Vector2f mtv) {
     danificarInimigo(entidade);
     break;
   case (ID::Viajante):
-    //neutralizarInimigo(entidade);
+    danificarInimigo(entidade);
     break;
   case (ID::Samurai):
-    //neutralizarInimigo(entidade);
+    danificarInimigo(entidade);
     break;
   case (ID::Plataforma):
     entidade->tratarColisao(static_cast<Entidades::Entidade *>(this), mtv);
     verificaSolo(mtv);
     pos.x -= vel.x * 0.01f;
     break;
-  case (ID::Caixa):
+  case (ID::Caixa):{
     entidade->tratarColisao(static_cast<Entidades::Entidade *>(this), mtv);
     verificaSolo(mtv);
+
+    Entidades::Obstaculos::Caixa *pPortal = static_cast<Entidades::Obstaculos::Caixa*>(entidade);
+    if(pPortal->getPortalAtivo()){
+      proximaFase = true;
+    }}
     break;
   case (ID::Gosma):
     entidade->tratarColisao(static_cast<Entidades::Entidade *>(this), mtv);
@@ -177,6 +190,7 @@ const float Jogador::getEstamina() const { return estamina; }
 void Jogador::parar() { forca.x = 0; }
 
 void Jogador::executar() {
+
   animacao();
   move();
 }
@@ -184,6 +198,19 @@ void Jogador::executar() {
 void Jogador::update() {
   if (estamina < 1.f)
     estamina += estamina * 0.0001f + 0.001f;
+
+  recoveryTime +=gFisico->getDeltaTime();
+  danoTime += gFisico->getDeltaTime();
+
+  if(recoveryTime > TEMPO_DESCANSO) {
+    recoveryTime = 0;
+    tomouDano = false;
+  }
+  if(danoTime > TEMPO_DANO/2) { 
+    danoTime = 0;
+    danar = true;
+  }
+  
   executar();
 }
 
