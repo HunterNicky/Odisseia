@@ -9,7 +9,7 @@ Personagem::Personagem(const sf::Vector2f pos, const sf::Vector2f size,
 Personagem::~Personagem() {}
 
 void Personagem::verificaSolo(const sf::Vector2f mtv) {
-  if (mtv.y < 0.f) {
+ if (mtv.y < 0.f) {
     onFloor = true;
     jumpTime = 0.f;
   } else {

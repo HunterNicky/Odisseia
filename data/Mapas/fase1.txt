@@ -2,7 +2,6 @@
   j           @  @              @ @ w
          @  pppppppp      @   p pppppppp
          pp  2     @ 1    cc     1   2
-       # 
-      cc
-      1 1           #  #   #  #  #  # 
+
+
 pppppppppppppppppppppppppppppppppppppppp

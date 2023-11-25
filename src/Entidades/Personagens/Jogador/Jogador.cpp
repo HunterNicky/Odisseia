@@ -158,8 +158,7 @@ void Jogador::tratarColisao(Entidade *entidade, const sf::Vector2f mtv) {
   case (ID::Caixa):
     entidade->tratarColisao(static_cast<Entidades::Entidade *>(this), mtv);
     verificaSolo(mtv);
-    pos.x -= vel.x * 0.01f;
-break;
+    break;
   case (ID::Gosma):
     entidade->tratarColisao(static_cast<Entidades::Entidade *>(this), mtv);
     verificaSolo(mtv);

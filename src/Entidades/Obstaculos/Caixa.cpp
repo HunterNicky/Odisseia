@@ -45,7 +45,7 @@ const bool Caixa::getPortalAtivo() const { return PortalAtivo; }
 
 void Caixa::tratarColisao(Entidade *entidade, const sf::Vector2f mtv) {
   entidade->setPos(sf::Vector2f(entidade->getPos().x + mtv.x, entidade->getPos().y + mtv.y));
-  entidade->setPrevPos(sf::Vector2f(entidade->getPrevPos().x + mtv.x * 0.2, entidade->getPrevPos().y + mtv.y * 0.2));
+  entidade->setPrevPos(sf::Vector2f(entidade->getPrevPos().x + mtv.x * 0.9, entidade->getPrevPos().y + mtv.y * 0.9));
 }
 void Caixa::executar() { animacao(); }
 void Caixa::update() { executar(); }

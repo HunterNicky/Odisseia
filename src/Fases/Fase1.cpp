@@ -6,7 +6,7 @@
 #define CAMINHO_BLOCO_TERRA "data/Sprites/blocos/dirt.png"
 #define CAMINHO_BLOCO_PEDRA "data/Sprites/blocos/cobblestone.png"
 #define CAMINHO_BLOCO_PEDRA_R "data/Sprites/blocos/roadcobblestone.png"
-#define CAMINHO_BLOCO_PEDRA_V "data/Sprites/blocos/woodcobblestone.png"
+#define CAMINHO_BLOCO_PEDRA_V "data/Sprites/blocos/woodplataformcobblestone.png"
 #define CAMINHO_BLOCO_PORTAL "data/Sprites/blocos/buracoNegro.png"
 #define CAMINHO_BLOCO_CAIXA "data/Sprites/blocos/caixa.png"
 namespace Fases {
