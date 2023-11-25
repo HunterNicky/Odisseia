@@ -24,7 +24,7 @@ Jogo::Jogo() {
 
 Jogo::~Jogo() {}
 void Jogo::atualizarJogo() {
-  pEvento->stage();
+  pEvento->notify();
   pMaquinaDeEstado->atualizarEstadoAtual(mTPF.asSeconds());
 }
 
