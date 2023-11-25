@@ -1,46 +1,92 @@
-[{ "ID": [1], "Posicao": [2086.86 , -0.00280576], "Velocidade": [0.735352 , 1.64753], "Vida": [1000] }
-,{ "ID": [3], "Posicao": [-1379.5 , 33129.3], "Velocidade": [-2.57703 , 27.9141], "Vida": [100] }
-,{ "ID": [9], "Posicao": [496816 , 129656], "Velocidade": [0 , 0] }
-,{ "ID": [2], "Posicao": [8289.28 , 33287.5], "Velocidade": [2.0459 , 28.2188], "Vida": [10] }
-,{ "ID": [3], "Posicao": [8505.84 , 33129.3], "Velocidade": [2.09277 , 27.9141], "Vida": [100] }
-,{ "ID": [9], "Posicao": [-7.2089e+06 , -429834], "Velocidade": [0 , 0] }
-,{ "ID": [3], "Posicao": [9125.75 , 33129.3], "Velocidade": [1.94238 , 27.9141], "Vida": [100] }
-,{ "ID": [9], "Posicao": [-6.8778e+06 , -429834], "Velocidade": [0 , 0] }
-,{ "ID": [5], "Posicao": [200 , 200] }
-,{ "ID": [5], "Posicao": [400 , 200] }
-,{ "ID": [5], "Posicao": [600 , 200] }
-,{ "ID": [5], "Posicao": [800 , 200] }
-,{ "ID": [5], "Posicao": [1000 , 200] }
-,{ "ID": [5], "Posicao": [1200 , 200] }
-,{ "ID": [5], "Posicao": [1400 , 200] }
-,{ "ID": [5], "Posicao": [1600 , 200] }
-,{ "ID": [5], "Posicao": [1800 , 200] }
-,{ "ID": [5], "Posicao": [2000 , 200] }
-,{ "ID": [5], "Posicao": [2200 , 200] }
-,{ "ID": [5], "Posicao": [2400 , 200] }
-,{ "ID": [5], "Posicao": [2600 , 200] }
-,{ "ID": [5], "Posicao": [2800 , 200] }
-,{ "ID": [5], "Posicao": [3000 , 200] }
-,{ "ID": [5], "Posicao": [3200 , 200] }
-,{ "ID": [5], "Posicao": [3400 , 200] }
-,{ "ID": [5], "Posicao": [3600 , 200] }
-,{ "ID": [5], "Posicao": [3800 , 200] }
-,{ "ID": [5], "Posicao": [4000 , 200] }
-,{ "ID": [5], "Posicao": [4200 , 200] }
-,{ "ID": [5], "Posicao": [4400 , 200] }
-,{ "ID": [5], "Posicao": [4600 , 200] }
-,{ "ID": [5], "Posicao": [4800 , 200] }
-,{ "ID": [5], "Posicao": [5000 , 200] }
-,{ "ID": [5], "Posicao": [5200 , 200] }
-,{ "ID": [5], "Posicao": [5400 , 200] }
-,{ "ID": [5], "Posicao": [5600 , 200] }
-,{ "ID": [5], "Posicao": [5800 , 200] }
-,{ "ID": [5], "Posicao": [6000 , 200] }
-,{ "ID": [5], "Posicao": [6200 , 200] }
-,{ "ID": [5], "Posicao": [6400 , 200] }
-,{ "ID": [5], "Posicao": [6600 , 200] }
-,{ "ID": [5], "Posicao": [6800 , 200] }
-,{ "ID": [5], "Posicao": [7000 , 200] }
-,{ "ID": [5], "Posicao": [7200 , 200] }
-,{ "ID": [5], "Posicao": [7400 , 200] }
+[{ "ID": [3], "Posicao": [2850.72 , 385.024], "Velocidade": [0.0478516 , 1.72931], "Vida": [100] }
+,{ "ID": [9], "Posicao": [-1.50404e+07 , -464207], "Velocidade": [0 , 0] }
+,{ "ID": [7], "Posicao": [3200 , 150],  "Tamanho": [200 , 100] }
+,{ "ID": [3], "Posicao": [3457.71 , 385.024], "Velocidade": [0.105469 , 1.83051], "Vida": [100] }
+,{ "ID": [9], "Posicao": [-1.70664e+07 , -528399], "Velocidade": [0 , 0] }
+,{ "ID": [2], "Posicao": [6340.46 , 989.12], "Velocidade": [-0.123047 , 1.87787], "Vida": [100] }
+,{ "ID": [3], "Posicao": [6674.09 , 483.21], "Velocidade": [-0.078125 , 1.82291], "Vida": [100] }
+,{ "ID": [9], "Posicao": [-2.77148e+07 , -1.04641e+06], "Velocidade": [0 , 0] }
+,{ "ID": [5], "Posicao": [7800 , 480], "Tamanho": [50, 100], "Textura": [ 0 ] }
+,{ "ID": [3], "Posicao": [2067.96 , 575.024], "Velocidade": [0.0561523 , 1.67242], "Vida": [100] }
+,{ "ID": [9], "Posicao": [-3.11796e+06 , -1.57749e+06], "Velocidade": [0 , 0] }
+,{ "ID": [5], "Posicao": [2600 , 480], "Tamanho": [200, 100], "Textura": [ 0 ] }
+,{ "ID": [5], "Posicao": [2800 , 480], "Tamanho": [200, 100], "Textura": [ 0 ] }
+,{ "ID": [5], "Posicao": [3000 , 480], "Tamanho": [200, 100], "Textura": [ 0 ] }
+,{ "ID": [5], "Posicao": [3200 , 480], "Tamanho": [200, 100], "Textura": [ 0 ] }
+,{ "ID": [5], "Posicao": [3400 , 480], "Tamanho": [200, 100], "Textura": [ 0 ] }
+,{ "ID": [5], "Posicao": [3600 , 480], "Tamanho": [200, 100], "Textura": [ 0 ] }
+,{ "ID": [5], "Posicao": [3800 , 480], "Tamanho": [200, 100], "Textura": [ 0 ] }
+,{ "ID": [5], "Posicao": [4000 , 480], "Tamanho": [200, 100], "Textura": [ 0 ] }
+,{ "ID": [3], "Posicao": [5375.66 , 995.024], "Velocidade": [-0.00537109 , 1.72888], "Vida": [100] }
+,{ "ID": [9], "Posicao": [-2.34314e+07 , -1.86564e+06], "Velocidade": [0 , 0] }
+,{ "ID": [5], "Posicao": [6200 , 570], "Tamanho": [200, 100], "Textura": [ 0 ] }
+,{ "ID": [5], "Posicao": [6600 , 580], "Tamanho": [200, 100], "Textura": [ 0 ] }
+,{ "ID": [5], "Posicao": [6800 , 580], "Tamanho": [200, 100], "Textura": [ 0 ] }
+,{ "ID": [5], "Posicao": [7000 , 580], "Tamanho": [200, 100], "Textura": [ 0 ] }
+,{ "ID": [5], "Posicao": [7200 , 580], "Tamanho": [200, 100], "Textura": [ 0 ] }
+,{ "ID": [5], "Posicao": [7400 , 580], "Tamanho": [200, 100], "Textura": [ 0 ] }
+,{ "ID": [5], "Posicao": [7600 , 580], "Tamanho": [200, 100], "Textura": [ 0 ] }
+,{ "ID": [5], "Posicao": [7800 , 580], "Tamanho": [200, 100], "Textura": [ 0 ] }
+,{ "ID": [5], "Posicao": [8000 , 580], "Tamanho": [200, 100], "Textura": [ 0 ] }
+,{ "ID": [5], "Posicao": [2000 , 670], "Tamanho": [200, 100], "Textura": [ 0 ] }
+,{ "ID": [5], "Posicao": [2200 , 670], "Tamanho": [200, 100], "Textura": [ 0 ] }
+,{ "ID": [3], "Posicao": [1489.04 , 993.297], "Velocidade": [-0.00683594 , 1.73126], "Vida": [100] }
+,{ "ID": [9], "Posicao": [1514.04 , 970.02], "Velocidade": [0 , 0] }
+,{ "ID": [3], "Posicao": [3368.17 , 995.024], "Velocidade": [-0.00341797 , 1.72888], "Vida": [100] }
+,{ "ID": [9], "Posicao": [-1.70664e+07 , -2.46796e+06], "Velocidade": [0 , 0] }
+,{ "ID": [2], "Posicao": [3864.75 , 989.12], "Velocidade": [-0.198975 , 1.76984], "Vida": [100] }
+,{ "ID": [5], "Posicao": [4650 , 1015], "Tamanho": [50, 50], "Textura": [ 0 ] }
+,{ "ID": [5], "Posicao": [4700 , 1014.96], "Tamanho": [50, 50], "Textura": [ 0 ] }
+,{ "ID": [3], "Posicao": [5785.75 , 995.024], "Velocidade": [-0.0654297 , 1.71783], "Vida": [100] }
+,{ "ID": [9], "Posicao": [-2.49674e+07 , -2.80426e+06], "Velocidade": [0 , 0] }
+,{ "ID": [3], "Posicao": [6466.57 , 995.024], "Velocidade": [-0.0708008 , 1.68561], "Vida": [100] }
+,{ "ID": [9], "Posicao": [-2.67992e+07 , -2.8956e+06], "Velocidade": [0 , 0] }
+,{ "ID": [2], "Posicao": [1090.53 , 986.099], "Velocidade": [-0.0379639 , 1.77588], "Vida": [100] }
+,{ "ID": [5], "Posicao": [1434.03 , 990], "Tamanho": [50, 100], "Textura": [ 0 ] }
+,{ "ID": [7], "Posicao": [2600 , 990],  "Tamanho": [200 , 100] }
+,{ "ID": [7], "Posicao": [3600 , 1030],  "Tamanho": [200 , 50] }
+,{ "ID": [7], "Posicao": [5200 , 1100],  "Tamanho": [200 , 100] }
+,{ "ID": [5], "Posicao": [7137.77 , 33807.5], "Tamanho": [50, 100], "Textura": [ 0 ] }
+,{ "ID": [5], "Posicao": [200 , 1140], "Tamanho": [200, 200], "Textura": [ 0 ] }
+,{ "ID": [5], "Posicao": [400 , 1140], "Tamanho": [200, 200], "Textura": [ 0 ] }
+,{ "ID": [5], "Posicao": [600 , 1140], "Tamanho": [200, 200], "Textura": [ 0 ] }
+,{ "ID": [5], "Posicao": [800 , 1140], "Tamanho": [200, 200], "Textura": [ 0 ] }
+,{ "ID": [5], "Posicao": [1000 , 1140], "Tamanho": [200, 200], "Textura": [ 0 ] }
+,{ "ID": [5], "Posicao": [1200 , 1140], "Tamanho": [200, 200], "Textura": [ 0 ] }
+,{ "ID": [5], "Posicao": [1400 , 1140], "Tamanho": [200, 200], "Textura": [ 0 ] }
+,{ "ID": [5], "Posicao": [1600 , 1140], "Tamanho": [200, 200], "Textura": [ 0 ] }
+,{ "ID": [5], "Posicao": [1800 , 1140], "Tamanho": [200, 200], "Textura": [ 0 ] }
+,{ "ID": [5], "Posicao": [2000 , 1140], "Tamanho": [200, 200], "Textura": [ 0 ] }
+,{ "ID": [5], "Posicao": [2200 , 1140], "Tamanho": [200, 200], "Textura": [ 0 ] }
+,{ "ID": [5], "Posicao": [2400 , 1140], "Tamanho": [200, 200], "Textura": [ 0 ] }
+,{ "ID": [5], "Posicao": [2600 , 1140], "Tamanho": [200, 200], "Textura": [ 0 ] }
+,{ "ID": [5], "Posicao": [2800 , 1140], "Tamanho": [200, 200], "Textura": [ 0 ] }
+,{ "ID": [5], "Posicao": [3000 , 1140], "Tamanho": [200, 200], "Textura": [ 0 ] }
+,{ "ID": [5], "Posicao": [3200 , 1140], "Tamanho": [200, 200], "Textura": [ 0 ] }
+,{ "ID": [5], "Posicao": [3400 , 1140], "Tamanho": [200, 200], "Textura": [ 0 ] }
+,{ "ID": [5], "Posicao": [3600 , 1140], "Tamanho": [200, 200], "Textura": [ 0 ] }
+,{ "ID": [5], "Posicao": [3800 , 1140], "Tamanho": [200, 200], "Textura": [ 0 ] }
+,{ "ID": [5], "Posicao": [4000 , 1140], "Tamanho": [200, 200], "Textura": [ 0 ] }
+,{ "ID": [5], "Posicao": [4200 , 1140], "Tamanho": [200, 200], "Textura": [ 0 ] }
+,{ "ID": [5], "Posicao": [4400 , 1140], "Tamanho": [200, 200], "Textura": [ 0 ] }
+,{ "ID": [5], "Posicao": [4600 , 1140], "Tamanho": [200, 200], "Textura": [ 0 ] }
+,{ "ID": [5], "Posicao": [4800 , 1140], "Tamanho": [200, 200], "Textura": [ 0 ] }
+,{ "ID": [5], "Posicao": [5000 , 1140], "Tamanho": [200, 200], "Textura": [ 0 ] }
+,{ "ID": [5], "Posicao": [5200 , 1140], "Tamanho": [200, 200], "Textura": [ 0 ] }
+,{ "ID": [5], "Posicao": [5400 , 1140], "Tamanho": [200, 200], "Textura": [ 0 ] }
+,{ "ID": [5], "Posicao": [5600 , 1140], "Tamanho": [200, 200], "Textura": [ 0 ] }
+,{ "ID": [5], "Posicao": [5800 , 1140], "Tamanho": [200, 200], "Textura": [ 0 ] }
+,{ "ID": [5], "Posicao": [6000 , 1140], "Tamanho": [200, 200], "Textura": [ 0 ] }
+,{ "ID": [5], "Posicao": [6200 , 1140], "Tamanho": [200, 200], "Textura": [ 0 ] }
+,{ "ID": [5], "Posicao": [6400 , 1140], "Tamanho": [200, 200], "Textura": [ 0 ] }
+,{ "ID": [5], "Posicao": [6600 , 1140], "Tamanho": [200, 200], "Textura": [ 0 ] }
+,{ "ID": [5], "Posicao": [6800 , 1140], "Tamanho": [200, 200], "Textura": [ 0 ] }
+,{ "ID": [5], "Posicao": [7000 , 1140], "Tamanho": [200, 200], "Textura": [ 0 ] }
+,{ "ID": [5], "Posicao": [7200 , 1140], "Tamanho": [200, 200], "Textura": [ 0 ] }
+,{ "ID": [5], "Posicao": [7400 , 1140], "Tamanho": [200, 200], "Textura": [ 0 ] }
+,{ "ID": [5], "Posicao": [7600 , 1140], "Tamanho": [200, 200], "Textura": [ 0 ] }
+,{ "ID": [5], "Posicao": [7800 , 1140], "Tamanho": [200, 200], "Textura": [ 0 ] }
+,{ "ID": [5], "Posicao": [8000 , 1140], "Tamanho": [200, 200], "Textura": [ 0 ] }
+,{ "ID": [5], "Posicao": [8200 , 1140], "Tamanho": [200, 200], "Textura": [ 0 ] }
+,{ "ID": [5], "Posicao": [8400 , 1140], "Tamanho": [200, 200], "Textura": [ 0 ] }
 ]

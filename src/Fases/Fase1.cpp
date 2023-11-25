@@ -12,6 +12,7 @@
 namespace Fases {
 Fase1::Fase1() : Fase() {
   loadMap();
+  carregarFundo();
   srand(time(NULL));
 }
 Fase1::Fase1(nlohmann::json arquivosEntidades, nlohmann::json arquivosFase) {
@@ -122,16 +123,16 @@ void Fase1::loadMap() {
     case 'a': // grama
       pos.x += 200.f;
       // pos.y = 50.f;
-      newCaixa(pos, sf::Vector2f(200.f, 100.f), CAMINHO_BLOCO_GRAMA);
+      newPlataforma(pos, sf::Vector2f(200.f, 200.f), CAMINHO_BLOCO_GRAMA);
       break;
     case 'b': // terra
       pos.x += 200.f;
-      newCaixa(pos, sf::Vector2f(200.f, 100.f), CAMINHO_BLOCO_TERRA);
+      newPlataforma(pos, sf::Vector2f(200.f, 100.f), CAMINHO_BLOCO_TERRA);
       break;
     case 'p':
       pos.x += 200.f;
       // pos.y = 50.f;
-      newPlataforma(pos, sf::Vector2f(200.f, 50.f), CAMINHO_BLOCO_PEDRA);
+      newPlataforma(pos, sf::Vector2f(200.f, 100.f), CAMINHO_BLOCO_PEDRA);
       break;
     case 'c':
       pos.x += 50.f;
@@ -160,7 +161,7 @@ void Fase1::loadMap() {
         break;
       }
     }
-    case '#': { // inimigos aleatório
+    case '#': { // obstaculos aleatórios
       int sort = (int)rand() % 3;
       if (sort == 0) {
         pos.x += 200.f;
@@ -185,9 +186,19 @@ void Fase1::loadMap() {
   }
   file.close();
 }
-void Fases::Fase1::draw() { Fase::draw(); }
 
-void Fases::Fase1::update() { executar(); }
+void Fase1::carregarFundo(){
+  fundo = new sf::RectangleShape();
+  imgFundo = new sf::Texture();
+  fundo->setSize(sf::Vector2f(1280.f, 640.f));  
+  fundo->setPosition(sf::Vector2f(pGrafico->getViewCenter().x, pGrafico->getViewCenter().y));
+  imgFundo->loadFromFile("data\\imagens\\fundoFase1.png");
+  pGrafico->draw(fundo);
+  //pGrafico->draw(fundo)
+  }
+void Fase1::draw() { Fase::draw(); }
 
-void Fases::Fase1::executar() { Fase::executar(); }
+void Fase1::update() { executar(); }
+
+void Fase1::executar() { Fase::executar(); }
 } // namespace Fases

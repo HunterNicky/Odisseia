@@ -12,6 +12,7 @@ namespace Entidades {
 namespace Obstaculos {
 class Lava : public Obstaculo {
 private:
+  float danoTime;
   static unsigned int queimadura;
   Animacao::AnimacaoBloco bloco;
   Animacao::AnimacaoContext contexto;

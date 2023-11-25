@@ -45,7 +45,9 @@ public:
   const float getEstamina() const;
   void animacao();
   const bool getProximaFase();
+  void setProximaFase(const bool proximaFase);
   void move();
+  void atualizaBarraDeVida() {}
   void danificarInimigo(Entidade *pInimigo);
   void tratarColisao(Entidade *entidade, const sf::Vector2f mtv);
   void atacar();

@@ -13,6 +13,9 @@ namespace Entidades {
 namespace Personagens {
 class Samurai : public Inimigo {
 private:
+  bool invisibilidade;
+  float tempoInvisivel;
+  float tempoVisivel;
   Animacao::AnimacaoAndar andar;
   Animacao::AnimacaoParado parado;
   Animacao::AnimacaoAtaque atacando;
@@ -31,6 +34,7 @@ public:
   void move();
   void danificar(Entidade *entidade);
   void atacar();
+  void atualizaBarraDeVida();
   void tratarColisao(Entidade *entidade, const sf::Vector2f mtv);
   void executar();
   void update();

@@ -116,19 +116,19 @@ void Fase2::loadMap() {
       pos.y += 10.f;
       break;
     case 'j':
-      pos.x += 200.f;
+      //pos.x += 200.f;
       newJogador(pos + sf::Vector2f(100.f, -400.f), sf::Vector2f(TAM_PERSONAGENS_X, TAM_PERSONAGENS_Y));
       break;
     case '1':
-      pos.x += 20.f;
+      //pos.x += 20.f;
       newGuerreiro(pos, sf::Vector2f(TAM_PERSONAGENS_X, TAM_PERSONAGENS_Y));
       break;
     case '2':
-      pos.x += 20.f;
+      //pos.x += 20.f;
       newViajante(pos, sf::Vector2f(TAM_PERSONAGENS_X, TAM_PERSONAGENS_Y));
       break;
     case '3':
-      pos.x += 200.f;
+      //pos.x += 200.f;
       newSamurai(pos, sf::Vector2f(TAM_PERSONAGENS_X, TAM_PERSONAGENS_Y));
       break;
     case 'p':
@@ -142,16 +142,44 @@ void Fase2::loadMap() {
       break;
     case 'd':
       pos.x += 200.f;
-      newCaixa(pos, sf::Vector2f(200.f, 200.f), CAMINHO_BLOCO_PEDRA);
+      newPlataforma(pos, sf::Vector2f(200.f, 100.f), CAMINHO_BLOCO_PEDRA_R);
       break;
     case 'e':
       pos.x += 200.f;
-      newCaixa(pos, sf::Vector2f(200.f, 200.f), CAMINHO_BLOCO_PEDRA_V);
+      newPlataforma(pos, sf::Vector2f(200.f, 200.f), CAMINHO_BLOCO_PEDRA_V);
       break;
     case 'l':
       pos.x += 200.f;
       newLava(pos, sf::Vector2f(200.f, 200.f));
       break;
+    case '@': { // inimigos aleatório
+      int sort = (int)rand() % 3;
+      if (sort == 0) {
+        pos.x += 200.f;
+        newGuerreiro(pos, sf::Vector2f(TAM_PERSONAGENS_X, TAM_PERSONAGENS_Y));
+        break;
+      } else if (sort == 1) {
+        pos.x += 200.f;
+        newViajante(pos, sf::Vector2f(TAM_PERSONAGENS_X, TAM_PERSONAGENS_Y));
+        break;
+      } else {
+        break;
+      }
+    }
+    case '#': { // obstaculos aleatórios
+      int sort = (int)rand() % 3;
+      if (sort == 0) {
+        pos.x += 200.f;
+        newLava(pos, sf::Vector2f(200.f, 50.f));
+        break;
+      } else if (sort == 1) {
+        pos.x += 200.f;
+        newCaixa(pos, sf::Vector2f(50.f, 50.f), CAMINHO_BLOCO_CAIXA);
+        break;
+      } else {
+        break;
+      }
+    }
     default:
       pos.x = 0;
       pos.y += 10.f;
@@ -159,6 +187,10 @@ void Fase2::loadMap() {
     }
   }
   file.close();
+}
+
+void Fase2::carregarFundo(){
+
 }
 void Fase2::draw() { Fase::draw(); }
 

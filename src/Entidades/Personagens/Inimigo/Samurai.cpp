@@ -1,5 +1,6 @@
-#include "..\..\..\..\include\Entidades\Personagens\Inimigo\Samurai.hpp"
+#include "Entidades/Personagens/Inimigo/Samurai.hpp"
 #include "Animacao/AnimacaoAndar.hpp"
+#include "Animacao/AnimacaoAtaque.hpp"
 #include "Animacao/AnimacaoContext.hpp"
 #include "Animacao/AnimacaoParado.hpp"
 
@@ -11,7 +12,7 @@ namespace Entidades {
 namespace Personagens {
 void Samurai::inicializa() {
   vel = sf::Vector2f(0.01f, 0.01f);
-  num_vidas = 1000;
+  num_vidas = 100;
   body->setFillColor(sf::Color::Yellow);
 }
 
@@ -27,6 +28,10 @@ Samurai::Samurai(const sf::Vector2f pos, const sf::Vector2f size,
                9, sf::Vector2f(3 * 3.8, 3 * 1.56)),
       contextoAnimacao() {
   inicializa();
+  danoTime = 0;
+  recoveryTime = 0;
+  tempoInvisivel = 0;
+  tempoVisivel = 0;
 }
 
 Samurai::Samurai(nlohmann::json atributos, const int pos,
@@ -49,17 +54,31 @@ Samurai::Samurai(nlohmann::json atributos, const int pos,
 
 Samurai::~Samurai() {}
 void Samurai::animacao() {
-  if (onFloor) {
-    if (std::abs(vel.x) > 0.3f) {
-      contextoAnimacao.setStrategy(&andar, 0.1f);
-    } else {
-      contextoAnimacao.setStrategy(&parado, 1.0f);
+  if (!invisibilidade) {
+    body->setFillColor(sf::Color::Yellow);
+    if (onFloor) {
+      if (std::abs(vel.x) > 0.3f) {
+        contextoAnimacao.setStrategy(&andar, 0.1f);
+      } else {
+        contextoAnimacao.setStrategy(&parado, 1.0f);
+      }
     }
+    if (ataque) {
+      contextoAnimacao.setStrategy(&atacando, 0.3f);
+    }
+  } else {
+    this->body->setFillColor(sf::Color{0, 0, 0, 0});
   }
   contextoAnimacao.updateStrategy(gFisico->getDeltaTime());
 }
 
-void Samurai::operator--(const int dano) { num_vidas -= dano; }
+void Samurai::operator--(const int dano) {
+  if (!invisibilidade) {
+    std::cout << num_vidas << std::endl;
+    num_vidas -= dano;
+  }
+}
+
 void Samurai::movimentoAleatorio() {
   srand(time(NULL));
   moveAleatorio = rand() % 2;
@@ -86,9 +105,22 @@ void Samurai::move() {
 }
 
 void Samurai::danificar(Entidade *entidade) {
-  Entidades::Personagens::Personagem *pPers =
-      static_cast<Entidades::Personagens::Personagem *>(entidade);
-  pPers->operator--(200);
+  if (danar) {
+    Entidades::Personagens::Personagem *pPers =
+        static_cast<Entidades::Personagens::Personagem *>(entidade);
+    pPers->operator--(50);
+    danar = false;
+    ataque = true;
+  }
+}
+void Samurai::atualizaBarraDeVida() {
+  if (!invisibilidade) {
+    sf::Vector2f posBarraVida(sf::Vector2f(
+        pos.x + getSize().x / 2.0f - body->getSize().x - 20.f, pos.y - 50.0f));
+    barraVida->setPosition(posBarraVida);
+    barraVida->setSize(sf::Vector2f((getNum_vidas() / 100.0f) * 60.f, 6.f));
+    pGrafico->draw(dynamic_cast<sf::Drawable *>(barraVida));
+  }
 }
 
 void Samurai::tratarColisao(Entidade *entidade, const sf::Vector2f mtv) {
@@ -106,6 +138,27 @@ void Samurai::atacar() {}
 void Samurai::executar() { move(); }
 
 void Samurai::update() {
+  recoveryTime += gFisico->getDeltaTime();
+  danoTime += gFisico->getDeltaTime();
+  tempoInvisivel += gFisico->getDeltaTime();
+  tempoVisivel += gFisico->getDeltaTime();
+
+  if (danoTime > TEMPO_DANO) {
+    danoTime = 0;
+    danar = true;
+  }
+  if (tempoInvisivel > 2.f) {
+    if (invisibilidade) {
+      tempoVisivel = 0;
+    }
+    invisibilidade = false;
+  }
+  if (tempoVisivel > 2.f) {
+    if (!invisibilidade) {
+      tempoInvisivel = 0;
+    }
+    invisibilidade = true;
+  }
   executar();
   animacao();
 }

@@ -36,6 +36,8 @@ Guerreiro::Guerreiro(const sf::Vector2f pos, const sf::Vector2f size,
   } else {
     dano = 10;
   }
+  danoTime = 0;
+  recoveryTime = 0;
 }
 Guerreiro::Guerreiro(nlohmann::json atributos, const int pos,
                      const Entidades::ID id,
@@ -79,9 +81,9 @@ void Guerreiro::animacao() {
   }
   contextoAnimacao.updateStrategy(gFisico->getDeltaTime());
 }
-void Guerreiro::operator--(const int dano) {
-  danoTime = gFisico->getDeltaTime();
-  tomarDano = true;
+void Guerreiro::operator--(const int dano) { 
+  recoveryTime = gFisico->getDeltaTime();
+  tomouDano = true;
   num_vidas -= dano;
 }
 
@@ -128,16 +130,13 @@ void Guerreiro::move() {
 }
 
 void Guerreiro::danificar(Entidade *entidade) {
-  if ((gFisico->getDeltaTime() - danoTime) > 5.f) {
-    tomarDano = false;
-  }
+ 
+  if(danar && (this->getPos().x - entidade->getPos().x) <= raio){
+      Entidades::Personagens::Personagem *pPers =
+          static_cast<Entidades::Personagens::Personagem *>(entidade);
+      pPers->operator--(dano);
 
-  if (ataque && (!tomarDano) &&
-      (this->getPos().x - entidade->getPos().x) <= raio) {
-    Entidades::Personagens::Personagem *pPers =
-        static_cast<Entidades::Personagens::Personagem *>(entidade);
-    pPers->operator--(20);
-    std::cout << "estive aq" << std::endl;
+      danar = false;   
   }
 }
 
@@ -151,10 +150,28 @@ void Guerreiro::tratarColisao(Entidade *entidade, const sf::Vector2f mtv) {
     ataque = true;
   }
 }
+void Guerreiro::atualizaBarraDeVida(){
+  sf::Vector2f posBarraVida(sf::Vector2f(pos.x + getSize().x / 2.0f - body->getSize().x - 20.f, pos.y - 50.0f)); 
+  barraVida->setPosition(posBarraVida);
+  barraVida->setSize(sf::Vector2f((getNum_vidas() / 100.0f) * 60.f, 6.f));
+  pGrafico->draw(dynamic_cast<sf::Drawable*>(barraVida));
+}
 
 void Guerreiro::executar() { move(); }
 
 void Guerreiro::update() {
+  recoveryTime +=gFisico->getDeltaTime();
+  danoTime += gFisico->getDeltaTime();
+
+  //Atualiza timers
+  if(recoveryTime > TEMPO_DESCANSO) {
+    recoveryTime = 0;
+    tomouDano = false;
+  }
+  if(danoTime > TEMPO_DANO) { 
+    danoTime = 0;
+    danar = true;
+  }
   executar();
   animacao();
 }

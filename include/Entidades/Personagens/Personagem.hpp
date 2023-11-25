@@ -3,15 +3,20 @@
 #include "..\Entidade.hpp"
 #include "Entidades/Entidade.hpp"
 
+#define TEMPO_DANO 2.f
+#define TEMPO_DESCANSO 1.f
+
 namespace Entidades {
 namespace Personagens {
 class Personagem : public Entidade {
 protected:
   bool onFloor;
   bool ataque;
-  bool tomarDano;
+  bool tomouDano;
+  bool danar;
   float jumpTime;
   float danoTime;
+  float recoveryTime;
   int num_vidas;
 
 public:
@@ -23,6 +28,7 @@ public:
   virtual void animacao() = 0;
   virtual void operator--(const int dano) = 0;
   virtual void tratarColisao(Entidade *entidade, const sf::Vector2f mtv) = 0;
+  virtual void atualizaBarraDeVida() = 0;
   virtual void verificaSolo(const sf::Vector2f mtv);
   void setOnFloor(const bool floor);
   void setAtaque(const bool ataque);

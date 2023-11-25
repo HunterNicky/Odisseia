@@ -1,6 +1,8 @@
 #include "Fases/Fase.hpp"
 #include "Entidades/Entidade.hpp"
 #include "Entidades/Personagens/Inimigo/Viajante.hpp"
+#include "Entidades/Personagens/Personagem.hpp"
+#include "Fases/Fase2.hpp"
 #include "Menu/Botoes/Texto.hpp"
 #include "Observadores/ControleJogador.hpp"
 #define CAMINHO_BLOCO_PORTAL "data\\Sprites\\blocos\\buracoNegro.png"
@@ -37,17 +39,7 @@ Fase::Fase() : Estado(pMaquinaDeEstado, 1) {
     textoPontuacao.setTexto("Score: 00000");
     textoPontuacao.setTamanhoBorda(2.f);
   }
-  barraDeVida = new sf::RectangleShape();
-  tuboVida = new sf::RectangleShape();
-  sf::Vector2f tamTubo = sf::Vector2f(BARRA_VIDA_JOG_X, BARRA_VIDA_JOG_Y);
-  tuboVida->setSize(tamTubo);
-  barraDeVida->setSize(tamTubo);
-  sf::Texture *texturaVida = new sf::Texture();
-  sf::Texture *texturaBarra = new sf::Texture();
-  texturaVida->loadFromFile("data\\Vida\\barraDeVida.png");
-  texturaBarra->loadFromFile("data\\Vida\\BarraVidaJog.png");
-  barraDeVida->setTexture(texturaVida);
-  tuboVida->setTexture(texturaBarra);
+  inicializaVidaJog();
 }
 Fase::~Fase() {
   salvarEntidades();
@@ -166,7 +158,21 @@ void Fase::atualizaPontuacao() {
   pGrafico->drawText(textoPontuacao.getSfTexto());
 }
 
-void Fase::atualizaBarraDeVida() {
+void Fase::inicializaVidaJog() {
+  barraDeVida = new sf::RectangleShape();
+  tuboVida = new sf::RectangleShape();
+  sf::Vector2f tamTubo = sf::Vector2f(BARRA_VIDA_JOG_X, BARRA_VIDA_JOG_Y);
+  tuboVida->setSize(tamTubo);
+  barraDeVida->setSize(tamTubo);
+  sf::Texture *texturaVida = new sf::Texture();
+  sf::Texture *texturaBarra = new sf::Texture();
+  texturaVida->loadFromFile("data\\Vida\\barraDeVida.png");
+  texturaBarra->loadFromFile("data\\Vida\\BarraVidaJog.png");
+  barraDeVida->setTexture(texturaVida);
+  tuboVida->setTexture(texturaBarra);
+}
+
+void Fase::atualizaBarraDeVidaJog() {
   sf::Vector2f posFundo = pGrafico->getViewCenter();
   sf::Vector2f tamJan = sf::Vector2f(1280.f, 720.f);
   barraDeVida->setPosition((sf::Vector2f(posFundo.x - tamJan.x / 2 + 45.f,
@@ -181,21 +187,35 @@ void Fase::atualizaBarraDeVida() {
   pGrafico->draw(static_cast<sf::Drawable *>(tuboVida));
 }
 
+void Fase::atualizaBarraDeVidaIni() {
+  for(unsigned int i = 0; i<LE.getSize(); i++) {
+    if((LE[i]->getId() == Entidades::ID::Guerreiro) || (LE[i]->getId() == Entidades::ID::Viajante) || (LE[i]->getId() == Entidades::ID::Samurai)){
+      Entidades::Personagens::Personagem* pPerso = static_cast<Entidades::Personagens::Personagem*>(LE[i]);
+      pPerso->atualizaBarraDeVida();
+    }
+  }
+}
+
 void Fase::update(double dt) {
   this->dt = dt;
   executar();
 }
 void Fase::proximaFase() {
   // Passar de fase
-  if (pJogador->getProximaFase()) {
+  if (pJogador->getProximaFase()){
+    //desempilha estado anterior
     pMaquinaDeEstado->popEstado();
+
+    //empilha o estado de fase 2
+    Fases::Fase2* pFase = new Fases::Fase2();
+    pMaquinaDeEstado->pushEstado(pFase);
   }
+  
 }
 
 void Fase::updateVida() {
   for (unsigned int i = 0; i < LE.getSize(); i++) {
-    if (LE[i]->getId() == Entidades::ID::Guerreiro ||
-        LE[i]->getId() == Entidades::ID::Viajante) {
+    if ((LE[i]->getId() == Entidades::ID::Guerreiro || LE[i]->getId() == Entidades::ID::Viajante) || (LE[i]->getId() == Entidades::ID::Samurai)) {
       Entidades::Personagens::Personagem *pPers =
           static_cast<Entidades::Personagens::Personagem *>(LE[i]);
       if (pPers->getNum_vidas() < 0) {
@@ -232,9 +252,11 @@ void Fase::executar() {
   }
 }
 void Fase::draw() {
+  //pGrafico->draw(static_cast<sf::Drawable*>(fundo));
   LE.drawAll();
   atualizaPontuacao();
-  atualizaBarraDeVida();
+  atualizaBarraDeVidaJog();
+  atualizaBarraDeVidaIni();
   proximaFase();
 }
 } // namespace Fases

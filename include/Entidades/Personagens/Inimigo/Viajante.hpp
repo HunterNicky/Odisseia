@@ -28,9 +28,9 @@ private:
   Entidades::Laser *pProj;
   bool ProjAtivo;
   bool direita;
+  Animacao::AnimacaoAtaque atacando;
   Animacao::AnimacaoAndar andar;
   Animacao::AnimacaoParado parado;
-  Animacao::AnimacaoAtaque atacando;
   Animacao::AnimacaoContext contextoAnimacao;
   void inicializa();
 
@@ -51,6 +51,7 @@ public:
   const bool getDirecaoProj();
   void move();
   void atacar();
+  void atualizaBarraDeVida();
   void tratarColisao(Entidade *entidade, const sf::Vector2f mtv);
   void executar();
   void update();
