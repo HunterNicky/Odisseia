@@ -1,6 +1,6 @@
 #pragma once
 
-#include "..\..\Ente.hpp"
+#include "Ente.hpp"
 #include "Texto.hpp"
 
 namespace Menu {

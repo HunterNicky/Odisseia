@@ -190,13 +190,21 @@ void Fase1::loadMap() {
 void Fase1::carregarFundo(){
   fundo = new sf::RectangleShape();
   imgFundo = new sf::Texture();
-  fundo->setSize(sf::Vector2f(1280.f, 640.f));  
-  fundo->setPosition(sf::Vector2f(pGrafico->getViewCenter().x, pGrafico->getViewCenter().y));
-  imgFundo->loadFromFile("data\\imagens\\fundoFase1.png");
-  pGrafico->draw(fundo);
-  //pGrafico->draw(fundo)
+  imgFundo = (pGrafico->loadTexture("data\\imagens\\fundoFase1.png"));
+  fundo->setSize(sf::Vector2f(1280.f, 720.f));  
+  fundo->setTexture(imgFundo);
+  fundo->setOrigin(fundo->getSize().x/2, fundo->getSize().y/2);
   }
-void Fase1::draw() { Fase::draw(); }
+void Fase1::draw() { 
+  sf::Vector2f cameraPos = pGrafico->getViewCenter();
+  sf::Vector2f jogadorPos = pJogador->getBody()->getPosition();
+  jogadorPos.y -= 100.f;
+  sf::Vector2f novaPosCamera = cameraPos + (jogadorPos - cameraPos) * 0.01f;
+  fundo->setPosition(novaPosCamera);
+  pGrafico->draw(fundo);
+  carregarFundo();
+  Fase::draw(); 
+}
 
 void Fase1::update() { executar(); }
 

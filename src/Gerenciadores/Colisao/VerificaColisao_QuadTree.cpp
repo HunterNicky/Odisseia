@@ -127,8 +127,6 @@ bool VerificaColisao_QuadTree::detectCollision(
                           ? -overlapY
                           : overlapY;
             }
-            if(entidade->getId() == Entidades::ID::jogador)
-              std::cout << mtv.x << " " << mtv.y << std::endl;
           }
       entidade->getBody()->setScale(escala1);
       otherEntity->getBody()->setScale(escala2);

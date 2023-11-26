@@ -188,9 +188,12 @@ void Fase::atualizaBarraDeVidaJog() {
 }
 
 void Fase::atualizaBarraDeVidaIni() {
-  for(unsigned int i = 0; i<LE.getSize(); i++) {
-    if((LE[i]->getId() == Entidades::ID::Guerreiro) || (LE[i]->getId() == Entidades::ID::Viajante) || (LE[i]->getId() == Entidades::ID::Samurai)){
-      Entidades::Personagens::Personagem* pPerso = static_cast<Entidades::Personagens::Personagem*>(LE[i]);
+  for (unsigned int i = 0; i < LE.getSize(); i++) {
+    if ((LE[i]->getId() == Entidades::ID::Guerreiro) ||
+        (LE[i]->getId() == Entidades::ID::Viajante) ||
+        (LE[i]->getId() == Entidades::ID::Samurai)) {
+      Entidades::Personagens::Personagem *pPerso =
+          static_cast<Entidades::Personagens::Personagem *>(LE[i]);
       pPerso->atualizaBarraDeVida();
     }
   }
@@ -202,20 +205,21 @@ void Fase::update(double dt) {
 }
 void Fase::proximaFase() {
   // Passar de fase
-  if (pJogador->getProximaFase()){
-    //desempilha estado anterior
+  if (pJogador->getProximaFase()) {
+    // desempilha estado anterior
     pMaquinaDeEstado->popEstado();
 
-    //empilha o estado de fase 2
-    Fases::Fase2* pFase = new Fases::Fase2();
+    // empilha o estado de fase 2
+    Fases::Fase2 *pFase = new Fases::Fase2();
     pMaquinaDeEstado->pushEstado(pFase);
   }
-  
 }
 
 void Fase::updateVida() {
   for (unsigned int i = 0; i < LE.getSize(); i++) {
-    if ((LE[i]->getId() == Entidades::ID::Guerreiro || LE[i]->getId() == Entidades::ID::Viajante) || (LE[i]->getId() == Entidades::ID::Samurai)) {
+    if ((LE[i]->getId() == Entidades::ID::Guerreiro ||
+         LE[i]->getId() == Entidades::ID::Viajante) ||
+        (LE[i]->getId() == Entidades::ID::Samurai)) {
       Entidades::Personagens::Personagem *pPers =
           static_cast<Entidades::Personagens::Personagem *>(LE[i]);
       if (pPers->getNum_vidas() < 0) {
@@ -252,7 +256,7 @@ void Fase::executar() {
   }
 }
 void Fase::draw() {
-  //pGrafico->draw(static_cast<sf::Drawable*>(fundo));
+  // pGrafico->draw(static_cast<sf::Drawable*>(fundo));
   LE.drawAll();
   atualizaPontuacao();
   atualizaBarraDeVidaJog();
