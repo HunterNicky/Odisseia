@@ -1,5 +1,7 @@
 #include "..\..\include\Menu\MenuPrincipal.hpp"
 #include "Entidades/Personagens/Jogador/Jogador.hpp"
+#include "Fases/Fase1.hpp"
+#include "Fases/Fase2.hpp"
 #include "Menu/Botoes/Texto.hpp"
 #include "Menu/MenuPrincipal.hpp"
 #include <fstream>
@@ -47,8 +49,13 @@ void MenuPrincipal::carregarJogo() {
   if (!arquivo2) {
     std::cout << "ERRO AO ABRIR ARQUIVO_FASE!" << std::endl;
   }
-  fase = new Fases::Fase1(arquivoEntidades, arquivoFase);
-  pMaquinaDeEstado->pushEstado(static_cast<Estados::Estado *>(fase));
+  if(arquivoFase[0]["IdFase"][0] == 1){
+  Fases::Fase1* pFase1 = new Fases::Fase1(arquivoEntidades, arquivoFase);
+  pMaquinaDeEstado->pushEstado(static_cast<Estados::Estado *>(pFase1));
+  }else{
+  Fases::Fase2* pFase2 = new Fases::Fase2(arquivoEntidades, arquivoFase);
+  pMaquinaDeEstado->pushEstado(static_cast<Estados::Estado *>(pFase2));
+  }
 }
 
 void MenuPrincipal::executar() {

@@ -44,7 +44,7 @@ public:
   void operator--(const int dano);
   const float getEstamina() const;
   void animacao();
-  const bool getProximaFase();
+  const bool getProximaFase() const;
   void setProximaFase(const bool proximaFase);
   void move();
   void atualizaBarraDeVida() {}

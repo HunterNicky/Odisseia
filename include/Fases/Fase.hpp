@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Entidades/Entidade.hpp"
+#include "Entidades/Obstaculos/Plataforma.hpp"
 #include "Entidades/Obstaculos/Caixa.hpp"
 #include "Entidades/Personagens/Inimigo/Guerreiro.hpp"
 #include "Entidades/Personagens/Inimigo/Viajante.hpp"
@@ -8,9 +9,9 @@
 #include "Entidades/Projetil/Laser.hpp"
 #include "Estados/Estado.hpp"
 #include "Estados/MaquinaDeEstado.hpp"
+#include "Gerenciadores/Colisao/CalculadorFisico.hpp"
 #include "Gerenciadores/Colisao/ConcreteGerenciadorColisao.hpp"
 #include "Gerenciadores/GerenciadorDeEvento.hpp"
-#include "Gerenciadores/Colisao/CalculadorFisico.hpp"
 #include "Lista/ListaDeEntidades.hpp"
 
 // #include "Observadores/ControleJogador.hpp"
@@ -40,16 +41,17 @@ protected:
   Entidades::Personagens::Jogador *pJogador;
   sf::RectangleShape *barraDeVida;
   sf::RectangleShape *tuboVida;
-  sf::RectangleShape* fundo;
-  sf::Texture* imgFundo;
+  sf::RectangleShape *fundo;
+  sf::Texture *imgFundo;
   Lista::ListaDeEntidades LE;
   std::ostringstream buffer;
   unsigned int pontuacao_jogador;
   static Menu::Botoes::Texto textoPontuacao;
   double dt;
+  int idFase;
 
 public:
-  Fase();
+  Fase(const int idFase);
   ~Fase();
   void salvarEntidades();
   void salvarAtributosFase();
@@ -59,18 +61,19 @@ public:
   void newPlataforma(sf::Vector2f pos, sf::Vector2f size,
                      const std::string path);
   void newCaixa(sf::Vector2f pos, sf::Vector2f size, const std::string path);
+  void newProjetil(const sf::Vector2f pos, const sf::Vector2f vel);
   void setPontuacaoJog(const unsigned int pontos);
   const unsigned int getPontuacaoJog() const;
   void atualizaPontuacao();
   void inicializaVidaJog();
   void atualizaBarraDeVidaJog();
   void atualizaBarraDeVidaIni();
+  void atualizaProjetil();
   void proximaFase();
   void updateVida();
   void update(double dt);
   void executar();
   void draw();
-  // virtual void resetEstate() = 0;
   virtual void recuperarJogada(nlohmann::json arquivoEntidades,
                                nlohmann::json arquivoFase) = 0;
   virtual void loadMap() = 0;

@@ -7,7 +7,7 @@
 #define CAMINHO_SAMURAI_PARADO "data\\Sprites\\samurai\\samuraiidle.png"
 #define CAMINHO_SAMURAI_ATAQUE "data\\Sprites\\samurai\\samuraiatack.png"
 
-#define R 20.f
+#define TEMPO_VISIVEL 2.f
 
 namespace Entidades {
 namespace Personagens {

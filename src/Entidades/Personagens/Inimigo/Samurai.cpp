@@ -11,9 +11,15 @@
 namespace Entidades {
 namespace Personagens {
 void Samurai::inicializa() {
-  vel = sf::Vector2f(0.01f, 0.01f);
+  srand(time(NULL));
+  vel = sf::Vector2f(0.0f, 0.0f);
+  nivel_maldade = 3;
   num_vidas = 100;
-  body->setFillColor(sf::Color::Yellow);
+  dano = 30;
+  raio = RAIO;
+  danoTime = 0;
+  tempoInvisivel = 0;
+  tempoVisivel = 0;
 }
 
 Samurai::Samurai(const sf::Vector2f pos, const sf::Vector2f size,
@@ -28,10 +34,7 @@ Samurai::Samurai(const sf::Vector2f pos, const sf::Vector2f size,
                9, sf::Vector2f(3 * 3.8, 3 * 1.56)),
       contextoAnimacao() {
   inicializa();
-  danoTime = 0;
-  recoveryTime = 0;
-  tempoInvisivel = 0;
-  tempoVisivel = 0;
+  dano = dano*nivel_maldade;
 }
 
 Samurai::Samurai(nlohmann::json atributos, const int pos,
@@ -50,6 +53,15 @@ Samurai::Samurai(nlohmann::json atributos, const int pos,
   this->setVel(sf::Vector2f(atributos[pos]["Velocidade"][0],
                             atributos[pos]["Velocidade"][1]));
   this->num_vidas = atributos[pos]["Vida"][0];
+  this->danoTime = atributos[pos]["DanoTime"][0];
+  this->tempoInvisivel = atributos[pos]["TempoInvisivel"][0];
+  this->tempoVisivel = atributos[pos]["TempoVisivel"][0];
+  this->invisibilidade = atributos[pos]["Invisibilidade"][0] == 1 ? true : false;
+
+  nivel_maldade = 3;
+  dano = 30;
+  raio = RAIO;
+  dano = dano*nivel_maldade;
 }
 
 Samurai::~Samurai() {}
@@ -74,13 +86,11 @@ void Samurai::animacao() {
 
 void Samurai::operator--(const int dano) {
   if (!invisibilidade) {
-    std::cout << num_vidas << std::endl;
     num_vidas -= dano;
   }
 }
 
 void Samurai::movimentoAleatorio() {
-  srand(time(NULL));
   moveAleatorio = rand() % 2;
 
   if (moveAleatorio == 0) {
@@ -93,9 +103,9 @@ void Samurai::move() {
   sf::Vector2f posicaoJog = pJogador->getBody()->getPosition();
   sf::Vector2f posicaoSamurai = getBody()->getPosition();
 
-  if (((fabs(posicaoJog.x - posicaoSamurai.x) <= R)) &&
-      (fabs(posicaoJog.y - posicaoSamurai.y) <= R)) {
-    // strategy atacar
+  if (((fabs(posicaoJog.x - posicaoSamurai.x) <= raio / 2)) &&
+      (fabs(posicaoJog.y - posicaoSamurai.y) <= raio / 2)) {
+
   } else {
     movimentoAleatorio();
   }
@@ -108,7 +118,7 @@ void Samurai::danificar(Entidade *entidade) {
   if (danar) {
     Entidades::Personagens::Personagem *pPers =
         static_cast<Entidades::Personagens::Personagem *>(entidade);
-    pPers->operator--(50);
+    pPers->operator--(dano * nivel_maldade);
     danar = false;
     ataque = true;
   }
@@ -130,6 +140,7 @@ void Samurai::tratarColisao(Entidade *entidade, const sf::Vector2f mtv) {
     pos.x -= vel.x * 0.01f;
   } else if (entidade->getId() == Entidades::ID::jogador) {
     danificar(entidade);
+    ataque = true;
   }
 }
 
@@ -138,7 +149,6 @@ void Samurai::atacar() {}
 void Samurai::executar() { move(); }
 
 void Samurai::update() {
-  recoveryTime += gFisico->getDeltaTime();
   danoTime += gFisico->getDeltaTime();
   tempoInvisivel += gFisico->getDeltaTime();
   tempoVisivel += gFisico->getDeltaTime();
@@ -147,13 +157,13 @@ void Samurai::update() {
     danoTime = 0;
     danar = true;
   }
-  if (tempoInvisivel > 2.f) {
+  if (tempoInvisivel > TEMPO_VISIVEL / 2) {
     if (invisibilidade) {
       tempoVisivel = 0;
     }
     invisibilidade = false;
   }
-  if (tempoVisivel > 2.f) {
+  if (tempoVisivel > TEMPO_VISIVEL) {
     if (!invisibilidade) {
       tempoInvisivel = 0;
     }
@@ -166,7 +176,7 @@ void Samurai::update() {
 void Samurai::salvar(std::ostringstream *entrada) {
   (*entrada) << "{ \"ID\": [" << 4 << "], \"Posicao\": [" << pos.x << " , "
              << pos.y << "], \"Velocidade\": [" << vel.x << " , " << vel.y
-             << "], \"Vida\": [" << this->getNum_vidas() << "] }" << std::endl;
+             << "], \"Vida\": [" << this->getNum_vidas() << "], \"DanoTime\": [" << danoTime << "], \"Invisibilidade\": [" << invisibilidade << "], \"TempoInvisivel\": [" << tempoInvisivel << "], \"TempoVisivel\": [" << tempoVisivel << "] }" << std::endl; 
 }
 } // namespace Personagens
 } // namespace Entidades

@@ -1,22 +1,23 @@
 #include "Entidades/Personagens/Inimigo/Viajante.hpp"
-#include "Entidades/Entidade.hpp"
-#include "Entidades/Projetil/Laser.hpp"
 #include "Fases/Fase.hpp"
 
 namespace Entidades {
 namespace Personagens {
 void Viajante::inicializa() {
-  vel = sf::Vector2f(0.0f, 0.0f);
-  // body->setFillColor(sf::Color{245,222,179, 255});
   srand(time(NULL));
-  nivel_maldade = (int)rand() % 2;
+  vel = sf::Vector2f(0.0f, 0.0f);
+  nivel_maldade = 2;
   num_vidas = 100;
+  dano = 25;
+  raio = RAIO;
+  danoTime = 0;
+  Entidades::Laser::setDano(dano * nivel_maldade); // inicializa dano projétil
 }
 Viajante::Viajante(const sf::Vector2f pos, const sf::Vector2f size,
                    const Entidades::ID id,
                    Entidades::Personagens::Jogador *pJog,
                    Entidades::Laser *proj)
-    : Inimigo(pos, size, id, pJog), pProj(proj),
+    : Inimigo(pos, size, id, pJog),
       atacando(static_cast<Entidades::Entidade *>(this),
                CAMINHO_VIAJANTE_PROJETIL, 10, sf::Vector2f(3 * 2.2, 3 * 0.937)),
       andar(static_cast<Entidades::Entidade *>(this), CAMINHO_VIAJANTE_ANDAR,
@@ -26,8 +27,6 @@ Viajante::Viajante(const sf::Vector2f pos, const sf::Vector2f size,
              10, sf::Vector2f(3 * 0.95, 3 * 0.937)),
       contextoAnimacao() {
   inicializa();
-  danoTime = 0;
-  recoveryTime = 0;
 }
 
 Viajante::Viajante(nlohmann::json atributos, const int pos,
@@ -47,7 +46,11 @@ Viajante::Viajante(nlohmann::json atributos, const int pos,
   this->setVel(sf::Vector2f(atributos[pos]["Velocidade"][0],
                             atributos[pos]["Velocidade"][1]));
   this->num_vidas = atributos[pos]["Vida"][0];
-  // body->setFillColor(sf::Color{245,222,179, 0});
+  this->danoTime = atributos[pos]["DanoTime"][0];
+  nivel_maldade = 2;
+  dano = 25;
+  raio = RAIO;
+  Entidades::Laser::setDano(dano * nivel_maldade); // inicializa dano projétil
 }
 
 Viajante::~Viajante() {}
@@ -59,16 +62,13 @@ void Viajante::animacao() {
     } else {
       contextoAnimacao.setStrategy(&parado, 1.0f);
     }
-    if(ataque){
+    if (ataque) {
       contextoAnimacao.setStrategy(&atacando, 0.1f);
     }
   }
   contextoAnimacao.updateStrategy(gFisico->getDeltaTime());
 }
-void Viajante::operator--(const int dano) { 
-  
-  num_vidas -= dano; 
-  }
+void Viajante::operator--(const int dano) { num_vidas -= dano; }
 
 void Viajante::movimentoAleatorio() {
   moveAleatorio = rand() % 2;
@@ -81,27 +81,29 @@ void Viajante::movimentoAleatorio() {
 
 void Viajante::atirarProjetil(sf::Vector2f pos, const bool direita) {
   sf::Vector2f newPosition;
-  if (direita) {
-    newPosition = sf::Vector2f(pos.x + 25.f, pos.y-25.f);
-    pProj->setPos(newPosition);
-    pProj->setVel(sf::Vector2f(100.f, -1.f));
-  } else {
-    newPosition = sf::Vector2f(pos.x - 25.f, pos.y-25.f);
-    pProj->setPos(newPosition);
-    pProj->setVel(sf::Vector2f(-100.f, -1.f));
+
+  if (danar) {
+    if (direita) {
+      newPosition = sf::Vector2f(pos.x + 25.f, pos.y - 25.f);
+      pFase->newProjetil(newPosition, sf::Vector2f(-VEL_PROJ_X, VEL_PROJ_Y));
+    } else {
+      newPosition = sf::Vector2f(pos.x - 25.f, pos.y - 25.f);
+      pFase->newProjetil(newPosition, sf::Vector2f(VEL_PROJ_X, VEL_PROJ_Y));
+    }
+    std::cout << "atirar" << std::endl;
+    danar = false;
   }
 }
 
-void Viajante::setProj(Entidades::Laser *pProj) { this->pProj = pProj; }
-
-const bool Viajante::getDirecaoProj() { return direita; }
+void Viajante::setFase(Fases::Fase *pFase) { this->pFase = pFase; }
 
 void Viajante::move() {
   sf::Vector2f posJogador = pJogador->getBody()->getPosition();
   sf::Vector2f posInimigo = getBody()->getPosition();
 
-  if ((fabs(posJogador.x - posInimigo.x) <= RANGE*2) &&
-      (fabs(posJogador.y - posInimigo.y <= RANGE))) {
+  if (((fabs(posJogador.x - posInimigo.x) <= raio * 2) &&
+       (fabs(posJogador.y - posInimigo.y <= raio))) &&
+      danar) {
     forca.x = 0.0f;
     if (posJogador.x > posInimigo.x) {
       direita = true;
@@ -140,14 +142,9 @@ void Viajante::executar() { move(); }
 void Viajante::atacar() {}
 
 void Viajante::update() {
-  recoveryTime +=gFisico->getDeltaTime();
   danoTime += gFisico->getDeltaTime();
 
- if(recoveryTime > TEMPO_DESCANSO) {
-    recoveryTime = 0;
-    tomouDano = false;
-  }
-  if(danoTime > TEMPO_DANO) { 
+  if (danoTime > TEMPO_DANO) {
     danoTime = 0;
     danar = true;
     ataque = true;
@@ -159,7 +156,7 @@ void Viajante::update() {
 void Viajante::salvar(std::ostringstream *entrada) {
   (*entrada) << "{ \"ID\": [" << 3 << "], \"Posicao\": [" << pos.x << " , "
              << pos.y << "], \"Velocidade\": [" << vel.x << " , " << vel.y
-             << "], \"Vida\": [" << this->getNum_vidas() << "] }" << std::endl;
+             << "], \"Vida\": [" << this->getNum_vidas() << "], \"DanoTime\": [" << danoTime << "] }" << std::endl;
 }
 } // namespace Personagens
 } // namespace Entidades

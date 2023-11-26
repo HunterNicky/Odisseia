@@ -9,13 +9,14 @@
 namespace Entidades {
 namespace Personagens {
 void Guerreiro::inicializa() {
-  vel = sf::Vector2f(0.1f, 0.1f);
-  // body->setFillColor(sf::Color::Red);
-  raio = RAIO;
-  num_vidas = 100;
   srand(time(NULL));
-  moveAleatorio = rand() % 4;
+  vel = sf::Vector2f(0.1f, 0.1f);
   raivosidade = rand() % 10;
+  num_vidas = 100;
+  raio = RAIO;
+  nivel_maldade = 1;
+  dano = 10;
+  danoTime = 0;
 }
 
 Guerreiro::Guerreiro(const sf::Vector2f pos, const sf::Vector2f size,
@@ -32,12 +33,10 @@ Guerreiro::Guerreiro(const sf::Vector2f pos, const sf::Vector2f size,
       contextoAnimacao() {
   inicializa();
   if ((raivosidade >= 0) && (raivosidade < 3)) { // 30% chance de ser raivoso
-    dano = 20;
+    dano = 2 * dano * nivel_maldade;
   } else {
-    dano = 10;
+    dano = dano * nivel_maldade;
   }
-  danoTime = 0;
-  recoveryTime = 0;
 }
 Guerreiro::Guerreiro(nlohmann::json atributos, const int pos,
                      const Entidades::ID id,
@@ -55,15 +54,16 @@ Guerreiro::Guerreiro(nlohmann::json atributos, const int pos,
       contextoAnimacao() {
   this->setVel(sf::Vector2f(atributos[pos]["Velocidade"][0],
                             atributos[pos]["Velocidade"][1]));
-  body->setFillColor(sf::Color::Red);
   this->num_vidas = atributos[pos]["Vida"][0];
+  this->raivosidade = atributos[pos]["Raivosidade"][0];
+  this->danoTime = atributos[pos]["DanoTime"][0];
   raio = RAIO;
-  srand(time(NULL));
-  this->raivosidade = rand() % 10;
-  if ((raivosidade >= 0) && (raivosidade < 3)) { // 30% chance de ser raivoso
-    dano = 20;
+  nivel_maldade = 1;
+  dano = 10;
+  if ((raivosidade >= 0) && (raivosidade < 3)) {
+    dano = 2 * dano * nivel_maldade; //dobra o dano
   } else {
-    dano = 10;
+    dano = dano * nivel_maldade;
   }
 }
 Guerreiro::~Guerreiro() {}
@@ -81,11 +81,7 @@ void Guerreiro::animacao() {
   }
   contextoAnimacao.updateStrategy(gFisico->getDeltaTime());
 }
-void Guerreiro::operator--(const int dano) { 
-  recoveryTime = gFisico->getDeltaTime();
-  tomouDano = true;
-  num_vidas -= dano;
-}
+void Guerreiro::operator--(const int dano) { num_vidas -= dano; }
 
 void Guerreiro::persegueJogador(sf::Vector2f posJogador,
                                 sf::Vector2f posInimigo) {
@@ -130,13 +126,12 @@ void Guerreiro::move() {
 }
 
 void Guerreiro::danificar(Entidade *entidade) {
- 
-  if(danar && (this->getPos().x - entidade->getPos().x) <= raio){
-      Entidades::Personagens::Personagem *pPers =
-          static_cast<Entidades::Personagens::Personagem *>(entidade);
-      pPers->operator--(dano);
 
-      danar = false;   
+  if (danar && (this->getPos().x - entidade->getPos().x) <= raio) {
+    Entidades::Personagens::Personagem *pPers =
+        static_cast<Entidades::Personagens::Personagem *>(entidade);
+    pPers->operator--(dano * nivel_maldade);
+    danar = false;
   }
 }
 
@@ -150,25 +145,21 @@ void Guerreiro::tratarColisao(Entidade *entidade, const sf::Vector2f mtv) {
     ataque = true;
   }
 }
-void Guerreiro::atualizaBarraDeVida(){
-  sf::Vector2f posBarraVida(sf::Vector2f(pos.x + getSize().x / 2.0f - body->getSize().x - 20.f, pos.y - 50.0f)); 
+void Guerreiro::atualizaBarraDeVida() {
+  sf::Vector2f posBarraVida(sf::Vector2f(
+      pos.x + getSize().x / 2.0f - body->getSize().x - 20.f, pos.y - 50.0f));
   barraVida->setPosition(posBarraVida);
   barraVida->setSize(sf::Vector2f((getNum_vidas() / 100.0f) * 60.f, 6.f));
-  pGrafico->draw(dynamic_cast<sf::Drawable*>(barraVida));
+  pGrafico->draw(dynamic_cast<sf::Drawable *>(barraVida));
 }
 
 void Guerreiro::executar() { move(); }
 
 void Guerreiro::update() {
-  recoveryTime +=gFisico->getDeltaTime();
   danoTime += gFisico->getDeltaTime();
 
-  //Atualiza timers
-  if(recoveryTime > TEMPO_DESCANSO) {
-    recoveryTime = 0;
-    tomouDano = false;
-  }
-  if(danoTime > TEMPO_DANO) { 
+  // Atualiza timer
+  if (danoTime > TEMPO_DANO) {
     danoTime = 0;
     danar = true;
   }
@@ -179,7 +170,7 @@ void Guerreiro::update() {
 void Guerreiro::salvar(std::ostringstream *entrada) {
   (*entrada) << "{ \"ID\": [" << 2 << "], \"Posicao\": [" << pos.x << " , "
              << pos.y << "], \"Velocidade\": [" << vel.x << " , " << vel.y
-             << "], \"Vida\": [" << this->getNum_vidas() << "] }" << std::endl;
+             << "], \"Vida\": [" << this->getNum_vidas() << "], \"DanoTime\": [" << danoTime << "], \"Raivosidade\": [" << raivosidade << "] }" << std::endl;
 }
 
 void Guerreiro::atacar() {}

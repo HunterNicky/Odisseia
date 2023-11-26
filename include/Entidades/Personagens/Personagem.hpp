@@ -12,11 +12,9 @@ class Personagem : public Entidade {
 protected:
   bool onFloor;
   bool ataque;
-  bool tomouDano;
   bool danar;
   float jumpTime;
   float danoTime;
-  float recoveryTime;
   int num_vidas;
 
 public:
