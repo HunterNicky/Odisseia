@@ -86,7 +86,7 @@ void MenuGameOver::salvarPontuacao() {
       pontuacao.getText().substr(11, pontuacao.getText().length());
   std::string linha = nome + " " + pontos + " ";
 
-  std::fstream arquivo("data/Colocacao/colocacao.txt", std::ios::out);
+  std::fstream arquivo("data/Colocacao/colocacao.txt", std::ios::app);
   if (!arquivo) {
     std::cout << "Erro ao abrir arquivo Colocao!" << std::endl;
     exit(1);
