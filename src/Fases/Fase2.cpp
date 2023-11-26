@@ -194,7 +194,16 @@ void Fase2::loadMap() {
   file.close();
 }
 
-void Fase2::carregarFundo() {}
+void Fase2::carregarFundo() {
+  fundo = new sf::RectangleShape();
+  imgFundo = new sf::Texture();
+  fundo->setSize(sf::Vector2f(1280.f, 640.f));
+  fundo->setPosition(
+      sf::Vector2f(pGrafico->getViewCenter().x, pGrafico->getViewCenter().y));
+  imgFundo->loadFromFile("data/imagens/fundoFase1.png");
+  pGrafico->draw(fundo);
+  // pGrafico->draw(fundo)
+}
 void Fase2::draw() { Fase::draw(); }
 
 void Fase2::update() { executar(); }
