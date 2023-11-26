@@ -9,7 +9,6 @@ class Laser : public Entidade {
 private:
   static int dano;
   bool Ativo;
-  //Personagens::Viajante *pInim;
   sf::Vector2f vel;
   bool onFloor;
 

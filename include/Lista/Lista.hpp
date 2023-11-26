@@ -234,7 +234,7 @@ template <class TL> Lista<TL>::Iterator::Iterator(Elemento<TL> *position) {
 template <class TL> Lista<TL>::Iterator::~Iterator() {}
 
 template <class TL> bool Lista<TL>::Iterator::operator==(const Iterator &it) {
-  return it.atual == this->atual;
+  return it.position == this->atual;
 }
 
 template <class TL> bool Lista<TL>::Iterator::operator!=(const Iterator &it) {
