@@ -18,7 +18,7 @@ private:
   Animacao::AnimacaoContext contexto;
 
 public:
-  Plataforma(const sf::Vector2f pos, const sf::Vector2f, const Entidades::ID id,
+  Plataforma(const sf::Vector2f pos, const sf::Vector2f size, const Entidades::ID id,
         const std::string path);
   Plataforma(nlohmann::json atributos, const int pos, const Entidades::ID id);
   ~Plataforma();

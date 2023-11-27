@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.26.4)
 
-project(Gigantes)
+project(ODISSEIA_TEMPORALIS)
 
 find_package(SFML 2.6 COMPONENTS system window graphics REQUIRED)
 
