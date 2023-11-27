@@ -21,7 +21,7 @@ Fase_Planicie::Fase_Planicie(const int numJogadores) : Fase(1, numJogadores), ve
 }
 Fase_Planicie::Fase_Planicie(nlohmann::json arquivosEntidades,
                              nlohmann::json arquivosFase)
-    : Fase(1, 0), ventania(sf::Vector2f(1000.f, 44000.f)) {
+    : Fase(1, arquivosFase[0]["NumJogadores"][0]), ventania(sf::Vector2f(1000.f, 44000.f)) {
   carregarFundo();
   recuperarJogada(arquivosEntidades, arquivosFase);
   pFisico->setForcaPadrao(ventania);

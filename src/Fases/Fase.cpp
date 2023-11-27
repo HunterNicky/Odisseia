@@ -26,8 +26,6 @@ Estados::MaquinaDeEstado *Fase::pMaquinaDeEstado =
 Menu::Botoes::Texto Fase::textoPontuacao(sf::Vector2f(0.f, 0.f),
                                          sf::Vector2f(50.f, 50.f), "", 35);
 Entidades::Personagens::Jogador *Fase::pJogador = nullptr; 
-
-Entidades::Personagens::Jogador *Fase::pJogador = nullptr;
 Entidades::Personagens::Jogador *Fase::pJogador2 = nullptr;
 
 Fase::Fase(const int idFase, const int numJogadores)

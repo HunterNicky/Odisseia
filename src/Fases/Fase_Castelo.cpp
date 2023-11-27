@@ -19,7 +19,7 @@ Fase_Castelo::Fase_Castelo(const int numJogadores) : Fase(2, numJogadores), esca
 }
 
 Fase_Castelo::Fase_Castelo(nlohmann::json arquivoEntidades, nlohmann::json arquivoFase)
-    : Fase(2), escaldante(0.8) {
+    : Fase(2, arquivoFase[0]["NumJogadores"][0]), escaldante(0.8) {
   recuperarJogada(arquivoEntidades, arquivoFase);
 }
 
