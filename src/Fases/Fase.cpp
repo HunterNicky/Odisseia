@@ -25,6 +25,7 @@ Estados::MaquinaDeEstado *Fase::pMaquinaDeEstado =
     Estados::MaquinaDeEstado::getInstance();
 Menu::Botoes::Texto Fase::textoPontuacao(sf::Vector2f(0.f, 0.f),
                                          sf::Vector2f(50.f, 50.f), "", 35);
+Entidades::Personagens::Jogador *Fase::pJogador = nullptr; 
 
 Entidades::Personagens::Jogador *Fase::pJogador = nullptr;
 Entidades::Personagens::Jogador *Fase::pJogador2 = nullptr;
@@ -290,6 +291,7 @@ void Fase::executar() {
     jogadorPos.y -= 100.f;
     sf::Vector2f novaPosCamera = cameraPos + (jogadorPos - cameraPos) * 0.01f;
     pGrafico->setViewCenter(novaPosCamera);
+    if(idFase == 2) pFisico->setForcaPadrao(sf::Vector2f(0.f, 50000.f));
     pFisico->update(dt);
     for (unsigned int i = 0; i < LE.getSize(); i++) {
       pFisico->executarFisica(LE.operator[](i));

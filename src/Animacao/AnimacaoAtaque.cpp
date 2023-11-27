@@ -5,7 +5,9 @@
 namespace Animacao {
 AnimacaoAtaque::AnimacaoAtaque(Entidades::Entidade *entidade, std::string path,
                                const int numFrames, const sf::Vector2f escala)
-    : AnimacaoStrategy(entidade, numFrames, escala), actualFrame(1.f) {
+    : AnimacaoStrategy(entidade, numFrames, escala){
+  std::srand(time(NULL));
+  variableTimeAttack = (std::rand() % 10 + 1)/500.f;
   textura = pGrafico->loadTexture(path);
   rectSize.width = (textura->getSize().x / numFrames);
   rectSize.height = (textura->getSize().y);
@@ -23,7 +25,7 @@ void AnimacaoAtaque::updateSprite(double dt, float standardTime) {
 }
 
 void AnimacaoAtaque::updateAnimationFrame(double dt, float standardTime) {
-  actualFrame += dt;
+  actualFrame += dt + variableTimeAttack;
 
   if (actualFrame >= standardTime) {
     actualFrame -= standardTime;

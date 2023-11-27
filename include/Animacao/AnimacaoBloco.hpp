@@ -5,8 +5,7 @@
 namespace Animacao {
 class AnimacaoBloco : public AnimacaoStrategy {
 private:
-  float actualFrame;
-  int actualImage;
+  float randomTimeChange;
   void updateAnimationFrame(double dt, float standardTime);
   void updateSpriteRect();
 

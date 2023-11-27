@@ -9,9 +9,7 @@ private:
   const int numFrameHighJump;
   const int numFrameLowJump;
   const sf::Vector2f escalaLowJump;
-  float actualFrame;
   float jumpTime;
-  int actualImage;
   void updateAnimationFrame(double dt, float standardTime);
   void updateJump(double dt);
   void updateSpriteRect();

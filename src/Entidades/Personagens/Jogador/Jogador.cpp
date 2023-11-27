@@ -189,6 +189,8 @@ void Jogador::tratarColisao(Entidade *entidade, const sf::Vector2f mtv) {
 
 const float Jogador::getEstamina() const { return estamina; }
 
+void Jogador::setEstamina(const float estamina) { this->estamina = estamina; }
+
 void Jogador::parar() { forca.x = 0; }
 
 void Jogador::executar() {
@@ -216,7 +218,7 @@ void Jogador::salvar(std::ostringstream *entrada) {
              << pos.y << "], \"Velocidade\": [" << vel.x << " , " << vel.y
              << "], \"Vida\": [" << this->getNum_vidas() << "], \"Estamina\": ["
              << estamina << "], \"DanoTime\": [" << danoTime
-             << "], \"ProximaFase\": [" << proximaFase << "] }" << std::endl; 
+             << "], \"ProximaFase\": [" << proximaFase << "] }" << std::endl;
 }
 } // namespace Personagens
 } // namespace Entidades

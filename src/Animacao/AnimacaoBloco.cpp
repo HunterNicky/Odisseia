@@ -4,7 +4,9 @@ namespace Animacao {
 
 AnimacaoBloco::AnimacaoBloco(Entidades::Entidade *entidade, std::string path,
                              int numFrames, const sf::Vector2f escala)
-    : AnimacaoStrategy(entidade, numFrames, escala), actualFrame(1.f) {
+    : AnimacaoStrategy(entidade, numFrames, escala) {
+  std::srand(time(NULL));
+  randomTimeChange = (std::rand() % 4 + 1) / 5.f;
   textura = pGrafico->loadTexture(path);
   rectSize.width = (textura->getSize().x / numFrames);
   rectSize.height = (textura->getSize().y);
@@ -12,12 +14,14 @@ AnimacaoBloco::AnimacaoBloco(Entidades::Entidade *entidade, std::string path,
 }
 AnimacaoBloco::AnimacaoBloco(Entidades::Entidade *entidade, int numFrames,
                              const sf::Vector2f escala)
-    : AnimacaoStrategy(entidade, numFrames, escala),
-      actualFrame(1.f) {}
+    : AnimacaoStrategy(entidade, numFrames, escala) {
+  std::srand(time(NULL));
+  randomTimeChange = (std::rand() % 4 + 1) / 5.f;
+}
 
-AnimacaoBloco::~AnimacaoBloco(){}
+AnimacaoBloco::~AnimacaoBloco() {}
 
-void AnimacaoBloco::setTexture(const std::string path){
+void AnimacaoBloco::setTexture(const std::string path) {
   textura = pGrafico->loadTexture(path);
   rectSize.width = (textura->getSize().x / numFrames);
   rectSize.height = (textura->getSize().y);
@@ -32,7 +36,7 @@ void AnimacaoBloco::updateSprite(double dt, float standardTime) {
 void AnimacaoBloco::updateAnimationFrame(double dt, float standardTime) {
   actualFrame += dt;
 
-  if (actualFrame >= standardTime) {
+  if (actualFrame >= standardTime + randomTimeChange) {
     actualFrame -= standardTime;
     actualImage = (actualImage + 1) % numFrames;
   }

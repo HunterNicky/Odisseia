@@ -9,8 +9,6 @@ private:
   const int numFrameWalk;
   const int numFrameRun;
   const sf::Vector2f escalaRun;
-  float actualFrame;
-  int actualImage;
   void updateAnimationFrame(double dt, float standardTime);
   void updateSpriteRect();
   void updateRun();

@@ -11,15 +11,15 @@
 #define CAMINHO_BLOCO_PORTAL "data/Sprites/blocos/buracoNegro.png"
 #define CAMINHO_BLOCO_CAIXA "data/Sprites/blocos/caixa.png"
 namespace Fases {
-Fase_Castelo::Fase_Castelo(const int numJogadores) : Fase(2, numJogadores) {
+Fase_Castelo::Fase_Castelo(const int numJogadores) : Fase(2, numJogadores), escaldante(0.8) {
   srand(time(NULL));
   loadMap();
+  pJogador->setEstamina(escaldante);
   carregarFundo();
 }
 
-Fase_Castelo::Fase_Castelo(nlohmann::json arquivoEntidades,
-                           nlohmann::json arquivoFase)
-    : Fase(2, 0) {
+Fase_Castelo::Fase_Castelo(nlohmann::json arquivoEntidades, nlohmann::json arquivoFase)
+    : Fase(2), escaldante(0.8) {
   recuperarJogada(arquivoEntidades, arquivoFase);
 }
 

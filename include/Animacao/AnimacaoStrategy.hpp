@@ -11,8 +11,9 @@ protected:
   sf::IntRect rectSize;
   sf::Texture *textura;
   const sf::Vector2f escala;
+  float actualFrame;
+  int actualImage;
   int numFrames;
-
 public:
   AnimacaoStrategy(Entidades::Entidade *entidade, int numFrames,
                    const sf::Vector2f escala);

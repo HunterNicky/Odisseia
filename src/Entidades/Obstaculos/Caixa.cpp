@@ -97,6 +97,7 @@ void Caixa::tratarColisao(Entidade *entidade, const sf::Vector2f mtv) {
 }
 void Caixa::executar() {
   animacao();
+  if(PortalAtivo) pos = prevPos;
   body->setPosition(pos);
   if (prevPos != pos)
     gColisao->Notify(static_cast<Entidades::Entidade *>(this));
