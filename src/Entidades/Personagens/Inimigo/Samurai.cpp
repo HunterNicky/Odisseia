@@ -15,7 +15,7 @@ void Samurai::inicializa() {
   vel = sf::Vector2f(0.0f, 0.0f);
   nivel_maldade = 3;
   num_vidas = 100;
-  dano = 30;
+  dano = 20;
   raio = RAIO;
   danoTime = 0;
   tempoInvisivel = 0;
@@ -59,7 +59,7 @@ Samurai::Samurai(nlohmann::json atributos, const int pos,
   this->invisibilidade = atributos[pos]["Invisibilidade"][0] == 1 ? true : false;
 
   nivel_maldade = 3;
-  dano = 30;
+  dano = 20;
   raio = RAIO;
   dano = dano*nivel_maldade;
 }
@@ -89,7 +89,14 @@ void Samurai::operator--(const int dano) {
     num_vidas -= dano;
   }
 }
-
+void Samurai::persegueJogador(sf::Vector2f posJogador,
+                                sf::Vector2f posInimigo) {
+  if (posJogador.x - posInimigo.x > 0.0f) {
+    forca.x = 3000.f;
+  } else {
+    forca.x = -3000.f;
+  }
+}
 void Samurai::movimentoAleatorio() {
   moveAleatorio = rand() % 2;
 
@@ -105,7 +112,7 @@ void Samurai::move() {
 
   if (((fabs(posicaoJog.x - posicaoSamurai.x) <= raio / 2)) &&
       (fabs(posicaoJog.y - posicaoSamurai.y) <= raio / 2)) {
-
+    persegueJogador(posicaoJog, posicaoSamurai);
   } else {
     movimentoAleatorio();
   }
@@ -120,7 +127,7 @@ void Samurai::danificar(Entidade *entidade) {
         static_cast<Entidades::Personagens::Personagem *>(entidade);
     pPers->operator--(dano * nivel_maldade);
     danar = false;
-    ataque = true;
+    ataque = false;
   }
 }
 void Samurai::atualizaBarraDeVida() {

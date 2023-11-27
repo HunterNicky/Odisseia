@@ -71,13 +71,20 @@ void Caixa::tratarColisao(Entidade *entidade, const sf::Vector2f mtv) {
     entidade->setPos(sf::Vector2f(entidade->getPos().x + mtv.x,
                                   entidade->getPos().y + mtv.y));
     entidade->setPrevPos(sf::Vector2f(entidade->getPrevPos().x + mtv.x * 0.95f,
-                                     entidade->getPrevPos().y + mtv.y * 0.95f));
-  }
-  else{
+                                      entidade->getPrevPos().y + mtv.y * 0.95f));
+  } else {
     pos += mtv;
     pos.x -= vel.x * 0.01;
     prevPos.x += mtv.x * 0.95f;
     prevPos.y += mtv.y * 0.95f;
+  }
+  if (entidade->getId() == Entidades::ID::jogador) {
+    Entidades::Personagens::Jogador *pJog =
+        static_cast<Entidades::Personagens::Jogador *>(entidade);
+    if (danoso) {
+      pJog->operator--(farpas);
+      danoso = false;
+    }
   }
   if (entidade->getId() == Entidades::ID::jogador) {
     Entidades::Personagens::Jogador *pJog =

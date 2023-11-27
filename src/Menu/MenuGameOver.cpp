@@ -8,9 +8,9 @@
 namespace Menu {
 MenuGameOver::MenuGameOver(Fases::Fase *pFase)
     : Menu(3, 2,
-           sf::Vector2f(POS_TEXTO_GO_X - TAMANHO_GO_X * 2,
+           sf::Vector2f(POS_TEXTO_GO_X - TAMANHO_GO_X * 2.5,
                         POS_TEXTO_GO_Y - TAMANHO_GO_Y / 2),
-           sf::Vector2f(TAMANHO_GO_X, TAMANHO_GO_Y), "GAME OVER", 100),
+           sf::Vector2f(TAMANHO_GO_X, TAMANHO_GO_Y), "GAME OVER", 120),
       pFase(pFase), fundoCaracter(new sf::RectangleShape()),
       texto(sf::Vector2f(POS_TEXTO_X, POS_TEXTO_Y),
             sf::Vector2f(TAMANHO_GO_X, TAMANHO_GO_Y), "", 30),

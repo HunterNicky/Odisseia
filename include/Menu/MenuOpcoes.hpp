@@ -1,7 +1,7 @@
 #pragma once
 
-#include "Fases/Fase1.hpp"
-#include "Fases/Fase2.hpp"
+#include "Fases/Fase_Planicie.hpp"
+#include "Fases/Fase_Castelo.hpp"
 #include "Menu.hpp"
 #include "Menu/Botoes/Botao.hpp"
 #include "Menu/Botoes/Texto.hpp"
@@ -14,8 +14,8 @@
 namespace Menu {
 class MenuOpcoes : public Menu {
 private:
-  Fases::Fase1 *pFase1;
-  Fases::Fase2 *pFase2;
+  Fases::Fase_Planicie *pFase_Planicie;
+  Fases::Fase_Castelo *pFase_Castelo;
 
 public:
   MenuOpcoes();

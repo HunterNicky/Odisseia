@@ -2,7 +2,7 @@
 #include "Entidades/Obstaculos/Plataforma.hpp"
 #include "Entidades/Personagens/Inimigo/Viajante.hpp"
 #include "Entidades/Personagens/Personagem.hpp"
-#include "Fases/Fase2.hpp"
+#include "Fases/Fase_Castelo.hpp"
 #include "Menu/Botoes/Texto.hpp"
 #include "Observadores/ControleJogador.hpp"
 #define CAMINHO_BLOCO_PORTAL "data\\Sprites\\blocos\\buracoNegro.png"
@@ -108,7 +108,7 @@ void Fase::newGuerreiro(sf::Vector2f pos, sf::Vector2f size) {
 void Fase::newViajante(sf::Vector2f pos, sf::Vector2f size) {
   Entidades::Personagens::Viajante *pInimigo =
       new Entidades::Personagens::Viajante(pos, size, Entidades::ID::Viajante,
-                                           pJogador, nullptr);
+                                           pJogador);
   pInimigo->setConcreteGerenciadorColisao(pColisao);
   LE.push_back(static_cast<Entidades::Entidade *>(pInimigo));
   pInimigo->setFase(this);
@@ -218,7 +218,7 @@ void Fase::proximaFase() {
     pMaquinaDeEstado->popEstado();
 
     // empilha o estado de fase 2
-    Fases::Fase2 *pFase = new Fases::Fase2();
+    Fases::Fase_Castelo *pFase = new Fases::Fase_Castelo();
     pMaquinaDeEstado->pushEstado(pFase);
   }
 }
@@ -230,7 +230,7 @@ void Fase::updateVida() {
         (LE[i]->getId() == Entidades::ID::Samurai)) {
       Entidades::Personagens::Personagem *pPers =
           static_cast<Entidades::Personagens::Personagem *>(LE[i]);
-      if (pPers->getNum_vidas() < 0) {
+      if (pPers->getNum_vidas() <= 0) {
         LE.remove(i);
         setPontuacaoJog(getPontuacaoJog() + 200);
       }
@@ -239,7 +239,7 @@ void Fase::updateVida() {
       // remover Jogador
       Entidades::Personagens::Personagem *pPers =
           static_cast<Entidades::Personagens::Personagem *>(LE[i]);
-      if (pPers->getNum_vidas() < 0) {
+      if (pPers->getNum_vidas() <= 0) {
         controleJog->jogadorNeutralizado();
         LE.remove(i);
       }
@@ -264,7 +264,6 @@ void Fase::executar() {
   }
 }
 void Fase::draw() {
-  // pGrafico->draw(static_cast<sf::Drawable*>(fundo));
   LE.drawAll();
   atualizaPontuacao();
   atualizaBarraDeVidaJog();

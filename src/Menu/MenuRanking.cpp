@@ -10,7 +10,7 @@ MenuRanking::MenuRanking()
            150),
       vectorTexto() {
   inicializaBotao();
-  titulo.setColor(sf::Color::Green);
+  titulo.setColor(sf::Color::White);
   titulo.setTextFont(CAMINHO_FONTE_RANKING);
   criarRanking();
 }

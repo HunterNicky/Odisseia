@@ -2,7 +2,7 @@
 
 #include "..\Estados\Estado.hpp"
 #include "..\Estados\Jogo.hpp"
-#include "Fases/Fase1.hpp"
+#include "Fases/Fase_Planicie.hpp"
 #include "Menu/Botoes/Botao.hpp"
 #include "Menu/Botoes/Texto.hpp"
 #include "Menu/MenuOpcoes.hpp"
@@ -21,7 +21,8 @@ namespace Menu {
 class MenuPrincipal : public Menu {
 private:
   static Estados::MaquinaDeEstado *pMaquinaDeEstado;
-  Fases::Fase1 *fase;
+  Botoes::Texto *subTitulo;
+  Fases::Fase_Planicie *fase;
   Estados::Jogo *pJogo;
   MenuOpcoes *pOpcao;
 
