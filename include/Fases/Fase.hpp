@@ -39,6 +39,7 @@ protected:
   static Estados::MaquinaDeEstado *pMaquinaDeEstado;
   Observadores::ControleJogador *controleJog;
   static Entidades::Personagens::Jogador *pJogador;
+  static Entidades::Personagens::Jogador *pJogador2;
   sf::RectangleShape *barraDeVida;
   sf::RectangleShape *tuboVida;
   sf::RectangleShape *fundo;
@@ -49,9 +50,10 @@ protected:
   static Menu::Botoes::Texto textoPontuacao;
   double dt;
   int idFase;
+  int numJogadores;
 
 public:
-  Fase(const int idFase);
+  Fase(const int idFase, const int numJogadores);
   ~Fase();
   void salvarEntidades();
   void salvarAtributosFase();

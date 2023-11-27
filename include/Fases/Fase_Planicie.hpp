@@ -9,7 +9,7 @@
 namespace Fases {
 class Fase_Planicie : public Fase {
 public:
-  Fase_Planicie();
+  Fase_Planicie(const int numJogadores);
   Fase_Planicie(nlohmann::json arquivosEntidades, nlohmann::json arquivosFase);
   ~Fase_Planicie();
   void newGosma(sf::Vector2f pos, sf::Vector2f size);

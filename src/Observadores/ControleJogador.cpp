@@ -8,20 +8,25 @@ Estados::MaquinaDeEstado *ControleJogador::pMaquinaDeEstado =
 
 ControleJogador::ControleJogador(Entidades::Personagens::Jogador *pJogador,
                                  Fases::Fase *pFase)
-    : Observer(), pJogador(pJogador), pJogador2(nullptr), pFase(pFase), pular("W"), esquerda("A"),
-      direita("D"), correr("LShift"), atacar("Space"), fechar("Escape") {}
+    : Observer(), pJogador(pJogador), pJogador2(nullptr), pFase(pFase),
+      pular("W"), esquerda("A"), direita("D"), correr("LShift"),
+      atacar("Space"), fechar("Escape") {}
 
-ControleJogador::ControleJogador(Entidades::Personagens::Jogador *pJogador, Entidades::Personagens::Jogador* pJogador2, Fases::Fase *pFase): Observer(),
-  pJogador(pJogador), pJogador2(pJogador2), pFase(pFase), pular("W"), esquerda("A"),
-      direita("D"), correr("LShift"), atacar("Space"), fechar("Escape")
-{
-  
-}
+ControleJogador::ControleJogador(Entidades::Personagens::Jogador *pJogador,
+                                 Entidades::Personagens::Jogador *pJogador2,
+                                 Fases::Fase *pFase)
+    : Observer(), pJogador(pJogador), pJogador2(pJogador2), pFase(pFase),
+      pular("W"), esquerda("A"), direita("D"), correr("LShift"),
+      atacar("Space"), fechar("Escape") {}
 ControleJogador::~ControleJogador() {}
 
 void ControleJogador::setJogador(Entidades::Personagens::Jogador *pJogador) {
   this->pJogador = pJogador;
 }
+void ControleJogador::setJogador2(Entidades::Personagens::Jogador *pJogador2){
+  this->pJogador2 = pJogador2;
+}
+
 void ControleJogador::jogadorNeutralizado() {
   Menu::MenuGameOver *pGameOver = new Menu::MenuGameOver(pFase);
   pMaquinaDeEstado->pushEstado(static_cast<Estados::Estado *>(pGameOver));
@@ -47,18 +52,18 @@ void ControleJogador::notifyPressed(const sf::Keyboard::Key key) {
       pMaquinaDeEstado->pushEstado(static_cast<Estados::Estado *>(pPausa));
     }
   }
-  if (pJogador && pMaquinaDeEstado->getEstadoAtual()->getAtivo()) {
+  if (pJogador2 && pMaquinaDeEstado->getEstadoAtual()->getAtivo()) {
     if (keyboard[key] == "Right") {
-      pJogador->direcionar(true);
+      pJogador2->direcionar(true);
     } else if (keyboard[key] == "Left") {
-      pJogador->direcionar(false);
+      pJogador2->direcionar(false);
     }
     if (keyboard[key] == "Enter") {
-      pJogador->atacar();
+      pJogador2->atacar();
     } else if (keyboard[key] == "Up") {
-      pJogador->pular();
-    } else if (keyboard[key] == "0") {
-      pJogador->correr();
+      pJogador2->pular();
+    } else if (keyboard[key] == "RAlt") {
+      pJogador2->correr();
     }
   }
 }
@@ -74,6 +79,18 @@ void ControleJogador::notifyReleased(const sf::Keyboard::Key key) {
     } else if (keyboard[key] == pular) {
       pJogador->setOnFloor(false);
       pJogador->pular();
+    }
+  }
+  if (pJogador2) {
+    if (keyboard[key] == "Right") {
+      pJogador2->parar();
+    } else if (keyboard[key] == "Left") {
+      pJogador2->parar();
+    } else if (keyboard[key] == "RAlt") {
+      pJogador2->parar();
+    } else if (keyboard[key] == "Up") {
+      pJogador2->setOnFloor(false);
+      pJogador2->pular();
     }
   }
 }

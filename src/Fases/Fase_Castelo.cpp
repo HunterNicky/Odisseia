@@ -11,14 +11,15 @@
 #define CAMINHO_BLOCO_PORTAL "data/Sprites/blocos/buracoNegro.png"
 #define CAMINHO_BLOCO_CAIXA "data/Sprites/blocos/caixa.png"
 namespace Fases {
-Fase_Castelo::Fase_Castelo() : Fase(2) {
+Fase_Castelo::Fase_Castelo(const int numJogadores) : Fase(2, numJogadores) {
   srand(time(NULL));
   loadMap();
   carregarFundo();
 }
 
-Fase_Castelo::Fase_Castelo(nlohmann::json arquivoEntidades, nlohmann::json arquivoFase)
-    : Fase(2) {
+Fase_Castelo::Fase_Castelo(nlohmann::json arquivoEntidades,
+                           nlohmann::json arquivoFase)
+    : Fase(2, 0) {
   recuperarJogada(arquivoEntidades, arquivoFase);
 }
 
@@ -42,15 +43,39 @@ void Fase_Castelo::newSamurai(sf::Vector2f pos, sf::Vector2f size) {
   LE.push_back(static_cast<Entidades::Entidade *>(pSamurai));
 }
 void Fase_Castelo::recuperarJogada(nlohmann::json arquivoEntidades,
-                            nlohmann::json arquivoFase) {
+                                   nlohmann::json arquivoFase) {
   try {
-    for (int i = 0; i < (int)arquivoEntidades.size(); i++) {
-      if (arquivoEntidades[i]["ID"][0] == Entidades::ID::jogador) {
-        pJogador = new Entidades::Personagens::Jogador(arquivoEntidades, i,
-                                                       Entidades::ID::jogador);
-        pJogador->setConcreteGerenciadorColisao(pColisao);
-        controleJog->setJogador(pJogador);
-        LE.push_back(static_cast<Entidades::Entidade *>(pJogador));
+    if (arquivoFase[0]["NumJogadores"][0] == 1) {
+      for (int i = 0; i < (int)arquivoEntidades.size(); i++) {
+        if (arquivoEntidades[i]["ID"][0] == Entidades::ID::jogador) {
+          pJogador = new Entidades::Personagens::Jogador(
+              arquivoEntidades, i, Entidades::ID::jogador);
+          pJogador->setConcreteGerenciadorColisao(pColisao);
+          controleJog->setJogador(pJogador);
+          LE.push_back(static_cast<Entidades::Entidade *>(pJogador));
+        }
+      }
+    } else if (arquivoFase[0]["NumJogadores"][0] == 2) {
+      bool primeiro = true;
+      for (int i = 0; i < (int)arquivoEntidades.size(); i++) {
+        if ((arquivoEntidades[i]["ID"][0] == Entidades::ID::jogador) &&
+            primeiro) {
+          pJogador = new Entidades::Personagens::Jogador(
+              arquivoEntidades, i, Entidades::ID::jogador);
+          pJogador->setConcreteGerenciadorColisao(pColisao);
+          controleJog->setJogador(pJogador);
+          LE.push_back(static_cast<Entidades::Entidade *>(pJogador));
+          primeiro = false;
+        }
+        if ((arquivoEntidades[i]["ID"][0] == Entidades::ID::jogador) &&
+            (!primeiro)) {
+          std::cout << "Jogador " << std::endl;
+          pJogador2 = new Entidades::Personagens::Jogador(
+              pos, size, Entidades::ID::jogador);
+          pJogador2->setConcreteGerenciadorColisao(pColisao);
+          controleJog->setJogador2(pJogador2);
+          LE.push_back(static_cast<Entidades::Entidade *>(pJogador2));
+        }
       }
     }
     for (int i = 0; i < (int)arquivoEntidades.size(); i++) {
@@ -99,6 +124,7 @@ void Fase_Castelo::recuperarJogada(nlohmann::json arquivoEntidades,
     // recupera pontuação
     for (int i = 0; i < (int)arquivoFase.size(); i++) {
       setPontuacaoJog(arquivoFase[i]["Pontuacao"][0]);
+      numJogadores = arquivoFase[i]["NumJogadores"][0];
     }
   } catch (nlohmann::json::exception &e) {
     std::cout << "ERRO EM RECUPERAR JOGADA!" << std::endl;
@@ -194,15 +220,15 @@ void Fase_Castelo::loadMap() {
 }
 
 void Fase_Castelo::carregarFundo() {
-   fundo = new sf::RectangleShape();
+  fundo = new sf::RectangleShape();
   imgFundo = new sf::Texture();
   // link Imagem https://br.pinterest.com/pin/87116574025635564/
-  imgFundo = (pGrafico->loadTexture("data\\imagens\\fundoFase_Planicie.png"));
+  imgFundo = (pGrafico->loadTexture("data\\imagens\\testeFundo.jpg"));
   fundo->setSize(sf::Vector2f(1280.f, 720.f));
   fundo->setTexture(imgFundo);
   fundo->setOrigin(fundo->getSize().x / 2, fundo->getSize().y / 2);
 }
-void Fase_Castelo::atualizaFundo(){
+void Fase_Castelo::atualizaFundo() {
   sf::Vector2f cameraPos = pGrafico->getViewCenter();
   sf::Vector2f jogadorPos = pJogador->getBody()->getPosition();
   jogadorPos.y -= 100.f;
@@ -210,9 +236,9 @@ void Fase_Castelo::atualizaFundo(){
   fundo->setPosition(novaPosCamera);
   pGrafico->draw(fundo);
 }
-void Fase_Castelo::draw() { 
+void Fase_Castelo::draw() {
   atualizaFundo();
-  Fase::draw(); 
+  Fase::draw();
 }
 
 void Fase_Castelo::update() { executar(); }

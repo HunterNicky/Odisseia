@@ -1,6 +1,7 @@
 #include "Fases/Fase.hpp"
 #include "Entidades/Obstaculos/Plataforma.hpp"
 #include "Entidades/Personagens/Inimigo/Viajante.hpp"
+#include "Entidades/Personagens/Jogador/Jogador.hpp"
 #include "Entidades/Personagens/Personagem.hpp"
 #include "Fases/Fase_Castelo.hpp"
 #include "Menu/Botoes/Texto.hpp"
@@ -25,17 +26,30 @@ Estados::MaquinaDeEstado *Fase::pMaquinaDeEstado =
 Menu::Botoes::Texto Fase::textoPontuacao(sf::Vector2f(0.f, 0.f),
                                          sf::Vector2f(50.f, 50.f), "", 35);
 
-Fase::Fase(const int idFase) : Estado(pMaquinaDeEstado, 1) {
-  pJogador = nullptr;
-  controleJog = new Observadores::ControleJogador(
-      pJogador, static_cast<Fases::Fase *>(this));
-  pColisao->setList(&LE);
-  pEvento->addObserver(static_cast<Observadores::Observer *>(controleJog));
-  dt = 0.f;
-  pontuacao_jogador = 0;
+Entidades::Personagens::Jogador *Fase::pJogador = nullptr;
+Entidades::Personagens::Jogador *Fase::pJogador2 = nullptr;
+
+Fase::Fase(const int idFase, const int numJogadores)
+    : Estado(pMaquinaDeEstado, 1), numJogadores(numJogadores) {
+  if (numJogadores == 1) { // um jogador
+    controleJog = new Observadores::ControleJogador(
+        pJogador, static_cast<Fases::Fase *>(this));
+    pColisao->setList(&LE);
+    pEvento->addObserver(static_cast<Observadores::Observer *>(controleJog));
+    dt = 0.f;
+    pontuacao_jogador = 0;
+  } else { // dois jogadores
+    controleJog = new Observadores::ControleJogador(
+        pJogador, pJogador2, static_cast<Fases::Fase *>(this));
+    pColisao->setList(&LE);
+    pEvento->addObserver(static_cast<Observadores::Observer *>(controleJog));
+    dt = 0.f;
+    pontuacao_jogador = 0;
+  }
   this->idFase = idFase;
   textoPontuacao.setColor(sf::Color::White);
   textoPontuacao.setTextFont(CAMINHO_FONTE_PONTUACAO);
+
   if (textoPontuacao.getText() == "") {
     textoPontuacao.setTexto("Score: 00000");
     textoPontuacao.setTamanhoBorda(2.f);
@@ -85,18 +99,34 @@ void Fase::salvarAtributosFase() {
   buffer.str("");
   buffer << "[";
 
-  buffer << "{ \"IdFase\": [" << idFase << "], \"Pontuacao\": [" << getPontuacaoJog() << "] }" << std::endl;
+  buffer << "{ \"IdFase\": [" << idFase << "], \"Pontuacao\": ["
+         << getPontuacaoJog() << "],  \"NumJogadores\": [" << numJogadores
+         << "] }" << std::endl;
 
   buffer << "]";
   arquivo << buffer.str() << std::endl;
   arquivo.close();
 }
 void Fase::newJogador(sf::Vector2f pos, sf::Vector2f size) {
-  pJogador =
-      new Entidades::Personagens::Jogador(pos, size, Entidades::ID::jogador);
-  pJogador->setConcreteGerenciadorColisao(pColisao);
-  controleJog->setJogador(pJogador);
-  LE.push_back(static_cast<Entidades::Entidade *>(pJogador));
+  if (numJogadores == 1) {
+    pJogador =
+        new Entidades::Personagens::Jogador(pos, size, Entidades::ID::jogador);
+    pJogador->setConcreteGerenciadorColisao(pColisao);
+    controleJog->setJogador(pJogador);
+    LE.push_back(static_cast<Entidades::Entidade *>(pJogador));
+
+  } else if (numJogadores == 2) {
+    pJogador =
+        new Entidades::Personagens::Jogador(pos, size, Entidades::ID::jogador);
+    pJogador->setConcreteGerenciadorColisao(pColisao);
+    controleJog->setJogador(pJogador);
+    LE.push_back(static_cast<Entidades::Entidade *>(pJogador));
+    pJogador2 =
+        new Entidades::Personagens::Jogador(pos, size, Entidades::ID::jogador);
+    pJogador2->setConcreteGerenciadorColisao(pColisao);
+    controleJog->setJogador2(pJogador2);
+    LE.push_back(static_cast<Entidades::Entidade *>(pJogador2));
+  }
 }
 void Fase::newGuerreiro(sf::Vector2f pos, sf::Vector2f size) {
   Entidades::Personagens::Guerreiro *pInimigo =
@@ -115,8 +145,9 @@ void Fase::newViajante(sf::Vector2f pos, sf::Vector2f size) {
 }
 void Fase::newPlataforma(sf::Vector2f pos, sf::Vector2f size,
                          const std::string path) {
-  Entidades::Obstaculos::Plataforma *pPlataforma = new Entidades::Obstaculos::Plataforma(
-      pos, size, Entidades::ID::Plataforma, path);
+  Entidades::Obstaculos::Plataforma *pPlataforma =
+      new Entidades::Obstaculos::Plataforma(pos, size,
+                                            Entidades::ID::Plataforma, path);
   pPlataforma->setConcreteGerenciadorColisao(pColisao);
   LE.push_back(static_cast<Entidades::Entidade *>(pPlataforma));
 }
@@ -130,7 +161,7 @@ void Fase::newCaixa(sf::Vector2f pos, sf::Vector2f size,
     pCaixa->setPortalAtivo(true);
   }
 }
-void Fase::newProjetil(const sf::Vector2f pos, const sf::Vector2f vel){
+void Fase::newProjetil(const sf::Vector2f pos, const sf::Vector2f vel) {
   Entidades::Laser *pProj =
       new Entidades::Laser(pos, vel, Entidades::ID::Laser);
   pProj->setConcreteGerenciadorColisao(pColisao);
@@ -196,11 +227,11 @@ void Fase::atualizaBarraDeVidaIni() {
     }
   }
 }
-void Fase::atualizaProjetil(){
-  for(unsigned int i = 0; i < LE.getSize(); i++){
-    if(LE[i]->getId() == Entidades::ID::Laser){
-      Entidades::Laser* pProj = static_cast<Entidades::Laser*>(LE[i]);
-      if(!pProj->getAtivo()){
+void Fase::atualizaProjetil() {
+  for (unsigned int i = 0; i < LE.getSize(); i++) {
+    if (LE[i]->getId() == Entidades::ID::Laser) {
+      Entidades::Laser *pProj = static_cast<Entidades::Laser *>(LE[i]);
+      if (!pProj->getAtivo()) {
         LE.remove(i);
       }
     }
@@ -218,8 +249,13 @@ void Fase::proximaFase() {
     pMaquinaDeEstado->popEstado();
 
     // empilha o estado de fase 2
-    Fases::Fase_Castelo *pFase = new Fases::Fase_Castelo();
-    pMaquinaDeEstado->pushEstado(pFase);
+    if (numJogadores == 1) {
+      Fases::Fase_Castelo *pFase = new Fases::Fase_Castelo(numJogadores);
+      pMaquinaDeEstado->pushEstado(pFase);
+    } else if (numJogadores == 2) {
+      Fases::Fase_Castelo *pFase = new Fases::Fase_Castelo(numJogadores);
+      pMaquinaDeEstado->pushEstado(pFase);
+    }
   }
 }
 

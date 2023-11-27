@@ -64,7 +64,7 @@ void MenuPrincipal::carregarJogo() {
 void MenuPrincipal::executar() {
   switch (numSelec) {
   case 0:
-    fase = new Fases::Fase_Planicie();
+    fase = new Fases::Fase_Planicie(1);
     pMaquinaDeEstado->pushEstado(static_cast<Estados::Estado *>(fase));
     break;
   case 1:

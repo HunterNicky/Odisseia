@@ -32,6 +32,7 @@ public:
   ControleJogador(Entidades::Personagens::Jogador *pJogador, Entidades::Personagens::Jogador* pJogador2, Fases::Fase *pFase);
   ~ControleJogador();
   void setJogador(Entidades::Personagens::Jogador *pJogador);
+  void setJogador2(Entidades::Personagens::Jogador *pJogador2);
   void jogadorNeutralizado();
   void notifyPressed(const sf::Keyboard::Key key);
   void notifyReleased(const sf::Keyboard::Key key);

@@ -56,6 +56,7 @@ void Observer::startKeys() {
   keyboard[sf::Keyboard::Enter] = "Enter";
   keyboard[sf::Keyboard::Space] = "Space";
   keyboard[sf::Keyboard::Escape] = "Escape";
+  keyboard[sf::Keyboard::RAlt] = "RAlt";
   keyboard[sf::Keyboard::LShift] = "LShift";
   keyboard[sf::Keyboard::BackSpace] = "BackSpace";
 }

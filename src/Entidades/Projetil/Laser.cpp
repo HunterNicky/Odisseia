@@ -24,7 +24,7 @@ Laser::Laser(nlohmann::json atributos, const int pos, const Entidades::ID id)
   body->setFillColor(sf::Color::Red);
   this->setVel(sf::Vector2f(atributos[pos]["Velocidade"][0],
                             atributos[pos]["Velocidade"][1]));
-  //this->Ativo = atributos[pos]["Ativo"][0] == 1 ? true : false;
+  this->Ativo = atributos[pos]["Ativo"][0] == 1 ? true : false;
 }
 
 Laser::~Laser() {}
@@ -77,6 +77,6 @@ void Laser::update() { executar(); }
 void Laser::salvar(std::ostringstream *entrada) {
   (*entrada) << "{ \"ID\": [" << 9 << "], \"Posicao\": [" << pos.x << " , "
              << pos.y << "], \"Velocidade\": [" << vel.x << " , " << vel.y
-             << "] }" << std::endl; //, \"Ativo\": ["<< Ativo <<"]
+             << "], \"Ativo\": ["<< Ativo <<"] }" << std::endl; 
 }
 } // namespace Entidades

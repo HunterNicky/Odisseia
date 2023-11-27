@@ -13,26 +13,24 @@ MenuOpcoes::MenuOpcoes()
   titulo.setColor(sf::Color::White);
 }
 
-MenuOpcoes::~MenuOpcoes() { /*
-      if(pFase_Planicie != nullptr){
-          delete pFase_Planicie;
-      }
-      if(pFase_Castelo != nullptr){
-          delete pFase_Castelo;
-      }*/
+MenuOpcoes::~MenuOpcoes() { 
 }
 
 void MenuOpcoes::executar() {
   switch (numSelec) {
   case 0: // Fase 1
-    pFase_Planicie = new Fases::Fase_Planicie();
+    pFase_Planicie = new Fases::Fase_Planicie(1);
     pMaquinaDeEstado->pushEstado(static_cast<Estados::Estado *>(pFase_Planicie));
     break;
   case 1: // Fase 2
-    pFase_Castelo = new Fases::Fase_Castelo();
+    pFase_Castelo = new Fases::Fase_Castelo(1);
     pMaquinaDeEstado->pushEstado(static_cast<Estados::Estado *>(pFase_Castelo));
     break;
-  case 2:
+  case 2://dois jogadores
+    pFase_Planicie = new Fases::Fase_Planicie(2);
+    pMaquinaDeEstado->pushEstado(static_cast<Estados::Estado *>(pFase_Planicie));
+    break;
+  case 3:
     pMaquinaDeEstado->popEstado();
     break;
   default:
@@ -52,7 +50,10 @@ void MenuOpcoes::inicializaBotao() {
                              std::string(" Fase 2"));
   Menu::lBotao.push_back(pBotao);
 
-  pBotao = new Botoes::Botao(sf::Vector2f(640.f - 100, 360.f + 100),
+  pBotao = new Botoes::Botao(sf::Vector2f(640.f - 100, 360.f+100.f),
+                             std::string(" 2 jogadores"));
+  Menu::lBotao.push_back(pBotao);
+  pBotao = new Botoes::Botao(sf::Vector2f(640.f - 100, 360.f + 200),
                              std::string(" Voltar"));
   Menu::lBotao.push_back(pBotao);
   numOpc = 3;

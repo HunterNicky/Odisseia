@@ -13,14 +13,14 @@
 #define CAMINHO_BLOCO_PORTAL "data/Sprites/blocos/buracoNegro.png"
 #define CAMINHO_BLOCO_CAIXA "data/Sprites/blocos/caixa.png"
 namespace Fases {
-Fase_Planicie::Fase_Planicie() : Fase(1) {
+Fase_Planicie::Fase_Planicie(const int numJogadores) : Fase(1, numJogadores) {
   srand(time(NULL));
   loadMap();
   carregarFundo();
 }
 Fase_Planicie::Fase_Planicie(nlohmann::json arquivosEntidades,
                              nlohmann::json arquivosFase)
-    : Fase(1) {
+    : Fase(1, 0) {
   carregarFundo();
   recuperarJogada(arquivosEntidades, arquivosFase);
 }
@@ -34,13 +34,37 @@ void Fase_Planicie::newGosma(sf::Vector2f pos, sf::Vector2f size) {
 void Fase_Planicie::recuperarJogada(nlohmann::json arquivoEntidades,
                                     nlohmann::json arquivoFase) {
   try { // recupera entidades
-    for (int i = 0; i < (int)arquivoEntidades.size(); i++) {
-      if (arquivoEntidades[i]["ID"][0] == Entidades::ID::jogador) {
-        pJogador = new Entidades::Personagens::Jogador(arquivoEntidades, i,
-                                                       Entidades::ID::jogador);
-        pJogador->setConcreteGerenciadorColisao(pColisao);
-        controleJog->setJogador(pJogador);
-        LE.push_back(static_cast<Entidades::Entidade *>(pJogador));
+    if (arquivoFase[0]["NumJogadores"][0] == 1) {
+      for (int i = 0; i < (int)arquivoEntidades.size(); i++) {
+        if (arquivoEntidades[i]["ID"][0] == Entidades::ID::jogador) {
+          pJogador = new Entidades::Personagens::Jogador(
+              arquivoEntidades, i, Entidades::ID::jogador);
+          pJogador->setConcreteGerenciadorColisao(pColisao);
+          controleJog->setJogador(pJogador);
+          LE.push_back(static_cast<Entidades::Entidade *>(pJogador));
+        }
+      }
+    } else if (arquivoFase[0]["NumJogadores"][0] == 2) {
+      bool primeiro = true;
+      for (int i = 0; i < (int)arquivoEntidades.size(); i++) {
+        if ((arquivoEntidades[i]["ID"][0] == Entidades::ID::jogador) &&
+            primeiro) {
+          pJogador = new Entidades::Personagens::Jogador(
+              arquivoEntidades, i, Entidades::ID::jogador);
+          pJogador->setConcreteGerenciadorColisao(pColisao);
+          controleJog->setJogador(pJogador);
+          LE.push_back(static_cast<Entidades::Entidade *>(pJogador));
+          primeiro = false;
+        }
+        if ((arquivoEntidades[i]["ID"][0] == Entidades::ID::jogador) &&
+            (!primeiro)) {
+          std::cout << "Jogador " << std::endl;
+          pJogador2 = new Entidades::Personagens::Jogador(
+              pos, size, Entidades::ID::jogador);
+          pJogador2->setConcreteGerenciadorColisao(pColisao);
+          controleJog->setJogador2(pJogador2);
+          LE.push_back(static_cast<Entidades::Entidade *>(pJogador2));
+        }
       }
     }
     for (int i = 0; i < (int)arquivoEntidades.size(); i++) {
@@ -83,7 +107,9 @@ void Fase_Planicie::recuperarJogada(nlohmann::json arquivoEntidades,
     // recupera pontuação
     for (int i = 0; i < (int)arquivoFase.size(); i++) {
       setPontuacaoJog(arquivoFase[i]["Pontuacao"][0]);
+      numJogadores = arquivoFase[i]["NumJogadores"][0];
     }
+    
   } catch (nlohmann::json::exception &e) {
     std::cout << "ERRO EM RECUPERAR JOGADA!" << std::endl;
     std::cout << e.what() << std::endl;

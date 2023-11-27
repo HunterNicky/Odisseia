@@ -10,7 +10,7 @@ namespace Fases {
 class Fase_Castelo : public Fase {
 private:
 public:
-  Fase_Castelo();
+  Fase_Castelo(const int numJogadores);
   Fase_Castelo(nlohmann::json arquivoEntidades, nlohmann::json arquivoFase);
   ~Fase_Castelo();
   void newLava(sf::Vector2f pos, sf::Vector2f size);
