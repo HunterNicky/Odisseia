@@ -7,7 +7,7 @@ MenuPausa::MenuPausa(Fases::Fase *pFase)
     : Menu(2, 3,
            sf::Vector2f(POS_TEXTO_PAUSE_X - TAM_TEXTO_PAUSE_X,
                         POS_TEXTO_PAUSE_Y - TAM_TEXTO_PAUSE_X / 2),
-           sf::Vector2f(TAM_TEXTO_PAUSE_X, TAM_TEXTO_PAUSE_Y), "PAUSE", 100),
+           sf::Vector2f(TAM_TEXTO_PAUSE_X, TAM_TEXTO_PAUSE_Y), "PAUSE", 120),
       pFase(pFase) {
   inicializaBotao();
   titulo.setColor(sf::Color::Red);
@@ -62,7 +62,7 @@ void MenuPausa::inicializaBotao() {
     }
 
 void MenuPausa::draw() {
-  pFase->draw();
+  //pFase->draw();
 
   Menu::draw();
 }

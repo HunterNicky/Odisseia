@@ -12,6 +12,10 @@ Menu::Menu(const int id, int numOpc, const sf::Vector2f pos,
     : Estado(static_cast<Estados::MaquinaDeEstado *>(pMaquinaDeEstado), id),
       titulo(pos, size, texto, tamF), numOpc(numOpc), numSelec(0) {
   pControleMenu->setMenu(this);
+  imgFundo.loadFromFile("data\\imagens\\fundoMenu3.jpg");
+  fundo.setSize(sf::Vector2f(1280.f, 720.f));  
+  fundo.setTexture(&imgFundo);
+  fundo.setOrigin(0, 0);
 }
 
 Menu::~Menu() {
@@ -31,6 +35,7 @@ void Menu::update(const double dt) {
 }
 
 void Menu::draw() {
+  pGrafico->draw(&fundo);
   std::list<Botoes::Botao *>::iterator it2;
   for (it2 = lBotao.begin(); it2 != lBotao.end(); it2++) {
     Botoes::Botao *botao = *it2;

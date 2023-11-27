@@ -1,6 +1,7 @@
-#include "Fases/Fase1.hpp"
+#include "Fases/Fase_Planicie.hpp"
 #include "Entidades/Obstaculos/Plataforma.hpp"
 #include "Fases/Fase.hpp"
+#include "Fases/Fase_Planicie.hpp"
 #include "Observadores/ControleJogador.hpp"
 #include <stdlib.h>
 
@@ -12,24 +13,26 @@
 #define CAMINHO_BLOCO_PORTAL "data/Sprites/blocos/buracoNegro.png"
 #define CAMINHO_BLOCO_CAIXA "data/Sprites/blocos/caixa.png"
 namespace Fases {
-Fase1::Fase1() : Fase(1) {
+Fase_Planicie::Fase_Planicie() : Fase(1) {
   srand(time(NULL));
   loadMap();
   carregarFundo();
 }
-Fase1::Fase1(nlohmann::json arquivosEntidades, nlohmann::json arquivosFase)
+Fase_Planicie::Fase_Planicie(nlohmann::json arquivosEntidades,
+                             nlohmann::json arquivosFase)
     : Fase(1) {
+  carregarFundo();
   recuperarJogada(arquivosEntidades, arquivosFase);
 }
-Fase1::~Fase1() {}
-void Fase1::newGosma(sf::Vector2f pos, sf::Vector2f size) {
+Fase_Planicie::~Fase_Planicie() {}
+void Fase_Planicie::newGosma(sf::Vector2f pos, sf::Vector2f size) {
   Entidades::Obstaculos::Gosma *pGosma =
       new Entidades::Obstaculos::Gosma(pos, size, Entidades::ID::Gosma);
   pGosma->setConcreteGerenciadorColisao(pColisao);
   LE.push_back(static_cast<Entidades::Entidade *>(pGosma));
 }
-void Fase1::recuperarJogada(nlohmann::json arquivoEntidades,
-                            nlohmann::json arquivoFase) {
+void Fase_Planicie::recuperarJogada(nlohmann::json arquivoEntidades,
+                                    nlohmann::json arquivoFase) {
   try { // recupera entidades
     for (int i = 0; i < (int)arquivoEntidades.size(); i++) {
       if (arquivoEntidades[i]["ID"][0] == Entidades::ID::jogador) {
@@ -67,13 +70,12 @@ void Fase1::recuperarJogada(nlohmann::json arquivoEntidades,
       } else if (arquivoEntidades[i]["ID"][0] == Entidades::ID::Plataforma) {
         Entidades::Obstaculos::Plataforma *pPlataforma =
             new Entidades::Obstaculos::Plataforma(arquivoEntidades, i,
-                                             Entidades::ID::Plataforma);
+                                                  Entidades::ID::Plataforma);
         pPlataforma->setConcreteGerenciadorColisao(pColisao);
         LE.push_back(static_cast<Entidades::Entidade *>(pPlataforma));
-      }else if (arquivoEntidades[i]["ID"][0] == Entidades::ID::Caixa) {
-        Entidades::Obstaculos::Caixa *pCaixa =
-            new Entidades::Obstaculos::Caixa(arquivoEntidades, i,
-                                             Entidades::ID::Caixa);
+      } else if (arquivoEntidades[i]["ID"][0] == Entidades::ID::Caixa) {
+        Entidades::Obstaculos::Caixa *pCaixa = new Entidades::Obstaculos::Caixa(
+            arquivoEntidades, i, Entidades::ID::Caixa);
         pCaixa->setConcreteGerenciadorColisao(pColisao);
         LE.push_back(static_cast<Entidades::Entidade *>(pCaixa));
       }
@@ -87,8 +89,8 @@ void Fase1::recuperarJogada(nlohmann::json arquivoEntidades,
     std::cout << e.what() << std::endl;
   }
 }
-void Fase1::loadMap() {
-  std::ifstream file("data/Mapas/fase1.txt");
+void Fase_Planicie::loadMap() {
+  std::ifstream file("data/Mapas/Fase_Planicie.txt");
   sf::Vector2f pos(0.f, 0.f);
   char caracter;
 
@@ -99,7 +101,7 @@ void Fase1::loadMap() {
       break;
     case 'j':
       // pos.x += 200.f;
-      newJogador(pos + sf::Vector2f(100.f, -200.f),
+      newJogador(pos + sf::Vector2f(100.f, -100.f),
                  sf::Vector2f(TAM_PERSONAGENS_X, TAM_PERSONAGENS_Y));
       break;
     case '1':
@@ -116,19 +118,20 @@ void Fase1::loadMap() {
       pos.x += 200.f;
       newPlataforma(pos, sf::Vector2f(200.f, 100.f), CAMINHO_BLOCO_TERRA);
       break;
-    case 'p':
+    case 'p': // Plataforma
       pos.x += 200.f;
-      newPlataforma(pos, sf::Vector2f(200.f, 100.f), CAMINHO_BLOCO_PEDRA);
+      newPlataforma(pos + sf::Vector2f(0, +50.), sf::Vector2f(200.f, 100.f),
+                    CAMINHO_BLOCO_PEDRA);
       break;
-    case 'c':
+    case 'c': // caixa
       pos.x += 50.f;
-      newCaixa(pos, sf::Vector2f(50.f, 50.f), CAMINHO_BLOCO_CAIXA);
+      newCaixa(pos, sf::Vector2f(100.f, 100.f), CAMINHO_BLOCO_CAIXA);
       break;
-    case 'g':
+    case 'g': // gosma
       pos.x += 200.0f;
-      newGosma(pos, sf::Vector2f(200.f, 200.f));
+      newGosma(pos + sf::Vector2f(0, 50.), sf::Vector2f(200.f, 20.f));
       break;
-    case 'w':
+    case 'w': // portal
       pos.x += 200.0f;
       newCaixa(pos, sf::Vector2f(50.f, 100.f), CAMINHO_BLOCO_PORTAL);
       break;
@@ -142,21 +145,17 @@ void Fase1::loadMap() {
         pos.x += 200.f;
         newViajante(pos, sf::Vector2f(TAM_PERSONAGENS_X, TAM_PERSONAGENS_Y));
         break;
-      } else {
-        break;
       }
     }
     case '#': {                   // obstaculos aleatórios
       int sort = (int)rand() % 3; // 33% de chance
       if (sort == 0) {
         pos.x += 200.f;
-        newGosma(pos, sf::Vector2f(200.f, 100.f));
+        newGosma(pos, sf::Vector2f(200.f, 20.f));
         break;
       } else if (sort == 1) {
         pos.x += 50.f;
-        newCaixa(pos, sf::Vector2f(50.f, 50.f), CAMINHO_BLOCO_CAIXA);
-        break;
-      } else {
+        newCaixa(pos, sf::Vector2f(100.f, 100.f), CAMINHO_BLOCO_CAIXA);
         break;
       }
     }
@@ -172,26 +171,31 @@ void Fase1::loadMap() {
   file.close();
 }
 
-void Fase1::carregarFundo() {
+void Fase_Planicie::carregarFundo() {
   fundo = new sf::RectangleShape();
   imgFundo = new sf::Texture();
-  imgFundo = (pGrafico->loadTexture("data\\imagens\\fundoFase1.png"));
-  fundo->setSize(sf::Vector2f(1280.f, 720.f));  
+  // link Imagem https://br.pinterest.com/pin/87116574025635564/
+  imgFundo = (pGrafico->loadTexture("data\\imagens\\fundoFase_Planicie.png"));
+  fundo->setSize(sf::Vector2f(1280.f, 720.f));
   fundo->setTexture(imgFundo);
-  fundo->setOrigin(fundo->getSize().x/2, fundo->getSize().y/2);
-  }
-void Fase1::draw() { 
+  fundo->setOrigin(fundo->getSize().x / 2, fundo->getSize().y / 2);
+}
+
+void Fase_Planicie::atualizaFundo() {
   sf::Vector2f cameraPos = pGrafico->getViewCenter();
   sf::Vector2f jogadorPos = pJogador->getBody()->getPosition();
   jogadorPos.y -= 100.f;
   sf::Vector2f novaPosCamera = cameraPos + (jogadorPos - cameraPos) * 0.01f;
   fundo->setPosition(novaPosCamera);
   pGrafico->draw(fundo);
-  carregarFundo();
-  Fase::draw(); 
 }
 
-void Fase1::update() { executar(); }
+void Fase_Planicie::draw() {
+  atualizaFundo();
+  Fase::draw();
+}
 
-void Fase1::executar() { Fase::executar(); }
+void Fase_Planicie::update() { executar(); }
+
+void Fase_Planicie::executar() { Fase::executar(); }
 } // namespace Fases

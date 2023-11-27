@@ -2,10 +2,8 @@
 
 namespace Observadores {
 
-Subject::Subject() {}
+Subject::Subject() : lObserver() {}
 
-Subject::~Subject() {
-    lObserver.clear();
-}
+Subject::~Subject() { lObserver.clear(); }
 
 } // namespace Observadores

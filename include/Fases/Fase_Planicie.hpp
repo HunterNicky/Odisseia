@@ -7,16 +7,17 @@
 #define TAM_PERSONAGENS_X 20.f
 #define TAM_PERSONAGENS_Y 32.f
 namespace Fases {
-class Fase1 : public Fase {
+class Fase_Planicie : public Fase {
 public:
-  Fase1();
-  Fase1(nlohmann::json arquivosEntidades, nlohmann::json arquivosFase);
-  ~Fase1();
+  Fase_Planicie();
+  Fase_Planicie(nlohmann::json arquivosEntidades, nlohmann::json arquivosFase);
+  ~Fase_Planicie();
   void newGosma(sf::Vector2f pos, sf::Vector2f size);
   void recuperarJogada(nlohmann::json arquivoEntidades,
                        nlohmann::json arquivosFase);
   void loadMap();
   void carregarFundo();
+  void atualizaFundo();
   void draw();
   void update();
   void executar();

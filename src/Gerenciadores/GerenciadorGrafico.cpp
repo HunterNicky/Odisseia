@@ -13,7 +13,7 @@ GerenciadorGrafico *GerenciadorGrafico::getInstance() {
 }
 
 GerenciadorGrafico::GerenciadorGrafico()
-    : window(new sf::RenderWindow(sf::VideoMode(1280, 720), "Minion++")),
+    : window(new sf::RenderWindow(sf::VideoMode(1280, 720), "Odisseia Temporalis")),
       view(sf::Vector2f(1280.f / 2, 720.f / 2), sf::Vector2f(1280, 720)) {}
 
 GerenciadorGrafico::~GerenciadorGrafico() { delete (instance); }

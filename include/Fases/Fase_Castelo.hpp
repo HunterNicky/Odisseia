@@ -7,18 +7,19 @@
 
 
 namespace Fases {
-class Fase2 : public Fase {
+class Fase_Castelo : public Fase {
 private:
 public:
-  Fase2();
-  Fase2(nlohmann::json arquivoEntidades, nlohmann::json arquivoFase);
-  ~Fase2();
+  Fase_Castelo();
+  Fase_Castelo(nlohmann::json arquivoEntidades, nlohmann::json arquivoFase);
+  ~Fase_Castelo();
   void newLava(sf::Vector2f pos, sf::Vector2f size);
   void newSamurai(sf::Vector2f pos, sf::Vector2f size);
   void recuperarJogada(nlohmann::json arquivoEntidades,
                        nlohmann::json arquivoFase);
   void loadMap();
   void carregarFundo();
+  void atualizaFundo();
   void draw();
   void update();
   void executar();

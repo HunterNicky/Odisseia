@@ -38,7 +38,7 @@ protected:
   static Gerenciadores::Colisao::ConcreteGerenciadorColisao *pColisao;
   static Estados::MaquinaDeEstado *pMaquinaDeEstado;
   Observadores::ControleJogador *controleJog;
-  Entidades::Personagens::Jogador *pJogador;
+  static Entidades::Personagens::Jogador *pJogador;
   sf::RectangleShape *barraDeVida;
   sf::RectangleShape *tuboVida;
   sf::RectangleShape *fundo;
@@ -78,5 +78,6 @@ public:
                                nlohmann::json arquivoFase) = 0;
   virtual void loadMap() = 0;
   virtual void carregarFundo() = 0;
+  virtual void atualizaFundo() = 0;
 };
 } // namespace Fases

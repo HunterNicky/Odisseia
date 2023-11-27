@@ -1,7 +1,6 @@
-#include "Fases/Fase2.hpp"
+#include "Fases/Fase_Castelo.hpp"
 #include "Entidades/Obstaculos/Plataforma.hpp"
-#include "Fases/Fase.hpp"
-#include "Fases/Fase1.hpp"
+#include "Fases/Fase_Planicie.hpp"
 
 #include <stdlib.h>
 #define CAMINHO_BLOCO_GRAMA "data/Sprites/blocos/grass.png"
@@ -12,26 +11,26 @@
 #define CAMINHO_BLOCO_PORTAL "data/Sprites/blocos/buracoNegro.png"
 #define CAMINHO_BLOCO_CAIXA "data/Sprites/blocos/caixa.png"
 namespace Fases {
-Fase2::Fase2() : Fase(2) {
+Fase_Castelo::Fase_Castelo() : Fase(2) {
   srand(time(NULL));
   loadMap();
-  idFase = 2;
+  carregarFundo();
 }
 
-Fase2::Fase2(nlohmann::json arquivoEntidades, nlohmann::json arquivoFase)
+Fase_Castelo::Fase_Castelo(nlohmann::json arquivoEntidades, nlohmann::json arquivoFase)
     : Fase(2) {
   recuperarJogada(arquivoEntidades, arquivoFase);
 }
 
-Fase2::~Fase2() {}
+Fase_Castelo::~Fase_Castelo() {}
 
-void Fase2::newLava(sf::Vector2f pos, sf::Vector2f size) {
+void Fase_Castelo::newLava(sf::Vector2f pos, sf::Vector2f size) {
   Entidades::Obstaculos::Lava *pLava =
       new Entidades::Obstaculos::Lava(pos, size, Entidades::ID::Lava);
   pLava->setConcreteGerenciadorColisao(pColisao);
   LE.push_back(static_cast<Entidades::Entidade *>(pLava));
 }
-void Fase2::newSamurai(sf::Vector2f pos, sf::Vector2f size) {
+void Fase_Castelo::newSamurai(sf::Vector2f pos, sf::Vector2f size) {
   if (pJogador == nullptr) {
     std::cout << "Erro em criar Samurai!" << std::endl;
     exit(1);
@@ -42,7 +41,7 @@ void Fase2::newSamurai(sf::Vector2f pos, sf::Vector2f size) {
   pSamurai->setConcreteGerenciadorColisao(pColisao);
   LE.push_back(static_cast<Entidades::Entidade *>(pSamurai));
 }
-void Fase2::recuperarJogada(nlohmann::json arquivoEntidades,
+void Fase_Castelo::recuperarJogada(nlohmann::json arquivoEntidades,
                             nlohmann::json arquivoFase) {
   try {
     for (int i = 0; i < (int)arquivoEntidades.size(); i++) {
@@ -107,15 +106,15 @@ void Fase2::recuperarJogada(nlohmann::json arquivoEntidades,
   }
 }
 
-void Fase2::loadMap() {
+void Fase_Castelo::loadMap() {
 
-  std::ifstream file("data/Mapas/fase2.txt");
+  std::ifstream file("data/Mapas/Fase_Castelo.txt");
   sf::Vector2f pos(0.f, 0.f);
   char caracter;
 
   while (file.get(caracter)) {
     switch (caracter) {
-    case '0':
+    case ' ':
       pos.x += 200.f;
       pos.y += 10.f;
       break;
@@ -138,12 +137,12 @@ void Fase2::loadMap() {
       break;
     case 'p':
       pos.x += 200.f;
-      newPlataforma(pos, sf::Vector2f(200.f, 200.f), CAMINHO_BLOCO_PEDRA);
+      newPlataforma(pos, sf::Vector2f(200.f, 100.f), CAMINHO_BLOCO_PEDRA);
       break;
     case 'c': // caixa
       pos.x += 50.f;
-      pos.y -= 100.f;
-      newCaixa(pos, sf::Vector2f(50.f, 50.f), CAMINHO_BLOCO_CAIXA);
+      pos.y -= 50.f;
+      newCaixa(pos, sf::Vector2f(100.f, 100.f), CAMINHO_BLOCO_CAIXA);
       break;
     case 'd':
       pos.x += 200.f;
@@ -161,7 +160,7 @@ void Fase2::loadMap() {
       int sort = (int)rand() % 3;
       if (sort == 0) {
         pos.x += 200.f;
-        newGuerreiro(pos, sf::Vector2f(TAM_PERSONAGENS_X, TAM_PERSONAGENS_Y));
+        newSamurai(pos, sf::Vector2f(TAM_PERSONAGENS_X, TAM_PERSONAGENS_Y));
         break;
       } else if (sort == 1) {
         pos.x += 200.f;
@@ -175,11 +174,11 @@ void Fase2::loadMap() {
       int sort = (int)rand() % 3;
       if (sort == 0) {
         pos.x += 200.f;
-        newLava(pos, sf::Vector2f(200.f, 50.f));
+        newLava(pos + sf::Vector2f(0, -50.f), sf::Vector2f(200.f, 50.f));
         break;
       } else if (sort == 1) {
         pos.x += 200.f;
-        newCaixa(pos, sf::Vector2f(50.f, 50.f), CAMINHO_BLOCO_CAIXA);
+        newCaixa(pos, sf::Vector2f(100.f, 100.f), CAMINHO_BLOCO_CAIXA);
         break;
       } else {
         break;
@@ -194,19 +193,29 @@ void Fase2::loadMap() {
   file.close();
 }
 
-void Fase2::carregarFundo() {
-  fundo = new sf::RectangleShape();
+void Fase_Castelo::carregarFundo() {
+   fundo = new sf::RectangleShape();
   imgFundo = new sf::Texture();
-  fundo->setSize(sf::Vector2f(1280.f, 640.f));
-  fundo->setPosition(
-      sf::Vector2f(pGrafico->getViewCenter().x, pGrafico->getViewCenter().y));
-  imgFundo->loadFromFile("data/imagens/fundoFase1.png");
-  pGrafico->draw(fundo);
-  // pGrafico->draw(fundo)
+  // link Imagem https://br.pinterest.com/pin/87116574025635564/
+  imgFundo = (pGrafico->loadTexture("data\\imagens\\fundoFase_Planicie.png"));
+  fundo->setSize(sf::Vector2f(1280.f, 720.f));
+  fundo->setTexture(imgFundo);
+  fundo->setOrigin(fundo->getSize().x / 2, fundo->getSize().y / 2);
 }
-void Fase2::draw() { Fase::draw(); }
+void Fase_Castelo::atualizaFundo(){
+  sf::Vector2f cameraPos = pGrafico->getViewCenter();
+  sf::Vector2f jogadorPos = pJogador->getBody()->getPosition();
+  jogadorPos.y -= 100.f;
+  sf::Vector2f novaPosCamera = cameraPos + (jogadorPos - cameraPos) * 0.01f;
+  fundo->setPosition(novaPosCamera);
+  pGrafico->draw(fundo);
+}
+void Fase_Castelo::draw() { 
+  atualizaFundo();
+  Fase::draw(); 
+}
 
-void Fase2::update() { executar(); }
+void Fase_Castelo::update() { executar(); }
 
-void Fase2::executar() { Fase::executar(); }
+void Fase_Castelo::executar() { Fase::executar(); }
 } // namespace Fases

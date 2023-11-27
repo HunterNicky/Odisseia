@@ -15,8 +15,7 @@ void Viajante::inicializa() {
 }
 Viajante::Viajante(const sf::Vector2f pos, const sf::Vector2f size,
                    const Entidades::ID id,
-                   Entidades::Personagens::Jogador *pJog,
-                   Entidades::Laser *proj)
+                   Entidades::Personagens::Jogador *pJog)
     : Inimigo(pos, size, id, pJog),
       atacando(static_cast<Entidades::Entidade *>(this),
                CAMINHO_VIAJANTE_PROJETIL, 10, sf::Vector2f(3 * 2.2, 3 * 0.937)),
@@ -90,7 +89,6 @@ void Viajante::atirarProjetil(sf::Vector2f pos, const bool direita) {
       newPosition = sf::Vector2f(pos.x - 25.f, pos.y - 25.f);
       pFase->newProjetil(newPosition, sf::Vector2f(VEL_PROJ_X, VEL_PROJ_Y));
     }
-    std::cout << "atirar" << std::endl;
     danar = false;
   }
 }

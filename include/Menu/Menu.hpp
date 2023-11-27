@@ -19,6 +19,8 @@ protected:
   std::list<Botoes::Botao *> lBotao;
   std::list<Botoes::Botao *>::iterator it;
   Botoes::Texto titulo;
+  sf::RectangleShape fundo;
+  sf::Texture imgFundo;
   unsigned int numOpc;
   unsigned int numSelec;
 

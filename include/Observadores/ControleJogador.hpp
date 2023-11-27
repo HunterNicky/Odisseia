@@ -21,6 +21,7 @@ class ControleJogador : public Observer {
 private:
   static Estados::MaquinaDeEstado *pMaquinaDeEstado;
   Entidades::Personagens::Jogador *pJogador;
+   Entidades::Personagens::Jogador *pJogador2;
   Fases::Fase *pFase;
   std::string pular, esquerda, direita, correr, atacar;
   std::string fechar;
@@ -28,6 +29,7 @@ private:
 public:
   ControleJogador(Entidades::Personagens::Jogador *pJogador,
                   Fases::Fase *pFase);
+  ControleJogador(Entidades::Personagens::Jogador *pJogador, Entidades::Personagens::Jogador* pJogador2, Fases::Fase *pFase);
   ~ControleJogador();
   void setJogador(Entidades::Personagens::Jogador *pJogador);
   void jogadorNeutralizado();

@@ -30,6 +30,7 @@ public:
   ~Samurai();
   void animacao();
   void operator--(const int dano);
+  void persegueJogador(sf::Vector2f posJogador, sf::Vector2f posInimigo);
   void movimentoAleatorio();
   void move();
   void danificar(Entidade *entidade);

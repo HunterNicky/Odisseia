@@ -37,8 +37,7 @@ private:
 
 public:
   Viajante(const sf::Vector2f pos, const sf::Vector2f size,
-           const Entidades::ID id, Entidades::Personagens::Jogador *pJog,
-           Entidades::Laser *proj);
+           const Entidades::ID id, Entidades::Personagens::Jogador *pJog);
   Viajante(nlohmann::json atributos, const int pos, const Entidades::ID id,
            Entidades::Personagens::Jogador *pJog);
   ~Viajante();
