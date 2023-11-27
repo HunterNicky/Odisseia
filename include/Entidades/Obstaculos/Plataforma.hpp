@@ -8,30 +8,23 @@
 #define CAMINHO_BLOCO_PEDRA "data/Sprites/blocos/cobblestone.png"
 #define CAMINHO_BLOCO_PEDRA_R "data/Sprites/blocos/roadcobblestone.png"
 #define CAMINHO_BLOCO_PEDRA_V "data/Sprites/blocos/woodplataformcobblestone.png"
-#define CAMINHO_BLOCO_PORTAL "data/Sprites/blocos/buracoNegro.png"
-#define CAMINHO_BLOCO_CAIXA "data/Sprites/blocos/caixa.png"
 
 namespace Entidades {
 namespace Obstaculos {
-class Caixa : public Obstaculo {
+class Plataforma : public Obstaculo {
 private:
-  bool PortalAtivo;
   int idTextura;
-  float danoTime;
-  int farpas;
   Animacao::AnimacaoBloco bloco;
   Animacao::AnimacaoContext contexto;
 
 public:
-  Caixa(const sf::Vector2f pos, const sf::Vector2f, const Entidades::ID id,
+  Plataforma(const sf::Vector2f pos, const sf::Vector2f, const Entidades::ID id,
         const std::string path);
-  Caixa(nlohmann::json atributos, const int pos, const Entidades::ID id);
-  ~Caixa();
+  Plataforma(nlohmann::json atributos, const int pos, const Entidades::ID id);
+  ~Plataforma();
   void animacao();
   std::string colocarTextura(int idText);
   int setarIdTextura(const std::string path);
-  const bool getPortalAtivo() const;
-  void setPortalAtivo(const bool ativo);
   void tratarColisao(Entidade *entidade, const sf::Vector2f mtv);
   void executar();
   void update();

@@ -47,15 +47,22 @@ void Gosma::tratarColisao(Entidade *entidade, const sf::Vector2f mtv) {
     if (entidade->getId() == Entidades::ID::jogador) {
       atrasar(entidade);
     }
+    if (!entidade->getEstatico()) {
+      entidade->setPos(sf::Vector2f(entidade->getPos().x + mtv.x,
+                                    entidade->getPos().y + mtv.y));
+      entidade->setPrevPos(sf::Vector2f(entidade->getPrevPos().x + mtv.x * 0.9f,
+                                      entidade->getPrevPos().y + mtv.y * 0.9f));
+    }
   }
 }
 
 void Gosma::executar() { animacao(); }
+
 void Gosma::update() { executar(); }
 
 void Gosma::salvar(std::ostringstream *entrada) {
   (*entrada) << "{ \"ID\": [" << 7 << "], \"Posicao\": [" << pos.x << " , "
-             << pos.y << "],  \"Tamanho\": [" << this->getSize().x << " , "
+             << pos.y << "], \"Tamanho\": [" << this->getSize().x << " , "
              << this->getSize().y << "] }" << std::endl;
 }
 } // namespace Obstaculos

@@ -13,6 +13,8 @@ void Jogador::inicializa() {
   contextoAnimacao.setStrategy(
       static_cast<Animacao::AnimacaoStrategy *>(&parado), 0.1f);
   estamina = 1.f;
+  danoTime = 0;
+  proximaFase = false;
 }
 
 Jogador::Jogador(const sf::Vector2f pos, const sf::Vector2f size,
@@ -30,9 +32,6 @@ Jogador::Jogador(const sf::Vector2f pos, const sf::Vector2f size,
                sf::Vector2f(3 * 3.7, 3 * 0.93)),
       contextoAnimacao() {
   inicializa();
-  danoTime = 0;
-  recoveryTime = 0;
-  proximaFase = false;
 }
 
 Jogador::Jogador(nlohmann::json atributos, const int pos,
@@ -55,13 +54,14 @@ Jogador::Jogador(nlohmann::json atributos, const int pos,
   this->setVel(sf::Vector2f(atributos[pos]["Velocidade"][0],
                             atributos[pos]["Velocidade"][1]));
   this->num_vidas = atributos[pos]["Vida"][0];
+  this->estamina = atributos[pos]["Estamina"][0];
+  this->danoTime = atributos[pos]["DanoTime"][0];
+  this->proximaFase = atributos[pos]["ProximaFase"][0] == 1 ? true : false;
 }
 Jogador::~Jogador() {}
 
 void Jogador::operator--(const int dano) {
   std::cout << num_vidas << std::endl;
-  recoveryTime = gFisico->getDeltaTime();
-  tomouDano = true;
 
   this->num_vidas -= dano;
 }
@@ -81,10 +81,9 @@ void Jogador::animacao() {
   contextoAnimacao.updateStrategy(gFisico->getDeltaTime());
 }
 
-const bool Jogador::getProximaFase() { return proximaFase; }
+const bool Jogador::getProximaFase() const { return proximaFase; }
 
-void Jogador::setProximaFase(const bool proximaFase) {
-}
+void Jogador::setProximaFase(const bool proximaFase) {}
 void Jogador::move() {
   Entidade::body->setPosition(pos);
   if (prevPos != pos)
@@ -137,8 +136,8 @@ void Jogador::pular() {
 void Jogador::danificarInimigo(Entidade *pInimigo) {
   float range = 100.f;
 
-  if(ataque){
-    if(danar && (this->getPos().x - pInimigo->getPos().x) <= range){
+  if (ataque) {
+    if (danar && (this->getPos().x - pInimigo->getPos().x) <= range) {
       Entidades::Personagens::Personagem *pPers =
           static_cast<Entidades::Personagens::Personagem *>(pInimigo);
       pPers->operator--(50);
@@ -164,15 +163,17 @@ void Jogador::tratarColisao(Entidade *entidade, const sf::Vector2f mtv) {
     verificaSolo(mtv);
     pos.x -= vel.x * 0.01f;
     break;
-  case (ID::Caixa):{
+  case (ID::Caixa): {
     entidade->tratarColisao(static_cast<Entidades::Entidade *>(this), mtv);
     verificaSolo(mtv);
 
-    Entidades::Obstaculos::Caixa *pPortal = static_cast<Entidades::Obstaculos::Caixa*>(entidade);
-    if(pPortal->getPortalAtivo()){
+    Entidades::Obstaculos::Caixa *pPortal =
+        static_cast<Entidades::Obstaculos::Caixa *>(entidade);
+    // Passa para próxima fase
+    if (pPortal->getPortalAtivo()) {
       proximaFase = true;
-    }}
-    break;
+    }
+  } break;
   case (ID::Gosma):
     entidade->tratarColisao(static_cast<Entidades::Entidade *>(this), mtv);
     verificaSolo(mtv);
@@ -197,28 +198,25 @@ void Jogador::executar() {
 }
 
 void Jogador::update() {
-  if (estamina < 1.f)
+  if (estamina < 1.f) {
     estamina += estamina * 0.0001f + 0.001f;
-
-  recoveryTime +=gFisico->getDeltaTime();
-  danoTime += gFisico->getDeltaTime();
-
-  if(recoveryTime > TEMPO_DESCANSO) {
-    recoveryTime = 0;
-    tomouDano = false;
   }
-  if(danoTime > TEMPO_DANO/2) { 
+
+  danoTime += gFisico->getDeltaTime();
+  if (danoTime > TEMPO_DANO / 2) {
     danoTime = 0;
     danar = true;
   }
-  
+
   executar();
 }
 
 void Jogador::salvar(std::ostringstream *entrada) {
   (*entrada) << "{ \"ID\": [" << 1 << "], \"Posicao\": [" << pos.x << " , "
              << pos.y << "], \"Velocidade\": [" << vel.x << " , " << vel.y
-             << "], \"Vida\": [" << this->getNum_vidas() << "] }" << std::endl;
+             << "], \"Vida\": [" << this->getNum_vidas() << "], \"Estamina\": ["
+             << estamina << "], \"DanoTime\": [" << danoTime
+             << "], \"ProximaFase\": [" << proximaFase << "] }" << std::endl; 
 }
 } // namespace Personagens
 } // namespace Entidades

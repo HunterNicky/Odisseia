@@ -1,5 +1,5 @@
 #include "Fases/Fase.hpp"
-#include "Entidades/Entidade.hpp"
+#include "Entidades/Obstaculos/Plataforma.hpp"
 #include "Entidades/Personagens/Inimigo/Viajante.hpp"
 #include "Entidades/Personagens/Personagem.hpp"
 #include "Fases/Fase2.hpp"
@@ -25,7 +25,7 @@ Estados::MaquinaDeEstado *Fase::pMaquinaDeEstado =
 Menu::Botoes::Texto Fase::textoPontuacao(sf::Vector2f(0.f, 0.f),
                                          sf::Vector2f(50.f, 50.f), "", 35);
 
-Fase::Fase() : Estado(pMaquinaDeEstado, 1) {
+Fase::Fase(const int idFase) : Estado(pMaquinaDeEstado, 1) {
   pJogador = nullptr;
   controleJog = new Observadores::ControleJogador(
       pJogador, static_cast<Fases::Fase *>(this));
@@ -33,6 +33,7 @@ Fase::Fase() : Estado(pMaquinaDeEstado, 1) {
   pEvento->addObserver(static_cast<Observadores::Observer *>(controleJog));
   dt = 0.f;
   pontuacao_jogador = 0;
+  this->idFase = idFase;
   textoPontuacao.setColor(sf::Color::White);
   textoPontuacao.setTextFont(CAMINHO_FONTE_PONTUACAO);
   if (textoPontuacao.getText() == "") {
@@ -84,7 +85,7 @@ void Fase::salvarAtributosFase() {
   buffer.str("");
   buffer << "[";
 
-  buffer << "{ \"Pontuacao\": [" << getPontuacaoJog() << "] }" << std::endl;
+  buffer << "{ \"IdFase\": [" << idFase << "], \"Pontuacao\": [" << getPontuacaoJog() << "] }" << std::endl;
 
   buffer << "]";
   arquivo << buffer.str() << std::endl;
@@ -110,24 +111,14 @@ void Fase::newViajante(sf::Vector2f pos, sf::Vector2f size) {
                                            pJogador, nullptr);
   pInimigo->setConcreteGerenciadorColisao(pColisao);
   LE.push_back(static_cast<Entidades::Entidade *>(pInimigo));
-
-  if (pInimigo == nullptr) {
-    std::cout << "Erro ao criar Inimigo Viajante!" << std::endl;
-    exit(1);
-  } else {
-    Entidades::Laser *pProj =
-        new Entidades::Laser(pos, Entidades::ID::Laser, pInimigo);
-    pProj->setConcreteGerenciadorColisao(pColisao);
-    LE.push_back(static_cast<Entidades::Entidade *>(pProj));
-    pInimigo->setProj(pProj);
-  }
+  pInimigo->setFase(this);
 }
 void Fase::newPlataforma(sf::Vector2f pos, sf::Vector2f size,
                          const std::string path) {
-  Entidades::Obstaculos::Caixa *pCaixa = new Entidades::Obstaculos::Caixa(
+  Entidades::Obstaculos::Plataforma *pPlataforma = new Entidades::Obstaculos::Plataforma(
       pos, size, Entidades::ID::Plataforma, path);
-  pCaixa->setConcreteGerenciadorColisao(pColisao);
-  LE.push_back(static_cast<Entidades::Entidade *>(pCaixa));
+  pPlataforma->setConcreteGerenciadorColisao(pColisao);
+  LE.push_back(static_cast<Entidades::Entidade *>(pPlataforma));
 }
 void Fase::newCaixa(sf::Vector2f pos, sf::Vector2f size,
                     const std::string path) {
@@ -139,6 +130,13 @@ void Fase::newCaixa(sf::Vector2f pos, sf::Vector2f size,
     pCaixa->setPortalAtivo(true);
   }
 }
+void Fase::newProjetil(const sf::Vector2f pos, const sf::Vector2f vel){
+  Entidades::Laser *pProj =
+      new Entidades::Laser(pos, vel, Entidades::ID::Laser);
+  pProj->setConcreteGerenciadorColisao(pColisao);
+  LE.push_back(static_cast<Entidades::Entidade *>(pProj));
+}
+
 void Fase::setPontuacaoJog(const unsigned int pontos) {
   this->pontuacao_jogador = pontos;
   std::string score = std::to_string(this->pontuacao_jogador);
@@ -195,6 +193,16 @@ void Fase::atualizaBarraDeVidaIni() {
       Entidades::Personagens::Personagem *pPerso =
           static_cast<Entidades::Personagens::Personagem *>(LE[i]);
       pPerso->atualizaBarraDeVida();
+    }
+  }
+}
+void Fase::atualizaProjetil(){
+  for(unsigned int i = 0; i < LE.getSize(); i++){
+    if(LE[i]->getId() == Entidades::ID::Laser){
+      Entidades::Laser* pProj = static_cast<Entidades::Laser*>(LE[i]);
+      if(!pProj->getAtivo()){
+        LE.remove(i);
+      }
     }
   }
 }
@@ -261,6 +269,7 @@ void Fase::draw() {
   atualizaPontuacao();
   atualizaBarraDeVidaJog();
   atualizaBarraDeVidaIni();
+  atualizaProjetil();
   proximaFase();
 }
 } // namespace Fases

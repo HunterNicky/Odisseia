@@ -9,11 +9,11 @@ class Obstaculo : public Entidade {
 protected:
   static Gerenciadores::Colisao::CalculadorFisico *gFisico;
   bool danoso;
-
 public:
   Obstaculo(const sf::Vector2f pos, const sf::Vector2f size,
             const Entidades::ID id);
   ~Obstaculo();
+  virtual void animacao() = 0;
   virtual void verificaSolo(sf::Vector2f mtv);
   virtual void tratarColisao(Entidade *entidade, const sf::Vector2f mtv) = 0;
   virtual void executar() = 0;

@@ -20,7 +20,6 @@ void ControleJogador::jogadorNeutralizado() {
   Menu::MenuGameOver *pGameOver = new Menu::MenuGameOver(pFase);
   pMaquinaDeEstado->pushEstado(static_cast<Estados::Estado *>(pGameOver));
 }
-const bool ControleJogador::proximaFase() { return pJogador->getProximaFase(); }
 
 void ControleJogador::notifyPressed(const sf::Keyboard::Key key) {
   if (pJogador && pMaquinaDeEstado->getEstadoAtual()->getAtivo()) {

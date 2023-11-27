@@ -1,6 +1,7 @@
 #include "Entidades/Obstaculos/Caixa.hpp"
 #include "Entidades/Entidade.hpp"
 #include "Entidades/Personagens/Jogador/Jogador.hpp"
+#include "Entidades/Personagens/Personagem.hpp"
 
 namespace Entidades {
 namespace Obstaculos {
@@ -12,11 +13,11 @@ Caixa::Caixa(const sf::Vector2f pos, const sf::Vector2f size,
       contexto() {
   contexto.setStrategy(&bloco, 1.f);
   this->body->setFillColor(sf::Color::White);
-  if(path == CAMINHO_BLOCO_PORTAL){
-    PortalAtivo = true;
-  }else{
-    PortalAtivo = false;
-  }
+  idTextura = setarIdTextura(path);
+  PortalAtivo = path == CAMINHO_BLOCO_PORTAL ? true : false;
+  danoso = true;
+  farpas = 1;
+  danoTime = 0;
 }
 
 Caixa::Caixa(nlohmann::json atributos, const int pos, const Entidades::ID id)
@@ -25,25 +26,40 @@ Caixa::Caixa(nlohmann::json atributos, const int pos, const Entidades::ID id)
                 sf::Vector2f(atributos[pos]["Tamanho"][0],
                              atributos[pos]["Tamanho"][1]),
                 id),
-      bloco(static_cast<Entidades::Entidade *>(this), CAMINHO_BLOCO_GRAMA, 5,
-            sf::Vector2f(1, 1)),
+      bloco(static_cast<Entidades::Entidade *>(this), 5, sf::Vector2f(1, 1)),
       contexto() {
-  contexto.setStrategy(&bloco, 0.5f);
+  this->idTextura = atributos[pos]["Textura"][0];
+  this->PortalAtivo = atributos[pos]["PortalAtivo"][0] == 1 ? true : false;
+  this->danoTime = atributos[pos]["DanoTime"][0];
+  this->danoso = atributos[pos]["Danoso"][0] == 1 ? true : false;
+
+  bloco.setTexture(colocarTextura(idTextura));
+  contexto.setStrategy(&bloco, 1.f);
   this->body->setFillColor(sf::Color::White);
+  farpas = 1;
 }
 Caixa::~Caixa() {}
 
 void Caixa::animacao() { contexto.updateStrategy(gFisico->getDeltaTime()); }
 
-void Caixa::colocarTextura() {
-  texturas.clear();
+std::string Caixa::colocarTextura(int idText) {
+  if (idText == 1) {
+    return CAMINHO_BLOCO_CAIXA;
+  } else if (idText == 2) {
+    return CAMINHO_BLOCO_PORTAL;
+  } else {
+    return "";
+  }
+}
 
-  texturas.push_back(CAMINHO_BLOCO_GRAMA);
-  texturas.push_back(CAMINHO_BLOCO_TERRA);
-  texturas.push_back(CAMINHO_BLOCO_PEDRA);
-  texturas.push_back(CAMINHO_BLOCO_PEDRA_R);
-  texturas.push_back(CAMINHO_BLOCO_PEDRA_V);
-  texturas.push_back(CAMINHO_BLOCO_PORTAL);
+int Caixa::setarIdTextura(const std::string path) {
+  if (path == CAMINHO_BLOCO_CAIXA) {
+    return 1;
+  } else if (path == CAMINHO_BLOCO_PORTAL) {
+    return 2;
+  } else {
+    return -1;
+  }
 }
 
 void Caixa::setPortalAtivo(const bool ativo) { PortalAtivo = ativo; }
@@ -63,6 +79,14 @@ void Caixa::tratarColisao(Entidade *entidade, const sf::Vector2f mtv) {
     prevPos.x += mtv.x * 0.95f;
     prevPos.y += mtv.y * 0.95f;
   }
+  if (entidade->getId() == Entidades::ID::jogador) {
+    Entidades::Personagens::Jogador *pJog =
+        static_cast<Entidades::Personagens::Jogador *>(entidade);
+    if (danoso) {
+      pJog->operator--(farpas);
+      danoso = false;
+    }
+  }
 }
 void Caixa::executar() {
   animacao();
@@ -70,13 +94,22 @@ void Caixa::executar() {
   if (prevPos != pos)
     gColisao->Notify(static_cast<Entidades::Entidade *>(this));
 }
-void Caixa::update() { executar(); }
+void Caixa::update() {
+  danoTime += gFisico->getDeltaTime();
+
+  if (danoTime > 2.f) {
+    danoso = true;
+    danoTime = 0;
+  }
+  executar();
+}
 
 void Caixa::salvar(std::ostringstream *entrada) {
-  (*entrada) << "{ \"ID\": [" << 5 << "], \"Posicao\": [" << pos.x << " , "
+  (*entrada) << "{ \"ID\": [" << 6 << "], \"Posicao\": [" << pos.x << " , "
              << pos.y << "], \"Tamanho\": [" << this->getSize().x << ", "
-             << this->getSize().y << "], \"Textura\": [ " << 0 << " ] }"
-             << std::endl;
+             << this->getSize().y << "], \"Textura\": [ " << idTextura
+             << " ], \"PortalAtivo\": [" << PortalAtivo << "], \"DanoTime\": ["
+             << danoTime << "], \"Danoso\": [" << danoso << "] }" << std::endl;
 }
 } // namespace Obstaculos
 } // namespace Entidades

@@ -10,9 +10,19 @@ AnimacaoBloco::AnimacaoBloco(Entidades::Entidade *entidade, std::string path,
   rectSize.height = (textura->getSize().y);
   entidade->getBody()->setTexture(textura);
 }
+AnimacaoBloco::AnimacaoBloco(Entidades::Entidade *entidade, int numFrames,
+                             const sf::Vector2f escala)
+    : AnimacaoStrategy(entidade, numFrames, escala),
+      actualFrame(1.f) {}
 
-AnimacaoBloco::~AnimacaoBloco(){};
+AnimacaoBloco::~AnimacaoBloco(){}
 
+void AnimacaoBloco::setTexture(const std::string path){
+  textura = pGrafico->loadTexture(path);
+  rectSize.width = (textura->getSize().x / numFrames);
+  rectSize.height = (textura->getSize().y);
+  entidade->getBody()->setTexture(textura);
+}
 void AnimacaoBloco::updateSprite(double dt, float standardTime) {
   updateAnimationFrame(dt, standardTime);
   updateSpriteRect();

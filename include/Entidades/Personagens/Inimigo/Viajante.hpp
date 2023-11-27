@@ -10,6 +10,8 @@
 
 #define TAM_INIMIGO_MED_X 20.0f
 #define TAM_INIMIGO_MED_Y 32.0f
+#define VEL_PROJ_X 100.f
+#define VEL_PROJ_Y -5.f
 
 #define CAMINHO_VIAJANTE_ANDAR "data\\Sprites\\travel\\travelwalk.png"
 #define CAMINHO_VIAJANTE_PARADO "data\\Sprites\\travel\\travelidle.png"
@@ -25,8 +27,7 @@ class Laser;
 namespace Personagens {
 class Viajante : public Inimigo {
 private:
-  Entidades::Laser *pProj;
-  bool ProjAtivo;
+  Fases::Fase *pFase;
   bool direita;
   Animacao::AnimacaoAtaque atacando;
   Animacao::AnimacaoAndar andar;
@@ -45,10 +46,7 @@ public:
   void operator--(const int dano);
   void movimentoAleatorio();
   void atirarProjetil(sf::Vector2f pos, const bool direita);
-  void deletarProjetil();
-  void setProj(Entidades::Laser *pProj);
-  const bool getProjAtivo();
-  const bool getDirecaoProj();
+  void setFase(Fases::Fase *pFase);
   void move();
   void atacar();
   void atualizaBarraDeVida();
