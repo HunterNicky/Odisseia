@@ -43,6 +43,7 @@ public:
   ~Jogador();
   void operator--(const int dano);
   const float getEstamina() const;
+  void setEstamina(const float estamina);
   void animacao();
   const bool getProximaFase() const;
   void setProximaFase(const bool proximaFase);

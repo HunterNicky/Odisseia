@@ -8,7 +8,7 @@ Gerenciadores::GerenciadorGrafico *AnimacaoStrategy::pGrafico =
 AnimacaoStrategy::AnimacaoStrategy(Entidades::Entidade *entidade, int numFrames,
                                    const sf::Vector2f escala)
     : entidade(entidade), rectSize(), textura(nullptr), escala(escala),
-      numFrames(numFrames) {}
+      actualFrame(1.f), actualImage(0), numFrames(numFrames) {}
 
 AnimacaoStrategy::~AnimacaoStrategy() { entidade = nullptr; }
 

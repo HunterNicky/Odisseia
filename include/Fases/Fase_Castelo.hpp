@@ -9,6 +9,7 @@
 namespace Fases {
 class Fase_Castelo : public Fase {
 private:
+  float escaldante;
 public:
   Fase_Castelo();
   Fase_Castelo(nlohmann::json arquivoEntidades, nlohmann::json arquivoFase);

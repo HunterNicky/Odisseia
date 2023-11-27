@@ -11,7 +11,7 @@ AnimacaoPular::AnimacaoPular(Entidades::Entidade *entidade, std::string path,
                              const sf::Vector2f escalaHighJump)
     : AnimacaoStrategy(entidade, numFrameLowJump, escalaHighJump),
       numFrameHighJump(numFrameHighJump), numFrameLowJump(numFrameLowJump),
-      escalaLowJump(escalaLowJump), actualFrame(1.f), jumpTime(1.f) {
+      escalaLowJump(escalaLowJump), jumpTime(1.f) {
 
   textura = pGrafico->loadTexture(path);
   HighJump = pGrafico->loadTexture(path2);

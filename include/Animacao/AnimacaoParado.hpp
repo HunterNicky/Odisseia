@@ -6,9 +6,7 @@
 namespace Animacao {
 class AnimacaoParado : public AnimacaoStrategy {
 private:
-  float actualFrame;
   float deepBreath;
-  int actualImage;
   void updateAnimationFrame(double dt, float standardTime);
   void updateSpriteRect();
 

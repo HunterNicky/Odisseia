@@ -13,16 +13,18 @@
 #define CAMINHO_BLOCO_PORTAL "data/Sprites/blocos/buracoNegro.png"
 #define CAMINHO_BLOCO_CAIXA "data/Sprites/blocos/caixa.png"
 namespace Fases {
-Fase_Planicie::Fase_Planicie() : Fase(1) {
+Fase_Planicie::Fase_Planicie() : Fase(1), ventania(sf::Vector2f(1000.f, 44000.f)) {
   srand(time(NULL));
   loadMap();
   carregarFundo();
+  pFisico->setForcaPadrao(ventania);
 }
 Fase_Planicie::Fase_Planicie(nlohmann::json arquivosEntidades,
                              nlohmann::json arquivosFase)
-    : Fase(1) {
+    : Fase(1), ventania(sf::Vector2f(1000.f, 44000.f)) {
   carregarFundo();
   recuperarJogada(arquivosEntidades, arquivosFase);
+  pFisico->setForcaPadrao(ventania);
 }
 Fase_Planicie::~Fase_Planicie() {}
 void Fase_Planicie::newGosma(sf::Vector2f pos, sf::Vector2f size) {

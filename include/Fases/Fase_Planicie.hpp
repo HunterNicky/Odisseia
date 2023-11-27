@@ -8,6 +8,8 @@
 #define TAM_PERSONAGENS_Y 32.f
 namespace Fases {
 class Fase_Planicie : public Fase {
+private:
+  const sf::Vector2f ventania;
 public:
   Fase_Planicie();
   Fase_Planicie(nlohmann::json arquivosEntidades, nlohmann::json arquivosFase);

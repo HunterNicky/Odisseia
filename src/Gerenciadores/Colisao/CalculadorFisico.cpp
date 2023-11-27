@@ -6,7 +6,7 @@ namespace Gerenciadores {
 namespace Colisao {
 CalculadorFisico *CalculadorFisico::instance = nullptr;
 
-CalculadorFisico::CalculadorFisico() : dt(0.0f) {}
+CalculadorFisico::CalculadorFisico() : forcaPadrao(sf::Vector2f(0.f, 50000.f)), dt(0.0f) {}
 
 CalculadorFisico::~CalculadorFisico() { delete (instance); }
 
@@ -17,6 +17,10 @@ CalculadorFisico *CalculadorFisico::getInstance() {
     instance = new CalculadorFisico();
   }
   return instance;
+}
+
+void CalculadorFisico::setForcaPadrao(const sf::Vector2f forcaPadrao) {
+  this->forcaPadrao = forcaPadrao;
 }
 
 void CalculadorFisico::executarFisica(Entidades::Entidade *entidade) {
@@ -50,7 +54,7 @@ CalculadorFisico::calDrag(Entidades::Entidade *entidade) const {
 
 void CalculadorFisico::calAcc(Entidades::Entidade *entidade) {
   sf::Vector2f acc = entidade->getAcc();
-  sf::Vector2f forca(0.0f, 50000.f);
+  sf::Vector2f forca(forcaPadrao);
   sf::Vector2f dragForce = calDrag(entidade);
   float massa = entidade->getMass();
   int multi = 1;
