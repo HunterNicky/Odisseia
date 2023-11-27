@@ -12,7 +12,7 @@ float Gosma::slow = 0.01;
 Gosma::Gosma(const sf::Vector2f pos, const sf::Vector2f size,
              const Entidades::ID id)
     : Obstaculo(pos, size, id),
-      bloco(static_cast<Entidades::Entidade *>(this), CAMINHO_BLOCO_GOSMA, 10,
+      bloco(static_cast<Entidades::Entidade *>(this), CAMINHO_BLOCO_GOSMA, 8,
             sf::Vector2f(1, 1)),
       contexto() {
   this->body->setFillColor(sf::Color::Green);
@@ -24,7 +24,7 @@ Gosma::Gosma(nlohmann::json atributos, const int pos, const Entidades::ID id)
                 sf::Vector2f(atributos[pos]["Tamanho"][0],
                              atributos[pos]["Tamanho"][1]),
                 id),
-      bloco(static_cast<Entidades::Entidade *>(this), CAMINHO_BLOCO_GOSMA, 10,
+      bloco(static_cast<Entidades::Entidade *>(this), CAMINHO_BLOCO_GOSMA, 8,
             sf::Vector2f(1, 1)),
       contexto() {
   this->body->setFillColor(sf::Color::Green);
