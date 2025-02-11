@@ -1,29 +1,39 @@
 cmake_minimum_required(VERSION 3.26.4)
 
-project(Gigantes)
+project(ODISSEIA_TEMPORALIS)
 
-find_package(SFML 2.6 COMPONENTS system window graphics REQUIRED)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+option(BUILD_SHARED_LIBS "Build shared libraries" OFF)
 
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}../../)
-
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall")
+include(FetchContent)
+FetchContent_Declare(SFML
+        GIT_REPOSITORY https://github.com/SFML/SFML.git
+        GIT_TAG 2.6.2
+        GIT_SHALLOW ON
+        EXCLUDE_FROM_ALL
+        SYSTEM)
+FetchContent_MakeAvailable(SFML)
 
 include_directories(include)
-
 file(GLOB_RECURSE SOURCES "src/*.cpp" "src/**/*.cpp")
-file(GLOB_RECURSE HEADERS "include/*.hpp" "include/**/*.hpp")
 
-add_executable(${PROJECT_NAME}  ${SOURCES} ${HEADERS})
-target_link_libraries(${PROJECT_NAME} sfml-system sfml-window sfml-graphics sfml-network sfml-audio)
+add_executable(${PROJECT_NAME} ${SOURCES})
+target_link_libraries(${PROJECT_NAME} PUBLIC sfml-graphics sfml-window sfml-system)
 
-file(GLOB_RECURSE TEST_SOURCES "testes/*.cpp" "testes/**/*.cpp")
+add_custom_command(
+        TARGET ${PROJECT_NAME}
+        COMMENT "Copy OpenAL DLL"
+        PRE_BUILD COMMAND ${CMAKE_COMMAND} -E copy ${SFML_SOURCE_DIR}/extlibs/bin/$<IF:$<EQUAL:${CMAKE_SIZEOF_VOID_P},8>,x64,x86>/openal32.dll $<TARGET_FILE_DIR:${PROJECT_NAME}>
+        VERBATIM)
 
-add_executable(testes ${TEST_SOURCES} ${SOURCES} ${HEADERS})
-target_link_libraries(testes ${GTEST_BOTH_LIBRARIES} pthread)
-target_link_libraries(testes sfml-system sfml-window sfml-graphics sfml-network sfml-audio)
+add_custom_command(
+        TARGET ${PROJECT_NAME}
+        POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy_directory
+        ${CMAKE_BINARY_DIR}/_deps/sfml-build/lib
+        $<TARGET_FILE_DIR:${PROJECT_NAME}>
+        COMMENT "Copying SFML libraries to executable directory"
+)
 
-target_include_directories(${PROJECT_NAME} PUBLIC "${CMAKE_SOURCE_DIR}/include" "${CMAKE_SOURCE_DIR}/src")
-target_include_directories(testes PUBLIC "${CMAKE_SOURCE_DIR}/include" "${CMAKE_SOURCE_DIR}/src")
 
-target_link_libraries(${PROJECT_NAME} sfml-system sfml-window sfml-graphics sfml-network sfml-audio)
-target_link_libraries(testes sfml-system sfml-window sfml-graphics sfml-network sfml-audio)
+file(COPY data DESTINATION ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})

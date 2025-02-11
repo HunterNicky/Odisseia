@@ -1,8 +1,9 @@
-#include "..\include\Principal.hpp"
+#include "Estados/Jogo.hpp"
+#include <SFML/Graphics.hpp>
 
-int main()
-{
-    Principal principal;
 
-    return 0;
+int main() {
+  Estados::Jogo jogo;
+
+  return 0;
 }
