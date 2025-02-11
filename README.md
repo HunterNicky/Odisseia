@@ -1,8 +1,5 @@
 # 🕹️ Odisseia Temporal - 2D Platform Game
 
-![Irmãos de Punho Logo](https://github.com/HunterNicky/Odisseia/raw/main/path_to_logo.png)  
-*(Replace with actual logo path)*
-
 A C++ platform game developed for the Programming Techniques course, implementing advanced OOP concepts and physics simulations in a time-traveling adventure.
 
 ## 🌟 Features
